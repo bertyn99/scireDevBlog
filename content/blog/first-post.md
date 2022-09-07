@@ -1,3 +1,9 @@
+---
+    title: 'Nuxt Content v2 is awesome!'
+    description: 'This is my first article!'
+    img: 'img/test.jpg'
+    tags: [Nuxt, Content, Learning]
+---
 # My first blog post
 Welcome to my first blog post using \[content v2 module\](https://content.nuxtjs.org/)
 Hey there! 👋🏾
