@@ -13,6 +13,9 @@ export default defineNuxtConfig({
       },
     },
   },
+  build:{
+    transpile: ["@heroicons/vue"],
+  },
   tailwindcss: {
     cssPath: "~/assets/css/main.css",
   },

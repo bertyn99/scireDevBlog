@@ -42,7 +42,8 @@
       <hr />
       <section class="article-section">
         <aside class="aside">
-          <!-- Toc Component -->
+           <!-- Toc Component -->
+        <Toc :links="data.article.body.toc.links" />
         </aside>
         <article class="article">
           <!-- render document coming from query -->
@@ -57,6 +58,7 @@
         </article>
       </section>
       <!-- PrevNext Component -->
+       <NavPrevNext :prev="prev" :next="next" /> 
     </main>
   </template>
 <style scoped>
