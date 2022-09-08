@@ -1,7 +1,6 @@
 
 <script setup>
 // import icons
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/vue/outline";
 // define prev and next props
 defineProps(["prev", "next"]);
 </script>
