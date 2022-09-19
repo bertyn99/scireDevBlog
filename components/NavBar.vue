@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex justify-between">
+  <nav class="container mx-auto flex justify-between">
     <NuxtLink href="/blog" class="text-lg font-semibold">ScireDEV</NuxtLink>
 
     <!--     mobile nav -->

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-center w-full">
+  <div class="flex w-full">
     <Carrousel></Carrousel>
-    <div class="w-full">
+    <div class="w-full max-w-xl">
       <div class="p-8 flex justify-center">
         <span class="font-bold text-xl"> Blog </span>
       </div>

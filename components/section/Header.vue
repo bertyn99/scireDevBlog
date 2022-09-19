@@ -1,6 +1,7 @@
 <template>
-  <header class="container">
+  <header class="">
     <NavBar></NavBar>
+
     <slot></slot>
   </header>
 </template>
