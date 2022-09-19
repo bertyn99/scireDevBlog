@@ -1,5 +1,5 @@
 <template>
-  <nav class="container mx-auto flex justify-between">
+  <nav class="container mx-auto flex justify-between py-10">
     <NuxtLink href="/blog" class="text-lg font-semibold">ScireDEV</NuxtLink>
 
     <!--     mobile nav -->
@@ -49,12 +49,28 @@
     <!--     mobile nav -->
 
     <!--    desktop/tablet nav -->
-    <ul class="hidden md:flex">
+    <ul class="hidden md:flex md:gap-8">
       <li>
-        <NuxtLink> Road To Basic</NuxtLink>
+        <NuxtLink
+          class="text-primary-darken hover:text-secondary transition-all font-semibold"
+        >
+          Road To Basic</NuxtLink
+        >
       </li>
-      <li><NuxtLink> One on One</NuxtLink></li>
-      <li><NuxtLink> Tips & Advice</NuxtLink></li>
+      <li>
+        <NuxtLink
+          class="text-primary-darken hover:text-secondary transition-all font-semibold"
+        >
+          Concept
+        </NuxtLink>
+      </li>
+      <li>
+        <NuxtLink
+          class="text-primary-darken hover:text-secondary transition-all font-semibold"
+        >
+          Tips & Advice</NuxtLink
+        >
+      </li>
     </ul>
     <!--    desktop/tablet nav -->
   </nav>
