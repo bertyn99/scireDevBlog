@@ -1,17 +1,21 @@
 <template>
-  <div class="flex w-full">
+  <div class="flex flex-wrap w-full">
     <Carrousel></Carrousel>
-    <div class="w-full max-w-xl">
-      <div class="p-8 flex justify-center">
-        <span class="font-bold text-xl"> Blog </span>
+    <div class="w-full md:w-2/5">
+      <div class="h-1/4 p-8 flex justify-center">
+        <span
+          class="relative before:block before:absolute before:right-0 before:w-9 before:h-8 before:mt-5 before:bg-tertiary-default/20 before:-z-50"
+        >
+          <span class="font-bold text-4xl z-20">Blog.</span>
+        </span>
       </div>
-      <div class="bg-secondary pb-16 pt-8">
+      <div class="bg-secondary h-3/4 pb-10 pt-8">
         <div class="w-full border-l-4 border-tertiary-default">
           <span class="pl-6 font-semibold text-primary-default"
             >Popular Articles</span
           >
         </div>
-        <div v-for="article in popularArticle" class="flex my-2 p-4 relative">
+        <div v-for="article in popularArticle" class="flex my-1 p-4 relative">
           <div
             class="relative w-1/2 md:w-1/3 min-h-[80px] min-w-[90px] aspect-video"
           >
