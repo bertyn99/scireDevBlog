@@ -1,3 +1,8 @@
+<script setup>
+  const props=defineProps(['article'])
+</script>
+
+
 <template>
   <article class="p-2.5 max-w-xs group hover:bg-white">
     <div class="relative h-46">
@@ -30,15 +35,15 @@
         src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aHVtYW58ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
         alt=""
       />
-      <span class="font-medium">John Doe</span>
+      <span class="font-medium">{{article?.author}}</span>
     </div>
-    <h3 class="font-bold text-lg">How to Build a saas with no framework</h3>
+    <h3 class="font-bold text-lg">{{article?.title}}</h3>
     <span
       class="my-3 before:block before:content-[''] before:mx-2 before:w-10 before:h-0.5 before:bg-primary-darken inline-flex text-primary-darken items-center text-xs"
     >
-      Technologie
+      {{article?.category}}
     </span>
-    <p class="text-sm text-secondary/60 mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet porro iusto, dolore voluptate molestias ipsam omnis neque sed odit quis placeat, ullam voluptatem ab? Deserunt veniam aspernatur ipsum.</p>
+    <p class="text-sm text-secondary/60 mb-3">{{article?.description}}</p>
     <div class="flex gap-8 ">
           <span
             class="inline-flex items-center gap-1 text-sm text-primary-darken"

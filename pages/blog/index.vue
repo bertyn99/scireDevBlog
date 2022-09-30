@@ -55,7 +55,7 @@ useHead({
               </div>
             </NuxtLink> -->
 
-            <Card />
+            <Card :article="article"/>
           </li>
         </ul>
       </template>

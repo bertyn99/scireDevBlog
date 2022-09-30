@@ -2,6 +2,8 @@
     title: 'Nuxt Content v2 is awesome!'
     description: 'This is my first article!'
     img: 'img/test.jpg'
+    author: "Magius"
+    category: 'Road To Basic'
     tags: [Nuxt, Content, Learning]
 ---
 # My first blog post
