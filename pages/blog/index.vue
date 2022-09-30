@@ -15,7 +15,7 @@ useHead({
 });
 </script>
 <template>
-  <section class="page-section">
+  <section class="container mx-auto">
     <!-- Render list of all articles in ./content/blog using `path` -->
     <!-- Provide only defined fields in the `:query` prop -->
     <ContentList
