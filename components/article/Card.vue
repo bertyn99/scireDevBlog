@@ -12,7 +12,7 @@
       />
       <NuxtLink
         class="absolute right-5 -bottom-5 p-4 inline-flex bg-black text-white group-hover:bg-tertiary-default"
-        to="/ff"
+        :to="article._path"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
