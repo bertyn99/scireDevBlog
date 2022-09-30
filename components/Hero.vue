@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap w-full">
+  <div class="flex flex-wrap w-full my-8">
     <Carrousel></Carrousel>
     <div class="w-full md:w-2/5">
       <div class="h-1/4 p-8 flex justify-center">
