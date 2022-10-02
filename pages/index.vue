@@ -1,7 +1,6 @@
 <!-- ./pages/blog/index.vue -->
 <script setup>
-import Card from "~~/components/article/Card.vue";
-import Header from "~~/components/section/Header.vue";
+
 definePageMeta({
   layout: "blog",
 });
@@ -15,20 +14,44 @@ useHead({
 });
 </script>
 <template>
-  <section class="container mx-auto">
+  <section class="container mx-auto py-8">
+    <div class="flex justify-between px-2">
+      <h2 class="font-bold text-2xl relative before:block before:absolute before:-left-3 before:w-10 before:h-7 before:mt-3 before:bg-tertiary-default/20 before:-z-50">
+        Latest Article
+      </h2>
+      <!--  <nav>
+        <ul>
+          <li>
+            All
+          </li>
+          <li>
+            Road To basic
+          </li>
+          <li>
+            Road To basic
+          </li>
+        </ul>
+      </nav> -->
+
+      <div class="relative w-32">
+        <input type="text"  class="absolute w-full bg-transparent border-b-2 border-primary-darken">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="w-5 h-5 absolute right-0">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+
+      </div>
+    </div>
     <!-- Render list of all articles in ./content/blog using `path` -->
     <!-- Provide only defined fields in the `:query` prop -->
-    <ContentList
-      path="/blog"
-      :query="{
-        only: ['title', 'description', 'tags', '_path', 'img'],
-      }"
-    >
+    <ContentList path="/blog" :query="{
+      only: ['title', 'description', 'tags', '_path', 'img'],
+    }">
+
       <!-- Default list slot -->
       <template v-slot="{ list }">
-        <ul
-          class="article-list w-full max-w-screen-xl grid grid-cols-3 gap-4 align-center mx-auto my-2"
-        >
+        <ul class=" w-full max-w-screen-xl grid grid-cols-3 gap-4 align-center mx-auto my-8">
           <li v-for="article in list" :key="article._path" class="article">
             <!--      <NuxtLink :to="article._path">
               <div class="wrapper">
@@ -55,7 +78,7 @@ useHead({
               </div>
             </NuxtLink> -->
 
-            <Card :article="article"/>
+            <ArticleCard :article="article" />
           </li>
         </ul>
       </template>
@@ -68,11 +91,5 @@ useHead({
   </section>
 </template>
 <style scoped>
-.wrapper {
-  @apply flex  shadow;
-}
 
-.article-tags {
-  @apply flex gap-2;
-}
 </style>

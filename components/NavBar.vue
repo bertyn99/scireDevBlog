@@ -1,6 +1,6 @@
 <template>
   <nav class="container mx-auto flex justify-between py-10">
-    <NuxtLink href="/blog" class="text-lg font-semibold">ScireDEV</NuxtLink>
+    <NuxtLink to="/" class="text-lg font-semibold">ScireDEV</NuxtLink>
 
     <!--     mobile nav -->
     <div>
