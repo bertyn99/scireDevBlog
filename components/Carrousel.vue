@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full md:w-3/5 flex-1">
+  <div class="flex md:col-span-2 row-span-4">
     <div class="w-1/2 h-full">
       <div class="w-4/5 ml-auto min-w-[190px]">
         <div class="flex py-5">
