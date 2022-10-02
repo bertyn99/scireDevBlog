@@ -51,7 +51,7 @@ useHead({
 
       <!-- Default list slot -->
       <template v-slot="{ list }">
-        <ul class=" w-full max-w-screen-xl grid grid-cols-3 gap-4 align-center mx-auto my-8">
+        <ul class=" w-full max-w-screen-xl sm:px-8 grid grid-col-1 sm:grid-cols-2  md:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center">
           <li v-for="article in list" :key="article._path" class="article">
             <!--      <NuxtLink :to="article._path">
               <div class="wrapper">
