@@ -6,8 +6,10 @@
       params: { slug },
     } = useRoute();
     
+  
+    
     // get array of filters by generating array from separating slug`,`
-    const filter = slug.split(",");
+     const filter = slug.split(","); 
     
     // set meta for page
     useHead({
@@ -15,11 +17,11 @@
       meta: [{ name: "description", content: "Here's a list of all my great articles" }],
     });
     </script>
-    <template>
+    <template>  
       <main>
         <header class="page-heading">
           <div class="wrapper">
-            <h1 class="text-5xl font-extrabold">All articles with "{{ slug }}"</h1>
+            <h1 class="text-5xl font-extrabold">All articles with tag{{ category }}</h1>
             <p class="font-medium text-lg">Here's a list of all my great articles</p>
           </div>
         </header>

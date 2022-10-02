@@ -40,10 +40,10 @@
           </button>
         </li>
         <li>
-          <NuxtLink> Road To Basic</NuxtLink>
+          <NuxtLink to="/road-to-basic"> Road To Basic</NuxtLink>
         </li>
-        <li><NuxtLink> One on One</NuxtLink></li>
-        <li><NuxtLink> Tips & Advice</NuxtLink></li>
+        <li><NuxtLink to="/one-on-one"> One on One</NuxtLink></li>
+        <li><NuxtLink to="/tips-and-advice"> Tips & Advice</NuxtLink></li>
       </ul>
     </div>
     <!--     mobile nav -->
@@ -53,21 +53,22 @@
       <li>
         <NuxtLink
           class="text-primary-darken hover:text-secondary transition-all font-semibold"
-        >
+          to="/road-to-basic "
+          >
           Road To Basic</NuxtLink
         >
       </li>
       <li>
         <NuxtLink
           class="text-primary-darken hover:text-secondary transition-all font-semibold"
-        >
+          to="/one-on-one">
           Concept
         </NuxtLink>
       </li>
       <li>
         <NuxtLink
           class="text-primary-darken hover:text-secondary transition-all font-semibold"
-        >
+          to="/tips-and-advice" >
           Tips & Advice</NuxtLink
         >
       </li>

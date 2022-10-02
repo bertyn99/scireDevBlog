@@ -3,7 +3,7 @@
     description: 'This is my first article!'
     img: 'img/test.jpg'
     author: "Magius"
-    category: 'Road To Basic'
+    category: 'road to basic'
     tags: [Nuxt, Content, Learning]
 ---
 # My first blog post

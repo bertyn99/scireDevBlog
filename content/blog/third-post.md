@@ -3,6 +3,6 @@
     description: 'This is my thirdarticle!'
     img: 'img/test.jpg'
     category: 'Road To Basic'
-    tags: [Content]
+    tags: ['content']
 ---
 # My third blog post
