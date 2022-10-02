@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-black">
+  <footer class="bg-black  w-full mt-auto">
     <div
       class="container mx-auto py-4 flex items-center justify-between text-primary-darken"
     >
