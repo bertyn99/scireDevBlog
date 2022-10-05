@@ -1,5 +1,7 @@
 <template>
-  <nav class="container mx-auto flex justify-between py-10">
+  <nav
+    class="container mx-auto flex justify-between px-4 sm:px-0 py-7 sm:py-10"
+  >
     <NuxtLink to="/" class="text-lg font-semibold">ScireDEV</NuxtLink>
 
     <!--     mobile nav -->
@@ -54,21 +56,23 @@
         <NuxtLink
           class="text-primary-darken hover:text-secondary transition-all font-semibold"
           to="/road-to-basic "
-          >
+        >
           Road To Basic</NuxtLink
         >
       </li>
       <li>
         <NuxtLink
           class="text-primary-darken hover:text-secondary transition-all font-semibold"
-          to="/one-on-one">
+          to="/one-on-one"
+        >
           Concept
         </NuxtLink>
       </li>
       <li>
         <NuxtLink
           class="text-primary-darken hover:text-secondary transition-all font-semibold"
-          to="/tips-and-advice" >
+          to="/tips-and-advice"
+        >
           Tips & Advice</NuxtLink
         >
       </li>
