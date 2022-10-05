@@ -1,6 +1,6 @@
 <template>
-  <div class="flex md:col-span-2 row-span-4">
-    <div class="w-1/2 h-full">
+  <div class="flex flex-col md:col-span-2 row-span-4 flex-wrap">
+    <div class="hidden sm:block w-1/2 h-full">
       <div class="w-4/5 ml-auto min-w-[190px]">
         <div class="flex py-5">
           <span class="bg-white p-3 translate-x-10 z-10">New Articles</span>
@@ -106,34 +106,36 @@
         </div>
       </div>
     </div>
-    <div class="w-1/2 self-stretch">
-      <div class="relative bg-primary-darken h-[90%] w-full">
-        <img
-          src="https://media.istockphoto.com/photos/pressing-enter-button-picture-id479157044?b=1&k=20&m=479157044&s=170667a&w=0&h=RYGk5WZ61jKxkdciwdcKkSwv8hMwvYum8wRmLrzh5sU="
-          alt=""
-          class="absolute w-full h-full object-cover grayscale"
-        />
-        <NuxtLink
-          class="absolute p-4 z-20 -left-5 bottom-10 inline-flex items-center gap-2 bg-tertiary-default text-white"
-          ><svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-5 h-5"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25"
-            />
-          </svg>
-          <span class="capitalize">Read More</span>
-        </NuxtLink>
-        <!-- <div class="absolute w-full h-full bg-primary-default/40 z-20"></div> -->
-      </div>
-      <div class="h-[10%] bg-secondary">
+    <div class="h-[375px] sm:w-1/2 relative bg-primary-darken sm:h-[90%]">
+      <img
+        src="https://media.istockphoto.com/photos/pressing-enter-button-picture-id479157044?b=1&k=20&m=479157044&s=170667a&w=0&h=RYGk5WZ61jKxkdciwdcKkSwv8hMwvYum8wRmLrzh5sU="
+        alt=""
+        class="absolute w-full h-full object-cover grayscale"
+      />
+      <NuxtLink
+        class="hidden sm:inline-flex absolute p-4 z-20 -left-5 bottom-10 items-center gap-2 bg-tertiary-default text-white"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-5 h-5"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25"
+          />
+        </svg>
+        <span class="capitalize">Read More</span>
+      </NuxtLink>
+      <!-- <div class="absolute w-full h-full bg-primary-default/40 z-20"></div> -->
+    </div>
+    <div
+      class="sm:w-1/2 h-14 sm:h-[10%] bg-secondary inline-flex flex-row-reverse sm:flex-row"
+    >
+      <div>
         <button class="bg-white h-full p-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"

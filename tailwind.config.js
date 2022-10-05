@@ -10,6 +10,9 @@ module.exports = {
           default: "#F23005",
           darken: "#D93D1A",
         },
+        aspectRatio: {
+          "9/14": "9 / 14",
+        },
       },
     },
   },
