@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col md:col-span-3 row-span-4 flex-wrap relative">
-    <div class="sm:h-[90%] relative">
+    <div class="sm:h-[90%] h-[475px] relative">
       <slot :currentSlide="currentSlide" />
     </div>
 

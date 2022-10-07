@@ -118,5 +118,19 @@ const popularArticle = ref([
   },
 ]);
 
-const slides = ref(["dd", "dff", "Discover new world Javascript mais biensur"]);
+const slides = ref([
+  {
+    title: "Discover new world Javascript mais biensur",
+    img: "https://images.unsplash.com/photo-1662581872342-3f8e0145668f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  },
+  {
+    title: "Discover  Java mais biensur",
+    img: "https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aHVtYW58ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+  },
+
+  {
+    title: "Discover the superset Typescript",
+    img: "https://images.unsplash.com/photo-1665157296251-9ed707fe0cf5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
+  },
+]);
 </script>

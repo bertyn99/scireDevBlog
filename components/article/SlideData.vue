@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full w-full">
+  <div class="absolute flex h-full w-full">
     <div class="hidden sm:block w-1/2 h-full">
       <div class="flex justify-end py-5">
         <span class="bg-white p-3 translate-x-10 z-10">New Articles</span>
@@ -8,11 +8,7 @@
         <div class="mt-8">
           <div class="flex items-center">
             <div class="relative overflow-hidden rounded-full h-8 w-8">
-              <img
-                src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aHVtYW58ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-                alt=""
-                class="absolute w-full h-full"
-              />
+              <img :src="data.img" alt="" class="absolute w-full h-full" />
             </div>
             <div class="flex flex-col">
               <span class="text-secondary text-sm font-semibold">Ben Joe</span>
@@ -25,7 +21,7 @@
           <h3
             class="w-[45vw] lg:w-[36vw] leading-7 z-10 text-2xl sm:text-3xl font-bold"
           >
-            {{ data }}
+            {{ data.title }}
           </h3>
         </div>
         <span
@@ -138,11 +134,7 @@
           <div class="mt-8">
             <div class="flex items-center">
               <div class="relative overflow-hidden rounded-full h-8 w-8">
-                <img
-                  src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aHVtYW58ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-                  alt=""
-                  class="absolute w-full h-full"
-                />
+                <img :src="data.img" alt="" class="absolute w-full h-full" />
               </div>
               <div class="ml-2 flex flex-col">
                 <span class="text-primary-default text-sm font-semibold"
@@ -155,7 +147,7 @@
 
           <div class="w-full h-16 ml-2 mt-6 relative">
             <h3 class="absolute w-full z-10 text-2xl font-bold">
-              {{ data }}
+              {{ data.title }}
             </h3>
           </div>
           <span
