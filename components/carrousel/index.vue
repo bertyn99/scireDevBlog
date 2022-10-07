@@ -49,12 +49,26 @@
 </template>
 
 <script setup>
-const currentSlide = ref(0);
+const currentSlide = ref(1);
+const getSlideCount = ref(null);
 
 function goNext() {
+  if (currentSlide.value === getSlideCount.value) {
+    currentSlide.value = 1;
+    return;
+  }
+
   currentSlide.value++;
 }
 function goPrev() {
+  if (currentSlide.value === 1) {
+    currentSlide.value = getSlideCount.value;
+    return;
+  }
   currentSlide.value--;
 }
+
+onMounted(() => {
+  getSlideCount.value = document.querySelectorAll("[data-slide]").length;
+});
 </script>

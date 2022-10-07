@@ -4,7 +4,11 @@
   >
     <Carrousel v-slot="{ currentSlide }">
       <CarrouselSlide v-for="(slide, index) in slides" :key="index">
-        <ArticleSlideData v-show="currentSlide === index" :data="slide" />
+        <ArticleSlideData
+          v-show="currentSlide === index + 1"
+          :data="slide"
+          :data-slide="index"
+        />
       </CarrouselSlide>
     </Carrousel>
 
