@@ -2,7 +2,12 @@
   <div
     class="grid grid-cols-1 md:grid-cols-4 md:grid-flow-row w-full my-0 sm:my-8"
   >
-    <Carrousel></Carrousel>
+    <Carrousel v-slot="{ currentSlide }">
+      <CarrouselSlide v-for="(slide, index) in slides" :key="index">
+        <ArticleSlideData v-show="currentSlide === index" :data="slide" />
+      </CarrouselSlide>
+    </Carrousel>
+
     <div
       class="p-8 order-first md:order-none md:col-span-2 md:row-span-1 max-h-[150px] flex justify-center"
     >
@@ -107,5 +112,11 @@ const popularArticle = ref([
     time: "4min",
     view: "200",
   },
+]);
+
+const slides = ref([
+  "dd",
+  "dff",
+  "Road To Basic: Discover Javascript mais biensur",
 ]);
 </script>

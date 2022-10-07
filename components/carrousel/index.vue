@@ -1,11 +1,17 @@
 <template>
   <div class="flex flex-col md:col-span-2 row-span-4 flex-wrap">
-    <CarrouselSlide />
+    <slot :currentSlide="currentSlide" />
     <div
-      class="sm:w-1/2 h-14 sm:h-[10%] bg-secondary inline-flex flex-row-reverse sm:flex-row"
+      class="h-14 sm:h-[10%] inline-flex flex-row-reverse sm:flex-row bg-secondary sm:bg-transparent"
     >
-      <div>
-        <button class="bg-white h-full p-1">
+      <div class="hidden mt-4 w-1/2 sm:flex justify-center">
+        <span class="text-5xl text-bold"
+          >2
+          <span class="text-4xl text-bold text-primary-darken">/5</span></span
+        >
+      </div>
+      <div class="bg-secondary sm:w-1/2">
+        <button class="bg-white h-full p-1" @click="goPrev">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -21,7 +27,7 @@
             />
           </svg>
         </button>
-        <button class="bg-white h-full p-4">
+        <button class="bg-white h-full p-4" @click="goNext">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -41,3 +47,14 @@
     </div>
   </div>
 </template>
+
+<script setup>
+const currentSlide = ref(0);
+
+function goNext() {
+  currentSlide.value++;
+}
+function goPrev() {
+  currentSlide.value--;
+}
+</script>
