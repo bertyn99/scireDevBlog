@@ -28,7 +28,7 @@
             >Popular Articles</span
           >
         </div>
-        <div v-for="article in popularArticle" class="flex my-1 p-4 relative">
+        <div v-for="article in popularArticle" class="flex my-1 p-4 h-1/3">
           <div
             class="relative w-1/2 md:w-1/3 min-h-[80px] min-w-[90px] aspect-video"
           >
@@ -42,7 +42,7 @@
             />
           </div>
           <div
-            class="w-1/2 md:w-2/3 h-3/4 flex flex-col items-center justify-around hover:bg-primary-default/25 md:absolute md:right-8 z-0"
+            class="w-1/2 md:w-2/3 h-full flex flex-col p-2 items-center justify-around hover:bg-primary-default/25 z-0 -translate-x-2 lg:-translate-x-8"
           >
             <div>
               <span class="text-primary-default">{{ article.title }}</span>
