@@ -1,5 +1,5 @@
 <template>
-  <div class="flex sm:h-[90%] w-full">
+  <div class="flex h-full w-full">
     <div class="hidden sm:block w-1/2 h-full">
       <div class="flex justify-end py-5">
         <span class="bg-white p-3 translate-x-10 z-10">New Articles</span>
@@ -21,22 +21,26 @@
           </div>
         </div>
 
-        <div class="w-full h-16 ml-2 mt-6 relative">
-          <h3 class="absolute w-[35vw] z-10 text-3xl font-bold">
+        <div class="w-full h-16 ml-2 mt-6 mb-8 sm:mb-5 relative z-10">
+          <h3
+            class="w-[45vw] lg:w-[36vw] leading-7 z-10 text-2xl sm:text-3xl font-bold"
+          >
             {{ data }}
           </h3>
         </div>
         <span
-          class="my-6 before:block before:content-[''] before:mx-2 before:w-20 before:h-0.5 before:bg-primary-darken inline-flex text-primary-darken items-center text-sm"
+          class="mb-6 before:block before:content-[''] before:mx-2 before:w-20 before:h-0.5 before:bg-primary-darken inline-flex text-primary-darken items-center text-sm"
         >
           Technologie
         </span>
-        <p class="mb-8 text-primary-darken px-2">
+        <p
+          class="xl:mb-10 lg:mb-4 mb-3 text-base text-primary-darken px-0 sm:px-2 overflow-hidden max-h-24 leading-5 text-ellipsis"
+        >
           Lorem ipsum dolor sit amet consectet adipis elit. Consectetur sunt sed
           magni necessitat iusto ipsam earum incidunt, et modi molestias beatae
           accusamus nobis ducimus fugit, impedit, officiis sapiente!
         </p>
-        <div class="flex gap-8 px-2">
+        <div class="flex gap-3 lg:gap-8 px-2 lg:mb-4">
           <span
             class="inline-flex items-center gap-1 text-sm text-primary-darken"
             ><svg

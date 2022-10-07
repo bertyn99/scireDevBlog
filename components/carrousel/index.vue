@@ -1,12 +1,14 @@
 <template>
-  <div class="flex flex-col md:col-span-2 row-span-4 flex-wrap">
-    <slot :currentSlide="currentSlide" />
+  <div class="flex flex-col md:col-span-3 row-span-4 flex-wrap relative">
+    <div class="sm:h-[90%] relative">
+      <slot :currentSlide="currentSlide" />
+    </div>
 
     <div
       class="h-14 sm:h-[10%] inline-flex flex-row-reverse sm:flex-row bg-secondary sm:bg-transparent"
     >
       <!-- pagination desktop -->
-      <div class="hidden mt-4 w-1/2 sm:flex justify-center">
+      <div class="hidden w-1/2 sm:flex justify-center items-center">
         <span class="text-5xl text-bold"
           >{{ currentSlide }}
           <span class="text-4xl text-bold text-primary-darken"

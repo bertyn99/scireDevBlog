@@ -14,6 +14,9 @@ module.exports = {
           "9/14": "9 / 14",
         },
       },
+      screens: {
+        xs: "450",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],
