@@ -1,17 +1,26 @@
 <template>
   <div class="flex flex-col md:col-span-2 row-span-4 flex-wrap">
     <slot :currentSlide="currentSlide" />
+
     <div
       class="h-14 sm:h-[10%] inline-flex flex-row-reverse sm:flex-row bg-secondary sm:bg-transparent"
     >
+      <!-- pagination desktop -->
       <div class="hidden mt-4 w-1/2 sm:flex justify-center">
         <span class="text-5xl text-bold"
-          >2
-          <span class="text-4xl text-bold text-primary-darken">/5</span></span
+          >{{ currentSlide }}
+          <span class="text-4xl text-bold text-primary-darken"
+            >/{{ getSlideCount }}</span
+          ></span
         >
       </div>
-      <div class="bg-secondary sm:w-1/2">
-        <button class="bg-white h-full p-1" @click="goPrev">
+
+      <!-- navigation -->
+      <div class="bg-secondary w-2/5 flex sm:w-1/2">
+        <button
+          class="bg-white w-full md:w-14 h-full inline-flex justify-center items-center"
+          @click="goPrev"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -27,7 +36,10 @@
             />
           </svg>
         </button>
-        <button class="bg-white h-full p-4" @click="goNext">
+        <button
+          class="bg-white w-full md:w-14 h-full inline-flex justify-center items-center"
+          @click="goNext"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -44,6 +56,15 @@
           </svg>
         </button>
       </div>
+
+      <!-- pagination mobile -->
+      <ul class="w-3/5 md:hidden flex justify-around items-center">
+        <li
+          v-for="(slide, index) in getSlideCount"
+          :key="index"
+          class="w-2 h-2 bg-white"
+        ></li>
+      </ul>
     </div>
   </div>
 </template>
