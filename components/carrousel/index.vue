@@ -64,7 +64,10 @@
         <li
           v-for="(slide, index) in getSlideCount"
           :key="index"
-          class="w-2 h-2 bg-white"
+          class="w-2 h-2"
+          :class="[
+            currentSlide === index + 1 ? 'bg-white' : 'bg-primary-darken',
+          ]"
         ></li>
       </ul>
     </div>
