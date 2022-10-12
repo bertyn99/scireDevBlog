@@ -6,6 +6,10 @@
     category: 'road to basic'
     tags: [Nuxt, Content, Learning]
 ---
+
+Presentation of the first article of this blog
+
+<!--more-->
 # My first blog post
 Welcome to my first blog post using \[content v2 module\](https://content.nuxtjs.org/)
 Hey there! 👋🏾

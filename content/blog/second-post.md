@@ -5,4 +5,7 @@
     category: 'One on One'
     tags: ['learning']
 ---
+
+Presentation of the second article of this blog
+<!--more-->
 # My second blog post

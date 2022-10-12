@@ -5,4 +5,8 @@
     category: 'Road To Basic'
     tags: ['content']
 ---
+
+Presentation of the third article of this blog
+<!--more-->
+
 # My third blog post

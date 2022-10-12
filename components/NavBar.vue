@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="fixed container mx-auto md:flex md:justify-between px-4 bg-primary-default sm:px-0 py-4 z-50"
+    class="fixed w-full md:flex md:justify-between px-4 sm:px-10 lg:px-24 bg-primary-default py-1 z-50"
   >
     <div class="flex justify-between items-center">
       <NuxtLink to="/" class="text-lg font-semibold">ScireDEV</NuxtLink>
@@ -41,40 +41,6 @@
         </svg>
       </button>
     </div>
-
-    <!--     mobile nav -->
-    <!--  <div class="relative">
-      
-      <div v-if="show">
-        <button class="md:hidden" @click="show = !show">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-        <ul class="absolute top-9 right-0 bg-red-300 w-screen md:flex z-20">
-          <li class="flex justify-end"></li>
-          <li>
-            <NuxtLink to="/road-to-basic"> Road To Basic</NuxtLink>
-          </li>
-          <li><NuxtLink to="/one-on-one"> One on One</NuxtLink></li>
-          <li><NuxtLink to="/tips-and-advice"> Tips & Advice</NuxtLink></li>
-        </ul>
-      </div>
-    </div> -->
-    <!--     mobile nav -->
-
-    <!--    desktop/tablet nav -->
     <ul
       class="bg-primary-darken md:bg-transparent md:flex md:items-center z-[-1] absolute w-full md:w-auto left-0 md:z-auto md:static md:gap-8 md:opacity-100 transition-all ease-in duration-500"
       :class="[
