@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid grid-cols-1 md:grid-cols-5 md:grid-flow-row w-full mt-20 sm:my-8"
+    class="grid grid-cols-1 md:grid-cols-5 md:grid-flow-row w-full mt-20 sm:my-24 sm:mb-8"
   >
     <Carrousel v-slot="{ currentSlide }">
       <CarrouselSlide v-for="(slide, index) in slides" :key="index">
@@ -13,7 +13,7 @@
     </Carrousel>
 
     <div
-      class="p-8 order-first md:order-none md:col-span-2 md:row-span-1 max-h-[150px] flex justify-center"
+      class="p-8 mb:pt-8 order-first md:order-none md:col-span-2 md:row-span-1 max-h-[150px] flex justify-center"
     >
       <span
         class="relative before:block before:absolute before:right-0 before:w-9 before:h-8 before:mt-5 before:bg-tertiary-default/20 before:-z-50"

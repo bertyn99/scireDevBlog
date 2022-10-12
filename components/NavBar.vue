@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="fixed container mx-auto md:flex md:justify-between px-4 bg-primary-default sm:px-0 py-7 sm:py-10 z-50"
+    class="fixed container mx-auto md:flex md:justify-between px-4 bg-primary-default sm:px-0 py-4 z-50"
   >
     <div class="flex justify-between items-center">
       <NuxtLink to="/" class="text-lg font-semibold">ScireDEV</NuxtLink>
