@@ -3,7 +3,7 @@
     class="grid grid-cols-1 md:grid-cols-5 md:grid-flow-row w-full mt-20 sm:my-24 sm:mb-8"
   >
     <Carrousel v-slot="{ currentSlide }">
-      <CarrouselSlide v-for="(slide, index) in slides" :key="index">
+      <CarrouselSlide v-for="(slide, index) in data" :key="index">
         <ArticleSlideData
           v-show="currentSlide === index + 1"
           :data="slide"
@@ -28,7 +28,7 @@
             >Popular Articles</span
           >
         </div>
-        <div v-for="article in popularArticle" class="flex my-1 p-4 h-1/3">
+        <div v-for="article in popular" class="flex my-1 p-4 h-1/3">
           <div
             class="relative w-1/2 md:w-1/3 min-h-[80px] min-w-[90px] aspect-video"
           >
@@ -118,19 +118,10 @@ const popularArticle = ref([
   },
 ]);
 
-const slides = ref([
-  {
-    title: "Discover new world Javascript mais biensur",
-    img: "https://images.unsplash.com/photo-1662581872342-3f8e0145668f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-  },
-  {
-    title: "Discover  Java mais biensur",
-    img: "https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aHVtYW58ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-  },
+const { data } = await useAsyncData("home", () =>
+  queryContent({ path: "/blog" }).limit(5).find()
+);
 
-  {
-    title: "Discover the superset Typescript",
-    img: "https://images.unsplash.com/photo-1665157296251-9ed707fe0cf5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60",
-  },
-]);
+const popular = data.value.slice(0, 3);
+console.log(popular);
 </script>
