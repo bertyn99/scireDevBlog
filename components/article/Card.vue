@@ -28,11 +28,11 @@ const props = defineProps(["article"]);
     </div>
     <div class="py-2 flex items-center gap-2">
       <img
-        class="w-7 h-7 rounded-full"
+        class="w-7 h-7 rounded-full object-cover"
         :src="getAuthorImg(article.author)"
         :alt="`image de profile ${article.author}`"
       />
-      <span class="font-medium">{{ article?.author }}</span>
+      <span class="font-medium text-secondary/60">{{ article?.author }}</span>
     </div>
     <h3 class="font-bold text-lg">{{ article?.title }}</h3>
     <span
