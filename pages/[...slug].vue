@@ -7,7 +7,7 @@ const {
   params: { slug },
 } = useRoute();
 
-const category = capitalize(String(slug).replaceAll("-", " "));
+const category = String(slug).replaceAll("-", " ");
 
 console.log(category);
 // get array of filters by generating array from separating slug`,`

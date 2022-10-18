@@ -2,7 +2,7 @@
     title: 'Basic of javascript'
     description: 'What is javascript ? Discover the basics of the Javascript language at the basis of web development.'
     img: 'img/test.jpg'
-    category: 'Road To Basic'
+    category: 'road to basic'
     tags: ['javascript']
 ---
 
