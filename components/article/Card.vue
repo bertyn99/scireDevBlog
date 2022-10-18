@@ -1,14 +1,12 @@
 <script setup>
+import { capitalize, getAuthorImg } from "@/utils/format";
 const props = defineProps(["article"]);
 </script>
 
 <template>
   <article class="p-2.5 max-w-xs group hover:bg-white">
     <div class="relative h-46">
-      <img
-        class="w-full h-full"
-        src="https://images.pexels.com/photos/841228/pexels-photo-841228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-      />
+      <img class="w-full h-full aspect-[3/2]" :src="article?.img" />
       <NuxtLink
         class="absolute right-5 -bottom-5 p-4 inline-flex bg-black text-white group-hover:bg-tertiary-default"
         :to="article._path"
@@ -30,11 +28,11 @@ const props = defineProps(["article"]);
     </div>
     <div class="py-2 flex items-center gap-2">
       <img
-        class="w-7 h-7 rounded-full"
-        src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aHVtYW58ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-        alt=""
+        class="w-7 h-7 rounded-full object-cover"
+        :src="getAuthorImg(article.author)"
+        :alt="`image de profile ${article.author}`"
       />
-      <span class="font-medium">{{ article?.author }}</span>
+      <span class="font-medium text-secondary/60">{{ article?.author }}</span>
     </div>
     <h3 class="font-bold text-lg">{{ article?.title }}</h3>
     <span
