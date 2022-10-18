@@ -29,7 +29,10 @@ console.log(category);
 useHead({
   title: `All articles with ${slug}`,
   meta: [
-    { name: "description", content: "Here's a list of all my great articles" },
+    {
+      name: "description",
+      content: `List of article of the category ${category}`,
+    },
   ],
 });
 </script>
