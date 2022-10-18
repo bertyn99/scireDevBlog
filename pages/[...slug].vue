@@ -1,6 +1,7 @@
 <!-- ./pages/blog/tags/[slug].vue -->
 
-<script setup>
+<script setup lang="ts">
+import type { QueryBuilderParams } from "@nuxt/content-edge/dist/runtime/types";
 import { capitalize } from "../utils/format";
 // get current route slug
 const {
@@ -9,7 +10,18 @@ const {
 
 const category = String(slug).replaceAll("-", " ");
 
+const query: QueryBuilderParams = {
+  path: "/blog",
+  only: ["title", "description", "tags", "_path", "img"],
+  where: {
+    category: {
+      $contains: category,
+    },
+  },
+  $sensitivity: "base",
+};
 console.log(category);
+
 // get array of filters by generating array from separating slug`,`
 /*  const filter = slug.split(""); */
 
@@ -34,18 +46,7 @@ useHead({
       </div>
       <!-- Render list of all articles in ./content/blog using `path` -->
       <!-- Provide only defined fieldsin the `:query` prop -->
-      <ContentList
-        path="/blog"
-        :query="{
-          only: ['title', 'description', 'tags', '_path', 'img'],
-          where: {
-            category: {
-              $contains: category,
-            },
-          },
-          $sensitivity: 'base',
-        }"
-      >
+      <ContentList :query="query">
         <!-- Default list slot -->
         <template v-slot="{ list }">
           <ul class="article-list">
