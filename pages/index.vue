@@ -6,9 +6,13 @@ definePageMeta({
 
 // set meta for page
 useHead({
-  title: "All articles",
+  title: "ScireDev - your website to learn the web and mobile developpement",
   meta: [
-    { name: "description", content: "Here's a list of all my great articles" },
+    {
+      name: "description",
+      content:
+        "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
+    },
   ],
 });
 </script>

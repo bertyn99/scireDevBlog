@@ -27,11 +27,11 @@ console.log(category);
 
 // set meta for page
 useHead({
-  title: `All articles with ${slug}`,
+  title: `${capitalize(category)} articles - ScireDev`,
   meta: [
     {
       name: "description",
-      content: `List of article of the category ${category}`,
+      content: `article of the category ${category}`,
     },
   ],
 });
