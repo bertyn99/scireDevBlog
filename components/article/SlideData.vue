@@ -11,7 +11,9 @@
               <img :src="data.img" alt="" class="absolute w-full h-full" />
             </div>
             <div class="flex flex-col">
-              <span class="text-secondary text-sm font-semibold">Ben Joe</span>
+              <span class="text-secondary text-sm font-semibold">{{
+                data.author
+              }}</span>
               <span class="text-primary-darken text-xs">Author</span>
             </div>
           </div>
@@ -27,14 +29,12 @@
         <span
           class="mb-6 before:block before:content-[''] before:mx-2 before:w-20 before:h-0.5 before:bg-primary-darken inline-flex text-primary-darken items-center text-sm"
         >
-          Technologie
+          {{ capitalize(data.category) }}
         </span>
         <p
           class="xl:mb-10 lg:mb-4 mb-3 text-base text-primary-darken px-0 sm:px-2 overflow-hidden max-h-24 leading-5 text-ellipsis"
         >
-          Lorem ipsum dolor sit amet consectet adipis elit. Consectetur sunt sed
-          magni necessitat iusto ipsam earum incidunt, et modi molestias beatae
-          accusamus nobis ducimus fugit, impedit, officiis sapiente!
+          {{ data.description }}
         </p>
         <div class="flex gap-3 lg:gap-8 px-2 lg:mb-4">
           <span
@@ -94,7 +94,7 @@
                 d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"
               />
             </svg>
-            200</span
+            {{ data.updatedAt }}</span
           >
         </div>
       </div>
@@ -137,9 +137,9 @@
                 <img :src="data.img" alt="" class="absolute w-full h-full" />
               </div>
               <div class="ml-2 flex flex-col">
-                <span class="text-primary-default text-sm font-semibold"
-                  >Ben Joe</span
-                >
+                <span class="text-primary-default text-sm font-semibold">{{
+                  data.author
+                }}</span>
                 <span class="text-primary-darken text-xs">Author</span>
               </div>
             </div>
@@ -153,12 +153,10 @@
           <span
             class="my-6 before:block before:content-[''] before:mx-2 before:w-20 before:h-0.5 before:bg-white inline-flex text-white items-center text-sm"
           >
-            Technologie
+            {{ data.category }}
           </span>
           <p class="mb-8 text-primary-default px-2">
-            Lorem ipsum dolor sit amet consectet adipis elit. Consectetur sunt
-            sed magni necessitat iusto ipsam earum incidunt, et modi molestias
-            beatae accusamus nobis ducimus fugit, impedit, officiis sapiente!
+            {{ data.description }}
           </p>
           <div class="flex gap-8 px-2">
             <span
@@ -228,5 +226,8 @@
 </template>
 
 <script setup>
+import { capitalize } from "@/utils/format";
+
 const props = defineProps(["data"]);
+console.log(props.data);
 </script>
