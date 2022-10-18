@@ -123,5 +123,4 @@ const { data } = await useAsyncData("home", () =>
 );
 
 const popular = data.value.slice(0, 3);
-console.log(popular);
 </script>
