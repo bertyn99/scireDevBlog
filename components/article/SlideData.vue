@@ -8,7 +8,11 @@
         <div class="mt-8">
           <div class="flex items-center">
             <div class="relative overflow-hidden rounded-full h-8 w-8">
-              <img :src="data.img" alt="" class="absolute w-full h-full" />
+              <img
+                :src="getAuthorImg(data.author)"
+                :alt="`image de profile ${data.author}`"
+                class="absolute w-full h-full"
+              />
             </div>
             <div class="flex flex-col">
               <span class="text-secondary text-sm font-semibold">{{
@@ -105,9 +109,9 @@
       >
 
       <img
-        src="https://media.istockphoto.com/photos/pressing-enter-button-picture-id479157044?b=1&k=20&m=479157044&s=170667a&w=0&h=RYGk5WZ61jKxkdciwdcKkSwv8hMwvYum8wRmLrzh5sU="
-        alt=""
-        class="absolute w-full h-full object-cover grayscale z-0"
+        :src="data.img"
+        :alt="data.title"
+        class="absolute w-full h-full object-fill grayscale z-0"
       />
       <NuxtLink
         class="hidden sm:inline-flex absolute p-4 z-20 -left-5 bottom-10 items-center gap-2 bg-tertiary-default text-white"
@@ -134,7 +138,11 @@
           <div class="mt-8">
             <div class="flex items-center">
               <div class="relative overflow-hidden rounded-full h-8 w-8">
-                <img :src="data.img" alt="" class="absolute w-full h-full" />
+                <img
+                  :src="getAuthorImg(data.author)"
+                  :alt="`image de profile ${data.author}`"
+                  class="absolute w-full h-full"
+                />
               </div>
               <div class="ml-2 flex flex-col">
                 <span class="text-primary-default text-sm font-semibold">{{
@@ -226,8 +234,7 @@
 </template>
 
 <script setup>
-import { capitalize } from "@/utils/format";
+import { capitalize, getAuthorImg } from "@/utils/format";
 
 const props = defineProps(["data"]);
-console.log(props.data);
 </script>

@@ -24,19 +24,6 @@ useHead({
       >
         Latest Article
       </h2>
-      <!--  <nav>
-        <ul>
-          <li>
-            All
-          </li>
-          <li>
-            Road To basic
-          </li>
-          <li>
-            Road To basic
-          </li>
-        </ul>
-      </nav> -->
 
       <div class="relative w-32">
         <input
@@ -62,9 +49,18 @@ useHead({
     <!-- Render list of all articles in ./content/blog using `path` -->
     <!-- Provide only defined fields in the `:query` prop -->
     <ContentList
-      path="/blog"
+      path="/"
       :query="{
-        only: ['title', 'description', 'tags', '_path', 'img', 'excerpt'],
+        only: [
+          'title',
+          'description',
+          'category',
+          'author',
+          'tags',
+          '_path',
+          'img',
+          'excerpt',
+        ],
       }"
     >
       <!-- Default list slot -->
@@ -73,31 +69,6 @@ useHead({
           class="w-full max-w-screen-xl sm:px-8 grid grid-col-1 sm:grid-cols-2 md:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center"
         >
           <li v-for="article in list" :key="article._path" class="article">
-            <!--      <NuxtLink :to="article._path">
-              <div class="wrapper">
-                <div class="img-cont w-32">
-                  <img
-                    :src="`/${article.img}`"
-                    :alt="article.title"
-                    class="rounded-lg max-h-[8rem] h-full object-cover"
-                  />
-                </div>
-                <header class="pl-2">
-                  <h1 class="text-2xl font-semibold">{{ article.title }}</h1>
-                  <p>{{ article.description }}</p>
-                  <ul class="article-tags">
-                    <li
-                      class="bg-gray-400 text-gray-200 px-1 py-0.5"
-                      v-for="(tag, n) in article.tags"
-                      :key="n"
-                    >
-                      {{ tag }}
-                    </li>
-                  </ul>
-                </header>
-              </div>
-            </NuxtLink> -->
-
             <ArticleCard :article="article" />
           </li>
         </ul>
