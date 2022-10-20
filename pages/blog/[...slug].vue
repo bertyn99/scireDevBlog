@@ -53,7 +53,7 @@ useHead({
     {
       hid: "og:image",
       property: "og:image",
-      content: `https://sciredev.com/${data.value.article.img}`,
+      content: `https://sciredev.com/article/cover/${data.value.article.img}`,
     },
   ],
 });
