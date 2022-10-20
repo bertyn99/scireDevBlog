@@ -34,12 +34,11 @@ useHead({
 
     {
       property: "og:url",
-      content: "https://www.sciredev.com/blog/" + path,
+      content: "https://www.sciredev.com" + path,
     },
     {
       property: "og:title",
-      content:
-        "ScireDev - your website to learn the web and mobile developpement",
+      content: "ScireDev - " + data.value.article.title,
     },
     {
       property: "og:site_name",
@@ -53,7 +52,7 @@ useHead({
     {
       hid: "og:image",
       property: "og:image",
-      content: `https://sciredev.com/article/cover/${data.value.article.img}`,
+      content: `https://sciredev.com/${data.value.article.img}`,
     },
   ],
 });
