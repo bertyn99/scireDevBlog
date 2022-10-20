@@ -1,5 +1,5 @@
-User-Agent: * 
-Allow: / 
+User-agent: *
+Disallow:
 
 
 Sitemap: https://www.sciredev.com/sitemap.xml
