@@ -31,7 +31,29 @@ useHead({
   meta: [
     {
       name: "description",
-      content: `article of the category ${category}`,
+      content: `Scire Dev - article of the category ${category}`,
+    },
+    ,
+    {
+      name: "robots",
+      content: "follow, max-image-preview:large",
+    },
+    {
+      property: "og:locale",
+      content: "en-US",
+    },
+    {
+      property: "og:title",
+      content: `ScireDev - article of the category ${category}`,
+    },
+    {
+      property: "og:type",
+      content: "article",
+    },
+    ,
+    {
+      property: "og:site_name",
+      content: "Scire Dev",
     },
   ],
 });
