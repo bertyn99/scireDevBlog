@@ -1,7 +1,7 @@
 ---
     title: 'Basic of typescript'
     description: 'What is Typescript ? is it a new javascript? Discover the basics of the typescript  and his advantage  against  javascript'
-    img: 'img/test.jpg'
+    img: 'img/article/cover/test.jpg'
     author: 'Randomcitizen'
     draft: true
     category: 'road to basic'
