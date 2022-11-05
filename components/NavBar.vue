@@ -51,7 +51,7 @@
       <li class="px-4 py-6 hover:bg-tertiary-default md:hover:bg-transparent">
         <NuxtLink
           class="text-primary-default md:text-primary-darken md:hover:text-tertiary-default transition-all font-semibold"
-          to="/road-to-basic "
+          to="/road-to-basic"
         >
           Road To Basic</NuxtLink
         >
