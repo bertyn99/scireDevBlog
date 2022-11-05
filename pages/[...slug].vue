@@ -12,7 +12,7 @@ const category = String(slug).replaceAll("-", " ");
 
 const query: QueryBuilderParams = {
   path: "/blog",
-  only: ["title", "description", "tags", "_path", "img"],
+  only: ["title", "description", "tags", "_path", "image"],
   where: {
     category: {
       $contains: category,
@@ -20,7 +20,7 @@ const query: QueryBuilderParams = {
   },
   $sensitivity: "base",
 };
-console.log(category);
+console.log(slug);
 
 // get array of filters by generating array from separating slug`,`
 /*  const filter = slug.split(""); */
@@ -84,7 +84,7 @@ useHead({
                 <div class="wrapper">
                   <div class="img-cont w-32">
                     <img
-                      :src="`/${article.img}`"
+                      :src="`/${article.image}`"
                       :alt="article.title"
                       class="rounded-lg max-h-[8rem]"
                     />

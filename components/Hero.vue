@@ -33,7 +33,7 @@
             class="relative w-1/2 md:w-1/3 min-h-[80px] min-w-[90px] aspect-video"
           >
             <img
-              :src="article.img"
+              :src="article.image"
               alt=""
               width="
           380"

@@ -109,7 +109,7 @@
       >
 
       <img
-        :src="data.img"
+        :src="data.image"
         :alt="data.title"
         class="absolute w-full h-full object-fill grayscale z-0"
       />
