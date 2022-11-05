@@ -13,6 +13,28 @@ useHead({
       content:
         "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
     },
+    {
+      name: "robots",
+      content: "index, follow, max-image-preview:large",
+    },
+    {
+      property: "og:locale",
+      content: "en-US",
+    },
+
+    {
+      property: "og:url",
+      content: "https://www.sciredev.com/",
+    },
+    {
+      property: "og:title",
+      content:
+        "ScireDev - your website to learn the web and mobile developpement",
+    },
+    {
+      property: "og:site_name",
+      content: "Scire Dev",
+    },
   ],
 });
 </script>

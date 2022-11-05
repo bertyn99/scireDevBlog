@@ -22,10 +22,37 @@ useHead({
   title: data.value.article.title,
   meta: [
     { name: "description", content: data.value.article.description },
+    ,
+    {
+      name: "robots",
+      content: "index, follow, max-image-preview:large",
+    },
+    {
+      property: "og:locale",
+      content: "en-US",
+    },
+
+    {
+      property: "og:url",
+      content: "https://www.sciredev.com" + path,
+    },
+    {
+      property: "og:title",
+      content: "ScireDev - " + data.value.article.title,
+    },
+    {
+      property: "og:site_name",
+      content: "Scire Dev",
+    },
+
+    {
+      property: "og:author",
+      content: data.value.article.author,
+    },
     {
       hid: "og:image",
       property: "og:image",
-      content: `https://site.com/${data.value.article.img}`,
+      content: `https://sciredev.com/${data.value.article.img}`,
     },
   ],
 });

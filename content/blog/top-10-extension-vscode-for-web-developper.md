@@ -1,7 +1,7 @@
 ---
     title: 'Top 10 extension vscode for web developper!'
     description: "Presentaion of extension that can boost your development experience with you editor"
-    img: 'img/article/top-10-extension-vscode.webp'
+    img: 'img/article/cover/extension_vscode.webp'
     author: 'Magius'
     category: 'tips and advice'
     tags: ['productivity']
