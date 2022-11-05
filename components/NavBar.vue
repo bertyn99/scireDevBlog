@@ -1,9 +1,15 @@
 <template>
   <nav
-    class="fixed w-full md:flex md:justify-between px-4 sm:px-10 lg:px-18 xl:px-24 bg-primary-default py-1 z-50"
+    class="fixed w-full md:flex md:justify-between px-4 sm:px-10 lg:px-18 xl:px-24 py-3 z-50"
+    :class="[y < 200 ? 'bg-primary-default' : 'bg-black']"
   >
     <div class="flex justify-between items-center">
-      <NuxtLink to="/" class="text-lg font-semibold">ScireDEV</NuxtLink>
+      <NuxtLink
+        to="/"
+        class="text-lg font-semibold"
+        :class="[y < 200 ? '' : 'text-white']"
+        >ScireDEV</NuxtLink
+      >
       <button
         @click="show = !show"
         v-if="!show"
@@ -44,7 +50,7 @@
     <ul
       class="bg-primary-darken md:bg-transparent md:flex md:items-center z-[-1] absolute w-full md:w-auto left-0 md:z-auto md:static md:gap-8 md:opacity-100 transition-all ease-in duration-500"
       :class="[
-        show ? `top-[80px] opacity-100` : `top-[-400px] opacity-0`,
+        show ? `top-[55px] opacity-100` : `top-[-400px] opacity-0`,
         show ? '' : '',
       ]"
     >
@@ -78,5 +84,9 @@
 </template>
 
 <script setup lang="ts">
+import { useWindowScroll } from "@vueuse/core";
+
+const { x, y } = useWindowScroll();
+
 const show = ref(false);
 </script>
