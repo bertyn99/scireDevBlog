@@ -61,15 +61,11 @@ useHead({
       <article
         class="col-span-full md:col-span-6 md:col-start-1 md:row-start-1 prose w-full p-4 max-w-3xl m-auto"
       >
-        <!-- render document coming from query -->
-        <ContentRenderer :value="data.article">
-          <!-- render rich text from document -->
-          <ContentRendererMarkdown :value="data.article" />
-          <!-- display if document content is empty -->
-          <template #empty>
-            <p>No content found.</p>
+        <ContentDoc>
+          <template #not-found>
+            <h1>Document not found</h1>
           </template>
-        </ContentRenderer>
+        </ContentDoc>
       </article>
     </section>
     <!-- PrevNext Component -->
