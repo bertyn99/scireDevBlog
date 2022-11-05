@@ -62,7 +62,7 @@ useHead({
     <header v-if="data.article" class="p-4 pb-12">
       <div class="h-72 w-full">
         <img
-          :src="`/${data.article.img}`"
+          :src="`/${data.article.image}`"
           :alt="data.article.title"
           class="w-full h-full object-fill rounded-2xl"
         />
