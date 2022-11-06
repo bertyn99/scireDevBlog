@@ -1,10 +1,15 @@
 ---
     title: 'Top 10 extension vscode for web developper!'
     description: "Presentaion of extension that can boost your development experience with you editor"
-    img: 'img/article/cover/extension_vscode.webp'
+    image: 'img/article/cover/extension_vscode.webp'
     author: 'Magius'
     category: 'tips and advice'
     tags: ['productivity']
+    head:
+        meta: 
+            -  name: "keywords"
+               content: "javascript, framework javascript, origin of jaavscript"
+            
 ---
 
 If you're a web developer, chances are you're using Visual Studio Code. It's a popular code editor that's widely used and highly extensible. There are lots of contributors who create useful extensions for it, giving this editor superpowers.You can really speed up your development with these tools and enhance your team's contribution

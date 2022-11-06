@@ -1,12 +1,16 @@
 <script setup>
 import { capitalize, getAuthorImg } from "@/utils/format";
 const props = defineProps(["article"]);
+console.log(props.article?.image);
 </script>
 
 <template>
-  <article class="p-2.5 max-w-xs group hover:bg-white">
-    <div class="relative h-46">
-      <img class="w-full h-full aspect-[3/2]" :src="article?.img" />
+  <article class="w-full p-2.5 max-w-md max-h-[465px] group hover:bg-white">
+    <div class="relative h-[230px]">
+      <img
+        class="w-full h-full grayscale group-hover:grayscale-0"
+        :src="article?.image"
+      />
       <NuxtLink
         class="absolute right-5 -bottom-5 p-4 inline-flex bg-black text-white group-hover:bg-tertiary-default"
         :to="article._path"
