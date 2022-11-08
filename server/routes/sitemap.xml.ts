@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
       priority: 0.7,
       img: [
         {
-          url: doc.img,
+          url: doc.image,
           caption: "An image",
           title: doc.title,
         },

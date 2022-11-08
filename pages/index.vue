@@ -81,7 +81,7 @@ useHead({
           'author',
           'tags',
           '_path',
-          'img',
+          'image',
           'excerpt',
         ],
       }"
