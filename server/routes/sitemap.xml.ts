@@ -4,18 +4,18 @@ export default defineEventHandler(async (event) => {
   // Fetch all documents
   const docs = await serverQueryContent(event).find();
   const sitemap = new SitemapStream({
-    hostname: "https://sciredev.com",
+    hostname: "https://www.sciredev.com",
   });
 
   sitemap.write({
     url: "/",
-    changefreq: "weekly",
+    changefreq: "daily",
     priority: 1,
   });
   for (const doc of docs) {
     sitemap.write({
       url: doc._path,
-      changefreq: "weekly",
+      changefreq: "daily",
       priority: 0.7,
       img: [
         {
