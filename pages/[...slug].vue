@@ -82,23 +82,25 @@ useHead({
             >
               <NuxtLink :to="article._path" class="no-underline">
                 <article class="flex items-start gap-4">
-                  <div class="img-cont w-36">
+                  <div
+                    class="w-36 h-full max-h-[8rem] rounded-lg overflow-hidden"
+                  >
                     <img
                       :src="`/${article.image}`"
                       :alt="article.title"
-                      class="h-full w-full object-cover rounded-lg max-h-[8rem]"
+                      class="w-full h-full object-fill"
                     />
                   </div>
                   <header>
                     <h1 class="text-2xl font-semibold">{{ article.title }}</h1>
                     <p>{{ article.description }}</p>
-                    <ul class="article-tags">
+                    <ul class="flex gap-2 py-2">
                       <li class="tag" v-for="(tag, n) in article.tags" :key="n">
                         <NuxtLink
                           :to="`/blog/tags/${tag}`"
-                          class="no-underline bg-primary-darken px-1 py-0.5 inline-flex items-center rounded-md"
+                          class="no-underline bg-primary-darken text-slate-700 text-sm p-2 py-1 rounded-md transition-all !py-0.5 hover:-translate-y-0.5"
                         >
-                          <span>{{ tag }}</span>
+                          {{ tag }}
                         </NuxtLink>
                       </li>
                     </ul>
