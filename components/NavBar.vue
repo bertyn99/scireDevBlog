@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="fixed w-full md:flex md:justify-between px-4 sm:px-10 lg:px-18 xl:px-24 py-3 z-50"
+    class="fixed w-full md:flex md:justify-between px-4 sm:px-10 lg:px-18 xl:px-24 py-2 z-50"
     :class="[y < 200 ? 'bg-primary-default' : 'bg-black']"
   >
     <div class="flex justify-between items-center">

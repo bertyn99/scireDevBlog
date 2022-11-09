@@ -60,11 +60,11 @@ useHead({
 </script>
 <template>
   <main>
-    <section class="container mx-auto">
+    <section class="container mx-auto md:px-14 pt-16">
       <div class="page-heading">
         <div class="wrapper">
           <h1 class="text-5xl font-extrabold">All articles {{ category }}</h1>
-          <p class="font-medium text-lg">
+          <p class="font-medium text-lg mt-4">
             Here's a list of all my great articles
           </p>
         </div>
@@ -74,33 +74,38 @@ useHead({
       <ContentList :query="query">
         <!-- Default list slot -->
         <template v-slot="{ list }">
-          <ul class="article-list">
+          <ul class="flex flex-col gap-6">
             <li
               v-for="article in list"
               :key="article._path"
-              class="article-item"
+              class="pt-6 first-of-type:border-none border-t border-slate-200"
             >
-              <NuxtLink :to="article._path">
-                <div class="wrapper">
-                  <div class="img-cont w-32">
+              <NuxtLink :to="article._path" class="no-underline">
+                <article class="flex items-start gap-4">
+                  <div
+                    class="w-36 h-full max-h-[8rem] rounded-lg overflow-hidden"
+                  >
                     <img
                       :src="`/${article.image}`"
                       :alt="article.title"
-                      class="rounded-lg max-h-[8rem]"
+                      class="w-full h-full object-fill"
                     />
                   </div>
                   <header>
                     <h1 class="text-2xl font-semibold">{{ article.title }}</h1>
                     <p>{{ article.description }}</p>
-                    <ul class="article-tags">
+                    <ul class="flex gap-2 py-2">
                       <li class="tag" v-for="(tag, n) in article.tags" :key="n">
-                        <NuxtLink :to="`/blog/tags/${tag}`" class="underline">
+                        <NuxtLink
+                          :to="`/blog/tags/${tag}`"
+                          class="no-underline bg-primary-darken text-slate-700 text-sm p-2 py-1 rounded-md transition-all !py-0.5 hover:-translate-y-0.5"
+                        >
                           {{ tag }}
                         </NuxtLink>
                       </li>
                     </ul>
                   </header>
-                </div>
+                </article>
               </NuxtLink>
             </li>
           </ul>

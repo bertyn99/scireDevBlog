@@ -1,5 +1,6 @@
 <!-- ./pages/blog/index.vue -->
 <script setup>
+import Social from "~~/components/section/Social.vue";
 definePageMeta({
   layout: "blog",
 });
@@ -102,5 +103,6 @@ useHead({
       </template>
     </ContentList>
   </section>
+  <SectionSocial></SectionSocial>
 </template>
 <style scoped></style>
