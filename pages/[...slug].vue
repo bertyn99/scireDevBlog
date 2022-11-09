@@ -60,7 +60,7 @@ useHead({
 </script>
 <template>
   <main>
-    <section class="container mx-auto">
+    <section class="container mx-auto md:px-14">
       <div class="page-heading">
         <div class="wrapper">
           <h1 class="text-5xl font-extrabold">All articles {{ category }}</h1>
@@ -74,19 +74,19 @@ useHead({
       <ContentList :query="query">
         <!-- Default list slot -->
         <template v-slot="{ list }">
-          <ul class="article-list">
+          <ul class="flex flex-col gap-6">
             <li
               v-for="article in list"
               :key="article._path"
-              class="article-item"
+              class="pt-6 first-of-type:border-none border-t border-slate-200"
             >
-              <NuxtLink :to="article._path">
-                <div class="wrapper">
-                  <div class="img-cont w-32">
+              <NuxtLink :to="article._path" class="no-underline">
+                <article class="flex items-start gap-4">
+                  <div class="img-cont w-36">
                     <img
                       :src="`/${article.image}`"
                       :alt="article.title"
-                      class="rounded-lg max-h-[8rem]"
+                      class="h-full w-full object-cover rounded-lg max-h-[8rem]"
                     />
                   </div>
                   <header>
@@ -94,13 +94,16 @@ useHead({
                     <p>{{ article.description }}</p>
                     <ul class="article-tags">
                       <li class="tag" v-for="(tag, n) in article.tags" :key="n">
-                        <NuxtLink :to="`/blog/tags/${tag}`" class="underline">
-                          {{ tag }}
+                        <NuxtLink
+                          :to="`/blog/tags/${tag}`"
+                          class="no-underline bg-primary-darken px-1 py-0.5 inline-flex items-center rounded-md"
+                        >
+                          <span>{{ tag }}</span>
                         </NuxtLink>
                       </li>
                     </ul>
                   </header>
-                </div>
+                </article>
               </NuxtLink>
             </li>
           </ul>
