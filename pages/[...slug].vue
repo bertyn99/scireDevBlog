@@ -60,11 +60,11 @@ useHead({
 </script>
 <template>
   <main>
-    <section class="container mx-auto md:px-14">
+    <section class="container mx-auto md:px-14 pt-16">
       <div class="page-heading">
         <div class="wrapper">
           <h1 class="text-5xl font-extrabold">All articles {{ category }}</h1>
-          <p class="font-medium text-lg">
+          <p class="font-medium text-lg mt-4">
             Here's a list of all my great articles
           </p>
         </div>
