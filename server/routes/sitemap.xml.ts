@@ -16,7 +16,6 @@ export default defineEventHandler(async (event) => {
     sitemap.write({
       url: doc._path,
       changefreq: "daily",
-      priority: 0.7,
       img: [
         {
           url: doc.image,
