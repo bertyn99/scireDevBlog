@@ -9,7 +9,7 @@
     head:
         meta: 
             -  name: "keywords"
-               content: "javascript, framework javascript, origin of jaavscript"
+               content: "typescypt, javascript vs typescript, origin of typescript"
             
 ---
 
