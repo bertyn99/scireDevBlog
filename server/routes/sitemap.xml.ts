@@ -1,6 +1,6 @@
 import { serverQueryContent } from "#content/server";
 import { SitemapStream, streamToPromise } from "sitemap";
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event: any) => {
   // Fetch all documents
   const docs = await serverQueryContent(event).find();
   const sitemap = new SitemapStream({
@@ -16,7 +16,6 @@ export default defineEventHandler(async (event) => {
     sitemap.write({
       url: doc._path,
       changefreq: "daily",
-      priority: 0.7,
       img: [
         {
           url: doc.image,

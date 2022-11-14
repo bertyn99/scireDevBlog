@@ -1,14 +1,14 @@
 ---
-    title: 'Top 10 extension vscode for web developper!'
+    title: 'Top 10 extension vscode for web developper'
     description: "Presentaion of extension that can boost your development experience with you editor"
     image: 'img/article/cover/extension_vscode.webp'
     author: 'Magius'
     category: 'tips and advice'
-    tags: ['productivity']
+    tags: ['productivity','ide']
     head:
         meta: 
             -  name: "keywords"
-               content: "javascript, framework javascript, origin of jaavscript"
+               content: "extension vscode, bestextension vscode, web dev, ide"
             
 ---
 
