@@ -56,6 +56,18 @@ useHead({
     },
   ],
 });
+
+useJsonld({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  name: "ScireDev",
+  description:
+    "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
+  author: {
+    "@type": "Person",
+    name: data.value.article.author,
+  },
+});
 </script>
 <template>
   <main id="main" class="p-4 max-w-5xl mx-auto mt-6">

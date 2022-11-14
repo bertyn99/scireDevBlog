@@ -38,6 +38,14 @@ useHead({
     },
   ],
 });
+
+useJsonld({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  name: "ScireDev",
+  description:
+    "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
+});
 </script>
 <template>
   <section class="container mx-auto py-8">

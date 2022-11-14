@@ -1,8 +1,20 @@
-import { defineNuxtConfig } from "nuxt";
+import { defineNuxtConfig } from "nuxt/config";
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  modules: ["@nuxt/content-edge", "@nuxtjs/tailwindcss","nuxt-icon"],
+  modules: [
+    "@nuxt/content-edge",
+    "@nuxtjs/tailwindcss",
+    "nuxt-jsonld",
+    "nuxt-icon",
+  ],
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+    },
+  },
   content: {
     highlight: {
       theme: {
@@ -18,7 +30,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: {
-      routes: ['/sitemap.xml']
-    }
-  }
+      routes: ["/sitemap.xml"],
+    },
+  },
 });
