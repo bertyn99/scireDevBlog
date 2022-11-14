@@ -6,7 +6,7 @@
       </div>
       <div class="w-4/5 ml-auto min-w-[190px]">
         <div class="mt-8">
-          <div class="flex items-center">
+          <div class="flex items-center gap-2">
             <div class="relative overflow-hidden rounded-full h-8 w-8">
               <img
                 :src="getAuthorImg(data.author)"
@@ -24,11 +24,13 @@
         </div>
 
         <div class="w-full h-16 ml-2 mt-6 mb-8 sm:mb-5 relative z-10">
-          <h3
-            class="w-[45vw] lg:w-[36vw] leading-7 z-10 text-2xl sm:text-3xl font-bold"
-          >
-            {{ data.title }}
-          </h3>
+          <NuxtLink :to="`/blog/${data._path}`">
+            <h3
+              class="w-[45vw] lg:w-[36vw] leading-7 z-10 text-2xl sm:text-3xl font-bold"
+            >
+              {{ data.title }}
+            </h3>
+          </NuxtLink>
         </div>
         <span
           class="mb-6 before:block before:content-[''] before:mx-2 before:w-20 before:h-0.5 before:bg-primary-darken inline-flex text-primary-darken items-center text-sm"

@@ -2,7 +2,12 @@ import { defineNuxtConfig } from "nuxt/config";
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  modules: ["@nuxt/content-edge", "@nuxtjs/tailwindcss", "nuxt-jsonld"],
+  modules: [
+    "@nuxt/content-edge",
+    "@nuxtjs/tailwindcss",
+    "nuxt-jsonld",
+    "nuxt-icon",
+  ],
   app: {
     head: {
       htmlAttrs: {
