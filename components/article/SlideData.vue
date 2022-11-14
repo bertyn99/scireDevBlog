@@ -105,7 +105,7 @@
         </div>
       </div>
     </div>
-    <div class="h-[475px] w-full sm:w-1/2 relative sm:h-full">
+    <div class="h-[475px] w-full sm:w-1/2 relative sm:h-full group">
       <span class="absolute sm:hidden bg-white p-3 -top-7 z-30"
         >New Articles</span
       >
@@ -113,10 +113,11 @@
       <img
         :src="data.image"
         :alt="data.title"
-        class="absolute w-full h-full object-fill grayscale z-0"
+        class="absolute w-full h-full object-fill grayscale z-0 group-hover:grayscale-0"
       />
       <NuxtLink
-        class="hidden sm:inline-flex absolute p-4 z-20 -left-5 bottom-10 items-center gap-2 bg-tertiary-default text-white"
+        class="hidden sm:inline-flex absolute p-4 z-20 -left-5 bottom-10 items-center gap-2 bg-tertiary-default text-white group-hover:bg-tertiary-darken"
+        :to="data._path"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
