@@ -48,7 +48,7 @@ useJsonld({
 });
 </script>
 <template>
-  <section class="container mx-auto py-8">
+  <section class="container mx-auto py-8 px-0 lg:px-9">
     <div class="flex justify-between px-2">
       <h2
         class="font-bold text-2xl relative before:block before:absolute before:-left-3 before:w-10 before:h-7 before:mt-3 before:bg-tertiary-default/20 before:-z-50"
