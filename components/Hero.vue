@@ -1,6 +1,6 @@
 <template>
   <div
-    class="grid grid-cols-1 md:grid-cols-5 md:grid-flow-row w-full mt-20 sm:my-24 sm:mb-8"
+    class="grid grid-cols-1 md:grid-cols-5 md:grid-flow-row w-full max-w-7xl mt-20 sm:my-24 sm:mb-8 lg:px-4 mx-auto"
   >
     <Carrousel v-slot="{ currentSlide }">
       <CarrouselSlide v-for="(slide, index) in data" :key="index">
