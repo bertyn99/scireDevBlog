@@ -1,7 +1,7 @@
 ---
     title: 'Nuxt 3 is Coming'
     description: 'After a long period of waiting for beta and release candidate nuxt 3 is finally stable. This is not a simple update to Vue 3, but a complete rewrite of Nuxt 2, with a new renderer and a new philosophy.'
-    image: 'img/article/cover/test.jpg'
+    image: 'img/article/cover/nuxt.webp'
     author: 'Magius'
     draft: true
     category: 'tips and advice'
@@ -23,7 +23,8 @@ Nuxt.js is a server-side rendering framework built on Vue.js.
 
 It abstracts most of the complex configuration involved in handling asynchronous data, middleware and routing. It also helps to easily structure and build [Vue.js](https://nuxt.com/) applications in **SSG**/**SSR**/**ISR**...
 
-## New Engine
+## New Feature
+### New Engine
 
 **Nuxt 3** brings many optimizations and general improvements. This results in a smaller bundle size (20% lighter kernel compared to **Nuxt 2**) and improved performance.
 
@@ -31,7 +32,7 @@ Developers can expect better performance in development thanks to the new **Nitr
 
 In addition, other parts of the tooling have also been upgraded - **Webpack 5**, **PostCSS 8**, **ESBuild** and Vite are now supported - making development and production builds extremely fast.
 
-## Moving from Vue 2 to Vue 3
+### Moving from Vue 2 to Vue 3
 
 Unsurprisingly, Nuxt 3 will be based on Vue 3 and will offer an experience adapted to the latest version of the Vue framework. This means:
 
@@ -40,15 +41,15 @@ Improved routing with Vue Router 4;
 Revised data retrieval and Suspense integration.
 In addition to the migration to Vue 3, **Nuxt 3** adopts ES (ESM) and TypeScript modules as first-class citizens to enhance the development experience.
 
-## Best DX with strongly typed Nuxt
+### Best DX with strongly typed Nuxt
 
 Nuxt 3 is written using the Typescript superset of the Javascript language. This means that IDEs will not have to guess the types and names of parameters. When using the Nuxt API, you'll get hints and tips about functions and classes exactly as they were described by the Nuxt 3 developers, making it easier to code without having to navigate through every API detail. This move aligns with what Vue 3 has done and where the Vue ecosystem as a whole is headed.
 
-## Nuxt Kit
+### Nuxt Kit
 
 Est un toolkit qui permet aux auteurs de modules de plus facilement développper des modules Nuxt qui intéragissent avec les Nuxt Hook ou le Nuxt Build Core.
 
-## Hybrid rendering
+### Hybrid rendering
 
 Avec cette nouvelle version nuxt support :
 
@@ -62,7 +63,7 @@ Nuxt permet aussi de gerer le rendering en fonction des routes grâce au route r
 
 Is one of the new features I'm most excited about. This extends feature of nuxt 3 is a great way to share code between projects or even extend a third party project.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b0032a14-e9cb-418d-bb35-68322f0d02dd/Untitled.png)
+![Nuxt Extends example](/img/article/nuxt_extends.webp)
 
 Potential use case that the Nuxt/Vue community already sees:
 
