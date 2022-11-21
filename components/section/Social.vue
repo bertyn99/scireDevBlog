@@ -28,18 +28,23 @@
       </div>
     </div>
     <div
-      class="w-full md:w-1/2 max-w-md flex flex-col items-center bg-primary-darken/40 px-4 py-2"
+      class="w-full md:w-1/2 max-w-lg items-center bg-primary-darken/40 px-4 py-14 relative"
     >
-      <div class="flex flex-col items-center justify-center -translate-y-9">
-        <span class="font-bold text-4xl">Subscribe </span>
+      <div
+        class="absolute top-2 left-0 right-0 flex flex-col items-center justify-center -translate-y-9"
+      >
+        <span
+          class="font-bold text-4xl relative before:block before:absolute before:-right-2 before:w-12 before:h-7 before:-top-0 before:bg-tertiary-default/20 before:-z-50"
+          >Subscribe
+        </span>
         <span class="font-normal text-xl">To our newsletter</span>
       </div>
-      <form class="">
+      <form class="w-full px-8">
         <label for="Email" class="text-sm">Email Address</label>
-        <div class="flex flex-wrap w-full items-center mt-1">
-          <input type="email" class="px-2 h-8 w-full md:w-3/4" />
+        <div class="flex flex-wrap w-full h-full items-center mt-1">
+          <input type="email" class="px-2 w-full md:w-3/4 py-2" />
           <button
-            class="w-full md:w-1/4 h-8 bg-tertiary-default text-white p-2"
+            class="w-full md:w-1/4 bg-tertiary-default text-white px-2 py-2"
           >
             Subscribe
           </button>
