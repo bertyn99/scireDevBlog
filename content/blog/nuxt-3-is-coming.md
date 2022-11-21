@@ -1,5 +1,5 @@
 ---
-    title: 'Nuxt 3 is Coming'
+    title: 'Nuxt 3 is Coming! What is new?'
     description: 'After a long period of waiting for beta and release candidate nuxt 3 is finally stable. This is not a simple update to Vue 3, but a complete rewrite of Nuxt 2, with a new renderer and a new philosophy.'
     image: 'img/article/cover/nuxt.webp'
     author: 'Magius'
