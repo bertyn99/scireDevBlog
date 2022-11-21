@@ -23,7 +23,7 @@ JavaScript was designed to write small programs. But now it is used to make comp
 
 In addition to that javascript can do…how can I say it, some strange things.
 
-```tsx
+```ts
 true == []; // -> false
 true == ![]; // -> false
 
@@ -46,8 +46,8 @@ Examples: Perl, Ruby, Python, PHP, JavaScript, Erlang
 
 Most scripting languages have this feature as there is no compiler to do static type-checking anyway, but you may find yourself searching for a bug that is due to the interpreter misinterpreting the type of a variable.  Since javascript is more and more used to write complex project that lead to big bugs .
 
-```jsx
-i s a variable: var i;
+```js
+ var i // is a variable:;
 ```
 
 ### Statically typed languages
@@ -58,19 +58,21 @@ The main advantage here is that all kinds of checking can be done by the compile
 
 Examples: C, C++, Java, Rust, Go, Scala
 
-```tsx
-i est une variable de type number: var i: number;
+```ts
+ var i: number //i is a variable of type number;
 ```
 
-liste of types : [https://www.typescriptlang.org/docs/handbook/basic-types.html](https://www.typescriptlang.org/docs/handbook/basic-types.html)
+list of types : [https://www.typescriptlang.org/docs/handbook/basic-types.html](https://www.typescriptlang.org/docs/handbook/basic-types.html)
 
 ## THE CONSQUENCES
 
 There is more code, due to type spécified. But some errors are detected earlier during the development and the code became more readable.
 
-```jsx
+```js
+
+// this function can take strings of characters, booleans or same objects as parameters.
+
 // Adds two numbers
-this function can take strings of characters, booleans or same objects as parameters.
 function add(x, y) {
 
 return x + y;
@@ -91,9 +93,9 @@ return x * y;
 mul("toto", 31) // evaluates to NaN (Not a Number)
 ```
 
-```tsx
+```ts
 // Adds two numbers+
-here add takes as parameter only the specified types
+// here add takes as parameter only the specified types
 
 function add(x : number, y : number) : number {
 
