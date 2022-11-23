@@ -15,7 +15,7 @@ const flattenLinks = (links) => {
       return _link;
     })
     .flat(1);
-  console.log({ _links });
+
   return _links;
 };
 </script>

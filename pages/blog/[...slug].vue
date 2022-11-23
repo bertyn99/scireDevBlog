@@ -1,6 +1,10 @@
 <!-- ./pages/blog/[…slug.vue] -->
 <script setup>
+definePageMeta({
+  middleware: "broken-link-redirection",
+});
 const { path } = useRoute();
+
 const { data } = await useAsyncData(`content-${path}`, async () => {
   // fetch document where the document path matches with the cuurent route
   let article = queryContent().where({ _path: path }).findOne();
@@ -10,11 +14,13 @@ const { data } = await useAsyncData(`content-${path}`, async () => {
     .only(["_path", "title", "description"])
     .sort({ date: 1 })
     .findSurround(path);
+
   return {
     article: await article,
     surround: await surround,
   };
 });
+console.log(data.value.article);
 // destrucure `prev` and `next` value from data
 const [prev, next] = data.value.surround;
 // set the meta
@@ -71,7 +77,7 @@ useJsonld({
 </script>
 <template>
   <main id="main" class="p-4 max-w-5xl mx-auto mt-6">
-    <header v-if="data.article" class="p-4 pb-12">
+    <header v-if="data.article.title" class="p-4 pb-12">
       <div class="h-72 w-full">
         <img
           :src="`/${data.article.image}`"
@@ -93,7 +99,10 @@ useJsonld({
     </header>
     <hr />
     <section class="grid grid-cols-8">
-      <aside class="col-span-full md:col-span-2 row-start-1 w-full pt-14">
+      <aside
+        class="col-span-full md:col-span-2 row-start-1 w-full pt-14"
+        v-if="data.article.body?.toc?.links"
+      >
         <!-- Toc Component -->
         <Toc :links="data.article.body.toc.links" />
       </aside>
@@ -103,6 +112,11 @@ useJsonld({
         <ContentDoc>
           <template #not-found>
             <h1>Document not found</h1>
+          </template>
+          <template #empty>
+            <h1>Article not found</h1>
+
+            <NuxtLink to="/"> Back Home</NuxtLink>
           </template>
         </ContentDoc>
       </article>
