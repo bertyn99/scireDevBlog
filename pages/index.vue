@@ -93,6 +93,8 @@ useHead({
           'description',
           'category',
           'author',
+          'createdAt',
+          'modifiedAt',
           'tags',
           '_path',
           'image',

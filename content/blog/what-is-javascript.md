@@ -4,6 +4,8 @@
     image: 'img/article/cover/js.webp'
     author: 'Magius'
     category: 'road to basic'
+    createdAt: '2022-10-18'
+    modifiedAt: '2022-11-24'
     tags: ['javascript']
     head:
         meta: 

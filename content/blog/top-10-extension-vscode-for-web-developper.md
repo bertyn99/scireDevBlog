@@ -4,6 +4,8 @@
     image: 'img/article/cover/extension_vscode.webp'
     author: 'Magius'
     category: 'tips and advice'
+    createdAt: '2022-10-18'
+    modifiedAt: '2022-11-24'
     tags: ['productivity','ide']
     head:
         meta: 

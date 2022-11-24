@@ -1,5 +1,6 @@
 <!-- ./pages/blog/[…slug.vue] -->
 <script setup>
+import { getAuthorImg } from "@/utils/format";
 definePageMeta({
   middleware: "broken-link-redirection",
 });
@@ -20,7 +21,7 @@ const { data } = await useAsyncData(`content-${path}`, async () => {
     surround: await surround,
   };
 });
-console.log(data.value.article);
+
 // destrucure `prev` and `next` value from data
 const [prev, next] = data.value.surround;
 // set the meta
@@ -37,7 +38,14 @@ useHead({
       name: "author",
       content: data.value.article.author,
     },
-
+    {
+      name: "article:datePublished",
+      content: data.value.article.createdAt,
+    },
+    {
+      name: "article:dateModified",
+      content: data.value.article.modifiedAt,
+    },
     {
       name: "og:type",
       content: "article",
@@ -67,7 +75,7 @@ useHead({
     {
       hid: "og:image",
       property: "og:image",
-      content: `https://sciredev.com/${data.value.article.img}`,
+      content: `https://sciredev.com/${data.value.article.image}`,
     },
   ],
 });
@@ -85,10 +93,6 @@ useHead({
 }); */
 </script>
 <template>
-  <SchemaOrgArticle
-    :date-published="new Date(2020, 1, 1)"
-    :date-modified="new Date(2020, 1, 1)"
-  />
   <SchemaOrgBreadcrumb
     :itemListElement="[
       { name: 'Home', item: '/' },
@@ -96,6 +100,16 @@ useHead({
       { name: data.article.title, item: path },
     ]"
   />
+  <SchemaOrgArticle
+    type="TechArticle"
+    :datePublished="data.article.createdAt"
+    :dateModified="data.article.modifiedAt"
+    :author="{
+      name: data.article.author,
+      image: getAuthorImg(data.article.author),
+    }"
+  />
+
   <main id="main" class="p-4 max-w-5xl mx-auto mt-6">
     <header v-if="data.article.title" class="p-4 pb-12">
       <div class="h-72 w-full">
@@ -106,7 +120,7 @@ useHead({
         />
       </div>
       <h1 class="font-extrabold text-5xl my-3">{{ data.article.title }}</h1>
-      <!--  <p class="font-medium text-lg">{{ data.article.description }}</p> -->
+
       <ul class="flex gap-4">
         <li
           class="bg-slate-500 px-2 py-0.5 rounded-md font-medium text-gray-300"
@@ -116,8 +130,16 @@ useHead({
           {{ tag }}
         </li>
       </ul>
+      <p class="mt-2 text-primary-darken">
+        Modified at
+        <time itemprop="dateModified" datetime="data.article.modifiedAt">{{
+          data.article.modifiedAt
+        }}</time>
+      </p>
     </header>
+
     <hr />
+
     <section class="grid grid-cols-8">
       <aside
         class="col-span-full md:col-span-2 row-start-1 w-full pt-14"
