@@ -3,8 +3,9 @@
     description: 'What is Typescript ? is it a new javascript? Discover the basics of the typescript , his origin and his advantage  against  javascript'
     image: 'img/article/cover/ts.webp'
     author: 'Randomcitizen'
-    draft: true
     category: 'road to basic'
+    createdAt: '2022-10-18'
+    modifiedAt: '2022-11-24'
     tags: ['javascript']
     head:
         meta: 

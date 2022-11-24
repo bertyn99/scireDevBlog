@@ -19,6 +19,10 @@ useHead({
       content: "index, follow, max-image-preview:large",
     },
     {
+      name: "og:type",
+      content: "website",
+    },
+    {
       property: "og:locale",
       content: "en-US",
     },
@@ -39,15 +43,17 @@ useHead({
   ],
 });
 
-useJsonld({
+/* useJsonld({
   "@context": "https://schema.org",
   "@type": "Article",
   name: "ScireDev",
   description:
     "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
-});
+}); */
 </script>
 <template>
+  <SchemaOrgWebPage />
+  <SchemaOrgBreadcrumb :itemListElement="[{ name: 'Home', item: '/' }]" />
   <section class="container mx-auto py-8 px-0 lg:px-9">
     <div class="flex justify-between px-2">
       <h2
@@ -87,6 +93,8 @@ useJsonld({
           'description',
           'category',
           'author',
+          'createdAt',
+          'modifiedAt',
           'tags',
           '_path',
           'image',

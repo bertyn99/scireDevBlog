@@ -3,6 +3,7 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "./types"
+    "declarationDir": "./types",
+    "types": ["@nuxt/image"]
   }
 }

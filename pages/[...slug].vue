@@ -33,7 +33,6 @@ useHead({
       name: "description",
       content: `Scire Dev - article of the category ${category}`,
     },
-    ,
     {
       name: "robots",
       content: "follow, max-image-preview:large",
@@ -48,9 +47,9 @@ useHead({
     },
     {
       property: "og:type",
-      content: "article",
+      content: "collections",
     },
-    ,
+
     {
       property: "og:site_name",
       content: "Scire Dev",
@@ -59,6 +58,7 @@ useHead({
 });
 </script>
 <template>
+  <SchemaOrgWebPage />
   <main>
     <section class="container mx-auto md:px-14 pt-16">
       <div class="page-heading">

@@ -6,8 +6,8 @@ function capitalize(sentence: string): string {
 }
 
 function getAuthorImg(author: string): string {
-  return author == "Magius"
-    ? "./img/author/magius.webp"
-    : "./img/author/randomcityzen.webp";
+  return author.toLowerCase() == "magius"
+    ? "/img/author/magius.webp"
+    : "/img/author/randomcityzen.webp";
 }
 export { capitalize, getAuthorImg };

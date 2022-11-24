@@ -9,10 +9,12 @@
   "devDependencies": {
     "@heroicons/vue": "^2.0.10",
     "@nuxt/content-edge": "latest",
+    "@nuxt/image-edge": "1.0.0-27821548.ab054e4",
     "@nuxtjs/tailwindcss": "^6.1.3",
     "@tailwindcss/typography": "^0.5.7",
-    "nuxt": "^3.0.0-rc.11",
+    "nuxt": "^3.0.0",
     "nuxt-icon": "^0.1.7",
+    "nuxt-schema-org": "1.1.0-beta.6",
     "sitemap": "^7.1.1"
   },
   "dependencies": {
