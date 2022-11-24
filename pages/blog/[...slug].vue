@@ -34,6 +34,15 @@ useHead({
       content: "index, follow, max-image-preview:large",
     },
     {
+      name: "author",
+      content: data.value.article.author,
+    },
+
+    {
+      name: "og:type",
+      content: "article",
+    },
+    {
       property: "og:locale",
       content: "en-US",
     },
@@ -63,7 +72,7 @@ useHead({
   ],
 });
 
-useJsonld({
+/* useJsonld({
   "@context": "https://schema.org",
   "@type": "Article",
   name: "ScireDev",
@@ -73,9 +82,20 @@ useJsonld({
     "@type": "Person",
     name: data.value.article.author,
   },
-});
+}); */
 </script>
 <template>
+  <SchemaOrgArticle
+    :date-published="new Date(2020, 1, 1)"
+    :date-modified="new Date(2020, 1, 1)"
+  />
+  <SchemaOrgBreadcrumb
+    :itemListElement="[
+      { name: 'Home', item: '/' },
+      { name: 'Blog', item: '/blog' },
+      { name: data.article.title, item: path },
+    ]"
+  />
   <main id="main" class="p-4 max-w-5xl mx-auto mt-6">
     <header v-if="data.article.title" class="p-4 pb-12">
       <div class="h-72 w-full">

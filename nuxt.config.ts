@@ -5,8 +5,9 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/content-edge",
     "@nuxtjs/tailwindcss",
-    "nuxt-jsonld",
     "nuxt-icon",
+    "nuxt-schema-org",
+    "@nuxt/image-edge",
   ],
   app: {
     head: {
@@ -14,6 +15,12 @@ export default defineNuxtConfig({
         lang: "en",
       },
     },
+  },
+  image: {
+    // Options
+  },
+  schemaOrg: {
+    canonicalHost: "https://www.sciredev.com",
   },
   content: {
     highlight: {
