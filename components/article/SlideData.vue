@@ -8,7 +8,7 @@
         <div class="mt-8">
           <div class="flex items-center gap-2">
             <div class="relative overflow-hidden rounded-full h-8 w-8">
-              <img
+              <nuxt-img
                 :src="getAuthorImg(data.author)"
                 :alt="`image de profile ${data.author}`"
                 class="absolute w-full h-full"
@@ -112,7 +112,7 @@
         >New Articles</span
       >
 
-      <img
+      <nuxt-img
         :src="data.image"
         :alt="data.title"
         class="absolute w-full h-full object-fill grayscale z-0 group-hover:grayscale-0"
@@ -143,7 +143,7 @@
           <div class="mt-8">
             <div class="flex items-center">
               <div class="relative overflow-hidden rounded-full h-8 w-8">
-                <img
+                <nuxt-img
                   :src="getAuthorImg(data.author)"
                   :alt="`image de profile ${data.author}`"
                   class="absolute w-full h-full"

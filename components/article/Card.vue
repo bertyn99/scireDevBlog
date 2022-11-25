@@ -7,7 +7,7 @@ const props = defineProps(["article"]);
   <NuxtLink :to="article._path">
     <article class="w-full p-2.5 max-w-md max-h-[465px] group hover:bg-white">
       <div class="relative h-[230px]">
-        <img
+        <nuxt-img
           class="w-full h-full grayscale group-hover:grayscale-0"
           :src="article?.image"
         />
@@ -31,7 +31,7 @@ const props = defineProps(["article"]);
         </NuxtLink>
       </div>
       <div class="py-2 flex items-center gap-2">
-        <img
+        <nuxt-img
           class="w-7 h-7 rounded-full object-cover"
           :src="getAuthorImg(article.author)"
           :alt="`image de profile ${article.author}`"
