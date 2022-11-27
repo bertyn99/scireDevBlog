@@ -10,6 +10,7 @@
 useSchemaOrg([
   // @todo Select Identity: https://vue-schema-org.netlify.app/guide/guides/identity
   defineWebSite({
+    "@id": "https://www.sciredev.com/",
     name: "ScireDev",
   }),
   defineBreadcrumb({}),

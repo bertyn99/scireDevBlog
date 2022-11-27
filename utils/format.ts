@@ -10,4 +10,8 @@ function getAuthorImg(author: string): string {
     ? "/img/author/magius.webp"
     : "/img/author/randomcityzen.webp";
 }
-export { capitalize, getAuthorImg };
+
+const truncate = (str: string, n: number) => {
+  return str?.toString().replace(new RegExp(`(.{${n - 1}})..+`), "$1...");
+};
+export { capitalize, getAuthorImg, truncate };

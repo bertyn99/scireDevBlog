@@ -20,7 +20,7 @@
       <!-- navigation -->
       <div class="bg-secondary w-2/5 flex sm:w-1/2">
         <button
-          class="bg-white w-full md:w-14 h-full inline-flex justify-center items-center"
+          class="bg-white w-full md:w-14 h-full inline-flex justify-center items-center hover:bg-primary-default"
           @click="goPrev"
         >
           <svg
@@ -39,7 +39,7 @@
           </svg>
         </button>
         <button
-          class="bg-white w-full md:w-14 h-full inline-flex justify-center items-center"
+          class="bg-white w-full md:w-14 h-full inline-flex justify-center items-center hover:bg-primary-default"
           @click="goNext"
         >
           <svg
@@ -64,7 +64,8 @@
         <li
           v-for="(slide, index) in getSlideCount"
           :key="index"
-          class="w-2 h-2"
+          class="w-2 h-2 cursor-pointer"
+          @click="goTo(index + 1)"
           :class="[
             currentSlide === index + 1 ? 'bg-white' : 'bg-primary-darken',
           ]"
@@ -92,6 +93,9 @@ function goPrev() {
     return;
   }
   currentSlide.value--;
+}
+function goTo(i) {
+  currentSlide.value = i;
 }
 
 onMounted(() => {

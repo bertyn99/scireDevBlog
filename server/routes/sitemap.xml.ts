@@ -15,11 +15,12 @@ export default defineEventHandler(async (event: any) => {
   for (const doc of docs) {
     sitemap.write({
       url: doc._path,
-      changefreq: "daily",
+      lastmod: doc.modifiedAt,
+      changefreq: "weekly",
       img: [
         {
           url: doc.image,
-          caption: "An image",
+          caption: doc.description,
           title: doc.title,
         },
       ],

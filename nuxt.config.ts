@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   },
   schemaOrg: {
     defaultLanguage: "en-US",
-    canonicalHost: "https://www.sciredev.com",
+    canonicalHost: "https://www.sciredev.com/",
   },
   content: {
     highlight: {
