@@ -87,7 +87,8 @@ const props = defineProps(["article"]);
               d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          4 <span class="text-xs">Min</span></span
+          {{ Math.ceil(article.readingTime.minutes) }}
+          <span class="text-xs">Min</span></span
         >
         <span class="inline-flex items-center gap-1 text-sm text-primary-darken"
           ><svg

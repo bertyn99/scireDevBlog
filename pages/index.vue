@@ -94,6 +94,7 @@ useHead({
           'category',
           'author',
           'createdAt',
+          'readingTime',
           'modifiedAt',
           'tags',
           '_path',

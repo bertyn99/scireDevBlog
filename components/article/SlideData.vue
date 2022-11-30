@@ -82,7 +82,8 @@
                 d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            4 <span class="text-xs">min</span>
+            {{ Math.ceil(data.readingTime.minutes) }}
+            <span class="text-xs">min</span>
           </span>
           <span
             class="inline-flex items-center gap-1 text-sm text-primary-darken"
@@ -211,7 +212,8 @@
                   d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              4 <span class="text-xs">min</span></span
+              {{ Math.ceil(data.readingTime.minutes) }}
+              <span class="text-xs">min</span></span
             >
             <span
               class="inline-flex items-center gap-1 text-sm text-primary-default"
