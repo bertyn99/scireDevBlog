@@ -115,7 +115,7 @@
       <img
         :src="data.image"
         :alt="data.title"
-        class="absolute w-full h-full object-fill grayscale z-0 group-hover:grayscale-0"
+        class="absolute w-full h-full object-cover grayscale z-0 group-hover:grayscale-0"
       />
       <NuxtLink
         class="hidden sm:inline-flex absolute p-4 z-20 -left-5 bottom-10 items-center gap-2 bg-tertiary-default text-white group-hover:bg-tertiary-darken"
