@@ -83,12 +83,12 @@ useHead({
               <NuxtLink :to="article._path" class="no-underline">
                 <article class="flex items-start gap-4">
                   <div
-                    class="w-36 h-full max-h-[8rem] rounded-lg overflow-hidden"
+                    class="relative w-36 h-[12vh] max-h-[8rem] rounded-lg overflow-hidden"
                   >
                     <img
                       :src="`/${article.image}`"
                       :alt="article.title"
-                      class="w-full h-full object-fill"
+                      class="absolute w-full h-full object-cover"
                     />
                   </div>
                   <header>
