@@ -75,7 +75,7 @@ Simply add the v-wave `v-wave`  attribute to any element you want to add the r
 
 As a result, when we run this example, we get the following results:
 
-![https://blog.logrocket.com/wp-content/uploads/2022/05/vwave-property.gif](https://blog.logrocket.com/wp-content/uploads/2022/05/vwave-property.gif)
+![/img/article/click.gif](/img/article/click.gif)
 
 By adjusting the ripple effects' initial opacity, length, easing, and a variety of other factors, we may further tailor their appearance:
 
@@ -94,7 +94,7 @@ By adjusting the ripple effects' initial opacity, length, easing, and a variety 
 
 which will result in:
 
-![https://blog.logrocket.com/wp-content/uploads/2022/05/customize-ripple-effects.gif](https://blog.logrocket.com/wp-content/uploads/2022/05/customize-ripple-effects.gif)
+![/img/article/click-ripple-effect.gif](/img/article/click-ripple-effect.gif)
 
 Here’s also a [link to the v-wave documentation](https://github.com/justintaddei/v-wave#summary) for further information.
 
@@ -171,7 +171,7 @@ But before the animation starts, as was previously said, we still need to define
 
 And running this code, we have the following output:
 
-![https://blog.logrocket.com/wp-content/uploads/2022/05/vue-animate-onscroll-.gif](https://blog.logrocket.com/wp-content/uploads/2022/05/vue-animate-onscroll-.gif)
+![/img/article/vue-animate-onscroll.gif](/img/article/vue-animate-onscroll.gif)
 
 Additionally, it's important to note that an element's accompanying animation is only ever activated once by default when it scrolls into view. However, we can replace that with `v-animate-onscroll.repeat` to ensure that the animation always starts when the element is scrolled into view:
 
@@ -197,7 +197,7 @@ Vue-Kinesis, a potent animation library that offers a number of components that 
 
 It contains a large range of custom properties that work with its components to let us programmatically manipulate animation flows, making it simple to get the required effect.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/01c0924b-0eca-494c-aeb8-5287fde12e39/Untitled.png)
+![/img/article/vue-kinesis.gif](/img/article/vue-kinesis.gif)
 
 ### ****Installation****
 
@@ -256,9 +256,9 @@ Taking the code example from the documentation page:
 <template>
   <div id="app">
     <kinesis-container>
-      Here, you can put
-      <kinesis-element :strength="10"> whatever </kinesis-element>
-      <kinesis-element :strength="20"> content! </kinesis-element>
+      Here, you can try to put
+      <kinesis-element :strength="10"> any </kinesis-element>
+      <kinesis-element :strength="20"> content you want! </kinesis-element>
     </kinesis-container>
   </div>
 </template>
@@ -279,7 +279,7 @@ We have the following output:
 
 The following output is available:
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4500fa41-63ec-4592-87ba-bbc8513c2061/Untitled.png)
+![/img/article/audio-sample-output.gif](/img/article/audio-sample-output.gif)
 
 Also for the audio sample, we have:
 
@@ -287,7 +287,7 @@ Also for the audio sample, we have:
 <template>
   <div id="app">
     <div class="main">
-      <div style="padding: 40px">
+      <div style="padding: 30px">
         <button class="play-button" @click="togglePlaying">
           {{ isPlaying ? "Stop" : "Play" }}
         </button>
@@ -316,7 +316,7 @@ export default {
   },
   data() {
     return {
-      audioFile: require("./aud.mp3"),
+      audioFile: require("./josman-goal.mp3"),
       isPlaying: false,
     };
   },
@@ -339,6 +339,7 @@ Furthermore, as already mentioned, this library adds a kinesis (undirected movem
 
 vueuse/motion is a addon of @vueUse. VueUse is a collection of hundreds of vital Vue Composition Utilities for dealing with numerous browser, sensor, animation, and state apis as well as other things, .The addon [motion](https://motion.vueuse.org/) is a collection of vue composable that aims to help you add animations with a simple but powerful API.You can animate between numbers, colors, and keyframes thanks to [Popmotion](https://popmotion.io/). You have the option of writing animations either from the script or from the template.
 
+![/img/article/vueUse-motion.gif](/img/article/vueUse-motion.gif)
 ### ****Installation****
 
 ```bash
@@ -375,7 +376,7 @@ export default {
 ### Usage
 
 In order to use @vueUse/motion you can use the existing presets
-
+![/img/article/preset-motion.gif](/img/article/preset-motion.gif)
 ```jsx
 <template>
 	<div v-motion-roll-bottom />

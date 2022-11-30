@@ -109,6 +109,5 @@ const { data } = await useAsyncData("home", () =>
   queryContent({ path: "/blog" }).limit(3).find()
 );
 
-console.log(data.value[0].readingTime?.text);
 const popular = data.value;
 </script>
