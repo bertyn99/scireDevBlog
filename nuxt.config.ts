@@ -32,6 +32,9 @@ export default defineNuxtConfig({
         dark: "github-dark",
       },
     },
+    markdown: {
+      remarkPlugins: ["remark-reading-time"],
+    },
   },
   tailwindcss: {
     cssPath: "~/assets/css/main.css",

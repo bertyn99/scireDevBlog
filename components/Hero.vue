@@ -69,7 +69,9 @@
                     />
                   </svg>
 
-                  <span class="text-sm"> 200 </span>
+                  <span class="text-sm">
+                    {{ Math.ceil(article.readingTime?.minutes) }} min
+                  </span>
                 </div>
                 <div class="flex text-primary-darken items-center gap-1">
                   <svg
@@ -104,8 +106,9 @@
 </template>
 <script setup>
 const { data } = await useAsyncData("home", () =>
-  queryContent({ path: "/blog" }).limit(5).find()
+  queryContent({ path: "/blog" }).limit(3).find()
 );
 
-const popular = data.value.slice(0, 3);
+console.log(data.value[0].readingTime?.text);
+const popular = data.value;
 </script>
