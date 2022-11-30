@@ -1,10 +1,13 @@
 function capitalize(sentence: string): string {
   return sentence
     .split(" ")
-    .map((word: string, index: number) => word)
+    .map((word: string, index: number) => capitalizeFirstLetter(word))
     .join(" ");
 }
 
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 function getAuthorImg(author: string): string {
   return author.toLowerCase() == "magius"
     ? "/img/author/magius.webp"

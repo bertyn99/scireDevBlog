@@ -1,6 +1,6 @@
 <!-- ./pages/blog/[…slug.vue] -->
 <script setup>
-import { getAuthorImg } from "@/utils/format";
+import { getAuthorImg, capitalize } from "@/utils/format";
 definePageMeta({
   middleware: "broken-link-redirection",
 });
@@ -26,7 +26,7 @@ const { data } = await useAsyncData(`content-${path}`, async () => {
 const [prev, next] = data.value.surround;
 // set the meta
 useHead({
-  title: data.value.article.title,
+  title: capitalize(data.value.article.title),
   meta: [
     { name: "description", content: data.value.article.description },
     ,
@@ -112,14 +112,16 @@ useHead({
 
   <main id="main" class="p-4 max-w-5xl mx-auto mt-6">
     <header v-if="data.article.title" class="p-4 pb-12">
-      <div class="h-72 w-full">
+      <div class="h-[420px] w-full">
         <nuxt-img
           :src="`/${data.article.image}`"
           :alt="data.article.title"
-          class="w-full h-full object-fill rounded-2xl"
+          class="w-full h-full object-fill aspect- rounded-2xl"
         />
       </div>
-      <h1 class="font-extrabold text-5xl my-3">{{ data.article.title }}</h1>
+      <h1 class="font-extrabold text-5xl my-3">
+        {{ capitalize(data.article.title) }}
+      </h1>
 
       <ul class="flex gap-4">
         <li
