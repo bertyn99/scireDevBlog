@@ -39,7 +39,7 @@ const props = defineProps(["article"]);
         <span class="font-medium text-secondary/60">{{ article?.author }}</span>
       </div>
       <h3 class="font-bold text-lg leading-snug h-11">
-        {{ article?.title }}
+        {{ capitalize(article?.title) }}
       </h3>
       <span
         class="my-2 before:block before:content-[''] before:mx-2 before:w-10 before:h-0.5 before:bg-primary-darken inline-flex text-primary-darken items-center text-xs"

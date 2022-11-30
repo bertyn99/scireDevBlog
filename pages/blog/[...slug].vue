@@ -1,6 +1,6 @@
 <!-- ./pages/blog/[…slug.vue] -->
 <script setup>
-import { getAuthorImg } from "@/utils/format";
+import { getAuthorImg, capitalize } from "@/utils/format";
 definePageMeta({
   middleware: "broken-link-redirection",
 });
@@ -26,7 +26,7 @@ const { data } = await useAsyncData(`content-${path}`, async () => {
 const [prev, next] = data.value.surround;
 // set the meta
 useHead({
-  title: data.value.article.title,
+  title: capitalize(data.value.article.title),
   meta: [
     { name: "description", content: data.value.article.description },
     ,
