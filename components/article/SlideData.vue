@@ -8,7 +8,7 @@
         <div class="mt-8">
           <div class="flex items-center gap-2">
             <div class="relative overflow-hidden rounded-full h-8 w-8">
-              <nuxt-img
+              <img
                 :src="getAuthorImg(data.author)"
                 :alt="`image de profile ${data.author}`"
                 class="absolute w-full h-full"
@@ -38,9 +38,9 @@
           {{ capitalize(data.category) }}
         </span>
         <p
-          class="xl:mb-10 lg:mb-4 mb-3 text-base text-primary-darken px-0 sm:px-2 overflow-hidden max-h-24 leading-5 text-ellipsis"
+          class="xl:mb-10 lg:mb-4 mb-3 text-base text-secondary/70 px-0 sm:px-2 overflow-hidden max-h-24 leading-5 text-ellipsis"
         >
-          {{ data.description }}
+          {{ truncate(data.description, 125) }}
         </p>
         <div class="flex gap-3 lg:gap-8 px-2 lg:mb-4">
           <span
@@ -64,7 +64,7 @@
                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            200</span
+            20</span
           >
           <span
             class="inline-flex items-center gap-1 text-sm text-primary-darken"
@@ -82,8 +82,9 @@
                 d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            200</span
-          >
+            {{ Math.ceil(data.readingTime.minutes) }}
+            <span class="text-xs">min</span>
+          </span>
           <span
             class="inline-flex items-center gap-1 text-sm text-primary-darken"
             ><svg
@@ -112,10 +113,10 @@
         >New Articles</span
       >
 
-      <nuxt-img
+      <img
         :src="data.image"
         :alt="data.title"
-        class="absolute w-full h-full object-fill grayscale z-0 group-hover:grayscale-0"
+        class="absolute w-full h-full object-cover grayscale z-0 group-hover:grayscale-0"
       />
       <NuxtLink
         class="hidden sm:inline-flex absolute p-4 z-20 -left-5 bottom-10 items-center gap-2 bg-tertiary-default text-white group-hover:bg-tertiary-darken"
@@ -143,7 +144,7 @@
           <div class="mt-8">
             <div class="flex items-center">
               <div class="relative overflow-hidden rounded-full h-8 w-8">
-                <nuxt-img
+                <img
                   :src="getAuthorImg(data.author)"
                   :alt="`image de profile ${data.author}`"
                   class="absolute w-full h-full"
@@ -193,7 +194,7 @@
                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              200</span
+              20</span
             >
             <span
               class="inline-flex items-center gap-1 text-sm text-primary-default"
@@ -211,7 +212,8 @@
                   d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              200</span
+              {{ Math.ceil(data.readingTime.minutes) }}
+              <span class="text-xs">min</span></span
             >
             <span
               class="inline-flex items-center gap-1 text-sm text-primary-default"
@@ -241,7 +243,7 @@
 </template>
 
 <script setup>
-import { capitalize, getAuthorImg } from "@/utils/format";
+import { capitalize, getAuthorImg, truncate } from "@/utils/format";
 
 const props = defineProps(["data"]);
 </script>

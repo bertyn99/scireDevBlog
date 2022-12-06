@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   },
   schemaOrg: {
     defaultLanguage: "en-US",
-    canonicalHost: "https://www.sciredev.com",
+    canonicalHost: "https://www.sciredev.com/",
   },
   content: {
     highlight: {
@@ -31,6 +31,9 @@ export default defineNuxtConfig({
         // Theme used if `html.dark`
         dark: "github-dark",
       },
+    },
+    markdown: {
+      remarkPlugins: ["remark-reading-time"],
     },
   },
   tailwindcss: {

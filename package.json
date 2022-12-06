@@ -19,6 +19,6 @@
   },
   "dependencies": {
     "@vueuse/core": "^9.3.0",
-    "nuxt-jsonld": "^2.0.6"
+    "remark-reading-time": "^2.0.1"
   }
 }

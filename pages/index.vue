@@ -94,6 +94,7 @@ useHead({
           'category',
           'author',
           'createdAt',
+          'readingTime',
           'modifiedAt',
           'tags',
           '_path',
@@ -105,7 +106,7 @@ useHead({
       <!-- Default list slot -->
       <template v-slot="{ list }">
         <ul
-          class="w-full max-w-screen-xl sm:px-8 grid grid-col-1 sm:grid-cols-2 md:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center"
+          class="w-full max-w-screen-xl sm:px-8 grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center"
         >
           <li v-for="article in list" :key="article._path" class="article">
             <ArticleCard :article="article" />

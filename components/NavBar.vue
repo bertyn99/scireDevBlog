@@ -65,7 +65,7 @@
       <ul
         class="bg-primary-darken md:bg-transparent md:flex md:items-center z-[-1] absolute w-full md:w-auto left-0 md:z-auto md:static md:gap-8 md:opacity-100 transition-all ease-in duration-500"
         :class="[
-          show ? `top-[55px] opacity-100` : `top-[-400px] opacity-0`,
+          show ? `top-[47px] opacity-100` : `top-[-400px] opacity-0`,
           show ? '' : '',
         ]"
       >
