@@ -82,16 +82,14 @@ useHead({
             >
               <NuxtLink :to="article._path" class="no-underline">
                 <article class="flex items-start gap-4">
-                  <div
-                    class="w-36 h-full max-h-[8rem] rounded-lg overflow-hidden"
-                  >
+                  <div class="relative w-1/4 h-full rounded-lg overflow-hidden">
                     <img
                       :src="`/${article.image}`"
                       :alt="article.title"
-                      class="w-full h-full object-fill"
+                      class="w-full h-full max-h-36 object-cover"
                     />
                   </div>
-                  <header>
+                  <header class="w-3/4">
                     <h1 class="text-2xl font-semibold">{{ article.title }}</h1>
                     <p>{{ article.description }}</p>
                     <ul class="flex gap-2 py-2">
