@@ -209,7 +209,7 @@ npm install vue-kinesis@next
 
 And then import it in your entry file like below:
 
-```jsx
+```js
 import { createApp } from "vue";
 import App from "./App.vue";
 import VueKinesis from "vue-kinesis";
@@ -228,7 +228,7 @@ npm install vue-kinesis
 
 then decide to import the complete library so that it can be accessed from anywhere in your project:
 
-```jsx
+```js
 // src/main.js
 import Vue from 'vue'
 import VueKinesis from 'vue-kinesis'
@@ -238,7 +238,7 @@ Vue.use(VueKinesis);
 
 Or only import a specific component:
 
-```jsx
+```js
 import { KinesisContainer } from 'vue-kinesis'
 ```
 
@@ -283,7 +283,7 @@ The following output is available:
 
 Also for the audio sample, we have:
 
-```jsx
+```js
 <template>
   <div id="app">
     <div class="main">
@@ -348,7 +348,7 @@ npm i @vueuse/motion
 
 You can add the support for `v-motion` globally, by installing the plugin.
 
-```jsx
+```js
 // src/main.js
 import { MotionPlugin } from '@vueuse/motion'
 
@@ -363,7 +363,7 @@ app.mount('#app')
 
 Or if you want to import the directive code only from components that uses it, import the directive and install it at component level.
 
-```jsx
+```js
 import { directive as motion } from '@vueuse/motion'
 
 export default {
@@ -377,7 +377,7 @@ export default {
 
 In order to use @vueUse/motion you can use the existing presets
 ![/img/article/preset-motion.gif](/img/article/preset-motion.gif)
-```jsx
+```js
 <template>
 	<div v-motion-roll-bottom />
 </template>
@@ -386,7 +386,7 @@ In order to use @vueUse/motion you can use the existing presets
 
 Or you can create your own custom animation with the help of the diretcive:
 
-```jsx
+```js
 <template>
   <div
     v-motion
