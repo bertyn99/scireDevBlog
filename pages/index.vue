@@ -1,6 +1,7 @@
 <!-- ./pages/blog/index.vue -->
 <script setup>
 import Social from "~~/components/section/Social.vue";
+
 definePageMeta({
   layout: "blog",
 });
@@ -101,6 +102,7 @@ useHead({
           'image',
           'excerpt',
         ],
+        sort: { createdAt: -1 },
       }"
     >
       <!-- Default list slot -->
