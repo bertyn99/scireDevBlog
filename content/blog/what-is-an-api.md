@@ -1,5 +1,5 @@
 ---
-    title: 'What is an API and why we use them ?'
+    title: 'Unlocking the power of APIs - An Easy to Understand Guide!'
     description: 'The API is an abstraction interface that allows different types of applications (web app, mobile app, connected object) to exchange data while having the same structure.'
     image: 'img/article/cover/api_cover.png'
     author: 'Magius'
@@ -10,7 +10,7 @@
     head:
         meta: 
             -  name: "keywords"
-               content: "api, interface, data structure, web development"
+               content: "api, interface, data structure, web development,rest api, soap api, what is api, api definition, api integration, api meaning"
             
 
 ---
