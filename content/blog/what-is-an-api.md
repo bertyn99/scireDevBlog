@@ -1,11 +1,11 @@
 ---
     title: 'What is an API and why we use them ?'
     description: 'The API is an abstraction interface that allows different types of applications (web app, mobile app, connected object) to exchange data while having the same structure.'
-    image: 'img/article/cover/js.webp'
+    image: 'img/article/cover/api_cover.png'
     author: 'Magius'
     category: 'one on one'
     createdAt: '2022-12-08'
-    modifiedAt: '2022-12-08'
+    modifiedAt: '2022-12-18'
     tags: ['backend']
     head:
         meta: 
