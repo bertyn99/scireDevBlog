@@ -1,6 +1,6 @@
 <template>
   <div class="absolute flex h-full w-full">
-    <div class="hidden sm:block w-1/2 h-full">
+  <!--   <div class="hidden sm:block w-1/2 h-full">
       <div class="flex justify-end py-5">
         <span class="bg-white p-3 translate-x-10 z-10">New Articles</span>
       </div>
@@ -107,17 +107,18 @@
           >
         </div>
       </div>
-    </div>
-    <div class="h-[475px] w-full sm:w-1/2 relative sm:h-full group">
+    </div> -->
+    <div class="h-[475px] w-full  relative sm:h-full group">
       <span class="absolute sm:hidden bg-white p-3 -top-7 z-30"
-        >New Articles</span
+        >New Articldes</span
       >
-
+     
       <img
         :src="data.image"
         :alt="data.title"
-        class="absolute w-full h-full object-cover grayscale z-0 group-hover:grayscale-0"
+        class="absolute  w-full  h-full object-cover  z-0 group-hover:grayscale-0"
       />
+      <!-- <span class="hidden sm:block absolute bg-gray-800 text-white p-3  z-10">New Articles</span> -->
       <NuxtLink
         class="hidden sm:inline-flex absolute p-4 z-20 -left-5 bottom-10 items-center gap-2 bg-tertiary-default text-white group-hover:bg-tertiary-darken"
         :to="data._path"
