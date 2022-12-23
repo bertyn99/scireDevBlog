@@ -106,7 +106,7 @@
 </template>
 <script setup>
 const { data } = await useAsyncData("home", () =>
-  queryContent({ path: "/blog" }).limit(3).find()
+  queryContent({ path: "/blog" }).limit(3).sort({ createdAt: -1 }).find(),
 );
 
 const popular = data.value;
