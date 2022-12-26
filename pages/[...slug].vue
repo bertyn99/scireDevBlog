@@ -44,15 +44,50 @@ useHead({
     {
       property: "og:title",
       content: `ScireDev - article of the category ${category}`,
+    },{
+      property: "og:description",
+      content: `All articles of the category ${category}`,
     },
     {
       property: "og:type",
       content: "collections",
     },
-
+    {
+      property: "og:url",
+      content: "https://www.sciredev.com/"+slug,
+    },
     {
       property: "og:site_name",
       content: "Scire Dev",
+    },   
+    {
+      property: "og:image",
+      content:
+        "https://www.sciredev.com/img/scire_logo_primary.png",
+    }, 
+    //twitter
+    {
+      property: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      property: "twitter:url",
+      content: "https://www.sciredev.com/"+slug,
+    },
+    {
+      property: "twitter:title",
+      content:
+        "ScireDev - your website to learn the web and mobile developpement",
+    },
+    {
+      property: "twitter:description",
+      content:
+        "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
+    },  
+    {
+      property: "twitter:image",
+      content:
+        "https://www.sciredev.com/img/scire_logo_primary.png",
     },
   ],
 });
