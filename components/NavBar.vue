@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="fixed w-full mx-auto left-0 right-0 py-2 z-50"
+    class="fixed w-full mx-auto left-0 right-0 py-1 z-50"
     :class="[y < 200 ? 'bg-primary-default' : 'bg-black']"
   >
     <div class="max-w-7xl px-5 mx-auto md:flex md:justify-between">
@@ -9,7 +9,10 @@
           to="/"
           class="text-lg font-semibold"
           :class="[y < 200 ? '' : 'text-white']"
-          >ScireDEV</NuxtLink
+          >
+          <img class="h-16 w-16 sm:h-24 sm:w-24 object-fill translate-y-1" src="/img/scire_logo_primary.png" alt=""  />
+          
+          </NuxtLink
         >
         <button
           @click="show = !show"
@@ -63,9 +66,9 @@
         </button>
       </div>
       <ul
-        class="bg-primary-darken md:bg-transparent md:flex md:items-center z-[-1] absolute w-full md:w-auto left-0 md:z-auto md:static md:gap-8 md:opacity-100 transition-all ease-in duration-500"
+        class="bg-black/90 md:bg-transparent md:flex md:items-center z-[-1] absolute w-full md:w-auto left-0 md:z-auto md:static md:gap-8 md:opacity-100 transition-all ease-in duration-500"
         :class="[
-          show ? `top-[47px] opacity-100` : `top-[-400px] opacity-0`,
+          show ? `top-[65px] opacity-100` : `top-[-400px] opacity-0`,
           show ? '' : '',
         ]"
       >

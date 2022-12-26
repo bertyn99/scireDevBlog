@@ -26,8 +26,8 @@
         </button></div>
         <div class="hidden w-3/4 sm:flex justify-center items-center  px-2 gap-1">
           <span class="text-2xl text-bold text-primary-darken">01 </span>
-            <div class="w-full bg-white rounded-full overflow-hidden h-1 px-0">
-              <div class=" bg-tertiary-default h-full" :style="{width: (currentSlide*100)/getSlideCount+'%'}"></div>
+            <div class="w-full bg-white rounded-full overflow-hidden h-1 px-0 ">
+              <div class=" bg-tertiary-default h-full transition-all duration-700 " :style="{width: (currentSlide*100)/getSlideCount+'%'}"></div>
             </div>
          <span class="text-xl text-bold text-primary-darken">0{{ getSlideCount }}</span>
         </div>
