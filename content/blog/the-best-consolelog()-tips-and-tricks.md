@@ -30,8 +30,8 @@ console.log({x, y, z}); // {x: 1, y: 2, z: 3}
 Console.log() is only one of the available logging modes; the others are console.debug(), [console.info](http://console.info/)(), console.warn() et console.error ().
 
 ```js
-console.debug('Debug message');
-console.info('Useful information');
+console.debug('Debug mmsg');
+console.info('Useful info');
 console.warn('This is a warning');
 console.error('Something went wrong!');
 ```
@@ -49,9 +49,9 @@ const outer = () => {
 outer();
 /*
   Hello
-  inner @ VM207:3
-  outer @ VM207:5
-  (anonymous) @ VM228:1
+  inner @ VM100:3
+  outer @ VM100:5
+  (anonymous) @ VM358:1
 */
 ```
 
