@@ -19,17 +19,17 @@ Everyone sometimes logs or debugs code using the JavaScript console. But the con
 ## Computed property names
 The property names computed in ES6 are particularly useful because they make it easy to recognize registered variables by enclosing them in a pair of braces.
 
-```jsx
+```js
 const x = 1, y = 2, z = 3;
 
-console.log({x, y, z}); *// {x: 1, y: 2, z: 3}*
+console.log({x, y, z}); // {x: 1, y: 2, z: 3}
 ```
 
 ## **Logging levels**
 
 Console.log() is only one of the available logging modes; the others are console.debug(), [console.info](http://console.info/)(), console.warn() et console.error ().
 
-```jsx
+```js
 console.debug('Debug message');
 console.info('Useful information');
 console.warn('This is a warning');
@@ -40,54 +40,54 @@ console.error('Something went wrong!');
 
 The functionality of console.trace() is the same as console.log(), but it additionally displays the full stack trace so you can see everything that is going on.
 
-```jsx
+```js
 const outer = () => {
   const inner = () => console.trace('Hello');
   inner();
 };
 
 outer();
-*/*
+/*
   Hello
   inner @ VM207:3
   outer @ VM207:5
   (anonymous) @ VM228:1
-*/*
+*/
 ```
 
 ## **console.assert()**
 
 When an assertion fails (i.e. when the first parameter is false), console.assert() provides a convenient way to simply log something as an error and ignore it in all other cases.
 
-```jsx
+```js
 const value = 10;
 
-console.assert(value === 10, 'Value is not 10!'); *// Nothing is logged*
-console.assert(value === 20, 'Value is not 20!'); *// Logs "Value is not 20!"*
+console.assert(value === 10, 'Value is not 10!'); // Nothing is logged
+console.assert(value === 20, 'Value is not 20!'); // Logs "Value is not 20!"
 ```
 
 ## **console.count()**
 
 You can use console.count() to count how many times a piece of code has been executed.
-```jsx
+```js
 Array.from({ length: 4 }).forEach(
-  () => console.count('items')  *// Call the counter labelled 'items'*);
-*/*
+  () => console.count('items')  // Call the counter labelled 'items');
+/*
   items: 1
   items: 2
   items: 3
   items: 4
-*/*console.countReset('items');  *// Reset the counter labelled 'items'*
+*/console.countReset('items');  )// Reset the counter labelled 'items'
 ```
 
 ### **console.time()**
 
 console.time() provides a quick way to check the performance of your code, but should not be used for true benchmarking due to its low accuracy.
 
-```jsx
-console.time('slow comp');    *// Start the 'slow comp' timer*
-console.timeLog('slow comp'); *// Log the value of the 'slow comp' timer*
-console.timeEnd('slow comp'); *// Stop and log the 'slow comp' timer*
+```js
+console.time('slow comp');    // Start the 'slow comp' timer
+console.timeLog('slow comp'); // Log the value of the 'slow comp' timer
+console.timeEnd('slow comp'); // Stop and log the 'slow comp' timer
 ```
 
 ### **console.table()**
