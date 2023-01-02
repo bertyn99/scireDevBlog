@@ -93,3 +93,15 @@ console.timeEnd('slow comp'); // Stop and log the 'slow comp' timer
 ### **console.table()**
 
 Allows you to easily display a table in the console.
+```js
+console.table(["apples", "oranges", "bananas"]);
+
+// display
+| Index |   Values  |
+|-------|-----------|
+|   0   | 'apples'  |
+|   1   | 'oranges' |
+|   2   | 'bananas' |
+
+
+```
