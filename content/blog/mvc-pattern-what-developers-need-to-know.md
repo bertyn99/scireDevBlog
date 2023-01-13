@@ -1,7 +1,7 @@
 ---
     title: 'MVC Pattern: What Developers Need to Know   '
-    description: 'If you're building an MVC (Model-View-Controller) app, this might be the first time you've heard about it. To get started with MVC, though, you'll need to understand how each component works. In this article I'll explain what each part of an MVC architecture does and why they're important for your application.'
-    image: 'img/article/cover/docker_cover.png'
+    description: "If youre building an MVC (Model-View-Controller) app, this might be the first time you've heard about it. To get started with MVC, though, you'll need to understand how each component works. In this article I'll explain what each part of an MVC architecture does and why they're important for your application."
+    image: 'img/article/cover/js.webp'
     author: 'tips and advice'
     category: 'one on one'
     createdAt: '2023-01-03'
@@ -16,7 +16,7 @@
 ---
 
 
-If you're building an MVC (Model-View-Controller) app, this might be the first time you've heard about it. To get started with MVC, though, you'll need to understand how each component works. In this article I'll explain what each part of an MVC architecture does and why they're important for your application.
+If you're building an MVC (Model-View-Controller) app, this might be the first time you have heard about it. To get started with MVC, though, you'll need to understand how each component works. In this article I'll explain what each part of an MVC architecture does and why they're important for your application.
 
 ## Model - A model represents the data in your application, such as a list of table rows from a database.
 
