@@ -1,7 +1,7 @@
 ---
     title: 'What is javascript ?'
     description: 'What is javascript ? Discover the basics of the Javascript language at the basis of web development.'
-    image: 'img/article/cover/js.webp'
+    image: 'img/article/cover/javascript_cover.png'
     author: 'Magius'
     category: 'road to basic'
     createdAt: '2022-10-18'

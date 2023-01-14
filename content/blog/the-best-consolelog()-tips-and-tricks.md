@@ -1,7 +1,7 @@
 ---
     title: ' The best console.log() tips & tricks'
     description: 'Everyone sometimes logs or debugs code using the JavaScript console. But the console object is much more than just a console.log().'
-    image: 'img/article/cover/js.webp'
+    image: 'img/article/cover/consolelog_tips_cover.png'
     author: 'Magius'
     category: 'tips and advice'
     createdAt: '2023-01-01'

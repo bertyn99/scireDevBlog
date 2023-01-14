@@ -1,7 +1,7 @@
 ---
     title: 'MVC Pattern: What Developers Need to Know   '
     description: "If youre building an MVC (Model-View-Controller) app, this might be the first time you've heard about it. To get started with MVC, though, you'll need to understand how each component works. In this article I'll explain what each part of an MVC architecture does and why they're important for your application."
-    image: 'img/article/cover/js.webp'
+    image: 'img/article/cover/mvc_cover.png'
     author: 'one on one'
     category: 'one on one'
     createdAt: '2023-01-03'
