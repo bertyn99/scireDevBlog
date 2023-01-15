@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "nuxt-schema-org",
     "@nuxt/image-edge",
+    "@vueuse/nuxt",
   ],
   app: {
     head: {
