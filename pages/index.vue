@@ -1,7 +1,8 @@
 <!-- ./pages/blog/index.vue -->
-<script setup>
+<script setup lang="ts">
 import Social from "~~/components/section/Social.vue";
-
+import { useDebounceFn } from "@vueuse/core";
+import type { QueryBuilderParams } from "@nuxt/content/dist/runtime/types";
 definePageMeta({
   layout: "blog",
 });
@@ -45,11 +46,10 @@ useHead({
       property: "og:description",
       content:
         "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
-    },  
+    },
     {
       property: "og:image",
-      content:
-        "https://www.sciredev.com/img/scire_logo_primary.png",
+      content: "https://www.sciredev.com/img/scire_logo_primary.png",
     },
 
     //twitter
@@ -70,22 +70,61 @@ useHead({
       property: "twitter:description",
       content:
         "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
-    },  
+    },
     {
       property: "twitter:image",
-      content:
-        "https://www.sciredev.com/img/scire_logo_primary.png",
+      content: "https://www.sciredev.com/img/scire_logo_primary.png",
     },
   ],
 });
+const page = ref(0);
+const searchInput = ref<string>("");
 
-/* useJsonld({
-  "@context": "https://schema.org",
-  "@type": "Article",
-  name: "ScireDev",
-  description:
-    "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
-}); */
+const query = ref<QueryBuilderParams>({
+  where: { title: { $regex: `/${searchInput.value}how/ig` } },
+  only: [
+    "title",
+    "description",
+    "category",
+    "author",
+    "createdAt",
+    "readingTime",
+    "modifiedAt",
+    "tags",
+    "_path",
+    "image",
+    "excerpt",
+  ],
+  sort: { createdAt: -1 },
+});
+const { data, refresh } = await useAsyncData("accueil", () =>
+  queryContent()
+    .where({ title: { $regex: `/${searchInput.value}/ig` } })
+    .only([
+      "title",
+      "description",
+      "category",
+      "author",
+      "createdAt",
+      "readingTime",
+      "modifiedAt",
+      "tags",
+      "_path",
+      "image",
+      "excerpt",
+    ])
+    .sort({ createdAt: -1 })
+    .limit(6)
+    .skip(page.value * 6)
+    .find()
+);
+
+const searchArticle = () => {
+  refresh();
+};
+const debouncedFn = useDebounceFn(() => {
+  searchArticle();
+}, 600);
 </script>
 <template>
   <SchemaOrgWebPage />
@@ -100,16 +139,19 @@ useHead({
 
       <div class="relative w-32">
         <input
-          type="text"
+          v-model="searchInput"
+          @input="debouncedFn"
           class="absolute w-full bg-transparent border-b-2 border-primary-darken"
+          placeholder="edit me"
         />
         <svg
+          @click="searchArticle"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="w-5 h-5 absolute right-0"
+          class="w-5 h-5 absolute right-0 cursor-pointer"
         >
           <path
             stroke-linecap="round"
@@ -121,41 +163,22 @@ useHead({
     </div>
     <!-- Render list of all articles in ./content/blog using `path` -->
     <!-- Provide only defined fields in the `:query` prop -->
-    <ContentList
-      path="/"
-      :query="{
-        only: [
-          'title',
-          'description',
-          'category',
-          'author',
-          'createdAt',
-          'readingTime',
-          'modifiedAt',
-          'tags',
-          '_path',
-          'image',
-          'excerpt',
-        ],
-        sort: { createdAt: -1 },
-      }"
-    >
-      <!-- Default list slot -->
-      <template v-slot="{ list }">
-        <ul
-          class="w-full max-w-screen-xl sm:px-8 grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center"
-        >
-          <li v-for="article in list" :key="article._path" class="article">
-            <ArticleCard :article="article" />
-          </li>
-        </ul>
-      </template>
+    <!--     <ContentList path="/" :query="query"> -->
+    <!-- Default list slot -->
 
-      <!-- slot to display message when no content is found -->
-      <template #not-found>
-        <p>No articles found.</p>
-      </template>
-    </ContentList>
+    <ul
+      class="w-full max-w-screen-xl sm:px-8 grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center"
+    >
+      <li v-for="article in data" :key="article._path" class="article">
+        <ArticleCard :article="article" />
+      </li>
+    </ul>
+
+    <!-- slot to display message when no content is found -->
+    <!--   <template #not-found>
+      <p>No articles found.</p>
+    </template> -->
+    <!--  </ContentList> -->
   </section>
   <SectionSocial></SectionSocial>
 </template>
