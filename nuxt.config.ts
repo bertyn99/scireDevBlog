@@ -8,7 +8,9 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "nuxt-schema-org",
     "@nuxt/image-edge",
+    "@vueuse/nuxt",
   ],
+  plugins: [{ src: "~/plugins/vercel.js", mode: "client" }],
   app: {
     head: {
       htmlAttrs: {

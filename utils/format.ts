@@ -9,7 +9,7 @@ function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 function getAuthorImg(author: string): string {
-  return author.toLowerCase() == "magius"
+  return author?.toLowerCase() == "magius"
     ? "/img/author/magius.webp"
     : "/img/author/randomcityzen.webp";
 }
