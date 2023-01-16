@@ -77,7 +77,7 @@ useHead({
     },
   ],
 });
-const page = ref(0);
+const page = ref(1);
 const searchInput = ref<string>("");
 
 const query = ref<QueryBuilderParams>({
@@ -115,7 +115,7 @@ const { data, refresh } = await useAsyncData("accueil", () =>
     ])
     .sort({ createdAt: -1 })
     .limit(6)
-    .skip(page.value * 6)
+    .skip((page.value - 1) * 6)
     .find()
 );
 
@@ -124,7 +124,17 @@ const searchArticle = () => {
 };
 const debouncedFn = useDebounceFn(() => {
   searchArticle();
+  refresh();
 }, 600);
+
+const goNext = () => {
+  page.value += 1;
+  refresh();
+};
+const goPrev = () => {
+  page.value -= 1;
+  refresh();
+};
 </script>
 <template>
   <SchemaOrgWebPage />
@@ -141,8 +151,8 @@ const debouncedFn = useDebounceFn(() => {
         <input
           v-model="searchInput"
           @input="debouncedFn"
-          class="absolute w-full bg-transparent border-b-2 border-primary-darken"
-          placeholder="edit me"
+          class="absolute w-full bg-transparent border-b-2 border-primary-darken focus:outline-none"
+          placeholder="Search..."
         />
         <svg
           @click="searchArticle"
@@ -151,7 +161,7 @@ const debouncedFn = useDebounceFn(() => {
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="w-5 h-5 absolute right-0 cursor-pointer"
+          class="w-5 h-5 absolute right-0 cursor-pointer hover:text-tertiary-default"
         >
           <path
             stroke-linecap="round"
@@ -179,6 +189,12 @@ const debouncedFn = useDebounceFn(() => {
       <p>No articles found.</p>
     </template> -->
     <!--  </ContentList> -->
+    <ArticlePagination
+      :total-page="2"
+      :current-page="page"
+      :next="goNext"
+      :prev="goPrev"
+    />
   </section>
   <SectionSocial></SectionSocial>
 </template>
