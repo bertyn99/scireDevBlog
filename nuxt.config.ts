@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "nuxt-schema-org",
     "@nuxt/image-edge",
     "@vueuse/nuxt",
+    "@nuxtjs/web-vitals",
   ],
   app: {
     head: {
@@ -24,6 +25,7 @@ export default defineNuxtConfig({
     defaultLanguage: "en-US",
     canonicalHost: "https://www.sciredev.com/",
   },
+  plugins: [{ src: "~/plugins/vercel.js", mode: "client" }],
   content: {
     highlight: {
       theme: {
@@ -37,6 +39,7 @@ export default defineNuxtConfig({
       remarkPlugins: ["remark-reading-time"],
     },
   },
+
   tailwindcss: {
     cssPath: "~/assets/css/main.css",
   },
