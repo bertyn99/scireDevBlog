@@ -131,6 +131,10 @@ const goNext = () => {
   page.value += 1;
   refresh();
 };
+const goTo = (id: number) => {
+  page.value = id;
+  refresh();
+};
 const goPrev = () => {
   page.value -= 1;
   refresh();
@@ -194,6 +198,7 @@ const goPrev = () => {
       :current-page="page"
       :next="goNext"
       :prev="goPrev"
+      :to="goTo"
     />
   </section>
   <SectionSocial></SectionSocial>

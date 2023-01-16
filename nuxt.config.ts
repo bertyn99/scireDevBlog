@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@nuxt/image-edge",
     "@vueuse/nuxt",
   ],
+  plugins: [{ src: "~/plugins/vercel.js", mode: "client" }],
   app: {
     head: {
       htmlAttrs: {
