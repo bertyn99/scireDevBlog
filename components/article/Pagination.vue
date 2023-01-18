@@ -3,6 +3,7 @@ const props = defineProps({
   totalPage: Number,
   currentPage: Number,
   prev: Function,
+  to: Function,
   next: Function,
 });
 </script>
@@ -38,6 +39,7 @@ const props = defineProps({
           class="text-medium text-xl hover:bg-tertiary-default/50 p-2"
           :class="[currentPage == page ? 'bg-tertiary-default/50' : '']"
           key="page"
+          @click="to(page)"
         >
           {{ page }}
         </li>

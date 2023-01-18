@@ -118,22 +118,25 @@ const { data, refresh } = await useAsyncData("accueil", () =>
     .skip((page.value - 1) * 6)
     .find()
 );
+watch([page], () => {
+  refresh();
+});
 
 const searchArticle = () => {
   refresh();
 };
 const debouncedFn = useDebounceFn(() => {
   searchArticle();
-  refresh();
 }, 600);
 
 const goNext = () => {
   page.value += 1;
-  refresh();
+};
+const goTo = (id: number) => {
+  page.value = id;
 };
 const goPrev = () => {
   page.value -= 1;
-  refresh();
 };
 </script>
 <template>
@@ -194,6 +197,7 @@ const goPrev = () => {
       :current-page="page"
       :next="goNext"
       :prev="goPrev"
+      :to="goTo"
     />
   </section>
   <SectionSocial></SectionSocial>
