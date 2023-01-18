@@ -77,7 +77,7 @@ useHead({
     },
   ],
 });
-const page = ref(1);
+const currentPage = ref(1);
 const searchInput = ref<string>("");
 
 const query = ref<QueryBuilderParams>({
@@ -97,8 +97,8 @@ const query = ref<QueryBuilderParams>({
   ],
   sort: { createdAt: -1 },
 });
-const { data, refresh } = await useAsyncData("accueil", () =>
-  queryContent()
+const { data, refresh } = await useAsyncData("homepage", async () => {
+  const articles = queryContent()
     .where({ title: { $regex: `/${searchInput.value}/ig` } })
     .only([
       "title",
@@ -115,11 +115,19 @@ const { data, refresh } = await useAsyncData("accueil", () =>
     ])
     .sort({ createdAt: -1 })
     .limit(6)
-    .skip((page.value - 1) * 6)
-    .find()
-);
-watch([page], () => {
+    .skip((currentPage.value - 1) * 6)
+    .find();
+
+  const countArticle = queryContent("/").only("title").find();
+  return {
+    articles: await articles,
+    countArticle: (await countArticle).length,
+  };
+});
+
+watch([currentPage], () => {
   refresh();
+  console.log(currentPage.value);
 });
 
 const searchArticle = () => {
@@ -130,13 +138,16 @@ const debouncedFn = useDebounceFn(() => {
 }, 600);
 
 const goNext = () => {
-  page.value += 1;
+  if (currentPage.value < Math.ceil(data!.value!.countArticle / 6)) {
+    currentPage.value += 1;
+  }
+};
+
+const goPrev = () => {
+  currentPage.value -= 1;
 };
 const goTo = (id: number) => {
-  page.value = id;
-};
-const goPrev = () => {
-  page.value -= 1;
+  currentPage.value = id;
 };
 </script>
 <template>
@@ -182,7 +193,11 @@ const goPrev = () => {
     <ul
       class="w-full max-w-screen-xl sm:px-8 grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center"
     >
-      <li v-for="article in data" :key="article._path" class="article">
+      <li
+        v-for="article in data?.articles"
+        :key="article._path"
+        class="article"
+      >
         <ArticleCard :article="article" />
       </li>
     </ul>
@@ -194,7 +209,7 @@ const goPrev = () => {
     <!--  </ContentList> -->
     <ArticlePagination
       :total-page="2"
-      :current-page="page"
+      :current-page="currentPage"
       :next="goNext"
       :prev="goPrev"
       :to="goTo"
