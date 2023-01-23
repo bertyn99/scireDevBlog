@@ -213,6 +213,7 @@ const goTo = (id: number) => {
       :next="goNext"
       :prev="goPrev"
       :to="goTo"
+      offset
     />
   </section>
   <SectionSocial></SectionSocial>

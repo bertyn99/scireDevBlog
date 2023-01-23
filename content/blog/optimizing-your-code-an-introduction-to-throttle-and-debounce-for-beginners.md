@@ -12,7 +12,7 @@
             -  name: "keywords"
                content: "api, interface"
 ---
-As developers, we often deal with events that can fire rapidly, such as user scrolling, resizing a window, or typing in an input field. These events can put a strain on our application's performance and cause it to slow down or become unresponsive. To combat this, we can use two important techniques: throttling and debouncing.
+As developers, we often deal  with events that can fire rapidly, such as user scrolling, resizing a window, or typing in an input field. These events can put a strain on our application's performance and cause it to slow down or become unresponsive. To combat this, we can use two important techniques: throttling and debouncing.
 
 ## Throttle
 
