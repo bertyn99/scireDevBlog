@@ -1,5 +1,9 @@
 <script setup>
 const props = defineProps({
+  offset: {
+    type: Boolean,
+    default: false,
+  },
   totalPage: Number,
   currentPage: Number,
   prev: Function,
@@ -10,7 +14,9 @@ const props = defineProps({
 
 <template>
   <div
-    class="bg-white w-full max-w-3xl sm:-translate-x-[8.84vw] px-2 h-14 inline-flex justify-end"
+    class="bg-white w-full max-w-3xl px-2 h-14 inline-flex justify-end"
+    :class="[props.offset ? 'sm:-translate-x-[8.84vw]' : 'mx-auto']"
+    v-if="totalPage > 1"
   >
     <nav class="h-full w-full max-w-[585px] inline-flex justify-end p-2 gap-2">
       <button
