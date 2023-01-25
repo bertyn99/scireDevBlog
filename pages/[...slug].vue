@@ -140,26 +140,14 @@ useHead({
       <!-- Provide only defined fieldsin the `:query` prop -->
       <div class="flex flex-col gap-8 my-6">
         <!-- Default list slot -->
-
-        <ul
-          class="h-full flex flex-col gap-6"
-          v-if="data?.articles.length !== 0"
-        >
-          <li
-            v-for="article in data?.articles"
-            :key="article._path"
-            class="pt-4 first-of-type:border-none border-t border-slate-200"
-          >
+        <ul class="h-full flex flex-col gap-6" v-if="data?.articles.length !== 0">
+          <li v-for="article in data?.articles" :key="article._path"
+            class="pt-4 first-of-type:border-none border-t border-slate-200">
             <NuxtLink :to="article._path" class="no-underline">
               <article class="flex flex-col md:flex-row px-4 items-start gap-4">
-                <div
-                  class="relative w-full md:w-1/4 h-full rounded-lg overflow-hidden"
-                >
-                  <img
-                    :src="`/${article.image}`"
-                    :alt="article.title"
-                    class="w-full h-full max-h-64 object-fill"
-                  />
+                <div class="relative w-full md:w-1/4 h-full max-h-64 rounded-lg overflow-hidden">
+                  <img :src="`/${article.image}`" :alt="article.title"
+                    class="w-full h-full aspect-video object-cover" />
                 </div>
                 <header class="w-full md:w-3/4">
                   <h1 class="text-2xl font-bold">
@@ -168,10 +156,8 @@ useHead({
                   <p class="text-normal">{{ article.description }}</p>
                   <ul class="flex gap-2 py-2">
                     <li class="tag" v-for="(tag, n) in article.tags" :key="n">
-                      <NuxtLink
-                        :to="`/blog/tags/${tag}`"
-                        class="no-underline bg-primary-darken text-slate-700 text-sm p-2 rounded-md transition-all !py-0.5 hover:-translate-y-0.5"
-                      >
+                      <NuxtLink :to="`/blog/tags/${tag}`"
+                        class="no-underline bg-primary-darken text-slate-700 text-sm p-2 rounded-md transition-all !py-0.5 hover:-translate-y-0.5">
                         {{ tag }}
                       </NuxtLink>
                     </li>
@@ -187,13 +173,7 @@ useHead({
         <!-- Not found slot to display message when no content us is found -->
         <!--   -->
 
-        <ArticlePagination
-          :total-page="1"
-          :current-page="currentPage"
-          :next="goNext"
-          :prev="goPrev"
-          :to="goTo"
-        />
+        <ArticlePagination :total-page="1" :current-page="currentPage" :next="goNext" :prev="goPrev" :to="goTo" />
       </div>
     </section>
   </main>
