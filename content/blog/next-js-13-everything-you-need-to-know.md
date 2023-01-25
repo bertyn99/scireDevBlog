@@ -35,7 +35,7 @@ With the app/ directory, you have at your disposal an efficient framework for in
 
 To build routes within `app/`, it's as easy as creating a single file, `page.js`.
 
-```
+```jsx
 // app/page.js
 // This file maps to the index route (/)
 export default function Page() {
@@ -46,7 +46,7 @@ export default function Page() {
 
 With this system, you can create user-friendly layouts that are shared between multiple pages. While navigating from page to page, these layouts maintain state and remain interactive without needing to be re-rendered.
 
-```
+```jsx
 // app/blog/layout.js
 export default function BlogLayout({ children }) {
   return <section>{children}</section>;
@@ -83,7 +83,7 @@ With the app/ directory, you can also use a new special file loading.js to autom
 
 React and Next.js have expanded the native fetch Web API. It offers a single configurable method to retrieve, cache, and revalidate data at the component level and automatically deduplicates fetch requests. This implies that a single API is now used to access all the advantages of Server-Side Rendering (SSR), Incremental Static Regeneration (ISR), and Static Site Generation (SSG):
 
-```
+```jsx
 // This request should be cached until manually invalidated.
 // Similar to `getStaticProps`.
 // `force-cache` is the default and can be omitted.
