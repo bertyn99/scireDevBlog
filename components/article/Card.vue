@@ -9,7 +9,7 @@ const props = defineProps(["article"]);
       class="w-full p-2.5 max-w-md max-h-[465px] group hover:bg-white hover:shadow"
     >
       <div class="relative h-[230px]">
-        <img
+        <nuxt-img
           class="w-full h-full grayscale group-hover:grayscale-0"
           :src="article?.image"
           loading="lazy"
