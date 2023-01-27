@@ -5,7 +5,7 @@
         >New Articldes</span
       >
 
-      <img
+      <nuxt-img
         :src="data.image"
         :alt="data.title"
         class="absolute w-full h-full object-fill z-0 group-hover:grayscale-0"
