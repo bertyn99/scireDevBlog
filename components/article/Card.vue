@@ -10,7 +10,6 @@ const props = defineProps(["article"]);
     >
       <div class="relative h-[230px]">
         <nuxt-img
-          format="webp"
           class="w-full h-full grayscale group-hover:grayscale-0"
           :src="article?.image"
           loading="lazy"
