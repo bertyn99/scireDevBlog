@@ -3,7 +3,7 @@ import { defineNuxtConfig } from "nuxt/config";
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   modules: [
-    "@nuxt/content-edge",
+    "@nuxt/content",
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
     "nuxt-schema-org",
