@@ -10,8 +10,7 @@
           class="text-lg font-semibold"
           :class="[y < 200 ? '' : 'text-white']"
         >
-          <nuxt-img
-            format="webp"
+          <img
             class="h-14 w-16 sm:h-20 sm:w-24 object-fill translate-y-1"
             src="/img/scire_logo_primary.png"
             alt=""
