@@ -1,5 +1,5 @@
 ---
-    title: "Nuxt 3 is Coming! What is new?"
+    title: "Next JS 13 : Everything you need to know"
     description: "Next JS 13 was released a few weeks ago and there are some new features and changes you need to know about. In this blog post, we'll take a look at what's new in Next JS 13 and how it can impact your development process. We will also discuss some of the changes that have been made to the framework since Next JS 12. So, if you're interested in learning more about Next JS 13, keep reading!"
     image: 'img/article/cover/next_13_cover.png'
     author: 'Magius'
