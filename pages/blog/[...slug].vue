@@ -127,7 +127,8 @@ useHead({
   <main id="main" class="p-4 max-w-5xl mx-auto mt-10">
     <header v-if="data.article.title" class="p-4 pb-12">
       <div class="h-[420px] w-full">
-        <img
+        <nuxt-img
+          preload
           :src="`/${data.article.image}`"
           :alt="data.article.title"
           class="w-full h-full object-fill aspect- rounded-2xl"
