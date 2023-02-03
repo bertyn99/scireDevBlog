@@ -20,14 +20,14 @@
         <div class="block">
           <NuxtLink v-for="article in popular" class="flex flex-row items-center p-3 h-1/3 hover:bg-primary-default/25"
             :to="article._path">
-            <div class="relative w-1/2 md:w-1/3 h-full min-h-[90px] min-w-[90px]  ">
-              <img :src="article.image" alt="" width="
-          380" height="200" class="absolute sm:top-2 h-full sm:h-4/5 w-full z-20" />
+            <div class="relative w-1/2 md:w-2/5 h-full min-h-[100px] min-w-[100px]  ">
+              <nuxt-img :src="article.image" alt="" loading="lazy" format="webp" sizes="md:180px lg:200px"
+                class="absolute sm:top-2 h-full sm:h-4/5 w-full z-20 object-cover" />
             </div>
             <div
-              class="w-1/2 md:w-2/3 h-full flex flex-col p-2 items-center gap-2 sm:gap-4 z-0 -translate-x-2 lg:-translate-x-6">
+              class="w-1/2 md:w-3/5 h-full flex flex-col p-2 items-center gap-2 sm:gap-4 z-0 -translate-x-1 lg:-translate-x-2">
               <div class="w-full text-center leading-4">
-                <span class="text-primary-default">{{ article.title }}</span>
+                <span class="text-primary-default font-medium">{{ truncate(article.title, 58) }}</span>
               </div>
               <div class="flex pb-1 gap-4">
                 <div class="flex text-primary-darken items-center gap-1">
