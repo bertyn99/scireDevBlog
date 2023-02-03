@@ -89,11 +89,8 @@ const query = ref<QueryBuilderParams>({
     "author",
     "createdAt",
     "readingTime",
-    "modifiedAt",
-    "tags",
     "_path",
     "image",
-    "excerpt",
   ],
   sort: { createdAt: -1 },
 });
