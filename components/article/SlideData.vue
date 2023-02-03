@@ -1,6 +1,6 @@
 <template>
   <div class="absolute flex h-full w-full">
-    <div class="h-[470px] w-full relative sm:h-full group">
+    <div class="h-[475px] w-full relative sm:h-full group">
       <span class="absolute sm:hidden bg-white p-3 -top-7 z-30">New Articldes</span>
 
       <nuxt-img :src="data.image" format="webp" :alt="data.title" sizes="md:60vw lg:640px"
@@ -20,7 +20,7 @@
             <div class="flex items-center">
               <div class="relative overflow-hidden rounded-full h-8 w-8">
                 <nuxt-img :src="getAuthorImg(data.author)" :alt="`image de profile ${data.author}`" format="webp"
-                  sizes="sm:100vw md:100vw" class="absolute w-full object-cover h-full" />
+                  sizes="xs:100vw sm:100vw " class="absolute w-full object-cover h-full" />
               </div>
               <div class="ml-2 flex flex-col">
                 <span class="text-primary-default text-sm font-semibold">{{
