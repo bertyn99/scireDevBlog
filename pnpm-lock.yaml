@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@heroicons/vue': ^2.0.10
   '@notionhq/client': ^2.2.2
-  '@nuxt/content': ^2.3
+  '@nuxt/content': ^2.4.2
   '@nuxt/image-edge': 1.0.0-27821548.ab054e4
   '@nuxtjs/tailwindcss': ^6.1.3
   '@nuxtjs/web-vitals': ^0.2.2
