@@ -1,7 +1,7 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-5 md:grid-flow-row w-full max-w-7xl mt-20 sm:my-24 sm:mb-8 lg:px-4 mx-auto">
+  <div class="grid grid-cols-1 md:grid-cols-5 md:grid-flow-row w-full max-w-7xl mt-20 sm:my-32 sm:mb-8 lg:px-4 mx-auto">
     <Carrousel v-slot="{ currentSlide }">
-      <CarrouselSlide v-for="(slide, index) in data" :key="index">
+      <CarrouselSlide v-for="(slide, index) in news" :key="index">
         <ArticleSlideData v-show="currentSlide === index + 1" :data="slide" :data-slide="index" />
       </CarrouselSlide>
     </Carrousel>
@@ -22,7 +22,7 @@
             :to="article._path">
             <div class="relative w-1/2 md:w-2/5 h-full min-h-[100px] min-w-[100px]  ">
               <nuxt-img :src="article.image" alt="" loading="lazy" format="webp" sizes="md:180px lg:200px"
-                class="absolute sm:top-2 h-full sm:h-4/5 w-full z-20 object-cover" />
+                class="absolute sm:top-2 h-full sm:h-4/5 w-full z-20 object-fill" />
             </div>
             <div
               class="w-1/2 md:w-3/5 h-full flex flex-col p-2 items-center gap-2 sm:gap-4 z-0 -translate-x-1 lg:-translate-x-2">
@@ -98,9 +98,16 @@
   </div>
 </template>
 <script setup>
-const { data } = await useAsyncData("home", () =>
-  queryContent({ path: "/blog" }).limit(3).sort({ createdAt: -1 }).find(),
+const { data } = await useAsyncData("home", async () => {
+  const popularArticles = queryContent({ path: "/blog" }).limit(3).sort({ createdAt: 1 }).skip(3).find();
+  const newArticles = queryContent({ path: "/blog" }).limit(3).sort({ createdAt: -1 }).find()
+  return {
+    popularArticles: await popularArticles,
+    newArticles: await newArticles
+  }
+}
 );
 
-const popular = data.value;
+const popular = computed(() => data.value.popularArticles);
+const news = computed(() => data.value.newArticles);
 </script>
