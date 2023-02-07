@@ -1,5 +1,5 @@
 <template>
-  <nav class="fixed w-full mx-auto left-0 right-0 py-1 z-50" :class="[y < 200 ? '' : 'bg-black']">
+  <nav class="fixed w-full mx-auto left-0 right-0 py-1 z-50" :class="[y < 70 ? '' : 'bg-black']">
     <div class="max-w-7xl px-5 mx-auto md:flex md:justify-between">
       <div class="flex justify-between items-center">
         <NuxtLink to="/" class="text-lg font-semibold" :class="[y < 200 ? '' : 'text-white']">
