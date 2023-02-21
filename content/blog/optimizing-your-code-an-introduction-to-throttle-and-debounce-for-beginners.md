@@ -16,6 +16,7 @@ As developers,  we often deal  with events that can fire rapidly, such as user s
 
 ## Throttle
 
+### What is throttling
 Throttling is a technique used to limit the number of times a function can be called within a certain period of time. This is particularly useful when dealing with events that can fire rapidly and repeatedly, such as a user scrolling a webpage or resizing a window. By throttling the number of times a function can be called, we can ensure that our application remains responsive and doesn't become bogged down by too many unnecessary calculations or updates.
 
 Here's an example of a throttle function in JavaScript:
@@ -34,6 +35,7 @@ function throttle(fn, delay) {
 }
 
 ```
+### throttle example
 
 In this example, we're using the **`Date.now()`** function to get the current time, and then comparing it to the last time the function was called. If the delay period has passed, we update the **`lastCall`** variable and call the function. If not, we simply return without calling the function.
 
@@ -55,6 +57,7 @@ In this example, we're attaching the **`throttle`** function to the **`scroll`**
 
 ## Debounce
 
+### What is debounce?
 Debouncing, on the other hand, is a technique used to group multiple function calls together and execute them only once after a certain period of time has passed. This is useful when dealing with events that can fire rapidly, such as a user typing in an input field. Without debouncing, our code would execute a function for every keystroke, causing the application to slow down and potentially causing errors.
 
 Here's an example of a debounce function in JavaScript:
@@ -72,7 +75,7 @@ function debounce(fn, delay) {
 }
 
 ```
-
+### Debounce example
 In this example, we're using the **`setTimeout`** function to create a delay period. Every time the debounced function is called, we're clearing any existing timeouts and setting a new one. When the delay period expires, the original function is called. This means that if the debounced function is called multiple times before the delay period expires, only the last call will actually execute the original function.
 
 Here's how we would use the debounce function in an input field:

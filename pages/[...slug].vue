@@ -36,13 +36,18 @@ const { data, refresh, pending } = await useAsyncData(category, async () => {
     .skip((currentPage.value - 1) * 6)
     .find();
 
-  const countArticle = queryContent("/").only("title").find();
+  const countArticle = queryContent("/").only("title").where({
+    category: {
+      $contains: category,
+    },
+  }).find();
   return {
     articles: await articles,
     countArticle: (await countArticle).length,
   };
 });
 
+const nbPages = computed(() => Math.ceil(data.value!.countArticle / 6))
 const goPrev = () => {
   currentPage.value -= 1;
 };
@@ -146,8 +151,8 @@ useHead({
             <NuxtLink :to="article._path" class="no-underline">
               <article class="flex flex-col md:flex-row px-4 items-start gap-4">
                 <div class="relative w-full md:w-1/4 h-full max-h-64 rounded-lg overflow-hidden">
-                  <img :src="`/${article.image}`" :alt="article.title"
-                    class="w-full h-full aspect-video object-cover" />
+                  <nuxt-img format="webp" sizes="sm:90vw md:25vw lg:360px" :src="`/${article.image}`"
+                    :alt="article.title" class="w-full h-full aspect-video object-cover" />
                 </div>
                 <header class="w-full md:w-3/4">
                   <h1 class="text-2xl font-bold">
@@ -173,7 +178,7 @@ useHead({
         <!-- Not found slot to display message when no content us is found -->
         <!--   -->
 
-        <ArticlePagination :total-page="1" :current-page="currentPage" :next="goNext" :prev="goPrev" :to="goTo" />
+        <ArticlePagination :total-page="nbPages" :current-page="currentPage" :next="goNext" :prev="goPrev" :to="goTo" />
       </div>
     </section>
   </main>

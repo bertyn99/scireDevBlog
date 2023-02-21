@@ -122,9 +122,9 @@ const { data, refresh } = await useAsyncData("homepage", async () => {
   };
 });
 
+const nbPages = computed(() => Math.ceil(data.value!.countArticle / 6));
 watch([currentPage], () => {
   refresh();
-  console.log(currentPage.value);
 });
 
 const searchArticle = () => {
@@ -150,7 +150,7 @@ const goTo = (id: number) => {
 <template>
   <SchemaOrgWebPage />
   <SchemaOrgBreadcrumb :itemListElement="[{ name: 'Home', item: '/' }]" />
-  <section class="container mx-auto py-8 px-0 lg:px-9">
+  <section class="container mx-auto py-10 px-0 sm:px-1 xl:px-8">
     <div class="flex justify-between px-2">
       <h2
         class="font-bold text-2xl relative before:block before:absolute before:-left-3 before:w-10 before:h-7 before:mt-3 before:bg-tertiary-default/20 before:-z-50"
@@ -188,7 +188,7 @@ const goTo = (id: number) => {
     <!-- Default list slot -->
 
     <ul
-      class="w-full max-w-screen-xl sm:px-8 grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center"
+      class="w-full max-w-screen-xl sm:px-3 md:px-5 grid grid-col-1 sm:grid-cols-2 xl:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center"
     >
       <li
         v-for="article in data?.articles"
@@ -205,7 +205,7 @@ const goTo = (id: number) => {
     </template> -->
     <!--  </ContentList> -->
     <ArticlePagination
-      :total-page="2"
+      :total-page="nbPages"
       :current-page="currentPage"
       :next="goNext"
       :prev="goPrev"

@@ -21,7 +21,7 @@ const { data } = await useAsyncData(`content-${path}`, async () => {
     surround: await surround,
   };
 });
-console.log(data.value.article);
+
 // destrucure `prev` and `next` value from data
 const [prev, next] = data.value.surround;
 // set the meta
