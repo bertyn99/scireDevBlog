@@ -122,10 +122,9 @@ const { data, refresh } = await useAsyncData("homepage", async () => {
   };
 });
 
-const nbPages = computed(() => Math.ceil(data.value!.countArticle / 6))
+const nbPages = computed(() => Math.ceil(data.value!.countArticle / 6));
 watch([currentPage], () => {
   refresh();
-
 });
 
 const searchArticle = () => {
@@ -151,22 +150,35 @@ const goTo = (id: number) => {
 <template>
   <SchemaOrgWebPage />
   <SchemaOrgBreadcrumb :itemListElement="[{ name: 'Home', item: '/' }]" />
-  <section class="container mx-auto py-10 px-0 lg:px-9">
+  <section class="container mx-auto py-10 px-0 sm:px-1 xl:px-8">
     <div class="flex justify-between px-2">
       <h2
-        class="font-bold text-2xl relative before:block before:absolute before:-left-3 before:w-10 before:h-7 before:mt-3 before:bg-tertiary-default/20 before:-z-50">
+        class="font-bold text-2xl relative before:block before:absolute before:-left-3 before:w-10 before:h-7 before:mt-3 before:bg-tertiary-default/20 before:-z-50"
+      >
         Latest Article
       </h2>
 
       <div class="relative w-32">
-        <input v-model="searchInput" @input="debouncedFn"
+        <input
+          v-model="searchInput"
+          @input="debouncedFn"
           class="absolute w-full bg-transparent border-b-2 border-primary-darken focus:outline-none"
-          placeholder="Search..." />
-        <svg @click="searchArticle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-          stroke-width="1.5" stroke="currentColor"
-          class="w-5 h-5 absolute right-0 cursor-pointer hover:text-tertiary-default">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          placeholder="Search..."
+        />
+        <svg
+          @click="searchArticle"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-5 h-5 absolute right-0 cursor-pointer hover:text-tertiary-default"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+          />
         </svg>
       </div>
     </div>
@@ -176,8 +188,13 @@ const goTo = (id: number) => {
     <!-- Default list slot -->
 
     <ul
-      class="w-full max-w-screen-xl sm:px-8 grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center">
-      <li v-for="article in data?.articles" :key="article._path" class="article">
+      class="w-full max-w-screen-xl sm:px-3 md:px-5 grid grid-col-1 sm:grid-cols-2 xl:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center"
+    >
+      <li
+        v-for="article in data?.articles"
+        :key="article._path"
+        class="article"
+      >
         <ArticleCard :article="article" />
       </li>
     </ul>
@@ -187,11 +204,15 @@ const goTo = (id: number) => {
       <p>No articles found.</p>
     </template> -->
     <!--  </ContentList> -->
-    <ArticlePagination :total-page="nbPages" :current-page="currentPage" :next="goNext" :prev="goPrev" :to="goTo"
-      offset />
+    <ArticlePagination
+      :total-page="nbPages"
+      :current-page="currentPage"
+      :next="goNext"
+      :prev="goPrev"
+      :to="goTo"
+      offset
+    />
   </section>
   <SectionSocial></SectionSocial>
 </template>
-<style scoped>
-
-</style>
+<style scoped></style>
