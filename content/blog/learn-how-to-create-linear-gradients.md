@@ -1,7 +1,7 @@
 ---
     title: 'Mastering Gradients: Learn How to Create Linear Gradients with CSS!'
     description: "Gradients are a great way to add depth and interest to any design. Whether you’re creating a website, a logo, or just a simple graphic, gradients can take your design to the next level. In this blog post, we’ll explore linear gradients and how to create them with CSS."
-    image: 'img/article/cover/mvc_cover.png'
+    image: 'img/article/cover/gradient_linear_cover.png'
     author: 'road to basic'
     category: 'one on one'
     createdAt: '2023-02-23'
