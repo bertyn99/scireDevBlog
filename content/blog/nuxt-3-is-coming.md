@@ -44,7 +44,7 @@ In addition to the migration to Vue 3, **Nuxt 3** adopts ES (ESM) and TypeScript
 
 ### Best DX with strongly typed Nuxt
 
-Nuxt 3 is written using the Typescript superset of the Javascript language. This means that IDEs will not have to guess the types and names of parameters. When using the Nuxt API, you'll get hints and tips about functions and classes exactly as they were described by the Nuxt 3 developers, making it easier to code without having to navigate through every API detail. This move aligns with what Vue 3 has done and where the Vue ecosystem as a whole is headed.
+Nuxt 3 is written using the [TypeScript](what-is-javascript.md) superset of the [JavaScript](what-is-javascript.md) language. This means that IDEs will not have to guess the types and names of parameters. When using the Nuxt API, you'll get hints and tips about functions and classes exactly as they were described by the Nuxt 3 developers, making it easier to code without having to navigate through every API detail. This move aligns with what Vue 3 has done and where the Vue ecosystem as a whole is headed.
 
 ### Nuxt Kit
 

@@ -59,7 +59,7 @@ export default function BlogLayout({ children }) {
 
 The new Server Components design for React is now supported thanks to the app/ directory. In order to construct quick, highly interactive apps with a single programming model that offers an excellent developer experience, server and client components employ the server and the client for the respective tasks that they are each best at.
 
-By lowering the amount of JavaScript delivered to the client and enabling speedier initial page loads, Server Components lays the groundwork for creating complex user interfaces.
+By lowering the amount of [JavaScript](what-is-javascript.md) delivered to the client and enabling speedier initial page loads, Server Components lays the groundwork for creating complex user interfaces.
 
 When a route is loaded, the Next.js and React runtime, which is cacheable and predictable, are loaded. As your application grows, the size of this runtime remain the same. Additionally, the runtime is loaded asynchronously, allowing the client to gradually improve your HTML from the server.
 
