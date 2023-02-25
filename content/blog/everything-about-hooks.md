@@ -14,11 +14,11 @@
             
 ---
 
-## 1- \***\*Hooks 101\*\***\
+## 1- **Hooks 101**
 
 Hooks are a new feature introduced in React version 16.8 that allows developers to use states and other React features without writing a class. Hooks allow you to extract reusable code into functions instead of having to create classes. Hooks also provide a more expressive way to manipulate and compose logic. They can be used to replace manual classes as well as to build more complex components. Hooks are very useful for developers as they simplify and reduce the code needed to create React components. Additionally, they provide developers with better flexibility and more precise control over their components. Finally, they allow developers to create feature-rich components without having to write long pieces of code.
 
-## 2 - \***\*Hooks Rules\*\***\
+## 2 - **Hooks Rules**
 
 Hooks Rules are a set of rules that define how and when Hooks can be used. The Hooks Rules were created to ensure the safe and consistent use of Hooks.\
  The Hooks Rules are as follows:
@@ -30,7 +30,7 @@ Hooks Rules are a set of rules that define how and when Hooks can be used. The H
    By following these rules, developers can be confident that their React components will behave in a predictable and consistent manner.\
    The Hooks Rules are essential to understanding and using Hooks correctly, and using them correctly is the key to a reliable, high-performance React application.
 
-## 3 - \***\*Tips & tricks\*\***\
+## 3 - **Tips & tricks**
 
     Here are some useful tips and tricks for using Hooks in React:
     1. Use Hooks in functional components and not in classes.
@@ -41,7 +41,7 @@ Hooks Rules are a set of rules that define how and when Hooks can be used. The H
     6. Do not use Hooks in callback functions.
     7. Use Hooks consistently across components for better readability and maintainability.
 
-### - \***\*Examples\*\***\
+### - **Examples**
 
 Here are three examples of hooks that can be found in React:
 
@@ -66,9 +66,11 @@ useEffect(() => {
 const context = useContext(MyContext);
 ```
 
-### - \***\*Critical opinion\*\***\
+### - **Critical opinion**
 
 Hooks are a great feature that offers developers many possibilities and simplifies the creation of React components. However, they have their limitations and it is important for developers to understand them in order to use them effectively. Hooks cannot be used inside classes, which can be a drawback for those who want to create complex components. In addition, Hooks must be called at the root of the component, which can lead to performance problems if the component is updated often. Finally, Hooks Rules must be respected to avoid unpredictable behavior.
+
+### **Ressources**
 
 React also has a lot of hooks that allow you to write more efficient React code.
 You can go though the following link to learn more:\
