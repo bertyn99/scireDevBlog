@@ -32,16 +32,17 @@ Hooks Rules are a set of rules that define how and when Hooks can be used. The H
 
 ## 3 - **Tips & tricks**
 
-    Here are some useful tips and tricks for using Hooks in React:
-    1. Use Hooks in functional components and not in classes.
-    2. Use Hooks as close as possible to where they are used.
-    3. Use Hooks only in the root of a component and not inside loops, nested functions or conditions.
-    4. Use Hooks in the same order every time.
-    5. Create reusable Hooks to avoid duplicating code.
-    6. Do not use Hooks in callback functions.
-    7. Use Hooks consistently across components for better readability and maintainability.
+Here are some useful tips and tricks for using Hooks in React:
 
-### - **Examples**
+1. Use Hooks in functional components and not in classes.
+2. Use Hooks as close as possible to where they are used.
+3. Use Hooks only in the root of a component and not inside loops, nested functions or conditions.
+4. Use Hooks in the same order every time.
+5. Create reusable Hooks to avoid duplicating code.
+6. Do not use Hooks in callback functions.
+7. Use Hooks consistently across components for better readability and maintainability.
+
+### **Examples**
 
 Here are three examples of hooks that can be found in React:
 
@@ -66,7 +67,7 @@ useEffect(() => {
 const context = useContext(MyContext);
 ```
 
-### - **Critical opinion**
+### **Critical opinion**
 
 Hooks are a great feature that offers developers many possibilities and simplifies the creation of React components. However, they have their limitations and it is important for developers to understand them in order to use them effectively. Hooks cannot be used inside classes, which can be a drawback for those who want to create complex components. In addition, Hooks must be called at the root of the component, which can lead to performance problems if the component is updated often. Finally, Hooks Rules must be respected to avoid unpredictable behavior.
 
