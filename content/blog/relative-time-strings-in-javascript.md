@@ -1,7 +1,7 @@
 ---
     title: 'Relative Time Strings in JavaScript: From Confusion to Clarity'
     description: 'A relative time string is a way of representing a date or time relative to the current date and time. This can be useful for displaying information such as "5 minutes ago" or "in 3 days" as opposed to an absolute date and time.'
-    image: 'img/article/cover/docker_cover.png'
+    image: 'img/article/cover/intl_string_cover.png'
     author: 'Magius'
     category: 'tips and advice'
     createdAt: '2023-02-20'
@@ -11,8 +11,6 @@
         meta: 
             -  name: "keywords"
                content: "time, javascript, date, format date,internationalization"
-            
-
 ---
 
 ## Introduction
