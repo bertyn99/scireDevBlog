@@ -1,6 +1,6 @@
 ---
-    title: 'Best animation librairies for vue to use in 2022'
-    description: "By making it more seamless and engaging or just by adding some aesthetic flair, they can be used to improve the user experience. We'll examine and review the most widely used Vue.js libraries for attaining these objectives in this article."
+    title: 'Top 5 Animation Libraries for Vue'
+    description: "Make your next project truly unique by incorporating animations from these six great libraries that integrate with Vue. Check out this blogpost to find out more!"
     image: 'img/article/cover/vue_animation_librairies.webp'
     author: 'Magius'
     category: 'tips and advice'
@@ -10,11 +10,11 @@
     head:
         meta: 
             -  name: "keywords"
-               content: "vue js, js animation librairies, vue librairies, csss animation, vue animation librairies"
+               content: "vue js, js animation librairies, vue librairies, css animation, vue animation librairies"
             
 ---
 
-We connect with apps and webpages in large part thanks to animations. By making it more seamless and engaging or just by adding some aesthetic flair, they can be used to improve the user experience. We'll examine and review the most widely used Vue.js libraries for attaining these objectives in this article.
+We connect with apps and webpages in large part thanks to animations. By making it more seamless and engaging or just by adding some aesthetic flair, they can be used to improve the user experience. From novice to pro, these six animation libraries are sure to give you the tools you need to create truly stunning work. Discover what each library can offer and find out how they integrate with Vue in this blogpost!
 
 The following libraries will be discussed, along with how to install them, how to use them, and some circumstances where they might be helpful:
 

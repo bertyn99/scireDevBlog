@@ -9,7 +9,7 @@ export default defineEventHandler(async (event: any) => {
 
   sitemap.write({
     url: "/",
-    changefreq: "daily",
+    changefreq: "weekly",
     priority: 1,
   });
   for (const doc of docs) {
