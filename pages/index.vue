@@ -8,7 +8,7 @@ definePageMeta({
 });
 
 // set meta for page
-useHead({
+/* useHead({
   title: "ScireDev - your website to learn the web and mobile developpement",
   meta: [
     {
@@ -76,7 +76,8 @@ useHead({
       content: "https://www.sciredev.com/img/scire_logo_primary.png",
     },
   ],
-});
+}); */
+
 const currentPage = ref(1);
 const searchInput = ref<string>("");
 

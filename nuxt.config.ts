@@ -6,25 +6,29 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
-    "nuxt-schema-org",
     "@nuxt/image-edge",
     "@vueuse/nuxt",
     "@nuxtjs/web-vitals",
   ],
-  app: {
-    head: {
-      htmlAttrs: {
-        lang: "en",
-      },
+  extends: ["nuxt-seo-kit"],
+  runtimeConfig: {
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://www.sciredev.com/",
+      titleSeparator: "|",
+      trailingSlash: true,
+      siteName: "ScireDev",
+      siteDescription:
+        "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
+      language: "en-US", // prefer more explicit language codes like `en-AU` over `en`
     },
+  },
+  schemaOrg: {
+    canonicalHost: "https://www.sciredev.com/",
   },
   image: {
     // Options
   },
-  schemaOrg: {
-    defaultLanguage: "en-US",
-    canonicalHost: "https://www.sciredev.com/",
-  },
+
   plugins: [{ src: "~/plugins/vercel.js", mode: "client" }],
   content: {
     highlight: {

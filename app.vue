@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <SeoKit />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
@@ -17,6 +18,7 @@ useSchemaOrg([
   defineOrganization({
     "@id": "organization",
     name: "ScireDev",
+    logo: "https://www.sciredev.com/logo.png",
     /*    logo: "",
     sameAs: [], */
   }),
