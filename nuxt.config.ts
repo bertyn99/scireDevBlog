@@ -9,13 +9,14 @@ export default defineNuxtConfig({
     "@nuxt/image-edge",
     "@vueuse/nuxt",
     "@nuxtjs/web-vitals",
+    "@nuxt/devtools",
   ],
   extends: ["nuxt-seo-kit"],
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://www.sciredev.com/",
       titleSeparator: "|",
-      trailingSlash: true,
+      trailingSlash: false,
       siteName: "ScireDev",
       siteDescription:
         "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
@@ -43,7 +44,13 @@ export default defineNuxtConfig({
       remarkPlugins: ["remark-reading-time"],
     },
   },
-
+  devtools: {
+    // Enable devtools (default: true)
+    enabled: true,
+    // VS Code Server options
+    vscode: {},
+    // ...other options
+  },
   tailwindcss: {
     cssPath: "~/assets/css/main.css",
   },
