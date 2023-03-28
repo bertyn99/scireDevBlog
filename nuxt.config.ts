@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/web-vitals",
     "@nuxt/devtools",
+    "@unlighthouse/nuxt",
   ],
   extends: ["nuxt-seo-kit"],
   runtimeConfig: {
