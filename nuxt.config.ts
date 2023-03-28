@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "@nuxt/image-edge",
     "@vueuse/nuxt",
     "@nuxtjs/web-vitals",
+    "@unlighthouse/nuxt",
   ],
   extends: ["nuxt-seo-kit"],
   runtimeConfig: {
