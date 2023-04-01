@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@nuxt/image-edge",
     "@vueuse/nuxt",
     "@nuxtjs/web-vitals",
+    "@unlighthouse/nuxt",
   ],
   app: {
     head: {

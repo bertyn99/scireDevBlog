@@ -9,14 +9,14 @@ export default defineEventHandler(async (event: any) => {
 
   sitemap.write({
     url: "/",
-    changefreq: "weekly",
+    changefreq: "daily",
     priority: 1,
   });
   for (const doc of docs) {
     sitemap.write({
       url: doc._path,
       lastmod: doc.modifiedAt,
-      changefreq: "weekly",
+      changefreq: "daily",
       img: [
         {
           url: doc.image,
