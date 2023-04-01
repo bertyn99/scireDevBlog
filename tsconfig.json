@@ -4,6 +4,6 @@
   "compilerOptions": {
     "declaration": true,
     "declarationDir": "./types",
-    "types": ["@nuxt/image", "@unlighthouse/nuxt"]
+    "types": ["@nuxt/image", "@unlighthouse/nuxt","@nuxt/content"]
   }
 }
