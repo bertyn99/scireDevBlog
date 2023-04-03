@@ -88,4 +88,4 @@ In addition to these three frameworks, it's worth noting the emergence of **Astr
 
 ## Conclusion
 
-Both Vue 3 and React are excellent frameworks for building user interfaces. Vue 3 is simpler and easier to learn, while React is better suited for large and complex projects. When choosing between the two, consider your specific use case, project requirements, and your familiarity with each framework's syntax and architecture. Regardless of which one you choose, make sure to invest time in learning the framework thoroughly and keep up with its latest updates and features.
+Both [Vue 3](/blog/vue-3-a-beginners-guide-in-depth) and React are excellent frameworks for building user interfaces. Vue 3 is simpler and easier to learn, while React is better suited for large and complex projects. When choosing between the two, consider your specific use case, project requirements, and your familiarity with each framework's syntax and architecture. Regardless of which one you choose, make sure to invest time in learning the framework thoroughly and keep up with its latest updates and features.
