@@ -15,7 +15,7 @@ definePageMeta({
 
 useSeoMeta(
   useLoadMeta({
-    title: "ScireDev",
+    title: "Home",
     description: "your website to learn the web and mobile developpement",
     image: "https://www.sciredev.com/img/scire_logo_primary.png",
     url: "https://www.sciredev.com",
