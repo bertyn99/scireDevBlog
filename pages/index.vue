@@ -8,92 +8,30 @@ definePageMeta({
 });
 
 // set meta for page
-useHead({
+/* useHead({
   title: "ScireDev - your website to learn the web and mobile developpement",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
-    },
-    {
-      name: "robots",
-      content: "index, follow, max-image-preview:large",
-    },
-    {
-      name: "og:type",
-      content: "website",
-    },
-    {
-      property: "og:locale",
-      content: "en-US",
-    },
+  meta: useLoadMeta("index"),
+}); */
 
+useSeoMeta(
+  useLoadMeta({
+    title: "Home",
+    description: "your website to learn the web and mobile developpement",
+    image: "https://www.sciredev.com/img/scire_logo_primary.png",
+    url: "https://www.sciredev.com",
+  }) as any
+);
+useHead({
+  link: [
     {
-      property: "og:url",
-      content: "https://www.sciredev.com/",
-    },
-    {
-      property: "og:site_name",
-      content: "Scire Dev",
-    },
-    {
-      property: "og:title",
-      content:
-        "ScireDev - your website to learn the web and mobile developpement",
-    },
-    {
-      property: "og:description",
-      content:
-        "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
-    },
-    {
-      property: "og:image",
-      content: "https://www.sciredev.com/img/scire_logo_primary.png",
-    },
-
-    //twitter
-    {
-      property: "twitter:card",
-      content: "summary_large_image",
-    },
-    {
-      property: "twitter:url",
-      content: "https://www.sciredev.com/",
-    },
-    {
-      property: "twitter:title",
-      content:
-        "ScireDev - your website to learn the web and mobile developpement",
-    },
-    {
-      property: "twitter:description",
-      content:
-        "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
-    },
-    {
-      property: "twitter:image",
-      content: "https://www.sciredev.com/img/scire_logo_primary.png",
+      rel: "canonical",
+      href: "https://www.sciredev.com",
     },
   ],
 });
 const currentPage = ref(1);
 const searchInput = ref<string>("");
 
-const query = ref<QueryBuilderParams>({
-  where: { title: { $regex: `/${searchInput.value}how/ig` } },
-  only: [
-    "title",
-    "description",
-    "category",
-    "author",
-    "createdAt",
-    "readingTime",
-    "_path",
-    "image",
-  ],
-  sort: { createdAt: -1 },
-});
 const { data, refresh } = await useAsyncData("homepage", async () => {
   const articles = queryContent()
     .where({ title: { $regex: `/${searchInput.value}/ig` } })

@@ -4,28 +4,33 @@ import { defineNuxtConfig } from "nuxt/config";
 export default defineNuxtConfig({
   modules: [
     "@nuxt/content",
+    "nuxt-schema-org",
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
-    "nuxt-schema-org",
     "@nuxt/image-edge",
     "@vueuse/nuxt",
     "@nuxtjs/web-vitals",
+    "@nuxt/devtools",
     "@unlighthouse/nuxt",
   ],
-  app: {
-    head: {
-      htmlAttrs: {
-        lang: "en",
-      },
+
+  runtimeConfig: {
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://www.sciredev.com/",
+      titleSeparator: "|",
+      siteName: "ScireDev",
+      siteDescription:
+        "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
+      language: "en-US", // prefer more explicit language codes like `en-AU` over `en`
     },
+  },
+  schemaOrg: {
+    canonicalHost: "https://www.sciredev.com/",
   },
   image: {
     // Options
   },
-  schemaOrg: {
-    defaultLanguage: "en-US",
-    canonicalHost: "https://www.sciredev.com/",
-  },
+
   plugins: [{ src: "~/plugins/vercel.js", mode: "client" }],
   content: {
     highlight: {
@@ -40,7 +45,13 @@ export default defineNuxtConfig({
       remarkPlugins: ["remark-reading-time"],
     },
   },
-
+  devtools: {
+    // Enable devtools (default: true)
+    enabled: true,
+    // VS Code Server options
+    vscode: {},
+    // ...other options
+  },
   tailwindcss: {
     cssPath: "~/assets/css/main.css",
   },

@@ -15,10 +15,16 @@ useSchemaOrg([
   }),
   defineBreadcrumb({}),
   defineOrganization({
-    "@id": "organization",
+    "@id": "https://www.sciredev.com/#organization",
     name: "ScireDev",
-    /*    logo: "",
-    sameAs: [], */
+    url: "https://www.sciredev.com/",
+    logo: "https://www.sciredev.com/img/scire_logo_primary.png",
+    /*    sameAs: [
+      "https://www.facebook.com/sciredev",
+      "https://twitter.com/sciredev",
+      "https://www.instagram.com/sciredev/",
+      "https://www.linkedin.com/company/sciredev/",
+    ], */
   }),
 ]);
 </script>
