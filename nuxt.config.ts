@@ -4,6 +4,7 @@ import { defineNuxtConfig } from "nuxt/config";
 export default defineNuxtConfig({
   modules: [
     "@nuxt/content",
+    "nuxt-schema-org",
     "@nuxtjs/tailwindcss",
     "nuxt-icon",
     "@nuxt/image-edge",
@@ -12,12 +13,11 @@ export default defineNuxtConfig({
     "@nuxt/devtools",
     "@unlighthouse/nuxt",
   ],
-  extends: ["nuxt-seo-kit"],
+
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://www.sciredev.com/",
       titleSeparator: "|",
-      trailingSlash: false,
       siteName: "ScireDev",
       siteDescription:
         "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",

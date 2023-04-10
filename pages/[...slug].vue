@@ -2,12 +2,29 @@
 
 <script setup lang="ts">
 import type { QueryBuilderParams } from "@nuxt/content-edge/dist/runtime/types";
-import { capitalize } from "../../utils/format";
+import { capitalize } from "../utils/format";
+definePageMeta({
+  /*   validate: async (route) => {
+    // Check if the id is made up of digits
+    return /^\d+$/.test(route.params.id)
+  } */
+});
+
 // get current route slug
 const {
   params: { slug },
 } = useRoute();
 const currentPage = ref(1);
+// check if the slug is empty, if it is, throw 404 error
+if (slug.length === 0 || slug === " ") {
+  throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
+}
+
+// check if the slug is include in array of categories
+if (!["road-to-basic", "one-on-one", "tips-and-advice"].includes(slug[0])) {
+  throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
+}
+// get the category name from slug
 const category = String(slug).replaceAll("-", " ");
 
 /* const query: QueryBuilderParams = {

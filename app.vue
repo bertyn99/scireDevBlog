@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <SeoKit />
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

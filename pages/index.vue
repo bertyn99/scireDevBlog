@@ -7,13 +7,28 @@ definePageMeta({
   layout: "blog",
 });
 
-console.log(useLoadMeta("index"));
 // set meta for page
-useHead({
+/* useHead({
   title: "ScireDev - your website to learn the web and mobile developpement",
   meta: useLoadMeta("index"),
-});
+}); */
 
+useSeoMeta(
+  useLoadMeta({
+    title: "ScireDev",
+    description: "your website to learn the web and mobile developpement",
+    image: "https://www.sciredev.com/img/scire_logo_primary.png",
+    url: "https://www.sciredev.com",
+  }) as any
+);
+useHead({
+  link: [
+    {
+      rel: "canonical",
+      href: "https://www.sciredev.com",
+    },
+  ],
+});
 const currentPage = ref(1);
 const searchInput = ref<string>("");
 
