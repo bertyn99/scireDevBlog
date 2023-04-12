@@ -3,11 +3,28 @@
 <script setup lang="ts">
 import type { QueryBuilderParams } from "@nuxt/content-edge/dist/runtime/types";
 import { capitalize } from "../utils/format";
+definePageMeta({
+  /*   validate: async (route) => {
+    // Check if the id is made up of digits
+    return /^\d+$/.test(route.params.id)
+  } */
+});
+
 // get current route slug
 const {
   params: { slug },
 } = useRoute();
 const currentPage = ref(1);
+// check if the slug is empty, if it is, throw 404 error
+if (slug.length === 0 || slug === " ") {
+  throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
+}
+
+// check if the slug is include in array of categories
+if (!["road-to-basic", "one-on-one", "tips-and-advice"].includes(slug[0])) {
+  throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
+}
+// get the category name from slug
 const category = String(slug).replaceAll("-", " ");
 
 /* const query: QueryBuilderParams = {
@@ -36,18 +53,21 @@ const { data, refresh, pending } = await useAsyncData(category, async () => {
     .skip((currentPage.value - 1) * 6)
     .find();
 
-  const countArticle = queryContent("/").only("title").where({
-    category: {
-      $contains: category,
-    },
-  }).find();
+  const countArticle = queryContent("/")
+    .only("title")
+    .where({
+      category: {
+        $contains: category,
+      },
+    })
+    .find();
   return {
     articles: await articles,
     countArticle: (await countArticle).length,
   };
 });
 
-const nbPages = computed(() => Math.ceil(data.value!.countArticle / 6))
+const nbPages = computed(() => Math.ceil(data.value!.countArticle / 6));
 const goPrev = () => {
   currentPage.value -= 1;
 };
@@ -145,14 +165,27 @@ useHead({
       <!-- Provide only defined fieldsin the `:query` prop -->
       <div class="flex flex-col gap-8 my-6">
         <!-- Default list slot -->
-        <ul class="h-full flex flex-col gap-6" v-if="data?.articles.length !== 0">
-          <li v-for="article in data?.articles" :key="article._path"
-            class="pt-4 first-of-type:border-none border-t border-slate-200">
+        <ul
+          class="h-full flex flex-col gap-6"
+          v-if="data?.articles.length !== 0"
+        >
+          <li
+            v-for="article in data?.articles"
+            :key="article._path"
+            class="pt-4 first-of-type:border-none border-t border-slate-200"
+          >
             <NuxtLink :to="article._path" class="no-underline">
               <article class="flex flex-col md:flex-row px-4 items-start gap-4">
-                <div class="relative w-full md:w-1/4 h-full max-h-64 rounded-lg overflow-hidden">
-                  <nuxt-img format="webp" sizes="sm:90vw md:25vw lg:360px" :src="`/${article.image}`"
-                    :alt="article.title" class="w-full h-full aspect-video object-cover" />
+                <div
+                  class="relative w-full md:w-1/4 h-full max-h-64 rounded-lg overflow-hidden"
+                >
+                  <nuxt-img
+                    format="webp"
+                    sizes="sm:90vw md:25vw lg:360px"
+                    :src="`/${article.image}`"
+                    :alt="article.title"
+                    class="w-full h-full aspect-video object-cover"
+                  />
                 </div>
                 <header class="w-full md:w-3/4">
                   <h1 class="text-2xl font-bold">
@@ -161,8 +194,10 @@ useHead({
                   <p class="text-normal">{{ article.description }}</p>
                   <ul class="flex gap-2 py-2">
                     <li class="tag" v-for="(tag, n) in article.tags" :key="n">
-                      <NuxtLink :to="`/blog/tags/${tag}`"
-                        class="no-underline bg-primary-darken text-slate-700 text-sm p-2 rounded-md transition-all !py-0.5 hover:-translate-y-0.5">
+                      <NuxtLink
+                        :to="`/blog/tags/${tag}`"
+                        class="no-underline bg-primary-darken text-slate-700 text-sm p-2 rounded-md transition-all !py-0.5 hover:-translate-y-0.5"
+                      >
                         {{ tag }}
                       </NuxtLink>
                     </li>
@@ -178,7 +213,13 @@ useHead({
         <!-- Not found slot to display message when no content us is found -->
         <!--   -->
 
-        <ArticlePagination :total-page="nbPages" :current-page="currentPage" :next="goNext" :prev="goPrev" :to="goTo" />
+        <ArticlePagination
+          :total-page="nbPages"
+          :current-page="currentPage"
+          :next="goNext"
+          :prev="goPrev"
+          :to="goTo"
+        />
       </div>
     </section>
   </main>
