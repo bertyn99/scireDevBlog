@@ -7,6 +7,11 @@
 </template>
 
 <script setup>
+useHead({
+  meta: [
+    { name: "p:domain_verify", content: "542878e21ff6537eeecb261d31f96282" },
+  ],
+});
 useSchemaOrg([
   // @todo Select Identity: https://vue-schema-org.netlify.app/guide/guides/identity
   defineWebSite({
