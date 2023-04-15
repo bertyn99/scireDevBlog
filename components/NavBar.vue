@@ -1,115 +1,96 @@
 <template>
   <nav
-    class="fixed w-full mx-auto left-0 right-0 py-1 z-50"
-    :class="[y < 70 ? '' : 'bg-black']"
+    class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+    aria-label="Global"
   >
-    <div class="max-w-7xl px-5 mx-auto md:flex md:justify-between">
-      <div class="flex justify-between items-center">
-        <NuxtLink
-          to="/"
-          class="text-lg font-semibold"
-          :class="[y < 200 ? '' : 'text-white']"
-        >
-          <nuxt-img
-            preload
-            format="webp"
-            sizes="sm:64px md:72px lg:90px"
-            class="h-14 w-16 sm:h-20 sm:w-24 object-fill translate-y-1"
-            src="/img/scire_logo_primary.png"
-            alt=""
-          />
-        </NuxtLink>
-        <button
-          @click="show = !show"
-          v-if="!show"
-          class="md:hidden bg-black p-1 text-white cursor-pointer"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-6 h-6 fill-current"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <rect x="9" y="5" width="8" height="2" rx="1" fill="currentColor" />
-            <rect
-              x="6"
-              y="11"
-              width="11"
-              height="2"
-              rx="1"
-              fill="currentColor"
-            />
-            <rect
-              x="7"
-              y="17"
-              width="8"
-              height="2"
-              rx="1"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-        <button
-          class="md:hidden p-1 bg-black text-white cursor-pointer"
-          @click="show = !show"
-          v-if="show"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
-      </div>
-      <ul
-        class="bg-black/90 md:bg-transparent md:flex md:items-center z-[-1] absolute w-full md:w-auto left-0 md:z-auto md:static md:gap-8 md:opacity-100 transition-all ease-in duration-500"
-        :class="[
-          show ? `top-[65px] opacity-100` : `top-[-400px] opacity-0`,
-          show ? '' : '',
-        ]"
+    <div class="flex lg:flex-1">
+      <a href="#" class="-m-1.5 p-1.5">
+        <span class="sr-only">Scire dev</span>
+        <img class="h-14 w-auto" src="/img/scire_logo_primary.png" alt="" />
+      </a>
+    </div>
+    <div class="flex lg:hidden">
+      <button
+        type="button"
+        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+        @click="show = true"
       >
-        <li class="px-4 py-6 hover:bg-tertiary-default md:hover:bg-transparent">
-          <NuxtLink
-            class="text-primary-default md:text-primary-darken md:hover:text-tertiary-default transition-all font-semibold"
-            to="/road-to-basic"
-          >
-            Road To Basic</NuxtLink
-          >
-        </li>
-        <li class="px-4 py-6 hover:bg-tertiary-default md:hover:bg-transparent">
-          <NuxtLink
-            class="text-primary-default md:text-primary-darken md:hover:text-tertiary-default transition-all font-semibold"
-            to="/one-on-one"
-          >
-            Concept
-          </NuxtLink>
-        </li>
-        <li class="px-4 py-6 hover:bg-tertiary-default md:hover:bg-transparent">
-          <NuxtLink
-            class="text-primary-default md:text-primary-darken md:hover:text-tertiary-default transition-all font-semibold"
-            to="/tips-and-advice"
-          >
-            Tips & Advice</NuxtLink
-          >
-        </li>
-      </ul>
-      <!--    desktop/tablet nav -->
+        <span class="sr-only">Open main menu</span>
+        <Icon
+          name="heroicons:bars-3-20-solid"
+          class="h-6 w-6"
+          aria-hidden="true"
+        />
+      </button>
+    </div>
+    <div class="hidden lg:flex lg:gap-x-12">
+      <a
+        v-for="item in navigation"
+        :key="item.name"
+        :href="item.href"
+        class="text-sm font-semibold leading-6 text-gray-900"
+        >{{ item.name }}</a
+      >
+    </div>
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+      <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
+        >Log in <span aria-hidden="true">&rarr;</span></a
+      >
     </div>
   </nav>
+  <div class="lg:hidden" v-if="show">
+    <div class="fixed inset-0 z-50" />
+    <div
+      class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+    >
+      <div class="flex items-center justify-between">
+        <a href="#" class="-m-1.5 p-1.5">
+          <span class="sr-only">Your Company</span>
+          <img
+            class="h-8 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt=""
+          />
+        </a>
+        <button
+          type="button"
+          class="-m-2.5 rounded-md p-2.5 text-gray-700"
+          @click="show = false"
+        >
+          <span class="sr-only">Close menu</span>
+          <Icon name="heroicons:bars-3" class="h-6 w-6" aria-hidden="true" />
+        </button>
+      </div>
+      <div class="mt-6 flow-root">
+        <div class="-my-6 divide-y divide-gray-500/10">
+          <div class="space-y-2 py-6">
+            <a
+              v-for="item in navigation"
+              :key="item.name"
+              :href="item.href"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+              >{{ item.name }}</a
+            >
+          </div>
+          <div class="py-6">
+            <a
+              href="#"
+              class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+              >Log in</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { useWindowScroll } from "@vueuse/core";
-
+const navigation = [
+  { name: "Article", href: "#" },
+  { name: "Tools", href: "#" },
+];
 const { x, y } = useWindowScroll();
 
 const show = ref(false);

@@ -1,7 +1,9 @@
 <template>
-  <header class="mb-8 ">
-    <NavBar></NavBar>
-
-    <slot></slot>
+  <header class="absolute inset-x-0 top-0 z-50">
+    <NavBar />
   </header>
 </template>
+
+<script setup>
+const mobileMenuOpen = ref(false);
+</script>
