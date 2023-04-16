@@ -88,7 +88,7 @@
 <script setup lang="ts">
 import { useWindowScroll } from "@vueuse/core";
 const navigation = [
-  { name: "Article", href: "#" },
+  { name: "Blog", href: "blog" },
   { name: "Tools", href: "#" },
 ];
 const { x, y } = useWindowScroll();

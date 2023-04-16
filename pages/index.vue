@@ -3,5 +3,6 @@
 <template>
   <main>
     <HeroLanding />
+    <SectionFeature />
   </main>
 </template>
