@@ -151,6 +151,6 @@ const goTo = (id: number) => {
       offset
     />
   </section>
-  <SectionSocial></SectionSocial>
+  <!--   <SectionNewsletter /> -->
 </template>
 <style scoped></style>
