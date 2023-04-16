@@ -16,17 +16,12 @@ const footerNavigation = {
     {
       name: "Twitter",
       href: "#",
-      icon: "heroicons:outline/outline/twitter",
-    },
-    {
-      name: "Instagram",
-      href: "#",
-      icon: "heroicons:outline/outline/instagram",
+      icon: "mdi:twitter",
     },
     {
       name: "Pinterest",
       href: "#",
-      icon: "heroicons:outline/outline/pinterest",
+      icon: "mdi:pinterest",
     },
   ],
 };
@@ -151,7 +146,7 @@ const footerNavigation = {
           </NuxtLink>
         </div>
         <p class="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
-          &copy; 2020 Your Company, Inc. All rights reserved.
+          &copy; 2020 sciredev, Inc. All rights reserved.
         </p>
       </div>
     </div>
