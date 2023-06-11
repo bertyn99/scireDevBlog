@@ -23,8 +23,6 @@ const { data: featured } = await useAsyncData("featured", () => {
     ])
     .find();
 });
-
-console.log(featured.value![1].image);
 </script>
 
 <template>
@@ -33,22 +31,33 @@ console.log(featured.value![1].image);
       class="mx-auto max-w-7xl px-6 py-6 sm:py-10 lg:flex lg:items-center lg:gap-5 lg:px-8 lg:py-14"
     >
       <div
-        class="md:max-h-[500px] grow-[2] bg-pink-400 overflow-hidden rounded-md"
+        class="md:min-h-[500px] grow-[2] bg-pink-400 overflow-hidden rounded-md relative cursor-pointer"
       >
-        <nuxt-img :src="featured![0].image" class="w-full h-full" alt="" />
+        <nuxt-link :to="featured![0]._path">
+          <nuxt-img
+            :src="featured![0].image"
+            class="absolute z-10 w-full h-full object-fill"
+            alt=""
+          />
+        </nuxt-link>
       </div>
       <div
         class="md:min-h-[500px] h-full min-w-[20%] flex-1 flex sm:flex-col sm:flex-nowrap mt-4 lg:mt-0 gap-x-4 gap-y-4"
       >
         <div
-          class="w-full aspect-video bg-red-400 flex-1 overflow-hidden rounded-md"
+          class="w-full aspect-video bg-red-400 flex-1 overflow-hidden rounded-md cursor-pointer"
         >
-          <nuxt-img :src="featured![1].image" class="w-full h-full" alt="" />
+          <nuxt-link :to="featured![1]._path">
+            <nuxt-img :src="featured![1].image" class="w-full h-full" alt="" />
+          </nuxt-link>
         </div>
+
         <div
-          class="w-full aspect-video bg-blue-400 flex-1 overflow-hidden rounded-md"
+          class="w-full aspect-video bg-blue-400 flex-1 overflow-hidden rounded-md cursor-pointer"
         >
-          <nuxt-img :src="featured![2].image" class="w-full h-full" alt="" />
+          <nuxt-link :to="featured![2]._path">
+            <nuxt-img :src="featured![2].image" class="w-full h-full" alt="" />
+          </nuxt-link>
         </div>
       </div>
     </div>
