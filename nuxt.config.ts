@@ -6,8 +6,9 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "nuxt-schema-org",
     "@nuxtjs/tailwindcss",
+    '@nuxthq/studio',
     "nuxt-icon",
-    "@nuxt/image-edge",
+    "@nuxt/image",
     "@vueuse/nuxt",
     "@nuxtjs/web-vitals",
     "@nuxt/devtools",
@@ -34,12 +35,12 @@ export default defineNuxtConfig({
   plugins: [{ src: "~/plugins/vercel.js", mode: "client" }],
   content: {
     highlight: {
-      theme: {
+      /*     theme: {
         // Default theme (same as single string)
         default: "material-palenight",
         // Theme used if `html.dark`
         dark: "github-dark",
-      },
+      }, */
     },
     markdown: {
       remarkPlugins: ["remark-reading-time"],
