@@ -31,10 +31,14 @@ useHead({
 });
 const currentPage = ref(1);
 const searchInput = ref<string>("");
-
-const { data, refresh } = await useAsyncData("homepage", async () => {
+const category = ref<string>("");
+const { data, refresh } = await useAsyncData("articlet-list", async () => {
   const articles = queryContent()
-    .where({ title: { $regex: `/${searchInput.value}/ig` } })
+    .where({
+      _path: { $regex: `/blog/ig` },
+      title: { $regex: `/${searchInput.value}/ig` },
+      category: { $regex: `/${category.value.toLowerCase()}/ig` },
+    })
     .only([
       "title",
       "description",
@@ -53,7 +57,7 @@ const { data, refresh } = await useAsyncData("homepage", async () => {
     .skip((currentPage.value - 1) * 6)
     .find();
 
-  const countArticle = queryContent("/").only("title").find();
+  const countArticle = queryContent({ path: "/blog" }).only("title").find();
   return {
     articles: await articles,
     countArticle: (await countArticle).length,
@@ -65,12 +69,20 @@ watch([currentPage], () => {
   refresh();
 });
 
+watch([category], () => {
+  refresh();
+});
+
 const searchArticle = () => {
   refresh();
 };
 const debouncedFn = useDebounceFn(() => {
   searchArticle();
 }, 600);
+
+const selectCat = (cat: string) => {
+  category.value = cat;
+};
 
 const goNext = () => {
   if (currentPage.value < Math.ceil(data!.value!.countArticle / 6)) {
@@ -96,6 +108,29 @@ const goTo = (id: number) => {
       >
         Latest Article
       </h2>
+
+      <div>
+        <ul class="flex gap-2 font-semibold text-primary-darken">
+          <li
+            class="cursor-pointer px-3 py-0.5 hover:text-secondary hover:bg-tertiary-default/50"
+            @click="selectCat('road to basic')"
+          >
+            Road to basic
+          </li>
+          <li
+            class="cursor-pointer px-3 py-0.5 v hover:text-secondary hover:bg-tertiary-default/50"
+            @click="selectCat('tips and advice')"
+          >
+            Tips and advice
+          </li>
+          <li
+            class="cursor-pointer px-3 py-0.5 hover:text-secondary hover:bg-tertiary-default/50"
+            @click="selectCat('one on one')"
+          >
+            Concept
+          </li>
+        </ul>
+      </div>
 
       <div class="relative w-32">
         <input

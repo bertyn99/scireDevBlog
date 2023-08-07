@@ -4,6 +4,7 @@
   <main>
     <HeroLanding />
     <SectionFeature />
+    <SectionFeatureWithCode />
     <SectionNewsletter />
   </main>
 </template>

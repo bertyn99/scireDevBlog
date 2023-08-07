@@ -68,15 +68,14 @@
             <h1
               class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
             >
-              We’re changing the way young developer learn.
+              We’re changing the way you learn to code.
             </h1>
             <p
               class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none"
             >
-              Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis
-              cupidatat mollit aute velit. Et labore commodo nulla aliqua
-              proident mollit ullamco exercitation tempor. Sint aliqua anim
-              nulla sunt mollit id pariatur in voluptate cillum.
+              Our platform stands out from the rest, offering a comprehensive
+              learning experience that covers the key aspects required to become
+              a proficient web developer.
             </p>
             <div class="mt-10 flex items-center gap-x-6">
               <a

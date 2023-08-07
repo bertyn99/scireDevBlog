@@ -1,10 +1,10 @@
 <script setup>
 import { capitalize, getAuthorImg, truncate } from "@/utils/format";
-const props = defineProps(["article"]);
+defineProps(["article"]);
 </script>
 
 <template>
-  <NuxtLink :to="article._path">
+  <NuxtLink :to="article._path" v-if="article !== null">
     <article
       class="w-full p-2.5 max-w-md max-h-[465px] group hover:bg-white hover:shadow"
     >
@@ -36,14 +36,14 @@ const props = defineProps(["article"]);
         </NuxtLink>
       </div>
       <div class="py-2 flex items-center gap-2">
-        <nuxt-img
+        <!--    <nuxt-img
           loading="lazy"
           class="w-6 h-6 rounded-full object-cover"
-          :src="getAuthorImg(article.author)"
-          :alt="`image de profile ${article.author}`"
+          :src="getAuthorImg(article?.author)"
+          :alt="`image de profile ${article?.author}`"
           format="webp"
           sizes="sm:20px md:24px"
-        />
+        /> -->
         <span class="font-medium text-secondary/60">{{ article?.author }}</span>
       </div>
       <h3 class="font-bold text-lg leading-snug h-11">
@@ -117,7 +117,7 @@ const props = defineProps(["article"]);
             itemprop="datePublished"
             class=""
             :datetime="article.createdAt"
-            >{{ article.createdAt.substring(2) }}</time
+            >{{ article?.createdAt?.substring(2) || "" }}</time
           >
         </span>
       </div>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const footerNavigation = {
   solutions: [{ name: "Blog", href: "#" }],
-  connect: [{ name: "Sponsor", href: "#" }],
+  /*  connect: [{ name: "Sponsor", href: "#" }],
   company: [
     { name: "About", href: "#" },
     { name: "Blog", href: "#" },
@@ -11,7 +11,7 @@ const footerNavigation = {
     { name: "Claim", href: "#" },
     { name: "Privacy", href: "#" },
     { name: "Terms", href: "#" },
-  ],
+  ], */
   social: [
     {
       name: "Twitter",

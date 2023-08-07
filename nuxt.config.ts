@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@nuxt/image",
     "@vueuse/nuxt",
-    "@nuxtjs/web-vitals",
+    /*     "@nuxtjs/web-vitals", */
     "@nuxt/devtools",
     "@unlighthouse/nuxt",
   ],
@@ -31,13 +31,13 @@ export default defineNuxtConfig({
     canonicalHost: "https://www.sciredev.com/",
   },
   image: {
-    // Options
+    domains: ["www.sciredev.com"],
   },
   plausible: {
     domain: "www.sciredev.com",
     apiHost: "https://analytics.bertynboulikou.com",
   },
-  plugins: [{ src: "~/plugins/vercel.js", mode: "client" }],
+  plugins: [],
   content: {
     highlight: {
       /*     theme: {
