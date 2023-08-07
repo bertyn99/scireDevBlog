@@ -6,7 +6,9 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "nuxt-schema-org",
     "@nuxtjs/tailwindcss",
-    '@nuxthq/studio',
+    "@nuxthq/studio",
+    "@nuxtjs/plausible",
+    "@nuxtjs/partytown",
     "nuxt-icon",
     "@nuxt/image",
     "@vueuse/nuxt",
@@ -31,7 +33,10 @@ export default defineNuxtConfig({
   image: {
     // Options
   },
-
+  plausible: {
+    domain: "www.sciredev.com",
+    apiHost: "https://analytics.bertynboulikou.com",
+  },
   plugins: [{ src: "~/plugins/vercel.js", mode: "client" }],
   content: {
     highlight: {
