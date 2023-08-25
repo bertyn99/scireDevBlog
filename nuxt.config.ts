@@ -36,6 +36,9 @@ export default defineNuxtConfig({
     domain: "www.sciredev.com",
     apiHost: "https://analytics.bertynboulikou.com",
   },
+  ui: {
+    icons: "all",
+  },
   plugins: [],
   content: {
     highlight: {
