@@ -35,6 +35,7 @@
     "@notionhq/client": "^2.2.3",
     "@vercel/analytics": "^0.1.11",
     "notion-to-md": "^2.5.5",
-    "remark-reading-time": "^2.0.1"
+    "remark-reading-time": "^2.0.1",
+    "zod": "^3.22.2"
   }
 }

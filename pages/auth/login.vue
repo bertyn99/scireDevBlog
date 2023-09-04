@@ -1,62 +1,70 @@
 <script lang="ts" setup>
+import { z } from "zod";
 definePageMeta({
   layout: "auth",
 });
+
+const schema = z.object({
+  email: z.string().email("Invalid email"),
+  password: z.string().min(8, "Must be at least 8 characters"),
+});
+
+const state = ref({
+  email: undefined,
+  password: undefined,
+});
+
+const form = ref();
+
+async function submit() {
+  await form.value!.validate();
+  // Do something with state.value
+}
 </script>
 
 <template>
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
     <div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-      <form class="space-y-6" action="#" method="POST">
+      <UForm
+        ref="form"
+        :schema="schema"
+        :state="state"
+        class="space-y-6"
+        @submit.prevent="submit"
+      >
         <div>
-          <label
-            for="email"
-            class="block text-sm font-medium leading-6 text-gray-900"
-            >Email address</label
-          >
-          <div class="mt-2">
+          <UFormGroup label="Email" name="email" required>
             <UInput
               id="email"
               name="email"
               type="email"
               autocomplete="email"
-              required=""
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
+              v-model="state.email"
             />
-          </div>
+          </UFormGroup>
         </div>
 
         <div>
-          <label
-            for="password"
-            class="block text-sm font-medium leading-6 text-gray-900"
-            >Password</label
-          >
-          <div class="mt-2">
+          <UFormGroup label="Password" name="password" required>
             <UInput
               id="password"
               name="password"
               type="password"
               autocomplete="current-password"
-              required=""
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
+              v-model="state.password"
             />
-          </div>
+          </UFormGroup>
         </div>
 
         <div class="flex items-center justify-between">
           <div class="flex items-center">
-            <UInput
+            <UCheckbox
               id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-600"
+              label="Remember me"
+              :ui="{
+                label: 'text-sm text-gray-900 dark:text-gray-200',
+              }"
             />
-            <label
-              for="remember-me"
-              class="ml-3 block text-sm leading-6 text-gray-900"
-              >Remember me</label
-            >
           </div>
 
           <div class="text-sm leading-6">
@@ -71,7 +79,7 @@ definePageMeta({
         <div>
           <UButton type="submit" block> Sign in </UButton>
         </div>
-      </form>
+      </UForm>
 
       <div>
         <div class="relative mt-10">
