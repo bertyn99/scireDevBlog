@@ -10,7 +10,6 @@ import {
   TransitionRoot,
 } from "@headlessui/vue";
 import { Bars3Icon, BellIcon, Cog6ToothIcon } from "@heroicons/vue/24/outline";
-import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
 
 const navigation = [
   {
@@ -19,22 +18,17 @@ const navigation = [
     icon: "i-heroicons-home",
     current: true,
   },
-  { name: "Team", href: "/user", icon: "i-heroicons-user", current: false },
   {
-    name: "Projects",
+    name: "Formation",
     href: "/admin/formation",
     icon: "i-heroicons-folder",
     current: false,
   },
-  {
-    name: "Calendar",
-    href: "/admin/teams",
-    icon: "i-heroicons-calendar",
-    current: false,
-  },
+  { name: "User", href: "/user", icon: "i-heroicons-user", current: false },
+
   {
     name: "Documents",
-    href: "#",
+    href: "/admin/user",
     icon: "i-heroicons-document",
     current: false,
   },
@@ -153,8 +147,8 @@ const sidebarOpen = ref(false);
                       </div>
                       <ul role="list" class="-mx-2 mt-2 space-y-1">
                         <li v-for="team in teams" :key="team.name">
-                          <a
-                            :href="team.href"
+                          <ULink
+                            :to="team.href"
                             :class="[
                               team.current
                                 ? 'bg-primary-700 text-white'
@@ -167,21 +161,18 @@ const sidebarOpen = ref(false);
                               >{{ team.initial }}</span
                             >
                             <span class="truncate">{{ team.name }}</span>
-                          </a>
+                          </ULink>
                         </li>
                       </ul>
                     </li>
                     <li class="mt-auto">
-                      <a
-                        href="#"
+                      <UButton
+                        to="#"
+                        icon="i-heroicons-cog-6-tooth"
                         class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-primary-200 hover:bg-primary-700 hover:text-white"
                       >
-                        <Cog6ToothIcon
-                          class="h-6 w-6 shrink-0 text-primary-200 group-hover:text-white"
-                          aria-hidden="true"
-                        />
                         Settings
-                      </a>
+                      </UButton>
                     </li>
                   </ul>
                 </nav>
@@ -265,7 +256,8 @@ const sidebarOpen = ref(false);
                 href="#"
                 class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-primary-200 hover:bg-primary-700 hover:text-white"
               >
-                <Cog6ToothIcon
+                <UIcon
+                  name="i-heroicons-cog-6-tooth"
                   class="h-6 w-6 shrink-0 text-primary-200 group-hover:text-white"
                   aria-hidden="true"
                 />
@@ -287,7 +279,7 @@ const sidebarOpen = ref(false);
           @click="sidebarOpen = true"
         >
           <span class="sr-only">Open sidebar</span>
-          <Bars3Icon class="h-6 w-6" aria-hidden="true" />
+          <UIcon name="i-heroicons-bars-3" class="h-6 w-6" aria-hidden="true" />
         </button>
 
         <!-- Separator -->
@@ -296,7 +288,8 @@ const sidebarOpen = ref(false);
         <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
           <form class="relative flex flex-1" action="#" method="GET">
             <label for="search-field" class="sr-only">Search</label>
-            <MagnifyingGlassIcon
+            <UIcon
+              name="i-heroicons-magnifying-glass"
               class="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
               aria-hidden="true"
             />
@@ -314,7 +307,11 @@ const sidebarOpen = ref(false);
               class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
             >
               <span class="sr-only">View notifications</span>
-              <BellIcon class="h-6 w-6" aria-hidden="true" />
+              <UIcon
+                name="i-heroicons-bell"
+                class="h-6 w-6"
+                aria-hidden="true"
+              />
             </button>
 
             <!-- Separator -->
@@ -338,7 +335,8 @@ const sidebarOpen = ref(false);
                     aria-hidden="true"
                     >Tom Cook</span
                   >
-                  <ChevronDownIcon
+                  <UIcon
+                    name="i-heroicons-chevron-down"
                     class="ml-2 h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
@@ -378,6 +376,7 @@ const sidebarOpen = ref(false);
 
       <main class="py-10">
         <div class="px-4 sm:px-6 lg:px-8">
+          <SectionPageHeadings />
           <slot />
         </div>
       </main>

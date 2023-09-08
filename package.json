@@ -32,6 +32,7 @@
     "sitemap": "^7.1.1"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.16",
     "@notionhq/client": "^2.2.3",
     "@vercel/analytics": "^0.1.11",
     "notion-to-md": "^2.5.5",
