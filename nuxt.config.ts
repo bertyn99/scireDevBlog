@@ -43,12 +43,12 @@ export default defineNuxtConfig({
   plugins: [],
   content: {
     highlight: {
-      /*     theme: {
+      theme: {
         // Default theme (same as single string)
-        default: "material-palenight",
+        default: "material-theme-palenight",
         // Theme used if `html.dark`
         dark: "github-dark",
-      }, */
+      },
     },
     markdown: {
       remarkPlugins: ["remark-reading-time"],

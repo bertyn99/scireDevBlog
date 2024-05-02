@@ -57,7 +57,7 @@
 import { useWindowScroll } from "@vueuse/core";
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Blog", href: "blog" },
+  { name: "Blog", href: "/blog" },
   /* { name: "Tools", href: "#" }, */
 ];
 
