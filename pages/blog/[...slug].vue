@@ -50,7 +50,7 @@ useHead({
     :itemListElement="[
       { name: 'Home', item: '/' },
       { name: 'Blog', item: '/blog' },
-      { name: data.article.title, item: path },
+      { name: data.article.title || '', item: path },
     ]"
   />
   <SchemaOrgArticle
@@ -58,7 +58,7 @@ useHead({
     :datePublished="data.article.createdAt"
     :dateModified="data.article.modifiedAt"
     :author="{
-      name: data.article.author,
+      name: data.article.author || '',
       image: getAuthorImg(data.article.author),
     }"
   />

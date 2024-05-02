@@ -2,8 +2,10 @@
   // https://v3.nuxtjs.org/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "declaration": true,
-    "declarationDir": "./types",
-    "types": ["@nuxt/image", "@unlighthouse/nuxt","@nuxt/content"]
+    "types": [
+      "@nuxt/image",
+      "@unlighthouse/nuxt",
+      "@nuxt/content"
+    ]
   }
 }
