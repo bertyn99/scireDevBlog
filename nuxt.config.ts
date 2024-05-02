@@ -5,14 +5,13 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/content",
     "nuxt-schema-org",
-    "@nuxtjs/tailwindcss",
+    "@nuxthq/ui",
     "@nuxthq/studio",
     "@nuxtjs/plausible",
     "@nuxtjs/partytown",
     "nuxt-icon",
     "@nuxt/image",
     "@vueuse/nuxt",
-    /*     "@nuxtjs/web-vitals", */
     "@nuxt/devtools",
     "@unlighthouse/nuxt",
   ],
@@ -36,6 +35,9 @@ export default defineNuxtConfig({
   plausible: {
     domain: "www.sciredev.com",
     apiHost: "https://analytics.bertynboulikou.com",
+  },
+  ui: {
+    icons: "all",
   },
   plugins: [],
   content: {

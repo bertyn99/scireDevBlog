@@ -32,10 +32,9 @@
         >{{ item.name }}</NuxtLink
       >
     </div>
-    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <!-- <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
-        >Log in <span aria-hidden="true">&rarr;</span></a
-      > -->
+    <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4">
+      <UButton to="/auth/login" variant="outline">Log in</UButton>
+      <UButton to="/auth/login">Sign Up</UButton>
     </div>
   </nav>
   <div class="lg:hidden" v-if="show">
@@ -69,11 +68,7 @@
             >
           </div>
           <div class="py-6">
-            <!--  <NuxtLink
-              href="#"
-              class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-              >Log in</NuxtLink
-            > -->
+            <UButton to="/auth/login">Sign Up</UButton>
           </div>
         </div>
       </div>
