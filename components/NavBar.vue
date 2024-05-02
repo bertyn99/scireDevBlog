@@ -14,12 +14,13 @@
       </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12">
-      <NuxtLink v-for="item in navigation" :key="item.name" :to="item.href"
-        class="text-sm font-semibold leading-6 text-gray-900">{{ item.name }}</NuxtLink>
+      <NuxtLink v-for="item in navigation" :key="item.name" :to="item.href" class="text-sm font-semibold leading-6 "
+        :class="[y < 70 ? 'text-gray-900' : 'text-gray-50']">{{ item.name }}
+      </NuxtLink>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4">
-      <UButton to="/auth/login" variant="outline">Log in</UButton>
-      <UButton to="/auth/login">Sign Up</UButton>
+      <!--    <UButton to="/auth/login" variant="outline">Log in</UButton>
+      <UButton to="/auth/login">Sign Up</UButton> -->
     </div>
   </nav>
   <div class="lg:hidden" v-if="show">
@@ -43,9 +44,9 @@
               class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
               {{ item.name }}</NuxtLink>
           </div>
-          <div class="py-6">
+          <!--  <div class="py-6">
             <UButton to="/auth/login">Sign Up</UButton>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -55,10 +56,11 @@
 <script setup lang="ts">
 import { useWindowScroll } from "@vueuse/core";
 const navigation = [
+  { name: "Home", href: "/" },
   { name: "Blog", href: "blog" },
   /* { name: "Tools", href: "#" }, */
 ];
-const { x, y } = useWindowScroll();
 
+const { x, y } = useWindowScroll();
 const show = ref(false);
 </script>
