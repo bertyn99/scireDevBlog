@@ -1,21 +1,18 @@
-import { defineNuxtConfig } from "nuxt/config";
-
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   modules: [
     "@nuxt/content",
     "nuxt-schema-org",
-    "@nuxthq/ui",
     "@nuxthq/studio",
-    "@nuxtjs/plausible",
     "@nuxtjs/partytown",
     "nuxt-icon",
     "@nuxt/image",
     "@vueuse/nuxt",
     "@nuxt/devtools",
     "@unlighthouse/nuxt",
+    "@nuxt/ui",
   ],
-
+  extends: ["nuxt-umami"],
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://www.sciredev.com/",
@@ -32,12 +29,16 @@ export default defineNuxtConfig({
   image: {
     domains: ["www.sciredev.com"],
   },
-  plausible: {
-    domain: "www.sciredev.com",
-    apiHost: "https://analytics.bertynboulikou.com",
+  appConfig: {
+    umami: {
+      // ...umami config here
+    },
   },
   ui: {
     icons: "all",
+  },
+  studio: {
+    enabled: true,
   },
   plugins: [],
   content: {
@@ -59,9 +60,6 @@ export default defineNuxtConfig({
     // VS Code Server options
     vscode: {},
     // ...other options
-  },
-  tailwindcss: {
-    cssPath: "~/assets/css/main.css",
   },
   nitro: {
     prerender: {
