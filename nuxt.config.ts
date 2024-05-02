@@ -1,19 +1,18 @@
-import { defineNuxtConfig } from "nuxt/config";
-
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   modules: [
     "@nuxt/content",
     "nuxt-schema-org",
-    "@nuxtjs/tailwindcss",
+    "@nuxthq/studio",
+    "@nuxtjs/partytown",
     "nuxt-icon",
-    "@nuxt/image-edge",
+    "@nuxt/image",
     "@vueuse/nuxt",
-    "@nuxtjs/web-vitals",
     "@nuxt/devtools",
     "@unlighthouse/nuxt",
+    "@nuxt/ui",
   ],
-
+  extends: ["nuxt-umami"],
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://www.sciredev.com/",
@@ -28,18 +27,28 @@ export default defineNuxtConfig({
     canonicalHost: "https://www.sciredev.com/",
   },
   image: {
-    // Options
+    domains: ["www.sciredev.com"],
   },
-
-  plugins: [{ src: "~/plugins/vercel.js", mode: "client" }],
+  appConfig: {
+    umami: {
+      // ...umami config here
+    },
+  },
+  ui: {
+    icons: "all",
+  },
+  studio: {
+    enabled: true,
+  },
+  plugins: [],
   content: {
     highlight: {
-      theme: {
+      /*     theme: {
         // Default theme (same as single string)
         default: "material-palenight",
         // Theme used if `html.dark`
         dark: "github-dark",
-      },
+      }, */
     },
     markdown: {
       remarkPlugins: ["remark-reading-time"],
@@ -51,9 +60,6 @@ export default defineNuxtConfig({
     // VS Code Server options
     vscode: {},
     // ...other options
-  },
-  tailwindcss: {
-    cssPath: "~/assets/css/main.css",
   },
   nitro: {
     prerender: {
