@@ -1,4 +1,4 @@
-``` tsx
+```tsx
     import { useState } from 'react'
     import { Switch } from '@headlessui/react'
 
