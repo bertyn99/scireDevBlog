@@ -1,8 +1,8 @@
 ---
 title: 'Exploring the Vue 3 Ecosystem: Key Features, Libraries, and Tools for Modern Web Development'
 description: Dive into Vue 3, a progressive framework for building user interfaces. Learn about its key features, core libraries, and tools essential for modern web development.
-image: img/article/cover/vue3_cover.png
-author: Magiu
+image: img/article/cover/vue_3_ecosystem.webp
+author: Magius
 category: one on one
 createdAt: '2024-05-22'
 modifiedAt: '2024-05-22'
@@ -33,7 +33,6 @@ Vue 3 introduces several performance enhancements, including:
 - **Smaller Bundle Size**: The rewrite in TypeScript has led to a smaller core runtime, reducing the bundle size and improving load times.
 - **Optimized Virtual DOM**: The new rendering mechanism significantly increases the rendering speed.
 - **Enhanced Reactivity System**: The reactivity system in Vue 3 is more fine-grained, leading to more efficient updates and better performance.
-
 
 ### TypeScript Support
 
