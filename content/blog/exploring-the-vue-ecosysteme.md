@@ -1,11 +1,11 @@
 ---
 title: 'Exploring the Vue 3 Ecosystem: Key Features, Libraries, and Tools for Modern Web Development'
 description: Dive into Vue 3, a progressive framework for building user interfaces. Learn about its key features, core libraries, and tools essential for modern web development.
-image: img/article/cover/vue_3_ecosystem.webp
+image: img/article/cover/vue_3_ecosystem_cover.webp
 author: Magius
 category: one on one
 createdAt: '2024-05-22'
-modifiedAt: '2024-05-22'
+modifiedAt: '2024-07-22'
 tags:
   - frontend
   - framework
