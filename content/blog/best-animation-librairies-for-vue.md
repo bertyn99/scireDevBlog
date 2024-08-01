@@ -1,17 +1,18 @@
 ---
-    title: 'Top 5 Animation Libraries for Vue'
-    description: "Make your next project truly unique by incorporating animations from these six great libraries that integrate with Vue. Check out this blogpost to find out more!"
-    image: 'img/article/cover/vue_animation_librairies.webp'
-    author: 'Magius'
-    category: 'tips and advice'
-    createdAt: '2022-11-30'
-    modifiedAt: '2022-11-30'
-    tags: ['vue','ui']
-    head:
-        meta: 
-            -  name: "keywords"
-               content: "vue js, js animation librairies, vue librairies, css animation, vue animation librairies"
-            
+title: Top 5 Animation Libraries for Vue
+description: Make your next project truly unique by incorporating animations from these six great libraries that integrate with Vue. Check out this blogpost to find out more!
+image: img/article/cover/vue_animation_librairies.webp
+author: Magius
+category: tips and advice
+createdAt: '2022-11-30'
+modifiedAt: '2022-11-30'
+tags:
+  - vue
+  - ui
+head:
+  meta:
+    - name: keywords
+      content: vue js, js animation librairies, vue librairies, css animation, vue animation librairies
 ---
 
 We connect with apps and webpages in large part thanks to animations. By making it more seamless and engaging or just by adding some aesthetic flair, they can be used to improve the user experience. From novice to pro, these six animation libraries are sure to give you the tools you need to create truly stunning work. Discover what each library can offer and find out how they integrate with Vue in this blogpost!
@@ -23,7 +24,7 @@ The following libraries will be discussed, along with how to install them, how t
 - vue-kinesis
 - vueUse/motion
 
-## 1- ****v-wave****
+## 1- **v-wave**
 
 By simply adding a new v-wave property, this library enables us to add lovely ripple effects to markup components when they are clicked, much like how the ripple effect functions in material design.
 
@@ -79,7 +80,7 @@ As a result, when we run this example, we get the following results:
 
 By adjusting the ripple effects' initial opacity, length, easing, and a variety of other factors, we may further tailor their appearance:
 
-```
+```text
 <div
   v-wave="{
   color: 'rebeccapurple',
@@ -199,7 +200,7 @@ It contains a large range of custom properties that work with its components to 
 
 ![/img/article/vue-kinesis.gif](/img/article/vue-kinesis.gif)
 
-### ****Installation****
+### **Installation**
 
 Both Vue 2 and Vue 3 as well as the vue-browser CDN support vue-kinesis. You must first install the package in order to use this library in a Vue 3 project:
 
@@ -222,7 +223,7 @@ app.mount("#app");
 
 You can also install the Vue 2 version:
 
-```
+```text
 npm install vue-kinesis
 ```
 
@@ -247,7 +248,7 @@ import { KinesisContainer } from 'vue-kinesis'
 Three parts make up this library, and each has characteristics that can be used to regulate how interactions are carried out:
 
 - **Kinesis-container** : a component wrapper to enable or deactivate interactions. Additionally, moving (mouse interaction) and scrolling are available for linking the event that initiates the animation. However, mobile devices do not support the move event.
-- **Kinesis-element :** A wrapper component that you may use to provide the animation type and sources as well as the elements to which you want to apply the animation**.**
+- **Kinesis-element :** A wrapper component that you may use to provide the animation type and sources as well as the elements to which you want to apply the animation\*\*.\*\*
 - **Kinesis-audio** : When an audio source is added to the kinesis container, this component is used to provide the audio frequency that will trigger a response.
 
 Taking the code example from the documentation page:
@@ -340,7 +341,8 @@ Furthermore, as already mentioned, this library adds a kinesis (undirected movem
 vueuse/motion is a addon of @vueUse. VueUse is a collection of hundreds of vital Vue Composition Utilities for dealing with numerous browser, sensor, animation, and state apis as well as other things, .The addon [motion](https://motion.vueuse.org/) is a collection of vue composable that aims to help you add animations with a simple but powerful API.You can animate between numbers, colors, and keyframes thanks to [Popmotion](https://popmotion.io/). You have the option of writing animations either from the script or from the template.
 
 ![/img/article/vueUse-motion.gif](/img/article/vueUse-motion.gif)
-### ****Installation****
+
+### **Installation**
 
 ```bash
 npm i @vueuse/motion
@@ -359,7 +361,7 @@ app.use(MotionPlugin)
 app.mount('#app')
 ```
 
-### 
+###
 
 Or if you want to import the directive code only from components that uses it, import the directive and install it at component level.
 
@@ -377,11 +379,11 @@ export default {
 
 In order to use @vueUse/motion you can use the existing presets
 ![/img/article/preset-motion.gif](/img/article/preset-motion.gif)
+
 ```js
 <template>
-	<div v-motion-roll-bottom />
+    <div v-motion-roll-bottom />
 </template>
-
 ```
 
 Or you can create your own custom animation with the help of the diretcive:
