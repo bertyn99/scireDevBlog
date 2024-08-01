@@ -4,8 +4,8 @@ description: Dive into Vue 3, a progressive framework for building user interfac
 image: img/article/cover/vue_3_ecosystem_cover.webp
 author: Magius
 category: one on one
-createdAt: '2024-05-22'
-modifiedAt: '2024-07-22'
+createdAt: '2024-08-04'
+modifiedAt: '2024-08-04'
 tags:
   - frontend
   - framework
