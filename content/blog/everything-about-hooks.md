@@ -1,17 +1,19 @@
 ---
-    title: 'Everything about Hooks in React !'
-    description: "The world is becoming more digital by the day. However, the digital revolution has not spared everyone equally. It has become a lot harder for less tech-savvy users to access digital technology."
-    image: 'img/article/cover/everything-about-hooks.png'
-    author: 'Yxssi'
-    category: 'tips and advice'
-    createdAt: '2023-02-25'
-    modifiedAt: '2023-02-25'
-    tags: ['reactjs','hooks','web']
-    head:
-        meta: 
-            -  name: "keywords"
-               content: "reactjs,hooks,web"
-            
+title: Everything about Hooks in React !
+description: The world is becoming more digital by the day. However, the digital revolution has not spared everyone equally. It has become a lot harder for less tech-savvy users to access digital technology.
+image: img/article/cover/everything-about-hooks.png
+author: Yxssi
+category: tips and advice
+createdAt: '2023-02-25'
+modifiedAt: '2023-02-25'
+tags:
+  - reactjs
+  - hooks
+  - web
+head:
+  meta:
+    - name: keywords
+      content: reactjs,hooks,web
 ---
 
 ## 1- **Hooks 101**
@@ -20,14 +22,14 @@ Hooks are a new feature introduced in React version 16.8 that allows developers 
 
 ## 2 - **Hooks Rules**
 
-Hooks Rules are a set of rules that define how and when Hooks can be used. The Hooks Rules were created to ensure the safe and consistent use of Hooks.\
- The Hooks Rules are as follows:
+Hooks Rules are a set of rules that define how and when Hooks can be used. The Hooks Rules were created to ensure the safe and consistent use of Hooks.\:br
+The Hooks Rules are as follows:
 
 1. Hooks can only be used in React functions, not in classes or inside another Hook.
 2. Hooks must be called at the root of the component, not inside a loop, condition or nested function.
 3. Hooks must not be called in callback functions.
 4. Hooks must be called in the same order each time.
-   By following these rules, developers can be confident that their React components will behave in a predictable and consistent manner.\
+   By following these rules, developers can be confident that their React components will behave in a predictable and consistent manner.\:br
    The Hooks Rules are essential to understanding and using Hooks correctly, and using them correctly is the key to a reliable, high-performance React application.
 
 ## 3 - **Tips & tricks**
@@ -46,7 +48,7 @@ Here are some useful tips and tricks for using Hooks in React:
 
 Here are three examples of hooks that can be found in React:
 
-1. `useState`: `useState` is the most commonly used Hook in React and provides developers with a simple and efficient way to manage state in their components. It takes an initial value as an argument and returns an array that contains the state value and a function to modify it. With this hook, developers can easily update a state and reflect it in their component.\
+1. `useState`: `useState` is the most commonly used Hook in React and provides developers with a simple and efficient way to manage state in their components. It takes an initial value as an argument and returns an array that contains the state value and a function to modify it. With this hook, developers can easily update a state and reflect it in their component.\:br
    For example:
 
 ```jsx
@@ -74,11 +76,11 @@ Hooks are a great feature that offers developers many possibilities and simplifi
 ### **Ressources**
 
 React also has a lot of hooks that allow you to write more efficient React code.
-You can go though the following link to learn more:\
-• **[React Hooks Reference](https://reactjs.org/docs/hooks-reference.html#usereducer)**\
-• **[useState Hook by Example](https://reactjs.org/docs/hooks-state.html)**\
-• **[useCallback Hook by Example](https://www.robinwieruch.de/react-usecallback-hook/)**\
-• **[useMemo Hook by Example](https://www.robinwieruch.de/react-usememo-hook/)**\
-• **[useContext Hook by Example](https://www.robinwieruch.de/react-usecontext-hook/)**\
-• **[useReducer Hook by Example](https://www.robinwieruch.de/react-usereducer-hook/)**\
-• **[useReducer vs useState Hook](https://www.robinwieruch.de/react-usereducer-vs-usestate/)**\
+You can go though the following link to learn more::br
+• **React Hooks Reference**:br
+• **useState Hook by Example**:br
+• **useCallback Hook by Example**:br
+• **useMemo Hook by Example**:br
+• **useContext Hook by Example**:br
+• **useReducer Hook by Example**:br
+• **useReducer vs useState Hook**\\

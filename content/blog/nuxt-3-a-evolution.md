@@ -1,7 +1,7 @@
 ---
 title: 'Nuxt 3 in 2024: Layers, Nitro Evolution, and the UnJS Ecosystem'
 description: Explore Nuxt 3's growth since 2021, including Nuxt Layers, Nitro server advancements, and the expanding UnJS ecosystem. Discover why it's revolutionizing web development in 2024.
-image: img/article/cover/vue_animation_librairies.webp
+image: img/article/cover/nuxt_3_evolution.webp
 author: Magius
 category: tips and advice
 createdAt: '2024-07-30'

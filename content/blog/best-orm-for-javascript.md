@@ -1,8 +1,8 @@
 ---
 title: 'Best ORMs in JavaScript: A Look at the Leading Libraries'
 description: Explore the most popular ORMs in the JavaScript ecosystem, including Sequelize, TypeORM, Mongoose, Prisma, and more. Learn about their key features and use cases to enhance your database operations.
-image: img/article/cover/orm_js_cover.webp
-author: Your Name
+image: img/article/cover/orm_js.webp
+author: Magius
 category: Web Development
 createdAt: '2024-06-02'
 modifiedAt: '2024-08-02'
