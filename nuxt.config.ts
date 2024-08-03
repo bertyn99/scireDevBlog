@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@vueuse/nuxt",
     "@nuxt/devtools",
-    "@unlighthouse/nuxt",
+    /* "@unlighthouse/nuxt", */
     "@nuxt/ui",
   ],
   extends: ["nuxt-umami"],

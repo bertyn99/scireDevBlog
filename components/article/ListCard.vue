@@ -1,7 +1,5 @@
 <template>
-  <ul
-    class="w-full max-w-screen-xl grid grid-cols-3 gap-4 align-center mx-auto my-2 pt-1"
-  >
+  <ul class="w-full max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto my-6 px-4">
     <li v-for="article in list">
       <Card></Card>
     </li>
