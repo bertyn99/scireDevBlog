@@ -3,4 +3,7 @@ export default defineAppConfig({
     primary: "orange",
     gray: "zinc",
   },
+  umami: {
+    version: 2,
+  },
 });
