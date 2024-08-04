@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     "@nuxt/devtools",
     /* "@unlighthouse/nuxt", */
     "@nuxt/ui",
+    "@nuxt/eslint"
   ],
   extends: ["nuxt-umami"],
   runtimeConfig: {
@@ -42,6 +43,8 @@ export default defineNuxtConfig({
   },
   plugins: [],
   content: {
+    documentDriven: true,
+
     highlight: {
       theme: {
         // Default theme (same as single string)
@@ -56,10 +59,12 @@ export default defineNuxtConfig({
   },
   devtools: {
     // Enable devtools (default: true)
-    enabled: false,
+
     // VS Code Server options
-    vscode: {},
     // ...other options
+    vscode: {},
+
+    enabled: true,
   },
   nitro: {
     prerender: {
