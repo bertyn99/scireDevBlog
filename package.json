@@ -1,6 +1,8 @@
 {
   "private": true,
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -8,32 +10,32 @@
   },
   "devDependencies": {
     "@heroicons/vue": "^2.1.3",
-    "@iconify/json": "^2.2.206",
+    "@iconify/json": "^2.2.233",
     "@nuxt/content": "^2.12.1",
     "@nuxt/devtools": "^1.2.0",
-    "@nuxt/image": "^1.6.0",
-    "@nuxt/ui": "^2.15.2",
+    "@nuxt/eslint": "^0.4.0",
+    "@nuxt/image": "^1.7.0",
+    "@nuxt/ui": "^2.18.3",
     "@nuxthq/studio": "2.1.0-1719393271.87cfcbc",
     "@nuxtjs/partytown": "^1.5.0",
     "@nuxtjs/web-vitals": "^0.2.7",
     "@tailwindcss/typography": "^0.5.13",
-    "@unhead/schema-org": "^0.5.0",
-    "@unlighthouse/nuxt": "^0.4.10",
-    "@vueuse/core": "^9.13.0",
+    "@unhead/schema-org": "^1.9.16",
+    "@unlighthouse/nuxt": "^0.10.6",
+    "@vueuse/core": "^10.11.0",
     "@vueuse/nuxt": "^9.13.0",
     "devtools": "^8.36.1",
-    "nuxt": "^3.11.2",
+    "nuxt": "^3.12.4",
     "nuxt-icon": "^0.1.8",
-    "nuxt-schema-org": "^2.2.0",
+    "nuxt-schema-org": "^3.3.9",
     "nuxt-seo-kit": "^1.3.13",
-    "nuxt-simple-sitemap": "^2.7.0",
-    "nuxt-umami": "^2.6.1",
+    "nuxt-simple-sitemap": "^4.4.1",
+    "nuxt-umami": "^2.6.4",
     "nuxt-unhead": "^1.4.17",
-    "sitemap": "^7.1.1"
+    "sitemap": "^8.0.0"
   },
   "dependencies": {
     "@notionhq/client": "^2.2.15",
-    "notion-to-md": "^2.7.0",
     "remark-reading-time": "^2.0.1"
   }
 }

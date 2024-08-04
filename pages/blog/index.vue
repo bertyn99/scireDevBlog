@@ -99,8 +99,8 @@ const goTo = (id: number) => {
 };
 </script>
 <template>
-  <SchemaOrgWebPage />
-  <SchemaOrgBreadcrumb :itemListElement="[{ name: 'Home', item: '/' }]" />
+  <!-- <SchemaOrgWebPage />
+  <SchemaOrgBreadcrumb :itemListElement="[{ name: 'Home', item: '/' }]" /> -->
   <HeroFeatured />
   <section class="container mx-auto py-10 px-0 sm:px-1 xl:px-8">
     <div class="flex justify-between px-2">

@@ -2,9 +2,6 @@
 
 <template>
   <main>
-    <HeroLanding />
-    <SectionFeature />
-    <SectionFeatureWithCode />
-    <SectionNewsletter />
+    <ContentDoc path="/" />
   </main>
 </template>
