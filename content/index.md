@@ -1,11 +1,16 @@
 ::hero-landing
+---
+title: We’re changing the way you learn to code.
+description: Our platform stands out from the rest, offering a comprehensive
+              learning experience that covers the key aspects required to become
+              a proficient web developer.
+cta: Get started
+---
 ::
 
 ::feature
 ::
 
-::feature-with
-::
 
 ::feature-with-code
 ---
