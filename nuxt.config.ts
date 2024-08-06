@@ -5,13 +5,13 @@ export default defineNuxtConfig({
     "nuxt-schema-org",
     "@nuxthq/studio",
     "@nuxtjs/partytown",
-    "nuxt-icon",
     "@nuxt/image",
     "@vueuse/nuxt",
     "@nuxt/devtools",
     /* "@unlighthouse/nuxt", */
     "@nuxt/ui",
-    "@nuxt/eslint"
+    "@nuxt/eslint",
+    "@nuxt/icon",
   ],
   extends: ["nuxt-umami"],
   runtimeConfig: {
@@ -35,8 +35,11 @@ export default defineNuxtConfig({
       // ...umami config here
     },
   },
-  ui: {
-    icons: "all",
+  ui: {},
+  icon: {
+    serverBundle: {
+      collections: ["uil", "mdi", "bxl", "heroicons"], // <!--- this
+    },
   },
   studio: {
     enabled: true,
