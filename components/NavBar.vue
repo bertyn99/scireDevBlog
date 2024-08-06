@@ -10,7 +10,7 @@
       <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
         @click="show = true">
         <span class="sr-only">Open main menu</span>
-        <Icon name="heroicons:bars-3-20-solid" class="h-6 w-6" aria-hidden="true" />
+        <UIcon name="i-heroicons:bars-3-20-solid" class="h-6 w-6" aria-hidden="true" />
       </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12">
@@ -34,7 +34,7 @@
         </NuxtLink>
         <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="show = false">
           <span class="sr-only">Close menu</span>
-          <Icon name="heroicons:bars-3" class="h-6 w-6" aria-hidden="true" />
+          <UIcon name="i-heroicons:bars-3" class="h-6 w-6" aria-hidden="true" />
         </button>
       </div>
       <div class="mt-6 flow-root">
