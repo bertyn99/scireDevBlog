@@ -63,7 +63,8 @@ const { data: articleList, refresh } = await useAsyncData("articled-list", async
 const { data: countArticle } = await useAsyncData("article-count", async () =>
   queryContent("/blog").only("title").count());
 
-const nbPages = computed(() => Math.ceil(countArticle.value ?? 0 / 6));
+console.log(countArticle.value);
+const nbPages = computed(() => Math.ceil((countArticle.value ?? 6) / 6));
 watch([currentPage], () => {
   refresh();
 });
@@ -84,7 +85,7 @@ const selectCat = (cat: string) => {
 };
 
 const goNext = () => {
-  if (currentPage.value < Math.ceil(countArticle.value ?? 0 / 6)) {
+  if (currentPage.value < Math.ceil((countArticle.value ?? 6) / 6)) {
     currentPage.value += 1;
   }
 };

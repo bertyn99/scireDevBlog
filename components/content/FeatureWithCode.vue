@@ -7,10 +7,10 @@
             <h2 class="text-base font-semibold leading-7 text-orange-600">
               Learn faster
             </h2>
-            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-200 sm:text-4xl">
               A better learning workflow
             </p>
-            <p class="mt-6 text-lg leading-8 text-gray-600">
+            <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
               At ScireDev, we have meticulously crafted a cutting-edge course
               platform designed to empower aspiring web developers with the
               essential skills and knowledge to excel in the dynamic world of

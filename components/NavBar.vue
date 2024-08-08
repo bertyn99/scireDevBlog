@@ -15,7 +15,7 @@
     </div>
     <div class="hidden lg:flex lg:gap-x-12">
       <NuxtLink v-for="item in navigation" :key="item.name" :to="item.href" class="text-sm font-semibold leading-6 "
-        :class="[y < 70 ? 'text-gray-900' : 'text-gray-50']">{{ item.name }}
+        :class="['dark:text-white', y < 70 ? 'text-gray-900' : 'text-gray-50']">{{ item.name }}
       </NuxtLink>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4">
