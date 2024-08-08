@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-multiple-template-root -->
 <!-- ./pages/blog/index.vue -->
 <script setup lang="ts">
 import Social from "~~/components/section/Social.vue";
@@ -32,13 +33,12 @@ useHead({
 const currentPage = ref(1);
 const searchInput = ref<string>("");
 const category = ref<string>("");
-const { data, refresh } = await useAsyncData("articlet-list", async () => {
-  const articles = queryContent()
+const { data: articleList, refresh } = await useAsyncData("articled-list", async () =>
+  queryContent('/blog')
     .where({
-      _path: { $regex: `/blog/ig` },
-      title: { $regex: `/${searchInput.value}/ig` },
-      category: { $regex: `/${category.value.toLowerCase()}/ig` },
-      createdAt: { $lte: new Date().toISOString().split("T")[0] },
+      /*  title: { $regex: `/${searchInput.value}/ig` },
+       category: { $regex: `/${category.value.toLowerCase()}/ig` },
+       createdAt: { $lte: new Date().toISOString().split("T")[0] }, */
     })
     .only([
       "title",
@@ -56,16 +56,14 @@ const { data, refresh } = await useAsyncData("articlet-list", async () => {
     .sort({ createdAt: -1 })
     .limit(6)
     .skip((currentPage.value - 1) * 6)
-    .find();
+    .find()
+);
 
-  const countArticle = queryContent({ path: "/blog" }).only("title").find();
-  return {
-    articles: await articles,
-    countArticle: (await countArticle).length,
-  };
-});
 
-const nbPages = computed(() => Math.ceil(data.value!.countArticle / 6));
+const { data: countArticle } = await useAsyncData("article-count", async () =>
+  queryContent("/blog").only("title").count());
+
+const nbPages = computed(() => Math.ceil(countArticle.value ?? 0 / 6));
 watch([currentPage], () => {
   refresh();
 });
@@ -86,7 +84,7 @@ const selectCat = (cat: string) => {
 };
 
 const goNext = () => {
-  if (currentPage.value < Math.ceil(data!.value!.countArticle / 6)) {
+  if (currentPage.value < Math.ceil(countArticle.value ?? 0 / 6)) {
     currentPage.value += 1;
   }
 };
@@ -127,12 +125,11 @@ const goTo = (id: number) => {
       </div>
 
       <div class="relative w-32">
-        <input v-model="searchInput" @input="debouncedFn"
+        <input v-model="searchInput"
           class="absolute w-full bg-transparent border-b-2 border-primary-darken focus:outline-none"
-          placeholder="Search..." />
-        <svg @click="searchArticle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-          stroke-width="1.5" stroke="currentColor"
-          class="w-5 h-5 absolute right-0 cursor-pointer hover:text-tertiary-default">
+          placeholder="Search..." @input="debouncedFn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="w-5 h-5 absolute right-0 cursor-pointer hover:text-tertiary-default" @click="searchArticle">
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
@@ -145,7 +142,7 @@ const goTo = (id: number) => {
 
     <ul
       class="w-full max-w-screen-xl sm:px-3 md:px-5 grid grid-col-1 sm:grid-cols-2 xl:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center">
-      <li v-for="article in data?.articles" :key="article._path" class="article">
+      <li v-for="article in articleList" :key="article._path" class="article">
         <ArticleCard :article="article" />
       </li>
     </ul>
