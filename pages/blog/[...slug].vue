@@ -63,9 +63,9 @@ useHead({
 
   <main id="main" class="p-4 max-w-5xl mx-auto mt-10">
     <header v-if="data.article.title" class="p-4 pb-12">
-      <div class="h-[31vh] sm:h-[34vh] md:h-[38vh] w-full rounded-2xl overflow-hidden">
+      <div class="h-[34vh] sm:h-[46vh] md:h-[58vh] w-full rounded-2xl overflow-hidden">
         <nuxt-img :src="`/${data.article.image}`" :alt="data.article.title" sizes="sm:100vw md:70vw lg:800px"
-          format="webp" class="w-full h-full object-fill" />
+          format="webp" class="w-full h-full object-cover md:object-fill aspect-video" />
       </div>
       <h1 class="font-extrabold text-3xl sm:text-4xl md:text-5xl my-3">
         {{ capitalize(data.article.title) }}
@@ -92,7 +92,8 @@ useHead({
         <!-- Toc Component -->
         <Toc :links="data.article.body.toc.links" />
       </aside>
-      <article class="col-span-full md:col-span-6 md:col-start-1 md:row-start-1 prose w-full p-4 max-w-3xl m-auto">
+      <article
+        class="col-span-full md:col-span-6 md:col-start-1 md:row-start-1 prose prose-primary dark:prose-invert w-full p-4 max-w-3xl m-auto">
         <ContentDoc>
           <template #not-found>
             <h1>Document not found</h1>
