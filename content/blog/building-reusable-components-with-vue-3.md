@@ -1,7 +1,7 @@
 ---
 title: Building Reusable Components with Vue 3
 description: Learn how to build reusable components with Vue 3, and explore popular UI libraries like Vuetify, PrimeVue, and ShadcnVue to streamline your development process.
-image: img/article/cover/vue3_reusable_components.webp
+image: img/article/cover/vue_3_reusable_component.webp
 author: Magius
 category: Web Development
 createdAt: '2024-08-08'
