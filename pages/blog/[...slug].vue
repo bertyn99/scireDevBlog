@@ -1,6 +1,6 @@
-<!-- ./pages/blog/[…slug.vue] -->
+<!-- ./pages/blog/[�slug.vue] -->
 <script setup>
-import { getAuthorImg, capitalize } from "@/utils/format";
+import { capitalize } from "#shared/utils/format";
 definePageMeta({
   middleware: "broken-link-redirection",
 });
@@ -8,17 +8,15 @@ const { path } = useRoute();
 
 //remove last slash from the path
 const cleanPath = path.replace(/\/$/, "");
-console.log(cleanPath);
 
 const { data } = await useAsyncData(`content-${cleanPath}`, async () => {
-  // fetch document where the document path matches with the cuurent route
-  let article = queryContent().where({ _path: cleanPath }).findOne();
+  // fetch document where the document path matches with the current route
+  let article = queryCollection('blog').path(cleanPath).first();
   // get the surround information,
-  // which is an array of documeents that come before and after the current document
-  let surround = queryContent()
-    .only(["_path", "title", "description"])
-    .sort({ date: 1 })
-    .findSurround(cleanPath);
+  // which is an array of documents that come before and after the current document
+  let surround = queryCollectionItemSurroundings('blog', cleanPath, {
+    fields: ["path", "title", "description"]
+  });
 
   return {
     article: await article,
@@ -29,12 +27,13 @@ const { data } = await useAsyncData(`content-${cleanPath}`, async () => {
 // destrucure `prev` and `next` value from data
 const [prev, next] = data.value.surround;
 // set the meta
+const site = useSiteConfig();
 useSeoMeta(
   useLoadMeta({
     title: capitalize(data.value.article.title),
-    description: "ScireDev | " + data.value.article.description,
-    image: `https://www.sciredev.com${data.value.article.image}`,
-    url: "https://www.sciredev.com" + path,
+    description: data.value.article.description,
+    image: `${site.url}${data.value.article.image}`,
+    url: `${site.url}${path}`,
     author: data.value.article.author,
     datePublished: data.value.article.createdAt,
     dateModified: data.value.article.modifiedAt,
@@ -44,22 +43,29 @@ useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.sciredev.com" + path,
+      href: `${site.url}${path}`,
     },
   ],
 });
+useSchemaOrg([
+  defineBreadcrumb({
+    itemListElement: [
+      { name: 'Home', item: '/' },
+      { name: 'Blog', item: '/blog' },
+      { name: data.value.article.title || '', item: path },
+    ],
+  }),
+  defineArticle({
+    headline: data.value.article.title,
+    description: data.value.article.description,
+    image: `${site.url}${data.value.article.image}`,
+    datePublished: data.value.article.createdAt,
+    dateModified: data.value.article.modifiedAt,
+    author: { name: data.value.article.author || '' },
+  }),
+]);
 </script>
 <template>
-  <SchemaOrgBreadcrumb :itemListElement="[
-    { name: 'Home', item: '/' },
-    { name: 'Blog', item: '/blog' },
-    { name: data.article.title || '', item: path },
-  ]" />
-  <SchemaOrgArticle type="TechArticle" :datePublished="data.article.createdAt" :dateModified="data.article.modifiedAt"
-    :author="{
-      name: data.article.author || '',
-      image: getAuthorImg(data.article.author),
-    }" />
 
   <main id="main" class="p-4 max-w-5xl mx-auto mt-10">
     <header v-if="data.article.title" class="p-4 pb-12">
@@ -104,6 +110,7 @@ useHead({
             <NuxtLink to="/"> Back Home</NuxtLink>
           </template>
         </ContentDoc>
+
       </article>
     </section>
     <!-- PrevNext Component -->

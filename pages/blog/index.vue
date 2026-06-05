@@ -1,35 +1,28 @@
 <!-- eslint-disable vue/no-multiple-template-root -->
 <!-- ./pages/blog/index.vue -->
 <script setup lang="ts">
-import Social from "~~/components/section/Social.vue";
 import { useDebounceFn } from "@vueuse/core";
-import type { QueryBuilderParams } from "@nuxt/content/dist/runtime/types";
 definePageMeta({
   layout: "blog",
 });
-
-// set meta for page
-/* useHead({
-  title: "ScireDev - your website to learn the web and mobile developpement",
-  meta: useLoadMeta("index"),
-}); */
-
+const site = useSiteConfig();
 useSeoMeta(
   useLoadMeta({
     title: "Home",
-    description: "your website to learn the web and mobile developpement",
-    image: "https://www.sciredev.com/img/scire_logo_primary.png",
-    url: "https://www.sciredev.com",
-  }) as any
+    description: "your website to learn the web and mobile development",
+    image: `${site.url}/img/scire_logo_primary.png`,
+    url: site.url,
+  })
 );
 useHead({
   link: [
     {
       rel: "canonical",
-      href: "https://www.sciredev.com",
+      href: site.url,
     },
   ],
 });
+useSchemaOrg([defineWebPage()]);
 const currentPage = ref(1);
 const searchInput = ref<string>("");
 const category = ref<string>("");
@@ -59,11 +52,9 @@ const { data: articleList, refresh } = await useAsyncData("articled-list", async
     .find()
 );
 
-
 const { data: countArticle } = await useAsyncData("article-count", async () =>
   queryContent("/blog").only("title").count());
 
-console.log(countArticle.value);
 const nbPages = computed(() => Math.ceil((countArticle.value ?? 6) / 6));
 watch([currentPage], () => {
   refresh();
@@ -84,7 +75,6 @@ const selectCat = (cat: string) => {
   category.value = cat;
 };
 
-const goNext = () => {
   if (currentPage.value < Math.ceil((countArticle.value ?? 6) / 6)) {
     currentPage.value += 1;
   }
@@ -98,8 +88,6 @@ const goTo = (id: number) => {
 };
 </script>
 <template>
-  <!-- <SchemaOrgWebPage />
-  <SchemaOrgBreadcrumb :itemListElement="[{ name: 'Home', item: '/' }]" /> -->
   <HeroFeatured />
   <section class="container mx-auto py-10 px-0 sm:px-1 xl:px-8">
     <div class="flex justify-between px-2">
@@ -136,10 +124,6 @@ const goTo = (id: number) => {
         </svg>
       </div>
     </div>
-    <!-- Render list of all articles in ./content/blog using `path` -->
-    <!-- Provide only defined fields in the `:query` prop -->
-    <!--     <ContentList path="/" :query="query"> -->
-    <!-- Default list slot -->
 
     <ul
       class="w-full max-w-screen-xl sm:px-3 md:px-5 grid grid-col-1 sm:grid-cols-2 xl:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center">
@@ -148,14 +132,8 @@ const goTo = (id: number) => {
       </li>
     </ul>
 
-    <!-- slot to display message when no content is found -->
-    <!--   <template #not-found>
-      <p>No articles found.</p>
-    </template> -->
-    <!--  </ContentList> -->
     <ArticlePagination :total-page="nbPages" :current-page="currentPage" :next="goNext" :prev="goPrev" :to="goTo"
       offset />
   </section>
-  <!--   <SectionNewsletter /> -->
 </template>
 <style scoped></style>

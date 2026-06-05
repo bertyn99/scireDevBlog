@@ -1,8 +1,7 @@
 <!-- ./pages/blog/tags/[slug].vue -->
 
 <script setup lang="ts">
-import type { QueryBuilderParams } from "@nuxt/content-edge/dist/runtime/types";
-import { capitalize } from "../utils/format";
+import { capitalize } from "#shared/utils/format";
 definePageMeta({
   /*   validate: async (route) => {
     // Check if the id is made up of digits
@@ -27,47 +26,27 @@ if (!["road-to-basic", "one-on-one", "tips-and-advice"].includes(slug[0])) {
 // get the category name from slug
 const category = String(slug).replaceAll("-", " ");
 
-/* const query: QueryBuilderParams = {
-  path: "/blog",
-  only: ["title", "description", "tags", "_path", "image"],
-  sort: { createdAt: -1 },
-  skip: (currentPage.value - 1) * 5,
-  where: {
-    category: {
-      $contains: category,
-    },
-  },
-  $sensitivity: "base",
-}; */
-
 const { data, refresh, pending } = await useAsyncData(category, async () => {
-  const articles = queryContent()
-    .where({
-      category: {
-        $contains: category,
-      },
-    })
-    .only(["title", "description", "tags", "_path", "image"])
-    .sort({ createdAt: -1 })
+  const articles = queryCollection('blog')
+    .select("title", "description", "tags", "path", "image")
+    .where('category', 'LIKE', `%${category}%`)
+    .order('createdAt', 'DESC')
     .limit(6)
-    .skip((currentPage.value - 1) * 6)
-    .find();
+    .offset((currentPage.value - 1) * 6)
+    .all();
 
-  const countArticle = queryContent("/")
-    .only("title")
-    .where({
-      category: {
-        $contains: category,
-      },
-    })
-    .find();
+  const countQuery = queryCollection('blog')
+    .select("title")
+    .where('category', 'LIKE', `%${category}%`)
+    .all();
+
   return {
     articles: await articles,
-    countArticle: (await countArticle).length,
+    countArticle: (await countQuery).length,
   };
 });
 
-const nbPages = computed(() => Math.ceil(data.value!.countArticle / 6));
+const nbPages = computed(() => Math.ceil((data.value?.countArticle || 0) / 6));
 const goPrev = () => {
   currentPage.value -= 1;
 };
@@ -76,81 +55,25 @@ const goTo = (id: number) => {
 };
 
 const goNext = () => {
-  if (currentPage.value < Math.ceil(5 / 5)) {
+  if (currentPage.value < Math.ceil((data.value?.countArticle || 0) / 6)) {
     currentPage.value += 1;
   }
 };
-// get array of filters by generating array from separating slug`,`
-/*  const filter = slug.split(""); */
 
-// set meta for page
-useHead({
-  title: `${capitalize(category)} articles - ScireDev`,
-  meta: [
-    {
-      name: "description",
-      content: `Scire Dev - article of the category ${category}`,
-    },
-    {
-      name: "robots",
-      content: "follow, max-image-preview:large",
-    },
-    {
-      property: "og:locale",
-      content: "en-US",
-    },
-    {
-      property: "og:title",
-      content: `ScireDev - article of the category ${category}`,
-    },
-    {
-      property: "og:description",
-      content: `All articles of the category ${category}`,
-    },
-    {
-      property: "og:type",
-      content: "collections",
-    },
-    {
-      property: "og:url",
-      content: "https://www.sciredev.com/" + slug,
-    },
-    {
-      property: "og:site_name",
-      content: "Scire Dev",
-    },
-    {
-      property: "og:image",
-      content: "https://www.sciredev.com/img/scire_logo_primary.png",
-    },
-    //twitter
-    {
-      property: "twitter:card",
-      content: "summary_large_image",
-    },
-    {
-      property: "twitter:url",
-      content: "https://www.sciredev.com/" + slug,
-    },
-    {
-      property: "twitter:title",
-      content:
-        "ScireDev - your website to learn the web and mobile developpement",
-    },
-    {
-      property: "twitter:description",
-      content:
-        "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
-    },
-    {
-      property: "twitter:image",
-      content: "https://www.sciredev.com/img/scire_logo_primary.png",
-    },
-  ],
+const site = useSiteConfig();
+useSeoMeta({
+  title: `${capitalize(category)} articles - ${site.name}`,
+  ogTitle: `${site.name} - articles of the category ${capitalize(category)}`,
+  description: `Scire Dev - article of the category ${capitalize(category)}`,
+  ogDescription: `All articles of the category ${capitalize(category)}`,
+  ogImage: `${site.url}/img/scire_logo_primary.png`,
+  ogUrl: `${site.url}/${slug}`,
+  twitterCard: "summary_large_image",
+  robots: "follow, max-image-preview:large",
 });
+useSchemaOrg([defineWebPage()]);
 </script>
 <template>
-  <SchemaOrgWebPage />
   <main>
     <section class="container mx-auto md:px-14 pt-16">
       <div class="page-heading">
@@ -161,20 +84,17 @@ useHead({
           </p>
         </div>
       </div>
-      <!-- Render list of all articles in ./content/blog using `path` -->
-      <!-- Provide only defined fieldsin the `:query` prop -->
       <div class="flex flex-col gap-8 my-6">
-        <!-- Default list slot -->
         <ul
           class="h-full flex flex-col gap-6"
           v-if="data?.articles.length !== 0"
         >
           <li
             v-for="article in data?.articles"
-            :key="article._path"
+            :key="article.path"
             class="pt-4 first-of-type:border-none border-t border-slate-200"
           >
-            <NuxtLink :to="article._path" class="no-underline">
+            <NuxtLink :to="article.path" class="no-underline">
               <article class="flex flex-col md:flex-row px-4 items-start gap-4">
                 <div
                   class="relative w-full md:w-1/4 h-full max-h-64 rounded-lg overflow-hidden"
@@ -210,8 +130,6 @@ useHead({
         <template v-else>
           <p>No articles found.</p>
         </template>
-        <!-- Not found slot to display message when no content us is found -->
-        <!--   -->
 
         <ArticlePagination
           :total-page="nbPages"

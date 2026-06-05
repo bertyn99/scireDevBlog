@@ -1,6 +1,7 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   modules: [
+    "@nuxtjs/seo",
     "@nuxt/content",
     "nuxt-schema-org",
     "@nuxthq/studio",
@@ -11,6 +12,7 @@ export default defineNuxtConfig({
     /* "@unlighthouse/nuxt", */
     "@nuxt/ui",
     "@nuxt/eslint",
+<<<<<<< HEAD
     "@nuxt/icon",
   ],
   extends: ["nuxt-umami"],
@@ -23,9 +25,23 @@ export default defineNuxtConfig({
         "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
       language: "en-US", // prefer more explicit language codes like `en-AU` over `en`
     },
+=======
+  ],
+  site: {
+    url: process.env.NUXT_PUBLIC_SITE_URL || "https://www.sciredev.com/",
+    name: "ScireDev",
+    description:
+      "Welcome to scireDev the website that share with you the key to become a better developper. Come learn with us",
+    defaultLocale: "en-US",
+>>>>>>> 682c3f1 (fix: migrate to @nuxtjs/seo v5 — site config, schema-org identity, sitemap auto-discovery)
   },
   schemaOrg: {
-    canonicalHost: "https://www.sciredev.com/",
+    identity: {
+      type: "Organization",
+      name: "ScireDev",
+      url: "https://www.sciredev.com/",
+      logo: "https://www.sciredev.com/img/scire_logo_primary.png",
+    },
   },
   image: {
     domains: ["www.sciredev.com"],
@@ -69,9 +85,13 @@ export default defineNuxtConfig({
 
     enabled: true,
   },
+<<<<<<< HEAD
   nitro: {
     prerender: {
       routes: ["/sitemap.xml"],
     },
   },
 });
+=======
+});
+>>>>>>> 682c3f1 (fix: migrate to @nuxtjs/seo v5 — site config, schema-org identity, sitemap auto-discovery)

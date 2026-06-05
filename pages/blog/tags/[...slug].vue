@@ -7,14 +7,28 @@ const {
 } = useRoute();
 
 // get array of filters by generating array from separating slug`,`
-const filter = slug.split(",");
+const filter = slug.join(",").split(",");
 
-// set meta for page
-useHead({
-  title: `All articles with ${slug}`,
-  meta: [
-    { name: "description", content: "Here's a list of all my great articles" },
-  ],
+const site = useSiteConfig();
+useSeoMeta(
+  useLoadMeta({
+    title: `Articles with ${slug}`,
+    description: "Here's a list of all my great articles",
+    image: `${site.url}/img/scire_logo_primary.png`,
+    url: `${site.url}/blog/tags/${slug}`,
+  })
+);
+
+const { data: articles } = await useAsyncData(`tags-${slug}`, () => {
+  let query = queryCollection('blog')
+    .select("title", "description", "tags", "path", "image");
+
+  // Filter by all tags in the slug
+  for (const tag of filter) {
+    query = query.where('tags', 'LIKE', `%${tag.trim()}%`);
+  }
+
+  return query.all();
 });
 </script>
 <template>
@@ -30,58 +44,37 @@ useHead({
       </div>
     </header>
     <section class="page-section">
-      <!-- Render list of all articles in ./content/blog using `path` -->
-      <!-- Provide only defined fieldsin the `:query` prop -->
-      <ContentList
-        path="/blog"
-        :query="{
-          only: ['title', 'description', 'tags', '_path', 'image'],
-          where: {
-            tags: {
-              $contains: filter,
-            },
-          },
-          $sensitivity: 'base',
-        }"
-      >
-        <!-- Default list slot -->
-        <template v-slot="{ list }">
-          <ul class="article-list">
-            <li
-              v-for="article in list"
-              :key="article._path"
-              class="article-item"
-            >
-              <NuxtLink :to="article._path">
-                <div class="wrapper">
-                  <div class="img-cont w-32">
-                    <img
-                      :src="`/${article.image}`"
-                      :alt="article.title"
-                      class="rounded-lg max-h-[8rem]"
-                    />
-                  </div>
-                  <header>
-                    <h1 class="text-2xl font-semibold">{{ article.title }}</h1>
-                    <p>{{ article.description }}</p>
-                    <ul class="article-tags">
-                      <li class="tag" v-for="(tag, n) in article.tags" :key="n">
-                        <NuxtLink :to="`/blog/tags/${tag}`" class="underline">
-                          {{ tag }}
-                        </NuxtLink>
-                      </li>
-                    </ul>
-                  </header>
-                </div>
-              </NuxtLink>
-            </li>
-          </ul>
-        </template>
-        <!-- Not found slot to display message when no content us is found -->
-        <template #not-found>
-          <p>No articles found.</p>
-        </template>
-      </ContentList>
+      <ul class="article-list">
+        <li
+          v-for="article in articles"
+          :key="article.path"
+          class="article-item"
+        >
+          <NuxtLink :to="article.path">
+            <div class="wrapper">
+              <div class="img-cont w-32">
+                <img
+                  :src="`/${article.image}`"
+                  :alt="article.title"
+                  class="rounded-lg max-h-[8rem]"
+                />
+              </div>
+              <header>
+                <h1 class="text-2xl font-semibold">{{ article.title }}</h1>
+                <p>{{ article.description }}</p>
+                <ul class="article-tags">
+                  <li class="tag" v-for="(tag, n) in article.tags" :key="n">
+                    <NuxtLink :to="`/blog/tags/${tag}`" class="underline">
+                      {{ tag }}
+                    </NuxtLink>
+                  </li>
+                </ul>
+              </header>
+            </div>
+          </NuxtLink>
+        </li>
+      </ul>
+      <p v-if="!articles?.length">No articles found.</p>
     </section>
   </main>
 </template>
