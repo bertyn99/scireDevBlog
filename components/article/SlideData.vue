@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-import { capitalize, getAuthorImg, truncate } from "@/utils/format";
+import { capitalize, getAuthorImg, truncate } from "#shared/utils/format";
 
 const props = defineProps(["data"]);
 </script>

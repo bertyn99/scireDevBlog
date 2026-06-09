@@ -128,6 +128,15 @@ export default defineContentConfig({
       }),
     }),
 
+    // ── CMS data (hero config, etc.) ──
+    components: defineCollection({
+      type: 'data',
+      source: 'components/**',
+      schema: z.object({
+        featured: z.array(z.string()).default([]),
+      }),
+    }),
+
     // ── Pages (homepage, about, etc.) ──
     content: defineCollection({
       type: 'page',

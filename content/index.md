@@ -18,16 +18,16 @@ features: [
     {
         name: "Hands-on Projects.",
         description:"Each module is accompanied by practical projects that challenge you to apply what you've learned in real-world scenarios.",
-        icon: CloudArrowUpIcon,
+        icon: i-heroicons:cloud-arrow-up,
     },
     {
         name: "Up-to-date Content.", description:". You'll have access to the latest tools, frameworks, and best practices in the industry, ensuring that your skills remain relevant and marketable.",
-        icon: LockClosedIcon
+        icon: i-heroicons:lock-closed
     },
     {
         name: "Flexible Learning.",
         description:"Our platform offers flexible learning options, allowing you to access course materials at your convenience. Learn at your own pace and make the most out of your available time.",
-        icon: ServerIcon
+        icon: i-heroicons:server
     }
 ]
 ---

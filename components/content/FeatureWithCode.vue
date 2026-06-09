@@ -19,8 +19,11 @@
             <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
               <div v-for="feature in features" :key="feature.name" class="relative pl-9">
                 <dt class="inline font-semibold text-gray-900">
-                  <component :is="feature.icon" class="absolute left-1 top-1 h-5 w-5 text-orange-600"
-                    aria-hidden="true" />
+                  <UIcon
+                    :name="feature.icon"
+                    class="absolute left-1 top-1 h-5 w-5 text-orange-600"
+                    aria-hidden="true"
+                  />
                   {{ feature.name }}
                 </dt>
                 {{ " " }}

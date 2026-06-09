@@ -1,10 +1,10 @@
 <script setup>
-import { capitalize, getAuthorImg, truncate } from "@/utils/format";
+import { capitalize, getAuthorImg, truncate } from "#shared/utils/format";
 defineProps(["article"]);
 </script>
 
 <template>
-  <NuxtLink :to="article._path" aria-label="Read full article about {{ article?.title }}"
+  <NuxtLink :to="article.path ?? article._path" aria-label="Read full article about {{ article?.title }}"
     class="group block w-full p-4 max-w-md hover:bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out">
     <article class="w-full">
       <div class="relative h-[230px] rounded-lg overflow-hidden">

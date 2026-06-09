@@ -16,7 +16,7 @@
           <div v-for="feature in features" :key="feature.name" class="flex flex-col">
             <dt class="text-base font-semibold leading-7 text-orange-600">
               <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500">
-                <component :is="feature.icon" class="h-6 w-6 text-white" aria-hidden="true" />
+                <UIcon :name="feature.icon" class="h-6 w-6 text-white" aria-hidden="true" />
               </div>
               {{ feature.name }}
             </dt>
@@ -35,30 +35,27 @@
 </template>
 
 <script setup>
-import { InboxIcon, TrashIcon, UsersIcon } from "@heroicons/vue/24/outline";
-
 const features = [
   {
     name: "Interactive Learning",
     description:
       "Engage in hands-on projects and real-world scenarios to reinforce your skills and understanding.",
     href: "#",
-    icon: InboxIcon,
+    icon: "i-heroicons:inbox",
   },
   {
     name: "Personalized Mentorship",
     description:
       "Get guidance and support from experienced developers who are dedicated to helping you succeed.",
     href: "#",
-    icon: UsersIcon,
+    icon: "i-heroicons:users",
   },
   {
     name: "Community Support",
     description:
       "Join a vibrant community of fellow learners to collaborate, share ideas, and grow together.",
     href: "#",
-    icon: TrashIcon,
+    icon: "i-heroicons:user-group",
   },
-
 ];
 </script>

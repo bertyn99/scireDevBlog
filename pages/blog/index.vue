@@ -26,46 +26,57 @@ useSchemaOrg([defineWebPage()]);
 const currentPage = ref(1);
 const searchInput = ref<string>("");
 const category = ref<string>("");
-const { data: articleList, refresh } = await useAsyncData("articled-list", async () =>
-  queryContent('/blog')
-    .where({
-      /*  title: { $regex: `/${searchInput.value}/ig` },
-       category: { $regex: `/${category.value.toLowerCase()}/ig` },
-       createdAt: { $lte: new Date().toISOString().split("T")[0] }, */
-    })
-    .only([
-      "title",
-      "description",
-      "category",
-      "author",
-      "createdAt",
-      "readingTime",
-      "modifiedAt",
-      "tags",
-      "_path",
-      "image",
-      "excerpt",
-    ])
-    .sort({ createdAt: -1 })
+const buildArticleQuery = () => {
+  let query = queryCollection("blog").select(
+    "title",
+    "description",
+    "category",
+    "author",
+    "createdAt",
+    "readingTime",
+    "modifiedAt",
+    "tags",
+    "path",
+    "image",
+    "excerpt",
+  );
+
+  if (category.value) {
+    query = query.where("category", "LIKE", `%${category.value}%`);
+  }
+
+  if (searchInput.value) {
+    query = query.where("title", "LIKE", `%${searchInput.value}%`);
+  }
+
+  return query;
+};
+
+const { data: articleList, refresh } = await useAsyncData("article-list", async () =>
+  buildArticleQuery()
+    .order("createdAt", "DESC")
     .limit(6)
-    .skip((currentPage.value - 1) * 6)
-    .find()
+    .offset((currentPage.value - 1) * 6)
+    .all()
 );
 
-const { data: countArticle } = await useAsyncData("article-count", async () =>
-  queryContent("/blog").only("title").count());
+const { data: countArticle, refresh: refreshCount } = await useAsyncData("article-count", async () =>
+  buildArticleQuery().count());
 
 const nbPages = computed(() => Math.ceil((countArticle.value ?? 6) / 6));
 watch([currentPage], () => {
   refresh();
+  refreshCount();
 });
 
 watch([category], () => {
   refresh();
+  refreshCount();
 });
 
 const searchArticle = () => {
   refresh();
+  refreshCount();
 };
 const debouncedFn = useDebounceFn(() => {
   searchArticle();
@@ -75,6 +86,7 @@ const selectCat = (cat: string) => {
   category.value = cat;
 };
 
+const goNext = () => {
   if (currentPage.value < Math.ceil((countArticle.value ?? 6) / 6)) {
     currentPage.value += 1;
   }
@@ -127,7 +139,7 @@ const goTo = (id: number) => {
 
     <ul
       class="w-full max-w-screen-xl sm:px-3 md:px-5 grid grid-col-1 sm:grid-cols-2 xl:grid-cols-3 md:gap-4 align-center mx-auto my-8 items-center justify-center">
-      <li v-for="article in articleList" :key="article._path" class="article">
+      <li v-for="article in articleList" :key="article.path" class="article">
         <ArticleCard :article="article" />
       </li>
     </ul>

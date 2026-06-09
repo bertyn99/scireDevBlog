@@ -12,3 +12,4 @@ useHead({
     { name: "p:domain_verify", content: "542878e21ff6537eeecb261d31f96282" },
   ],
 });
+</script>

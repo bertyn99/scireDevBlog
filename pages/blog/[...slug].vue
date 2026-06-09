@@ -100,16 +100,11 @@ useSchemaOrg([
       </aside>
       <article
         class="col-span-full md:col-span-6 md:col-start-1 md:row-start-1 prose prose-primary dark:prose-invert w-full p-4 max-w-3xl m-auto">
-        <ContentDoc>
-          <template #not-found>
-            <h1>Document not found</h1>
-          </template>
-          <template #empty>
-            <h1>Article not found</h1>
-
-            <NuxtLink to="/"> Back Home</NuxtLink>
-          </template>
-        </ContentDoc>
+        <ContentRenderer v-if="data.article" :value="data.article" />
+        <div v-else>
+          <h1>Article not found</h1>
+          <NuxtLink to="/">Back Home</NuxtLink>
+        </div>
 
       </article>
     </section>

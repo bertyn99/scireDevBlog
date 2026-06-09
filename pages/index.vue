@@ -1,7 +1,11 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const { data: page } = await useAsyncData("home", () =>
+  queryCollection("content").path("/").first()
+);
+</script>
 
 <template>
   <main>
-    <ContentDoc path="/" />
+    <ContentRenderer v-if="page" :value="page" />
   </main>
 </template>
