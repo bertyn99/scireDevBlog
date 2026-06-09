@@ -17,6 +17,7 @@
     "drizzle-orm": "^0.44.0",
     "evlog": "^2.18.1",
     "monaco-editor": "^0.55.1",
+    "nuxt-umami": "^3.2.1",
     "remark-reading-time": "^2.0.1"
   },
   "devDependencies": {
