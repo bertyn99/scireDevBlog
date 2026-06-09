@@ -1,7 +1,7 @@
 ---
 title: 'Nuxt 4: New Features, Migration Guide, and What Changed from Nuxt 3'
 description: Nuxt 4 is stable. Explore the new app/ directory, singleton data fetching, TypeScript project references, breaking changes, and how to upgrade from Nuxt 3.
-image: img/article/cover/nuxt_3_evolution.webp
+image: img/article/cover/nuxt_4_cover.webp
 author: Magius
 category: tips and advice
 createdAt: '2026-06-09'
