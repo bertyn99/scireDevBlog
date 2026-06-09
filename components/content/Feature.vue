@@ -40,21 +40,21 @@ const features = [
     name: "Interactive Learning",
     description:
       "Engage in hands-on projects and real-world scenarios to reinforce your skills and understanding.",
-    href: "#",
+    href: "/courses",
     icon: "i-heroicons:inbox",
   },
   {
     name: "Personalized Mentorship",
     description:
       "Get guidance and support from experienced developers who are dedicated to helping you succeed.",
-    href: "#",
+    href: "/blog",
     icon: "i-heroicons:users",
   },
   {
     name: "Community Support",
     description:
       "Join a vibrant community of fellow learners to collaborate, share ideas, and grow together.",
-    href: "#",
+    href: "/blog",
     icon: "i-heroicons:user-group",
   },
 ];

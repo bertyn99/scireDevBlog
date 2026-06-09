@@ -146,6 +146,16 @@ export default defineContentConfig({
         description: z.string(),
         image: z.string().optional(),
         navigation: z.union([z.boolean(), z.object({})]).optional(),
+        seo: z.object({
+          title: z.string().optional(),
+          description: z.string().optional(),
+        }).optional(),
+        head: z.object({
+          meta: z.array(z.object({
+            name: z.string().optional(),
+            content: z.string().optional(),
+          })).optional(),
+        }).optional(),
       }),
     }),
   },
