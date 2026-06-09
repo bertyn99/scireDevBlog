@@ -18,6 +18,13 @@ const flattenLinks = (links) => {
 
   return _links;
 };
+
+const depthPadding = (depth) => {
+  if (depth === 3) return "pl-3";
+  if (depth === 4) return "pl-6";
+  if (depth === undefined) return "pl-8";
+  return "";
+};
 </script>
 
 <template>
@@ -28,8 +35,12 @@ const flattenLinks = (links) => {
     </header>
     <ul class="flex flex-col gap-2 px-2">
       <!-- render each link with depth class -->
-      <li v-for="link of flattenLinks(links)" :key="link.id"
-        :class="`text-gray-500 dark:text-gray-700 toc-link _${link.depth}`">
+      <li
+        v-for="link of flattenLinks(links)"
+        :key="link.id"
+        class="text-gray-500 dark:text-gray-700"
+        :class="depthPadding(link.depth)"
+      >
         <a :href="`#${link.id}`">
           {{ link.text }}
         </a>
@@ -37,21 +48,3 @@ const flattenLinks = (links) => {
     </ul>
   </nav>
 </template>
-
-<style scoped>
-.toc {
-  @apply max-h-[calc(100vh-6rem)] overflow-auto;
-}
-
-.toc-link._3 {
-  @apply pl-3;
-}
-
-.toc-link._4 {
-  @apply pl-6;
-}
-
-.toc-link._undefined {
-  @apply pl-8;
-}
-</style>
