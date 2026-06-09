@@ -32,7 +32,7 @@ const { data, refresh, pending } = await useAsyncData(category, async () => {
     .where('category', 'LIKE', `%${category}%`)
     .order('createdAt', 'DESC')
     .limit(6)
-    .offset((currentPage.value - 1) * 6)
+    .skip((currentPage.value - 1) * 6)
     .all();
 
   const countQuery = queryCollection('blog')

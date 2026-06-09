@@ -33,12 +33,10 @@ const buildArticleQuery = () => {
     "category",
     "author",
     "createdAt",
-    "readingTime",
     "modifiedAt",
     "tags",
     "path",
     "image",
-    "excerpt",
   );
 
   if (category.value) {
@@ -56,7 +54,7 @@ const { data: articleList, refresh } = await useAsyncData("article-list", async 
   buildArticleQuery()
     .order("createdAt", "DESC")
     .limit(6)
-    .offset((currentPage.value - 1) * 6)
+    .skip((currentPage.value - 1) * 6)
     .all()
 );
 

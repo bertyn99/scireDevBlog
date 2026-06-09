@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 const { data: heroContent } = await useAsyncData("hero-content", () =>
-  queryCollection("components").path("/components/hero-blog").first()
+  queryCollection("components").where("stem", "=", "components/hero-blog").first()
 );
 
 const { data: featured } = await useAsyncData("featured", async () => {
@@ -16,7 +16,6 @@ const { data: featured } = await useAsyncData("featured", async () => {
       "category",
       "author",
       "createdAt",
-      "readingTime",
       "tags",
       "path",
       "image",
