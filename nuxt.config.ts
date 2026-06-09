@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     '@nuxt/devtools',
     '@nuxt/icon',
     '@nuxt/eslint',
+    'evlog/nuxt',
   ],
 
   // NuxtHub — Cloudflare bindings (D1, R2, KV, Cache)
@@ -96,6 +97,15 @@ export default defineNuxtConfig({
     githubClientId: '',
     githubClientSecret: '',
     betterAuthSecret: '',
+  },
+
+  // Structured logging with evlog
+  evlog: {
+    env: {
+      service: 'sciredev',
+    },
+    // Only log API routes to reduce noise
+    include: ['/api/**'],
   },
 
   devtools: { enabled: true },

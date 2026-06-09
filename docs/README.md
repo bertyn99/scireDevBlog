@@ -13,7 +13,7 @@ Living design documents for transforming scireDev from a Nuxt 3 blog into a self
 | 3 | [exercise-engine/architecture.md](./exercise-engine/architecture.md) | How does the mini dev environment work? |
 | 4 | [user-system/database.md](./user-system/database.md) | Auth, D1 schemas, progress tracking, subscriptions |
 | 5 | [deployment/cloudflare.md](./deployment/cloudflare.md) | Cloudflare deployment: NuxtHub, D1, R2, Stream |
-
+| 6 | [observability.md](./observability.md) | Structured logging with evlog, what to log by domain |
 ## Key Design Principles
 
 1. **Content is MD files (Git). State is D1 (Cloudflare).** — Course materials live in the repo as Markdown. User progress, sessions, and subscriptions live in a database. This hybrid pattern is validated by production platforms (Trivium, AI Educademy, Nuxt's own learn platform).

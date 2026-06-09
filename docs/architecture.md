@@ -29,7 +29,7 @@ Evidence: This hybrid pattern is used in production by Trivium, AI Educademy, Te
 | **Image optimization** | Cloudflare Images | Auto WebP/AVIF, responsive variants. |
 | **Cache** | KV | Session cache, rate limiting, metadata. |
 | **Bot protection** | Turnstile | Signup/login forms, exercise submission. |
-| **Background tasks** | Queues | Exercise grading, analytics, emails. |
+| **Logging** | evlog | Structured wide events, Nuxt-native, errors with `why`+`fix`. See [observability.md](./observability.md).
 | **CSS validation (future)** | Browser Rendering | Screenshot diff for visual exercises. |
 | **Content editing** | Nuxt Studio | Visual + form-based editor for MD files. Zod schemas auto-generate exercise forms. Self-hosted, open-source.
 
