@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
-@plugin "@tailwindcss/typography";
+
 
 @theme {
   --color-primary-default: #d9d9d9;
