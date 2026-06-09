@@ -1,9 +1,11 @@
 <template>
-  <div id="app">
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+  <UApp>
+    <div id="app">
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </div>
+  </UApp>
 </template>
 
 <script setup>

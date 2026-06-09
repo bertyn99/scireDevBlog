@@ -1,7 +1,9 @@
 export default defineAppConfig({
   ui: {
-    primary: "orange",
-    gray: "zinc",
+    colors: {
+      primary: "orange",
+      neutral: "zinc",
+    },
   },
   umami: {
     version: 2,

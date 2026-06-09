@@ -1,3 +1,17 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-primary-default: #d9d9d9;
+  --color-primary-darken: #a6a6a6;
+  --color-secondary: #262626;
+  --color-tertiary-default: #f23005;
+  --color-tertiary-darken: #d93d1a;
+
+  --breakpoint-xs: 450px;
+}
+
 @layer base {
   html {
     height: 100%;

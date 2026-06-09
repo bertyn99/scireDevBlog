@@ -2,6 +2,8 @@
 // https://nuxt.com/docs/getting-started/configuration
 
 export default defineNuxtConfig({
+  css: ['~/assets/css/main.css'],
+
   modules: [
     '@nuxthub/core',
     '@nuxt/content',
@@ -97,6 +99,7 @@ export default defineNuxtConfig({
     githubClientId: '',
     githubClientSecret: '',
     betterAuthSecret: '',
+    seoProKey: '',
   },
 
   // Structured logging with evlog
