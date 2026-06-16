@@ -1,0 +1,20 @@
+{
+  "name": "exercise-engine",
+  "private": true,
+  "type": "module",
+  "main": "./nuxt.config.ts",
+  "scripts": {
+    "dev:playground": "nuxt dev .playground --port 3001",
+    "test:unit": "vitest --project unit",
+    "test:nuxt": "vitest --project nuxt",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.55.1"
+  },
+  "devDependencies": {
+    "nuxt": "^4.4.7",
+    "vitest": "^2.1.0",
+    "@nuxt/test-utils": "^3.14.0"
+  }
+}

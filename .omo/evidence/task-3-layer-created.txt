@@ -1,0 +1,43 @@
+Task 3: Create exercise-engine layer structure
+==============================================
+Date: 2026-06-16
+Status: COMPLETE (verified post-abort)
+
+Files created in packages/exercise-engine/:
+  ✓ nuxt.config.ts                              — minimal layer config
+  ✓ package.json                                — name: "exercise-engine", monaco-editor dep, nuxt/vitest/@nuxt/test-utils devDeps, dev:playground script
+  ✓ vitest.config.ts                            — project-based (unit + nuxt)
+  ✓ app/components/workspace/CodeChallenge.vue  — MOVED from apps/web/app/components/exercise/, imports updated to relative paths
+  ✓ app/composables/useMonaco.ts                — MOVED from apps/web/app/composables/ (unchanged)
+  ✓ app/composables/useSandbox.ts               — MOVED from apps/web/app/composables/ (unchanged)
+  ✓ app/composables/useCheckpoint.ts            — NEW stub
+  ✓ types/exercise.ts                           — ExerciseMeta, CheckpointEvent, TestCase, TestResult interfaces
+  ✓ utils/assertions.ts                         — re-exports TestCase, TestResult
+  ✓ .playground/nuxt.config.ts                  — extends: ['../']
+  ✓ .playground/app.vue                         — basic NuxtPage shell
+  ✓ .playground/pages/index.vue                 — exercise type selector
+  ✓ .playground/pages/workspace/code-challenge.vue — test page for CodeChallenge
+  ✓ templates/base-html-css/index.html          — base HTML template
+  ✓ templates/base-html-css/style.css           — base CSS template
+  ✓ test/unit/assertions.test.ts                — basic vitest stub
+
+Files removed from apps/web/app/:
+  ✓ apps/web/app/components/exercise/CodeChallenge.vue
+  ✓ apps/web/app/composables/useMonaco.ts
+  ✓ apps/web/app/composables/useSandbox.ts
+
+Critical import update in CodeChallenge.vue:
+  Before: import { createSandbox, runTests, type TestCase, type TestResult } from '~/composables/useSandbox'
+  After:  import { createSandbox, runTests, type TestCase, type TestResult } from '../../composables/useSandbox'
+  Before: import { useMonaco } from '~/composables/useMonaco'
+  After:  import { useMonaco } from '../../composables/useMonaco'
+  Reason: In Nuxt layers, the ~/ alias resolves to the CONSUMING app, not the layer itself.
+          The file is at app/components/workspace/, composables are at app/composables/.
+          Relative path: ../../composables/
+
+Notes:
+- Previous Task 3 subagent (ses_12f2386e0ffemVHy1xOjv2Z9X9) timed out at 60s
+- Resumed subagent (ses_12f1f49d2ffeMoMNTXTtY46oHH) was aborted mid-write but all file operations completed
+- All file moves, file creations, and import updates completed successfully
+- This evidence file was created by orchestrator (atlas) as part of post-task verification
+- Task 4 (wire extends) and Task 5 (verify dev servers) remain

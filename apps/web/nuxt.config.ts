@@ -2,6 +2,10 @@
 // https://nuxt.com/docs/getting-started/configuration
 
 export default defineNuxtConfig({
+  extends: [
+    '../../packages/exercise-engine',
+  ],
+
   css: ['~/assets/css/main.css'],
 
   modules: [

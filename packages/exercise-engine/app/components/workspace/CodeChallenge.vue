@@ -94,8 +94,8 @@
 </template>
 
 <script setup lang="ts">
-import { createSandbox, runTests, type TestCase, type TestResult } from '~/composables/useSandbox'
-import { useMonaco } from '~/composables/useMonaco'
+import { createSandbox, runTests, type TestCase, type TestResult } from '../../composables/useSandbox'
+import { useMonaco } from '../../composables/useMonaco'
 
 const props = defineProps<{
   title?: string

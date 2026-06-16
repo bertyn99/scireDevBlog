@@ -263,3 +263,81 @@ Trained on user data across all students → predicts individual mastery
 ```
 
 This would run as a separate Cloudflare Worker or scheduled job, training models offline and serving predictions via API.
+
+## Edge Case Handling
+
+### Input Validation
+
+Every exercise with `type: 'qcm'` or `type: 'graphical'` **must** have at least one `conceptTag`. This is enforced at build time via the Zod schema in `content.config.ts`. Exercises without `conceptTags` are rejected by the build and will not be included in the published course.
+
+This prevents exercises from entering the system without adaptive tracking — a gap that would make learning weaknesses invisible to the engine and the student.
+
+### Mastery Calculation Guards
+
+Mastery values are always clamped to the range `[0.0, 1.0]`:
+
+```typescript
+const clampedMastery = Math.max(0, Math.min(1, value))
+```
+
+Guard rules:
+
+- **NaN prevention**: if `attempts === 0`, mastery is defined as `0` (not `NaN`).
+- **Negative values**: impossible in practice because `correct` and `total` cannot be negative, and the clamp guarantees a floor of `0.0`.
+- **Overflow**: any calculation exceeding `1.0` is capped at `1.0`.
+
+Apply the clamp after every mastery update, including updates inside the exercise submit handler.
+
+### Global vs Per-Course Mastery
+
+Mastery is tracked **globally per concept**, not per course. If a student masters `flex-direction` in *CSS Fundamentals*, that mastery score applies when they encounter the same concept in a *Nuxt Layouts* course.
+
+**Rationale**: concept mastery should transfer across courses. Re-learning the same idea in a new context is a retrieval opportunity, not a reset. Global tracking also keeps the data model simple and avoids duplicating concept rows for every course that references them.
+
+Trade-off: difficulty calibration must be based on the concept itself, not the course context. Future iterations may add a per-course difficulty modifier without changing the underlying mastery score.
+
+### Adaptive Race Condition Fix
+
+The adaptive mastery update must be **synchronous** in the exercise submit handler. Do not fire-and-forget the update.
+
+Required sequence inside the submit handler:
+
+1. Save the attempt to D1.
+2. Update mastery synchronously for all concepts tested by the exercise.
+3. Check lesson completion (which may depend on updated mastery values).
+4. Return the response.
+
+All writes should run inside a single D1 transaction so that a failure at any step leaves mastery, attempt, and completion state consistent. Avoid parallelizing these steps, or the lesson may be marked complete before mastery is updated.
+
+### Stale Review Handling
+
+If `nextReviewAt` is in the past — for example, because a student was inactive for several days — the concept immediately becomes eligible for review. No special handling is required.
+
+The standard query naturally catches stale reviews:
+
+```typescript
+.where(lte(userMastery.nextReviewAt, Date.now()))
+```
+
+This means inactive students will see overdue concepts surfaced first, keeping the queue accurate without manual intervention.
+
+### Clock Skew
+
+All timestamps use server time, specifically D1's `CURRENT_TIMESTAMP` and `Date.now()` inside server-side handlers. `nextReviewAt` is calculated server-side in the adaptive engine, never from the client's clock.
+
+This prevents clock skew issues where a device with an incorrect date would schedule reviews too far in the future or in the past. Client-side timestamps are not trusted for mastery or scheduling logic.
+
+### Concept Dependency Tracking
+
+The `concepts` table includes a `dependencies` field: a JSON array of prerequisite concept names. When a student struggles with concept `X`, the engine checks whether they are missing any of `X`'s recorded prerequisites and suggests reviewing those concepts first.
+
+Example dependency graph stored in `concepts.dependencies`:
+
+```json
+{
+  "name": "flex-wrap",
+  "dependencies": ["flex-direction", "flex-container"]
+}
+```
+
+When mastery for `flex-wrap` stays low, the UI can surface a prompt such as: "Struggling with flex-wrap? Review flex-direction and flex-container first." This keeps remediation targeted at root causes rather than symptoms.

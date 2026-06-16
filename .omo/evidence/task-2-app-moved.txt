@@ -1,0 +1,45 @@
+Task 2: Move main app to apps/web/
+==================================
+Date: 2026-06-16
+Status: COMPLETE (verified post-timeout)
+
+Files verified:
+  apps/web/app/                  — app directory (assets, components, composables, layouts, middleware, pages)
+  apps/web/app/components/exercise/CodeChallenge.vue   — still here (Task 3 moves it)
+  apps/web/app/composables/useMonaco.ts                — still here (Task 3 moves it)
+  apps/web/app/composables/useSandbox.ts               — still here (Task 3 moves it)
+  apps/web/app/composables/loadMeta.ts                 — stays
+  apps/web/content/                — blog + courses + components MD
+  apps/web/server/                 — api, db, utils
+  apps/web/shared/                 — utils
+  apps/web/public/                 — static assets (img/, _robots.txt)
+  apps/web/app.vue                 — root app component
+  apps/web/content.config.ts       — @nuxt/content schemas
+  apps/web/nuxt.config.ts          — unchanged (extends added in Task 4)
+  apps/web/eslint.config.mjs       — unchanged
+  apps/web/tsconfig.json           — extends ./.nuxt/tsconfig.json (relative path valid)
+  apps/web/.env                    — 404 bytes
+  apps/web/package.json            — name: "web", private: true, 7 deps + 20 devDeps + 8 scripts
+
+Package.json verification:
+  Name: "web" ✓
+  Private: true ✓
+  Scripts: dev, build, generate, preview, lint, lint:fix, db:generate, db:migrate, db:studio ✓
+  Dependencies (7): @notionhq/client, better-auth, drizzle-orm, evlog, monaco-editor, nuxt-umami, remark-reading-time ✓
+  DevDependencies (20): iconify collections, @nuxt/content, @nuxt/devtools, @nuxt/eslint, @nuxt/icon, @nuxt/image, @nuxt/ui, @nuxthub/core, @nuxtjs/seo, @tailwindcss/typography, @vueuse/core, @vueuse/nuxt, drizzle-kit, nuxt, nuxt-studio, tailwindcss ✓
+  NO "exercise-engine" workspace dependency ✓ (extends is enough)
+
+Root files removed (moved to apps/web/):
+  ✓ app/, content/, server/, shared/, public/  →  apps/web/
+  ✓ app.vue, content.config.ts, nuxt.config.ts, eslint.config.mjs, tsconfig.json, .env  →  apps/web/
+
+Root files preserved (NOT moved):
+  ✓ pnpm-workspace.yaml, package.json, .oxlintrc.json, .oxfmtrc.json, .npmrc, pnpm-lock.yaml
+  ✓ docs/  (shared between packages)
+  ✓ node_modules/, .git/, .data/, .unlighthouse/, .nuxt/, .output/
+
+Notes:
+- Original Task 2 subagent (ses_12f245ac2ffenuDR1vy0xc49uu) timed out at 60s
+- All file moves completed before timeout
+- This evidence file was created by orchestrator (atlas) as part of post-task verification
+- Task 3 (exercise-engine layer) is partially complete — see task-3-layer-created.txt

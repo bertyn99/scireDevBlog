@@ -1,0 +1,9 @@
+.container {
+  height: 300px;
+  border: 2px solid #333;
+}
+.box {
+  width: 100px;
+  height: 100px;
+  background: #ccc;
+}
