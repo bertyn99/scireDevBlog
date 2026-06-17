@@ -6,22 +6,26 @@
       "work_id": "monorepo-migration-f83fb672",
       "active_plan": "/home/bertyn/project/yggdraz/scireDevBlog/.omo/plans/monorepo-migration.md",
       "plan_name": "monorepo-migration",
-      "status": "active",
+      "status": "completed",
       "started_at": "2026-06-16T14:27:38.128Z",
-      "updated_at": "2026-06-16T21:11:04.776Z",
+      "updated_at": "2026-06-17T09:00:22.032Z",
       "session_ids": [
         "opencode:ses_1678f1a17ffeX1nj6y76AUyzU0",
         "opencode:ses_12f245ac2ffenuDR1vy0xc49uu",
         "opencode:ses_12f2386e0ffemVHy1xOjv2Z9X9",
         "opencode:ses_12ed26af1ffeWeH91NYECFIORD",
-        "opencode:ses_12ed26ae2ffeEIt5tvWty72QJF"
+        "opencode:ses_12ed26ae2ffeEIt5tvWty72QJF",
+        "opencode:ses_12b30a7caffeNTTBb7LMRuZu4Z",
+        "opencode:ses_12b309da4ffeAnNot4epvHdDSL"
       ],
       "session_origins": {
         "opencode:ses_1678f1a17ffeX1nj6y76AUyzU0": "direct",
         "opencode:ses_12f245ac2ffenuDR1vy0xc49uu": "appended",
         "opencode:ses_12f2386e0ffemVHy1xOjv2Z9X9": "appended",
         "opencode:ses_12ed26af1ffeWeH91NYECFIORD": "appended",
-        "opencode:ses_12ed26ae2ffeEIt5tvWty72QJF": "appended"
+        "opencode:ses_12ed26ae2ffeEIt5tvWty72QJF": "appended",
+        "opencode:ses_12b30a7caffeNTTBb7LMRuZu4Z": "appended",
+        "opencode:ses_12b309da4ffeAnNot4epvHdDSL": "appended"
       },
       "agent": "atlas",
       "task_sessions": {
@@ -89,26 +93,32 @@
           "ended_at": "2026-06-16T21:11:04.776Z",
           "elapsed_ms": 44710
         }
-      }
+      },
+      "ended_at": "2026-06-16T21:44:09.772Z",
+      "elapsed_ms": 26191644
     }
   },
   "active_plan": "/home/bertyn/project/yggdraz/scireDevBlog/.omo/plans/monorepo-migration.md",
   "started_at": "2026-06-16T14:27:38.128Z",
-  "status": "active",
-  "updated_at": "2026-06-16T21:11:04.776Z",
+  "status": "completed",
+  "updated_at": "2026-06-17T09:00:22.032Z",
   "session_ids": [
     "opencode:ses_1678f1a17ffeX1nj6y76AUyzU0",
     "opencode:ses_12f245ac2ffenuDR1vy0xc49uu",
     "opencode:ses_12f2386e0ffemVHy1xOjv2Z9X9",
     "opencode:ses_12ed26af1ffeWeH91NYECFIORD",
-    "opencode:ses_12ed26ae2ffeEIt5tvWty72QJF"
+    "opencode:ses_12ed26ae2ffeEIt5tvWty72QJF",
+    "opencode:ses_12b30a7caffeNTTBb7LMRuZu4Z",
+    "opencode:ses_12b309da4ffeAnNot4epvHdDSL"
   ],
   "session_origins": {
     "opencode:ses_1678f1a17ffeX1nj6y76AUyzU0": "direct",
     "opencode:ses_12f245ac2ffenuDR1vy0xc49uu": "appended",
     "opencode:ses_12f2386e0ffemVHy1xOjv2Z9X9": "appended",
     "opencode:ses_12ed26af1ffeWeH91NYECFIORD": "appended",
-    "opencode:ses_12ed26ae2ffeEIt5tvWty72QJF": "appended"
+    "opencode:ses_12ed26ae2ffeEIt5tvWty72QJF": "appended",
+    "opencode:ses_12b30a7caffeNTTBb7LMRuZu4Z": "appended",
+    "opencode:ses_12b309da4ffeAnNot4epvHdDSL": "appended"
   },
   "plan_name": "monorepo-migration",
   "task_sessions": {
@@ -177,5 +187,7 @@
       "elapsed_ms": 44710
     }
   },
-  "agent": "atlas"
+  "agent": "atlas",
+  "ended_at": "2026-06-16T21:44:09.772Z",
+  "elapsed_ms": 26191644
 }

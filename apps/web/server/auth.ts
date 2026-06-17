@@ -2,6 +2,7 @@ import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 
 export function createAuth(db: any) {
+  const config = useRuntimeConfig()
   return betterAuth({
     database: drizzleAdapter(db, {
       provider: 'sqlite',
@@ -11,8 +12,8 @@ export function createAuth(db: any) {
     },
     socialProviders: {
       github: {
-        clientId: process.env.GITHUB_CLIENT_ID || '',
-        clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
+        clientId: config.githubClientId || '',
+        clientSecret: config.githubClientSecret || '',
       },
     },
     session: {

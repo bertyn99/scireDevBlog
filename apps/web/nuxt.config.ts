@@ -6,6 +6,11 @@ export default defineNuxtConfig({
     '../../packages/exercise-engine',
   ],
 
+  // Nuxt 5 compatibility mode
+  future: {
+    compatibilityVersion: 5,
+  },
+
   css: ['~/assets/css/main.css'],
 
   modules: [
@@ -76,7 +81,6 @@ export default defineNuxtConfig({
   },
 
   content: {
-    documentDriven: true,
     highlight: {
       theme: {
         default: 'material-theme-palenight',

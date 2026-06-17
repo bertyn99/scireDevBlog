@@ -99,8 +99,8 @@
 </template>
 <script setup>
 const { data } = await useAsyncData("home", async () => {
-  const popularArticles = queryContent({ path: "/blog" }).limit(3).sort({ createdAt: 1 }).skip(3).find();
-  const newArticles = queryContent({ path: "/blog" }).limit(3).sort({ createdAt: -1 }).find()
+  const popularArticles = queryCollection('blog').order("createdAt", "ASC").limit(3).skip(3).all();
+  const newArticles = queryCollection('blog').order("createdAt", "DESC").limit(3).all()
   return {
     popularArticles: await popularArticles,
     newArticles: await newArticles
