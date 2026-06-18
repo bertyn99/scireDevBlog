@@ -125,6 +125,7 @@ export default defineNuxtConfig({
     githubClientSecret: '',
     betterAuthSecret: '',
     seoProKey: '',
+    blobReadWriteToken: process.env.BLOB_READ_WRITE_TOKEN || '',
   },
 
   // Structured logging with evlog
