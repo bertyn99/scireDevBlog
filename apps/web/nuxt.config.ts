@@ -42,7 +42,10 @@ export default defineNuxtConfig({
       external: true,
     },
   },
-
+  experimental: {
+    nitroAutoImports: true,
+    scanPageMeta: true,
+  },
   // Site config (@nuxtjs/seo v5)
   site: {
     url: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.sciredev.com',
@@ -106,6 +109,11 @@ export default defineNuxtConfig({
     prerender: {
       routes: ['/sitemap.xml'],
     },
+    experimental: {
+      tasks: true,
+      database: true,
+    },
+
   },
 
   runtimeConfig: {

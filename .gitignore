@@ -10,3 +10,4 @@ dist
 .output
 .unlighthouse
 .data
+apps/web/.data
