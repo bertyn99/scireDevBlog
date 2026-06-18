@@ -51,7 +51,7 @@ useSchemaOrg([
   }),
 ])
 
-defineOgImage('OgImageLanding', {
+defineOgImage('OgImageLanding.takumi', {
   title: metaTitle,
   description,
   siteName: site.name,
