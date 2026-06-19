@@ -16,7 +16,6 @@
   "dependencies": {
     "@notionhq/client": "^2.2.15",
     "@takumi-rs/core": "^1.8.6",
-    "@vercel/blob": "^2.4.1",
     "better-auth": "^1.6.14",
     "drizzle-orm": "^0.44.0",
     "evlog": "^2.18.1",
