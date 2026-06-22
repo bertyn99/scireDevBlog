@@ -1,18 +1,17 @@
 ---
-    title: 'Unlocking the power of APIs - An Easy to Understand Guide!'
-    description: 'The API is an abstraction interface that allows different types of applications (web app, mobile app, connected object) to exchange data while having the same structure.'
-    image: 'img/article/cover/api_cover.png'
-    author: 'Magius'
-    category: 'one on one'
-    createdAt: '2022-12-08'
-    modifiedAt: '2022-12-18'
-    tags: ['backend']
-    head:
-        meta: 
-            -  name: "keywords"
-               content: "api, interface, data structure, web development,rest api, soap api, what is api, api definition, api integration, api meaning"
-            
-
+title: Unlocking the power of APIs - An Easy to Understand Guide!
+description: The API is an abstraction interface that allows different types of applications (web app, mobile app, connected object) to exchange data while having the same structure.
+image: img/article/cover/api_cover.png
+author: Magius
+category: one on one
+createdAt: '2022-12-08'
+modifiedAt: '2022-12-18'
+tags:
+  - backend
+head:
+  meta:
+    - name: keywords
+      content: api, interface, data structure, web development,rest api, soap api, what is api, api definition, api integration, api meaning
 ---
 
 You've probably already wondered what makes it possible :
@@ -20,7 +19,7 @@ You've probably already wondered what makes it possible :
 - your weather application to always know what the weather will be like during your weekend in Dunkerque?
 - AirBnB to geolocate a property on a map (is it useful to specify Dunkirk)?
 
-![meme_api](/img/article/meme_api.png)
+![meme\_api](/img/article/meme_api.png)
 
 Understanding and offering APIs can be a challenge for non-technical users. What is an API? What is shared via an API? Data, services? How is an API designed? How is an API coded? What strategic transformation does it imply?
 
