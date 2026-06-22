@@ -1,0 +1,86 @@
+Task 1: pnpm Workspace Root Configuration
+===========================================
+Date: 2026-06-16
+Status: COMPLETE
+
+Files Created:
+  1. pnpm-workspace.yaml  - Workspace globs: apps/*, packages/*
+  2. package.json         - Root workspace package (name: sciredev, private: true)
+  3. .oxlintrc.json       - Linter config (vue, typescript, import plugins)
+  4. .oxfmtrc.json        - Formatter config (singleQuote, 100-width, 2-space)
+
+Files Verified (no changes):
+  5. .npmrc               - Already had shamefully-hoist=true ✓
+
+Root Scripts:
+  dev          → pnpm --filter ./apps/web dev
+  build        → pnpm --filter ./apps/web build
+  lint         → oxlint .
+  lint:fix     → oxlint . --fix
+  format       → oxfmt .
+  format:check → oxfmt --check .
+  dev:playground → pnpm --filter ./packages/playground dev
+  test         → echo placeholder
+
+Root devDependencies:
+  oxlint: ^1.70.0
+  oxfmt:  ^0.55.0
+
+Verified Output:
+=== pnpm-workspace.yaml ===
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+=== package.json ===
+{
+  "name": "sciredev",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter ./apps/web dev",
+    "build": "pnpm --filter ./apps/web build",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint . --fix",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "dev:playground": "pnpm --filter ./packages/playground dev",
+    "test": "echo 'Error: no test runner configured' && exit 1"
+  },
+  "devDependencies": {
+    "oxlint": "^1.70.0",
+    "oxfmt": "^0.55.0"
+  }
+}
+
+=== .oxlintrc.json ===
+{
+  "plugins": ["vue", "typescript", "import"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "warn"
+  },
+  "rules": {
+    "no-console": "warn"
+  }
+}
+
+=== .oxfmtrc.json ===
+{
+  "singleQuote": true,
+  "printWidth": 100,
+  "semi": true,
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "arrowParens": "always"
+}
+
+=== .npmrc ===
+shamefully-hoist=true
+
+Notes:
+- oxlint pinned to ^1.70.0 (latest stable as of June 2026; has mature vue/typescript plugin support)
+- oxfmt pinned to ^0.55.0 (latest stable; prettier-compatible config format)
+- Root scripts use --filter ./apps/web (path-based) to delegate to the web app
+- pnpm --version: 10.13.1 (natively supports workspaces)
+- Existing package.json preserved as-is (ready to move to apps/web/ in Task 2)

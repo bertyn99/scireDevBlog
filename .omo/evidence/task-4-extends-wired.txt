@@ -1,0 +1,59 @@
+# Task 4: Wire the layer into the main app
+# Date: 2026-06-16
+# Status: COMPLETE
+
+=== extends property in apps/web/nuxt.config.ts ===
+  extends: [
+
+=== apps/web/nuxt.config.ts first 15 lines ===
+// nuxt.config.ts — Nuxt 4 + Nitro v2
+// https://nuxt.com/docs/getting-started/configuration
+
+export default defineNuxtConfig({
+  extends: [
+    '../../packages/exercise-engine',
+  ],
+
+  css: ['~/assets/css/main.css'],
+
+  modules: [
+    '@nuxthub/core',
+    '@nuxt/content',
+    'nuxt-studio',
+    '@nuxt/ui',
+
+=== pnpm install output (last 20 lines) ===
+Scope: all 3 workspace projects
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: esbuild.                                            │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+Done in 3.5s using pnpm v10.13.1
+
+=== Workspace symlink verification ===
+no direct symlink (layer uses relative path, not npm package)
+
+=== pnpm store / .pnpm check ===
+(empty — workspace packages via extends not stored in .pnpm virtual store)
+
+=== nuxt prepare output ===
+Types generated in .nuxt.
+
+=== Auto-import verification ===
+apps/web/.nuxt/types/components.d.ts:  WorkspaceCodeChallenge: typeof import("../../../../packages/exercise-engine/app/components/workspace/CodeChallenge.vue")['default']
+apps/web/.nuxt/types/components.d.ts:  LazyWorkspaceCodeChallenge: LazyComponent<typeof import("../../../../packages/exercise-engine/app/components/workspace/CodeChallenge.vue")['default']>
+apps/web/.nuxt/types/imports.d.ts:  const createSandbox: typeof import('../../../../packages/exercise-engine/app/composables/useSandbox').createSandbox
+apps/web/.nuxt/types/imports.d.ts:  const runTests: typeof import('../../../../packages/exercise-engine/app/composables/useSandbox').runTests
+apps/web/.nuxt/types/imports.d.ts:  const useMonaco: typeof import('../../../../packages/exercise-engine/app/composables/useMonaco').useMonaco
+apps/web/.nuxt/types/imports.d.ts:  export type { TestCase, TestResult } from '../../../../packages/exercise-engine/app/composables/useSandbox'
+apps/web/.nuxt/types/imports.d.ts:  import('../../../../packages/exercise-engine/app/composables/useSandbox')
+apps/web/.nuxt/types/imports.d.ts:    readonly createSandbox: UnwrapRef<typeof import('../../../../packages/exercise-engine/app/composables/useSandbox')['createSandbox']>
+apps/web/.nuxt/types/imports.d.ts:    readonly runTests: UnwrapRef<typeof import('../../../../packages/exercise-engine/app/composables/useSandbox')['runTests']>
+apps/web/.nuxt/types/imports.d.ts:    readonly useMonaco: UnwrapRef<typeof import('../../../../packages/exercise-engine/app/composables/useMonaco')['useMonaco']>

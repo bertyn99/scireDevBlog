@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+
+@theme {
+  --color-primary-default: #d9d9d9;
+  --color-primary-darken: #a6a6a6;
+  --color-secondary: #262626;
+  --color-tertiary-default: #f23005;
+  --color-tertiary-darken: #d93d1a;
+
+  --breakpoint-xs: 450px;
+}
+
+@layer base {
+  html {
+    height: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-200/25 m-0 p-0 h-full;
+  }
+
+  #app {
+    @apply h-screen min-h-full flex flex-col;
+  }
+}
