@@ -1,0 +1,74 @@
+# Task 5: QCM Exercise Component — Evidence
+
+**Date:** 2026-06-25
+**Status:** ✅ COMPLETE
+
+## Deliverable
+
+`packages/exercise-engine/app/components/checkpoint/QcmExercise.vue`
+
+## Acceptance Criteria
+
+| # | Criterion | Status |
+|---|-----------|--------|
+| 1 | `packages/exercise-engine/app/components/checkpoint/QcmExercise.vue` exists | ✅ |
+| 2 | Component renders question + options as clickable cards | ✅ Custom `<button>` cards with letter badges |
+| 3 | Selecting an option highlights it (selected state) | ✅ `border-primary bg-primary/5` + filled radio indicator |
+| 4 | Submit shows correct/incorrect feedback | ✅ Green border + check icon / Red border + x icon |
+| 5 | Explanation panel appears after submit | ✅ Conditional `v-if="submitted && explanation"` |
+| 6 | Emits `@completed` with `{ exerciseId, passed, selectedAnswer, conceptTags }` | ✅ Typed emit via `defineEmits` |
+| 7 | Component auto-imported as `CheckpointQcmExercise` | ✅ Verified in `.nuxt/types/components.d.ts` |
+| 8 | `nuxt prepare` passes | ✅ Types generated successfully |
+
+## Verification Output
+
+### nuxt prepare
+```
+[nuxt] ℹ Running with compatibility version 5
+◆  Types generated in .nuxt.
+```
+
+### Auto-import confirmation (`.nuxt/types/components.d.ts`)
+```
+CheckpointQcmExercise: typeof import("../../../../packages/exercise-engine/app/components/checkpoint/QcmExercise.vue")['default']
+LazyCheckpointQcmExercise: LazyComponent<typeof import("../../../../packages/exercise-engine/app/components/checkpoint/QcmExercise.vue")['default']>
+```
+
+### LSP diagnostics
+```
+No diagnostics found (0 errors)
+```
+
+## Props Interface
+
+```ts
+{
+  exerciseId: string        // required
+  question: string          // required
+  options: string[]         // required (min 2 expected from caller)
+  correct: number           // required (index of correct option)
+  explanation?: string      // optional
+  conceptTags?: string[]    // optional, defaults to []
+}
+```
+
+## Emit Signature
+
+```ts
+'@completed': [{
+  exerciseId: string
+  passed: boolean
+  selectedAnswer: number
+  conceptTags: string[]
+}]
+```
+
+## Design Decisions
+
+- Used custom card-style buttons instead of URadioGroup for richer visual feedback (per MUST NOT DO)
+- Integrated `useCheckpoint()` composable for `solved` state sync
+- Submit button disabled until selection made; "Try Again" button appears after submit for retry
+- Letter badges (A, B, C, D) via `String.fromCharCode(65 + index)` with semantic color states
+- Focus-visible ring for keyboard accessibility (`focus-visible:ring-2 focus-visible:ring-primary`)
+- `fieldset[disabled]` prevents option changes after submission
+- Icons from `i-heroicons` collection (already in serverBundle config)

@@ -1,0 +1,53 @@
+Task 1: Drizzle Config & Initial D1 Migration
+==============================================
+Date: 2026-06-25
+Status: COMPLETE
+
+Files Created:
+  1. apps/web/drizzle.config.ts  - Drizzle Kit config (dialect: sqlite, driver: d1-http)
+  2. apps/web/server/db/migrations/0000_sparkling_skrulls.sql - Initial migration (9 tables)
+
+Migration SQL Tables (all verified present):
+  - users           (7 cols: id, email, name, avatar_url, role, created_at, updated_at)
+  - sessions        (5 cols: id, user_id→users, token, expires_at, created_at)
+  - accounts        (5 cols: id, user_id→users, provider, provider_account_id, password)
+  - course_progress  (10 cols: id, user_id→users, course_slug, status, total_lessons, ...)
+  - lesson_progress  (10 cols: id, user_id→users, lesson_path, course_slug, status, ...)
+  - exercise_attempts (12 cols: id, user_id→users, exercise_id, lesson_path, type, passed, ...)
+  - concepts        (5 cols: id, name, parent_topic, difficulty, dependencies)
+  - user_mastery    (11 cols: id, user_id→users, concept_tag, attempts, correct, streak, mastery, ...)
+  - subscriptions   (9 cols: id, user_id→users, stripe_customer_id, stripe_subscription_id, plan, status, ...)
+
+Schema Sources (4 files):
+  - apps/web/server/db/schema/users.ts       → users, sessions, accounts
+  - apps/web/server/db/schema/progress.ts     → course_progress, lesson_progress, exercise_attempts
+  - apps/web/server/db/schema/adaptive.ts     → concepts, user_mastery
+  - apps/web/server/db/schema/subscriptions.ts → subscriptions
+
+Nuxt Prepare: PASSED (types generated in .nuxt/)
+
+drizzle.config.ts Content:
+  import { defineConfig } from 'drizzle-kit'
+  export default defineConfig({
+    schema: './server/db/schema/*.ts',
+    out: './server/db/migrations',
+    dialect: 'sqlite',
+    driver: 'd1-http',
+    dbCredentials: {
+      accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
+      databaseId: process.env.CLOUDFLARE_DATABASE_ID!,
+      token: process.env.CLOUDFLARE_D1_TOKEN!,
+    },
+  })
+
+Unique Indexes Created:
+  - concepts_name_unique   ON concepts(name)
+  - sessions_token_unique  ON sessions(token)
+  - users_email_unique     ON users(email)
+
+Notes:
+  - Migration uses ON UPDATE no action / ON DELETE no action (Drizzle default for D1/SQLite)
+  - drizzle-kit@0.30.6 used (matches ^0.30.0 in package.json)
+  - Migration NOT applied to any D1 database (deferred per plan)
+  - `site-setup` skill needed for content writing — not relevant here
+  - 9 tables generated (8 required + subscriptions bonus)

@@ -1,0 +1,67 @@
+# Task 4: Dashboard API Endpoints — Evidence
+
+## Date: 2026-06-25
+
+## Files Created
+
+### 1. apps/web/server/api/progress/courses.get.ts
+- **Route**: GET /api/progress/courses
+- **Returns**: `[{ courseSlug, status, completedLessons, totalLessons, lastAccessedAt }]`
+- **Schema**: Queries `courseProgress` from `server/db/schema/progress`
+- **Pattern**: `requireUserSession(event)` + `useLogger(event)` + `hubDb()` + try/catch
+
+### 2. apps/web/server/api/progress/last-lesson.get.ts
+- **Route**: GET /api/progress/last-lesson
+- **Returns**: `{ lessonSlug, courseSlug, lessonTitle, status }` (or `{}` if none)
+- **Schema**: Queries `lessonProgress` from `server/db/schema/progress`, ordered by `startedAt` desc
+- **Pattern**: `requireUserSession(event)` + `useLogger(event)` + `hubDb()` + try/catch
+
+### 3. apps/web/server/api/adaptive/review-queue.get.ts
+- **Route**: GET /api/adaptive/review-queue
+- **Returns**: `[{ conceptTag, nextReviewAt, mastery }]`
+- **Schema**: Queries `userMastery` from `server/db/schema/adaptive`, filtered by `nextReviewAt <= now()`
+- **Pattern**: `requireUserSession(event)` + `useLogger(event)` + `hubDb()` + try/catch
+- **Ordering**: `nextReviewAt` ascending (most overdue first)
+
+### 4. apps/web/server/api/progress/activity.get.ts
+- **Route**: GET /api/progress/activity
+- **Returns**: `[{ type, description, timestamp }]`
+- **Schema**: Queries `exerciseAttempts` (limit 10) + `lessonProgress` completions (limit 5), merged and sorted
+- **Pattern**: `requireUserSession(event)` + `useLogger(event)` + `hubDb()` + try/catch
+- **Ordering**: `timestamp` descending (most recent first), capped at 15 items
+
+## Verification
+
+### nuxt prepare
+```
+$ npx nuxi prepare
+[nuxt] ℹ Running with compatibility version 5
+◆ Types generated in .nuxt.
+```
+✅ PASSED
+
+### LSP Diagnostics (error severity)
+- courses.get.ts: 0 errors
+- last-lesson.get.ts: 0 errors
+- review-queue.get.ts: 0 errors
+- activity.get.ts: 0 errors
+
+### Acceptance Criteria Checklist
+- [x] 4 new route files exist in `apps/web/server/api/`
+- [x] All use `requireUserSession(event)` and return JSON
+- [x] All use `useLogger(event)` with try/catch and `log.error()`
+- [x] All use `hubDb()` for database access
+- [x] All query from existing Drizzle schemas (progress, adaptive)
+- [x] All filter by `userId: user.id` in WHERE clauses
+- [x] `nuxt prepare` passes
+- [x] GET-only endpoints (no POST/PUT/DELETE)
+- [x] No new database tables
+- [x] No new dependencies
+- [x] No changes to existing API routes
+
+## Patterns Used (consistent with existing codebase)
+- Auth: `const { user } = await requireUserSession(event)` (from `@onmax/nuxt-better-auth`, auto-imported)
+- Logging: `const log = useLogger(event)` + `log.set({ userId })` + `log.info()` + `log.error()` (evlog)
+- DB: `const db = hubDb()` (NuxtHub D1 binding)
+- Schema imports: `import * as progressSchema from '~~/server/db/schema/progress'`
+- Error handling: `throw createError({ statusCode: 500, statusMessage: '...' })`

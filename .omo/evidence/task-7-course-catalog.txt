@@ -1,0 +1,89 @@
+Task 7 — Course Catalog Page (/courses)
+========================================
+Date: 2026-06-25
+Status: COMPLETE
+
+## Deliverable
+Created: apps/web/app/pages/courses/index.vue (254 lines)
+
+## Outcome Checklist
+[x] apps/web/app/pages/courses/index.vue exists
+[x] Page renders a grid of course cards from queryCollection('courses')
+    - useAsyncData('courses-catalog', () => queryCollection('courses').order('order', 'ASC').all())
+[x] Each card shows: title, description, difficulty badge, lesson count
+    - Title: <h2> with group-hover color transition
+    - Description: line-clamp-3
+    - Difficulty badge: UBadge with color mapping (beginner=success/green, intermediate=warning/yellow, advanced=error/red)
+    - Lesson count: computed from separate queryCollection('lessons') grouped by course slug
+[x] Progress bars show for logged-in users (fetches /api/progress/courses)
+    - useUserSession() loggedIn ref gates the fetch
+    - useFetch with immediate:false, triggered via client-side watch on loggedIn
+    - progressMap computed keyed by courseSlug
+    - Custom progress bar with bg-tertiary-default fill
+[x] Empty state: "No courses available yet"
+    - v-else branch with icon + heading + subtext
+[x] nuxt prepare passes
+    - Verified: "[nuxt] Types generated in .nuxt."
+[x] LSP diagnostics clean (0 errors)
+
+## Verification Commands
+$ cd apps/web && npx nuxi prepare
+  → [nuxt] ℹ Running with compatibility version 5
+  → Types generated in .nuxt.   ✓ PASS
+
+$ npx eslint app/pages/courses/index.vue
+  → Parsing error on `import type` (PRE-EXISTING — same error on existing [...slug].vue line 2, identical pattern)
+
+$ LSP diagnostics (severity=error)
+  → No diagnostics found   ✓ PASS
+
+## Implementation Details
+
+### Data Fetching
+- Courses: useAsyncData('courses-catalog', () => queryCollection('courses').order('order', 'ASC').all())
+- Lesson counts: useAsyncData('courses-lesson-counts') — single lessons query grouped in-memory
+- Progress: useFetch<CourseProgress[]>('/api/progress/courses', { immediate: false })
+  - Only fetched when loggedIn === true (client-side watch trigger)
+
+### Auth Pattern
+- const { loggedIn } = useUserSession()  // from @onmax/nuxt-better-auth
+- Progress fetch gated behind loggedIn check
+- Client-side watch with immediate:true handles session hydration
+
+### Nuxt UI v4 Components Used
+- UCard: course card container with hover shadow/lift
+- UBadge: difficulty indicator (color: success|warning|error)
+- UButton: "Start Course" / "Continue" CTA (color=primary, variant=soft)
+- UIcon: clock, book-open, arrow-right, academic-cap
+
+### Design System Compliance
+- Colors: text-secondary, text-tertiary-default (matches existing article/Card.vue patterns)
+- Spacing: gap-6 grid, p-4 card padding, consistent with container mx-auto pattern
+- Typography: font-bold text-3xl heading, text-sm descriptions, text-xs meta
+- Hover: grayscale→color image transition (matches article/Card.vue)
+- Responsive: grid-cols-1 md:grid-cols-2 lg:grid-cols-3 (per spec)
+
+### Route Coexistence
+- courses/index.vue → /courses (catalog)
+- courses/[...slug].vue → /courses/:slug (course/lesson detail — unchanged)
+- Nuxt prioritizes index.vue for exact /courses match
+
+### Content Schema Fields Used (from content.config.ts courses collection)
+- title, description (required strings)
+- difficulty: 'beginner' | 'intermediate' | 'advanced'
+- duration: number (minutes)
+- tags: string[] (shown, max 4)
+- order: number (sort order)
+- image: string optional (cover)
+
+### API Contract (from server/api/progress/courses.get.ts)
+Response: Array<{
+  courseSlug: string
+  status: string
+  completedLessons: number
+  totalLessons: number
+  lastAccessedAt: number | null  // epoch ms
+}>
+
+## Notepad
+Read: .omo/notepads/core-platform-foundation/learnings.md (context only, no new findings to add)

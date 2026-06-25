@@ -1,0 +1,74 @@
+# Task 8: Student Dashboard — Evidence
+
+**Date**: 2026-06-25
+**Status**: ✅ COMPLETE
+**Verification**: `npx nuxi prepare` passes · 0 LSP diagnostics on all 8 files
+
+## Files Created (8)
+
+### Page
+- `apps/web/app/pages/dashboard.vue` (64 lines)
+  - `definePageMeta({ layout: 'dashboard', middleware: 'auth' })`
+  - 4 parallel `useFetch` calls (courses, last-lesson, review-queue, activity)
+  - Responsive grid: hero → 2/3+1/3 → 1/3+1/3+1/3
+  - `useSeoMeta` title: "Dashboard — scireDev"
+  - Welcome header with greeting from `useUserSession().user`
+
+### Layout
+- `apps/web/app/layouts/dashboard.vue` (74 lines)
+  - Compact sticky navbar: logo + primary nav (Dashboard/Courses/Paths)
+  - User avatar dropdown (`UDropdownMenu` + `UAvatar`) with Settings + Sign out
+  - Logout calls `signOut()` from `useUserSession()` then navigates to `/`
+  - Mobile-responsive (nav hidden under md)
+
+### 6 Widget Components (apps/web/app/components/dashboard/)
+1. `ContinueLearning.vue` (84 lines) — hero card, resume/CTA button, empty state
+2. `StreakBadge.vue` (74 lines) — consecutive-day streak from activity timestamps, milestone icons
+3. `CourseProgress.vue` (81 lines) — enrolled courses grid with `UProgress` + `UBadge`, empty state CTA
+4. `SkillMastery.vue` (74 lines) — mastery bars (weakest first), color bands (error/warning/success)
+5. `ReviewQueue.vue` (80 lines) — due/overdue concepts with `UBadge`, "Practice weak spots" CTA
+6. `ActivityFeed.vue` (77 lines) — chronological list with type-mapped icons + relative timestamps
+
+## Acceptance Criteria
+
+| # | Criterion | Status |
+|---|-----------|--------|
+| 1 | `apps/web/app/pages/dashboard.vue` exists with 6 widgets | ✅ |
+| 2 | `apps/web/app/layouts/dashboard.vue` exists (compact navbar) | ✅ |
+| 3 | 6 components in `apps/web/app/components/dashboard/` | ✅ |
+| 4 | Dashboard fetches from 4 API endpoints | ✅ courses, last-lesson, review-queue, activity |
+| 5 | Page redirects to `/auth/login` if unauthenticated | ✅ `middleware: 'auth'` (auth.ts uses useUserSession) |
+| 6 | Uses Nuxt UI v4 (UCard, UProgress, UBadge, UButton) | ✅ also UAvatar, UDropdownMenu, UAlert, UIcon |
+| 7 | `nuxt prepare` passes | ✅ types generated cleanly |
+| 8 | Evidence saved | ✅ this file |
+
+## Auto-Import Verification
+
+`.nuxt/types/components.d.ts` confirms all 6 components auto-imported with `Dashboard` prefix:
+- `DashboardContinueLearning`
+- `DashboardCourseProgress`
+- `DashboardSkillMastery`
+- `DashboardReviewQueue`
+- `DashboardActivityFeed`
+- `DashboardStreakBadge`
+
+## Nuxt UI v4 Components Used
+
+| Component | Where |
+|-----------|-------|
+| `UCard` | All 6 widgets (containers) |
+| `UProgress` | CourseProgress, SkillMastery (progress bars) |
+| `UBadge` | CourseProgress, ReviewQueue, StreakBadge |
+| `UButton` | ContinueLearning, CourseProgress, ReviewQueue, layout nav |
+| `UAvatar` | Layout (user avatar) |
+| `UDropdownMenu` | Layout (avatar menu with logout) |
+| `UAlert` | Empty states in CourseProgress, SkillMastery, ReviewQueue, ActivityFeed |
+| `UIcon` | Throughout (status icons, section headers) |
+
+## Design Decisions
+
+1. **SkillMastery data source**: Derived from review-queue response (concepts with mastery values). Keeps to the 4 required endpoints.
+2. **Streak computation**: Client-side from activity timestamps, allows today-not-yet-active streak continuity.
+3. **Layout uses `bg-default`/`text-muted`/`border-default`**: Nuxt UI v4 semantic tokens (not hardcoded colors) — adapts to dark mode.
+4. **Auth**: `definePageMeta({ middleware: 'auth' })` — existing `auth.ts` middleware checks `useUserSession().loggedIn` and redirects to `/auth/login?redirect=...`.
+5. **No new dependencies added**.
