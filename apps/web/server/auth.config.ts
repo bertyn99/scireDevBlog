@@ -1,4 +1,4 @@
-import defineServerAuth from '#auth/server'
+// defineServerAuth is auto-imported by Nitro — do NOT import from '#auth/server' (circular)
 
 export default defineServerAuth(({ runtimeConfig, db }: { runtimeConfig: any, db: any }) => ({
   database: db,
