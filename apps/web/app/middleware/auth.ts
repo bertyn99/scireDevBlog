@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware(async () => {
+export default defineNuxtRouteMiddleware(async (to) => {
   const { loggedIn, ready } = useUserSession()
 
   // Wait for session to be fetched on client
@@ -14,6 +14,6 @@ export default defineNuxtRouteMiddleware(async () => {
   }
 
   if (!loggedIn.value) {
-    return navigateTo(`/auth/login?redirect=${useRoute().fullPath}`)
+    return navigateTo(`/auth/login?redirect=${to.fullPath}`)
   }
 })
