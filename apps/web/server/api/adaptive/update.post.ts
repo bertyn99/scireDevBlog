@@ -6,7 +6,8 @@ export default defineEventHandler(async (event) => {
   try {
     const db = hubDb()
     const { exerciseId, conceptTags, passed, timeSeconds, hintsUsed } = await readBody(event)
-    const userId = 'demo-user' // TODO: get from session
+    const { user } = await requireUserSession(event)
+    const userId = user.id
     log.set({ userId, exerciseId, conceptTags })
 
     await updateMasteryForAttempt(

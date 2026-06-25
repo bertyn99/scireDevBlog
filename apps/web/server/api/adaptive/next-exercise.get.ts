@@ -7,7 +7,8 @@ export default defineEventHandler(async (event) => {
     const db = hubDb()
     const query = getQuery(event)
     const courseSlug = query.course as string || 'css-fundamentals'
-    const userId = 'demo-user' // TODO: get from session
+    const { user } = await requireUserSession(event)
+    const userId = user.id
     log.set({ userId, courseSlug })
 
     const next = await getNextExercise(db, userId, courseSlug)

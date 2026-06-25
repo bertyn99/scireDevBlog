@@ -5,8 +5,8 @@ export default defineEventHandler(async (event) => {
 
   try {
     const db = hubDb()
-    // TODO: get real userId from session
-    const userId = 'demo-user'
+    const { user } = await requireUserSession(event)
+    const userId = user.id
     log.set({ userId })
 
     const skillMap = await getSkillMap(db, userId)

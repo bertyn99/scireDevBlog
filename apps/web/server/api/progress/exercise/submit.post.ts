@@ -5,16 +5,17 @@ export default defineEventHandler(async (event) => {
   const log = useLogger(event)
 
   try {
+    const { user } = await requireUserSession(event)
     const { exerciseId, lessonPath, type, passed, score, maxScore, submittedCode, submittedAnswer } = await readBody(event)
     const db = hubDb()
-    log.set({ exerciseId, lessonPath, userId: 'temp' })
+    log.set({ exerciseId, lessonPath, userId: user.id })
 
     // Get current attempt number
     const previous = await db.select({ count: progressSchema.exerciseAttempts.attemptNumber })
       .from(progressSchema.exerciseAttempts)
       .where(
         and(
-          eq(progressSchema.exerciseAttempts.userId, 'temp'),
+          eq(progressSchema.exerciseAttempts.userId, user.id),
           eq(progressSchema.exerciseAttempts.exerciseId, exerciseId),
         ),
       )
@@ -24,7 +25,7 @@ export default defineEventHandler(async (event) => {
     const attemptNumber = (previous[0]?.count ?? 0) + 1
 
     await db.insert(progressSchema.exerciseAttempts).values({
-      userId: 'temp',
+      userId: user.id,
       exerciseId,
       lessonPath,
       type,

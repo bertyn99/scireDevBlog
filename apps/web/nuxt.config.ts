@@ -15,6 +15,8 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxthub/core',
+    '@onmax/nuxt-better-auth',
+    'nuxt-authorization',
     '@nuxt/content',
     'nuxt-studio',
     '@nuxt/ui',
@@ -34,6 +36,18 @@ export default defineNuxtConfig({
     blob: true,
     kv: true,
     cache: true,
+  },
+
+  // Authentication (@onmax/nuxt-better-auth)
+  auth: {
+    redirects: {
+      login: '/auth/login',
+      guest: '/',
+    },
+    schema: {
+      usePlural: true,
+      casing: 'snake_case',
+    },
   },
 
   // Nuxt Studio — visual CMS with R2 external media
@@ -101,8 +115,8 @@ export default defineNuxtConfig({
     '/courses': { isr: 300, swr: true },
     '/courses/**': { isr: 60, swr: true },
     '/api/**': { cache: false },
-    '/admin/**': { ssr: false },
-    '/auth/**': { ssr: false },
+    '/admin/**': { ssr: false, auth: { user: { role: 'admin' } } },
+    '/auth/**': { ssr: false, auth: 'guest' },
   },
 
   nitro: {
@@ -120,9 +134,10 @@ export default defineNuxtConfig({
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.sciredev.com',
     },
-    sessionPassword: '',
-    githubClientId: '',
-    githubClientSecret: '',
+    github: {
+      clientId: '',
+      clientSecret: '',
+    },
     betterAuthSecret: '',
     seoProKey: '',
   },
