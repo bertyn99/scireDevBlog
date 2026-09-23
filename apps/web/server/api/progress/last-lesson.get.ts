@@ -1,3 +1,4 @@
+import { db } from 'hub:db'
 import { eq, desc } from 'drizzle-orm'
 import * as progressSchema from '~~/server/db/schema/progress'
 
@@ -6,7 +7,6 @@ export default defineEventHandler(async (event) => {
 
   try {
     const { user } = await requireUserSession(event)
-    const db = hubDb()
     log.set({ userId: user.id })
 
     const [lastLesson] = await db.select({
@@ -32,7 +32,9 @@ export default defineEventHandler(async (event) => {
       lessonTitle: null,
       status: lastLesson.status,
     }
-  } catch (error) {
+  }
+  catch (error) {
+    rethrowClientHttpError(error)
     log.error(error, { step: 'progress_last_lesson' })
     throw createError({ statusCode: 500, statusMessage: 'Failed to fetch last lesson' })
   }

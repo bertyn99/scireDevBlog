@@ -13,8 +13,10 @@
     "monaco-editor": "^0.55.1"
   },
   "devDependencies": {
-    "nuxt": "^4.4.7",
+    "nuxt": "catalog:",
     "vitest": "^2.1.0",
-    "@nuxt/test-utils": "^3.14.0"
+    "@nuxt/test-utils": "^3.14.0",
+    "oxlint": "catalog:",
+    "oxfmt": "catalog:"
   }
 }

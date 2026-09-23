@@ -1,3 +1,4 @@
+import { db } from 'hub:db'
 import { eq, lte, asc, isNotNull, and } from 'drizzle-orm'
 import * as adaptiveSchema from '~~/server/db/schema/adaptive'
 
@@ -6,7 +7,6 @@ export default defineEventHandler(async (event) => {
 
   try {
     const { user } = await requireUserSession(event)
-    const db = hubDb()
     log.set({ userId: user.id })
 
     const dueConcepts = await db.select({
@@ -31,7 +31,9 @@ export default defineEventHandler(async (event) => {
       nextReviewAt: c.nextReviewAt ? c.nextReviewAt.getTime() : 0,
       mastery: c.mastery ?? 0,
     }))
-  } catch (error) {
+  }
+  catch (error) {
+    rethrowClientHttpError(error)
     log.error(error, { step: 'adaptive_review_queue' })
     throw createError({ statusCode: 500, statusMessage: 'Failed to fetch review queue' })
   }

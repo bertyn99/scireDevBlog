@@ -1,3 +1,4 @@
+import { db } from 'hub:db'
 import { eq, desc, and } from 'drizzle-orm'
 import * as progressSchema from '~~/server/db/schema/progress'
 
@@ -6,10 +7,8 @@ export default defineEventHandler(async (event) => {
 
   try {
     const { user } = await requireUserSession(event)
-    const db = hubDb()
     log.set({ userId: user.id })
 
-    // Fetch recent exercise attempts
     const recentAttempts = await db.select({
       type: progressSchema.exerciseAttempts.type,
       exerciseId: progressSchema.exerciseAttempts.exerciseId,
@@ -21,7 +20,6 @@ export default defineEventHandler(async (event) => {
       .orderBy(desc(progressSchema.exerciseAttempts.createdAt))
       .limit(10)
 
-    // Fetch recent lesson completions
     const recentLessons = await db.select({
       lessonPath: progressSchema.lessonProgress.lessonPath,
       completedAt: progressSchema.lessonProgress.completedAt,
@@ -36,7 +34,6 @@ export default defineEventHandler(async (event) => {
       .orderBy(desc(progressSchema.lessonProgress.completedAt))
       .limit(5)
 
-    // Merge into unified activity feed
     const activities: Array<{ type: string, description: string, timestamp: number }> = []
 
     for (const attempt of recentAttempts) {
@@ -55,13 +52,14 @@ export default defineEventHandler(async (event) => {
       })
     }
 
-    // Sort by timestamp descending (most recent first)
     activities.sort((a, b) => b.timestamp - a.timestamp)
 
     log.info('progress.activity_fetched', { count: activities.length })
 
     return activities.slice(0, 15)
-  } catch (error) {
+  }
+  catch (error) {
+    rethrowClientHttpError(error)
     log.error(error, { step: 'progress_activity' })
     throw createError({ statusCode: 500, statusMessage: 'Failed to fetch activity feed' })
   }

@@ -18,8 +18,7 @@ CREATE TABLE `user_mastery` (
 	`last_attempt_at` integer,
 	`next_review_at` integer,
 	`avg_time_seconds` integer,
-	`hints_used` integer DEFAULT 0,
-	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+	`hints_used` integer DEFAULT 0
 );
 --> statement-breakpoint
 CREATE TABLE `course_progress` (
@@ -32,8 +31,7 @@ CREATE TABLE `course_progress` (
 	`score` integer DEFAULT 0,
 	`started_at` integer,
 	`completed_at` integer,
-	`last_accessed_at` integer,
-	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+	`last_accessed_at` integer
 );
 --> statement-breakpoint
 CREATE TABLE `exercise_attempts` (
@@ -48,8 +46,7 @@ CREATE TABLE `exercise_attempts` (
 	`attempt_number` integer DEFAULT 1 NOT NULL,
 	`submitted_code` text,
 	`submitted_answer` text,
-	`created_at` integer NOT NULL,
-	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+	`created_at` integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `lesson_progress` (
@@ -62,8 +59,7 @@ CREATE TABLE `lesson_progress` (
 	`max_score` integer DEFAULT 0,
 	`started_at` integer,
 	`completed_at` integer,
-	`time_spent_seconds` integer DEFAULT 0,
-	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+	`time_spent_seconds` integer DEFAULT 0
 );
 --> statement-breakpoint
 CREATE TABLE `subscriptions` (
@@ -75,37 +71,5 @@ CREATE TABLE `subscriptions` (
 	`status` text DEFAULT 'active' NOT NULL,
 	`current_period_start` integer,
 	`current_period_end` integer,
-	`created_at` integer NOT NULL,
-	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+	`created_at` integer NOT NULL
 );
---> statement-breakpoint
-CREATE TABLE `accounts` (
-	`id` text PRIMARY KEY NOT NULL,
-	`user_id` text NOT NULL,
-	`provider` text NOT NULL,
-	`provider_account_id` text,
-	`password` text,
-	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
-);
---> statement-breakpoint
-CREATE TABLE `sessions` (
-	`id` text PRIMARY KEY NOT NULL,
-	`user_id` text NOT NULL,
-	`token` text NOT NULL,
-	`expires_at` integer NOT NULL,
-	`created_at` integer NOT NULL,
-	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
-);
---> statement-breakpoint
-CREATE UNIQUE INDEX `sessions_token_unique` ON `sessions` (`token`);--> statement-breakpoint
-CREATE TABLE `users` (
-	`id` text PRIMARY KEY NOT NULL,
-	`email` text NOT NULL,
-	`name` text,
-	`avatar_url` text,
-	`role` text DEFAULT 'student' NOT NULL,
-	`created_at` integer NOT NULL,
-	`updated_at` integer
-);
---> statement-breakpoint
-CREATE UNIQUE INDEX `users_email_unique` ON `users` (`email`);

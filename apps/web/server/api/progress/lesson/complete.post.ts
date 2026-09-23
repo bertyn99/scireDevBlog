@@ -1,3 +1,4 @@
+import { db } from 'hub:db'
 import { eq, and } from 'drizzle-orm'
 import * as progressSchema from '~~/server/db/schema/progress'
 
@@ -7,7 +8,6 @@ export default defineEventHandler(async (event) => {
   try {
     const { user } = await requireUserSession(event)
     const { lessonPath } = await readBody(event)
-    const db = hubDb()
     log.set({ lessonPath, userId: user.id })
 
     await db.update(progressSchema.lessonProgress)
@@ -21,7 +21,9 @@ export default defineEventHandler(async (event) => {
 
     log.info('lesson.completed', { lessonPath })
     return { success: true }
-  } catch (error) {
+  }
+  catch (error) {
+    rethrowClientHttpError(error)
     log.error(error, { step: 'lesson_complete' })
     throw createError({ statusCode: 500, statusMessage: 'Failed to complete lesson' })
   }

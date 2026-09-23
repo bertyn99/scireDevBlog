@@ -15,9 +15,11 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxthub/core',
-    '@onmax/nuxt-better-auth',
+    '@nuxtjs/better-auth',
+    './modules/strip-drizzle-v0-relations',
     'nuxt-authorization',
     '@nuxt/content',
+    './modules/resolve-mdc-optimize-deps',
     'nuxt-studio',
     '@nuxt/ui',
     '@nuxtjs/seo',
@@ -32,17 +34,19 @@ export default defineNuxtConfig({
 
   // NuxtHub — Cloudflare bindings (D1, R2, KV, Cache)
   hub: {
-    database: true,
+    db: 'sqlite',
     blob: true,
     kv: true,
     cache: true,
   },
 
-  // Authentication (@onmax/nuxt-better-auth)
+  // Authentication (@nuxtjs/better-auth)
   auth: {
     redirects: {
       login: '/auth/login',
       guest: '/',
+      authenticated: '/dashboard',
+      logout: '/',
     },
     schema: {
       usePlural: true,
@@ -115,7 +119,9 @@ export default defineNuxtConfig({
     '/courses': { isr: 300, swr: true },
     '/courses/**': { isr: 60, swr: true },
     '/api/**': { cache: false },
+    '/dashboard': { auth: { only: 'user' } },
     '/admin/**': { ssr: false, auth: { user: { role: 'admin' } } },
+    '/auth/register': { redirect: '/auth/signup' },
     '/auth/**': { ssr: false, auth: 'guest' },
   },
 
@@ -135,8 +141,8 @@ export default defineNuxtConfig({
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.sciredev.com',
     },
     github: {
-      clientId: '',
-      clientSecret: '',
+      clientId: process.env.GITHUB_CLIENT_ID || '',
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
     },
     betterAuthSecret: '',
     seoProKey: '',
@@ -152,6 +158,25 @@ export default defineNuxtConfig({
   },
 
   devtools: { enabled: true },
+
+  // @nuxtjs/mdc (via @nuxt/content) prebundles these as `@nuxtjs/mdc > pkg`.
+  // Listing the bare names first makes MDC skip the nested includes that pnpm cannot resolve (NUXT_B7002).
+  vite: {
+    optimizeDeps: {
+      include: [
+        'remark-gfm',
+        'remark-emoji',
+        'remark-mdc',
+        'remark-rehype',
+        'rehype-raw',
+        'parse5',
+        'unist-util-visit',
+        'unified',
+        'debug',
+        'extend',
+      ],
+    },
+  },
 
   compatibilityDate: '2025-06-01',
 })

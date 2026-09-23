@@ -4,43 +4,28 @@ definePageMeta({
   auth: 'guest',
 })
 
-const { signIn } = useUserSession()
-const route = useRoute()
+const signInEmail = useSignIn('email')
+const signInGithub = useSignIn('social')
 
-const form = reactive({
-  email: '',
-  password: '',
-})
-const error = ref('')
-const loading = ref(false)
+const email = ref('')
+const password = ref('')
 
-function getSafeRedirect() {
-  const redirect = route.query.redirect as string
-  if (!redirect?.startsWith('/') || redirect.startsWith('//')) {
-    return '/'
-  }
-  return redirect
-}
+const errorMessage = computed(() =>
+  signInEmail.error.value?.message || signInGithub.error.value?.message || '',
+)
+const loading = computed(() =>
+  signInEmail.status.value === 'pending' || signInGithub.status.value === 'pending',
+)
 
 async function handleSubmit() {
-  error.value = ''
-  loading.value = true
-
-  await signIn.email(
-    { email: form.email, password: form.password },
-    {
-      onSuccess: () => navigateTo(getSafeRedirect()),
-      onError: (ctx) => {
-        error.value = ctx.error?.message || 'Invalid email or password'
-      },
-    },
-  )
-
-  loading.value = false
+  await signInEmail.execute({
+    email: email.value,
+    password: password.value,
+  })
 }
 
 async function handleGithub() {
-  await signIn.social({ provider: 'github' })
+  await signInGithub.execute({ provider: 'github' })
 }
 </script>
 
@@ -49,9 +34,9 @@ async function handleGithub() {
     <div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
       <form class="space-y-6" @submit.prevent="handleSubmit">
         <UAlert
-          v-if="error"
+          v-if="errorMessage"
           color="error"
-          :title="error"
+          :title="errorMessage"
           icon="i-heroicons-exclamation-triangle"
         />
 
@@ -63,7 +48,7 @@ async function handleGithub() {
           <div class="mt-2">
             <UInput
               id="email"
-              v-model="form.email"
+              v-model="email"
               name="email"
               type="email"
               autocomplete="email"
@@ -81,22 +66,13 @@ async function handleGithub() {
           <div class="mt-2">
             <UInput
               id="password"
-              v-model="form.password"
+              v-model="password"
               name="password"
               type="password"
               autocomplete="current-password"
               required
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6"
             />
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between">
-          <div class="text-sm leading-6">
-            <a
-              href="#"
-              class="font-semibold text-primary-600 hover:text-primary-500"
-            >Forgot password?</a>
           </div>
         </div>
 
@@ -121,10 +97,11 @@ async function handleGithub() {
 
         <div class="mt-6 grid grid-cols-1 gap-4">
           <UButton
-            color="black"
-            label="Github"
+            color="neutral"
+            label="GitHub"
             icon="i-mdi-github"
             block
+            :loading="loading"
             @click="handleGithub"
           />
         </div>
@@ -135,9 +112,11 @@ async function handleGithub() {
       Not a member?
       {{ " " }}
       <NuxtLink
-        to="/auth/register"
+        to="/auth/signup"
         class="font-semibold leading-6 text-primary-600 hover:text-primary-500"
-      >Create an account</NuxtLink>
+      >
+        Create an account
+      </NuxtLink>
     </p>
   </div>
 </template>

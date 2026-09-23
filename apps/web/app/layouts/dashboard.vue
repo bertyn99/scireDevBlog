@@ -14,7 +14,6 @@ const navItems = [
 
 async function handleLogout() {
   await signOut()
-  await navigateTo('/')
 }
 </script>
 

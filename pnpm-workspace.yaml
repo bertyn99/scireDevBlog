@@ -2,18 +2,23 @@ packages:
   - 'apps/*'
   - 'packages/*'
 
+catalog:
+  nuxt: ^4.4.7
+  oxlint: "^1.83.0"
+  oxfmt: "^0.68.0"
+  drizzle-orm: 1.0.0-rc.4
+  drizzle-kit: 1.0.0-rc.4
+  better-auth: ^1.7.3
+
 allowBuilds:
-  '@parcel/watcher': set this to true or false
+  '@prisma/client': false
+  '@prisma/engines': false
   better-sqlite3: true
   esbuild: true
-  prisma: set this to true or false
+  prisma: false
   sharp: true
   unrs-resolver: true
   vue-demi: true
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - better-sqlite3
-  - esbuild
-  - sharp
-  - unrs-resolver
-  - vue-demi
+
+patchedDependencies:
+  '@nuxthub/core@0.10.6': patches/@nuxthub__core@0.10.6.patch

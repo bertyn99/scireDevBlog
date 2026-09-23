@@ -1,10 +1,10 @@
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
-import { users } from './users'
 
 // Course-level progress
 export const courseProgress = sqliteTable('course_progress', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  userId: text('user_id').references(() => users.id).notNull(),
+  // Better Auth user id from `#auth/schema` (`users.id`)
+  userId: text('user_id').notNull(),
   courseSlug: text('course_slug').notNull(),
   // e.g., "css-fundamentals"
   status: text('status').notNull().default('not_started'),
@@ -20,7 +20,7 @@ export const courseProgress = sqliteTable('course_progress', {
 // Lesson-level progress
 export const lessonProgress = sqliteTable('lesson_progress', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  userId: text('user_id').references(() => users.id).notNull(),
+  userId: text('user_id').notNull(),
   lessonPath: text('lesson_path').notNull(),
   // e.g., "courses/css-fundamentals/02-flexbox/index"
   courseSlug: text('course_slug').notNull(),
@@ -38,7 +38,7 @@ export const lessonProgress = sqliteTable('lesson_progress', {
 // Individual exercise attempts
 export const exerciseAttempts = sqliteTable('exercise_attempts', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  userId: text('user_id').references(() => users.id).notNull(),
+  userId: text('user_id').notNull(),
   exerciseId: text('exercise_id').notNull(),
   // e.g., "courses/css-fundamentals/02-flexbox/index#flex-direction-qcm"
   lessonPath: text('lesson_path').notNull(),

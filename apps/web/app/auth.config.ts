@@ -1,3 +1,3 @@
-import { createAuthClient } from 'better-auth/vue'
+import { defineClientAuth } from '@nuxtjs/better-auth/config'
 
-export default createAuthClient
+export default defineClientAuth({})

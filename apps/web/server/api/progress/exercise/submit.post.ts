@@ -1,3 +1,4 @@
+import { db } from 'hub:db'
 import { eq, and } from 'drizzle-orm'
 import * as progressSchema from '~~/server/db/schema/progress'
 
@@ -7,10 +8,8 @@ export default defineEventHandler(async (event) => {
   try {
     const { user } = await requireUserSession(event)
     const { exerciseId, lessonPath, type, passed, score, maxScore, submittedCode, submittedAnswer } = await readBody(event)
-    const db = hubDb()
     log.set({ exerciseId, lessonPath, userId: user.id })
 
-    // Get current attempt number
     const previous = await db.select({ count: progressSchema.exerciseAttempts.attemptNumber })
       .from(progressSchema.exerciseAttempts)
       .where(
@@ -40,7 +39,9 @@ export default defineEventHandler(async (event) => {
 
     log.info('exercise.submitted', { attemptNumber, passed, score })
     return { success: true, attemptNumber }
-  } catch (error) {
+  }
+  catch (error) {
+    rethrowClientHttpError(error)
     log.error(error, { step: 'exercise_submit' })
     throw createError({ statusCode: 500, statusMessage: 'Failed to submit exercise' })
   }

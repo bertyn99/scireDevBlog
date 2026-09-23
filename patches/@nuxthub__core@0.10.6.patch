@@ -1,0 +1,275 @@
+diff --git a/dist/module.mjs b/dist/module.mjs
+index 056152f5e37018e159ddbde8ed4555fa606f1a1d..ecdf3f2b75b2c39ab8031147505d4d770e25624d 100644
+--- a/dist/module.mjs
++++ b/dist/module.mjs
+@@ -176,10 +176,10 @@ async function processWranglerConfigFile(nuxt, targetEnv) {
+ 
+ const log$3 = logger.withTag("nuxt:hub");
+ function generateLazyDbTemplate(imports, getDbBody, options) {
+-  const { moduleScope = "", schemaExport = "schema" } = options || {};
++  const { relationExport = "" } = options || {};
+   return `${imports}
+ import * as schema from './db/schema.mjs'
+-${moduleScope}
++
+ let _db
+ function getDb() {
+   if (!_db) {
+@@ -190,7 +190,7 @@ ${getDbBody}
+   return _db
+ }
+ const db = new Proxy({}, { get(_, prop) { return getDb()[prop] } })
+-export { db, ${schemaExport} }
++export { db, schema${relationExport} }
+ `;
+ }
+ async function resolveDatabaseConfig(nuxt, hub) {
+@@ -310,6 +310,10 @@ async function setupDatabase(nuxt, hub, deps) {
+   if (useRelationsV2 && Number(deps["drizzle-orm"]?.match(/\d/)?.[0]) < 1) {
+     logWhenReady(nuxt, '"useRelationsV2" requires drizzle-orm@1.0.0-beta or higher', "error");
+   }
++  if (useRelationsV2 && hub.db.casing) {
++    logWhenReady(nuxt, "`casing` is ignored when `useRelationsV2` is enabled — drizzle-orm v1+ removed runtime casing. Use `snakeCase`/`camelCase` from `drizzle-orm/*-core` in your schema files instead. See https://orm.drizzle.team/docs/casing", "warn");
++    hub.db.casing = void 0;
++  }
+   addServerPlugin(resolve("db/runtime/plugins/migrations.dev"));
+   nuxt.hook("modules:done", async () => {
+     await generateDatabaseSchema(nuxt, hub);
+@@ -333,9 +337,81 @@ async function setupDatabase(nuxt, hub, deps) {
+       }
+     });
+   }
++  if (useRelationsV2) await generateRelations(nuxt, hub);
+   await setupDatabaseClient(nuxt, hub);
+   await setupDatabaseConfig(nuxt, hub);
+ }
++async function stripDrizzleV0Relations(filePath) {
++  let source;
++  try {
++    source = await readFile(filePath, "utf-8");
++  } catch {
++    return;
++  }
++  if (!/\brelations\b/.test(source) || !source.includes("drizzle-orm")) return;
++  let next = source.replace(
++    /import\s*\{([^}]*)\}\s*from\s*(['"])drizzle-orm\2\s*;?/,
++    (_m, inner, q) => {
++      const names = inner.split(",").map((part) => part.trim()).filter((part) => part && part !== "relations" && !part.startsWith("relations "));
++      return names.length ? `import { ${names.join(", ")} } from ${q}drizzle-orm${q};` : "";
++    }
++  );
++  const re = /(?:export\s+)?const\s+\w+Relations\s*=\s*relations\(/g;
++  let out = "";
++  let last = 0;
++  let match;
++  while (match = re.exec(next)) {
++    out += next.slice(last, match.index);
++    let i = re.lastIndex;
++    let depth = 1;
++    while (i < next.length && depth) {
++      if (next[i] === "(") depth++;
++      else if (next[i] === ")") depth--;
++      i++;
++    }
++    while (i < next.length && /[;\s]/.test(next[i])) i++;
++    last = i;
++  }
++  out += next.slice(last);
++  next = out.replace(/\n{3,}/g, "\n\n");
++  if (next !== source) await writeFile(filePath, next);
++}
++async function generateRelations(nuxt, hub) {
++  if (!hub.db) return;
++  const physicalDbDir = join(nuxt.options.rootDir, "node_modules", "@nuxthub", "db");
++  await mkdir(physicalDbDir, { recursive: true });
++  const relationsTypes = `
++import type { ExtractTablesFromSchema, ExtractTablesWithRelationsParts, IncludeEveryTable } from 'drizzle-orm'
++import * as schema from './schema.mjs'
++
++type UnionToIntersection<U> = (U extends any ? (x: U) => void : never) extends (x: infer I) => void ? I : never
++type SchemaType = typeof schema
++export type Tables = ExtractTablesFromSchema<SchemaType>
++type RelationsKeys = keyof SchemaType extends infer Key ? Key extends keyof SchemaType ? SchemaType[Key] extends ExtractTablesWithRelationsParts<any, any> ? Key : never : never : never
++type InnerRelations = RelationsKeys extends infer Key ? Key extends RelationsKeys ? SchemaType[Key] : never : never
++export type Relations = ExtractTablesWithRelationsParts<IncludeEveryTable<Tables>, Tables> & UnionToIntersection<InnerRelations>
++
++export const relations: Relations
++`;
++  await writeFile(join(physicalDbDir, "relations.d.mts"), relationsTypes);
++  const relations = `
++import { extractTablesFromSchema, defineRelationsPart } from 'drizzle-orm'
++import * as schema from './schema.mjs'
++
++const tables = extractTablesFromSchema(schema)
++const tablesKeys = new Set(Object.keys(tables))
++const isRelation = (obj) => typeof obj === 'object' && obj && 'table' in obj && 'relations' in obj
++export const relations = Object.keys(schema)
++  .filter(key => !(key in tables))
++  .map(key => schema[key])
++  .filter(entry => entry && typeof entry === 'object' && Object.entries(entry).every(([key, val]) => tablesKeys.has(key) && isRelation(val)))
++  .reduce((acc, entry) => {
++    for (const [tbl, rels] of Object.entries(entry)) acc[tbl] = { ...acc[tbl], ...rels }
++    return acc
++  }, defineRelationsPart(schema))
++`;
++  await writeFile(join(physicalDbDir, "relations.mjs"), relations);
++}
+ async function generateDatabaseSchema(nuxt, hub) {
+   if (!hub.db) return;
+   const dialect = hub.db.dialect;
+@@ -348,6 +424,7 @@ async function generateDatabaseSchema(nuxt, hub) {
+     let schemaPaths2 = await glob(schemaPatterns, { absolute: true, onlyFiles: true });
+     const extendedPaths = [];
+     await nuxt.callHook("hub:db:schema:extend", { dialect, paths: extendedPaths });
++    for (const schemaPath of extendedPaths) await stripDrizzleV0Relations(schemaPath);
+     schemaPaths2 = [extendedPaths, schemaPaths2].flat().filter((path) => {
+       const meta = getDatabaseSchemaPathMetadata(path);
+       return !meta.dialect || meta.dialect === dialect;
+@@ -372,8 +449,10 @@ async function generateDatabaseSchema(nuxt, hub) {
+       await buildDatabaseSchema(nuxt.options.buildDir, { relativeDir: nuxt.options.rootDir, alias: nuxt.options.alias });
+       const physicalDbDir = join(nuxt.options.rootDir, "node_modules", "@nuxthub", "db");
+       try {
++        await stripDrizzleV0Relations(join(nuxt.options.buildDir, "hub/db/schema.mjs"));
+         await copyFile(join(nuxt.options.buildDir, "hub/db/schema.mjs"), join(physicalDbDir, "schema.mjs"));
+         await copyFile(join(nuxt.options.buildDir, "hub/db/schema.d.mts"), join(physicalDbDir, "schema.d.mts"));
++        await stripDrizzleV0Relations(join(physicalDbDir, "schema.mjs"));
+       } catch (error) {
+       }
+     });
+@@ -389,7 +468,9 @@ async function generateDatabaseSchema(nuxt, hub) {
+     const physicalDbDir = join(nuxt.options.rootDir, "node_modules", "@nuxthub", "db");
+     await mkdir(physicalDbDir, { recursive: true });
+     try {
++      await stripDrizzleV0Relations(join(nuxt.options.buildDir, "hub/db/schema.mjs"));
+       await copyFile(join(nuxt.options.buildDir, "hub/db/schema.mjs"), join(physicalDbDir, "schema.mjs"));
++      await stripDrizzleV0Relations(join(physicalDbDir, "schema.mjs"));
+       const buildDirSource = join(nuxt.options.buildDir, "hub/db/schema.d.mts");
+       const nuxtDirSource = join(nuxt.options.rootDir, ".nuxt/hub/db/schema.d.mts");
+       let schemaTypes;
+@@ -431,19 +512,12 @@ async function setupDatabaseClient(nuxt, hub) {
+   }, { nitro: true, nuxt: true });
+   const modeOption = dialect === "mysql" && !useRelationsV2 ? `, mode: '${mode || "default"}'` : "";
+   const relationsImport = !useRelationsV2 ? "" : `
+-import { defineRelationsPart, extractTablesFromSchema } from 'drizzle-orm'`;
+-  const relationsOperations = !useRelationsV2 ? "" : `
+-const tables = extractTablesFromSchema(schema)
+-const relations = Object.keys(schema)
+-  .filter(key => !(key in tables))
+-  .reduce((acc, key) => {
+-    for (const [tbl, rels] of Object.entries(schema[key])) acc[tbl] = { ...acc[tbl], ...rels }
+-    return acc
+-  }, defineRelationsPart(schema))
+-`;
++import { relations } from './db/relations.mjs'`;
++  const relationsOperations = "";
+   const relationsOption = !useRelationsV2 ? "" : ", relations";
+-  const schemaOption = !useRelationsV2 ? "schema" : "schema: tables";
+-  const schemaExport = !useRelationsV2 ? "schema" : "tables as schema";
++  const relationExport = !useRelationsV2 ? "" : ", relations";
++  const schemaOption = "schema";
++  const schemaExport = `schema${relationExport}`;
+   const casingOption = casing ? `, casing: '${casing}'` : "";
+   let drizzleOrmContent = `import { drizzle } from 'drizzle-orm/${driver}'${relationsImport}
+ import * as schema from './db/schema.mjs'
+@@ -514,7 +588,7 @@ import { drizzle } from 'drizzle-orm/neon-http'${relationsImport}`,
+     if (!url) throw new Error('DATABASE_URL, POSTGRES_URL, or POSTGRESQL_URL required')
+     const sql = neon(url)
+     _db = drizzle(sql, { ${schemaOption}${casingOption}${relationsOption} })`,
+-      { moduleScope: relationsOperations, schemaExport }
++      { relationExport }
+     );
+   }
+   if (driver === "d1") {
+@@ -523,7 +597,7 @@ import { drizzle } from 'drizzle-orm/neon-http'${relationsImport}`,
+       `    const binding = process.env.DB || globalThis.__env__?.DB || globalThis.DB
+     if (!binding) throw new Error('DB binding not found')
+     _db = drizzle(binding, { ${schemaOption}${casingOption}${relationsOption} })`,
+-      { moduleScope: relationsOperations, schemaExport }
++      { relationExport }
+     );
+   }
+   if (driver === "d1-http") {
+@@ -588,7 +662,7 @@ export {db, ${schemaExport} }
+       `    const hyperdrive = process.env.${bindingName} || globalThis.__env__?.${bindingName} || globalThis.${bindingName}
+     if (!hyperdrive) throw new Error('${bindingName} binding not found')
+     _db = drizzle({ connection: hyperdrive.connectionString, ${schemaOption}${modeOption}${casingOption}${relationsOption} })`,
+-      { moduleScope: relationsOperations, schemaExport }
++      { relationExport }
+     );
+   }
+   if (driver === "postgres-js" && !nuxt.options.dev && !hub.hosting.includes("cloudflare")) {
+@@ -610,7 +684,7 @@ ${hasReplicas ? `    const primary = drizzle({ client, ${schemaOption}${casingOp
+       return drizzle({ client: replicaClient, ${schemaOption}${casingOption}${relationsOption} })
+     })
+     _db = withReplicas(primary, replicaConnections)` : `    _db = drizzle({ client, ${schemaOption}${casingOption}${relationsOption} })`}`,
+-      { moduleScope: relationsOperations, schemaExport }
++      { relationExport }
+     );
+   }
+   if (driver === "mysql2" && !nuxt.options.dev && !hub.hosting.includes("cloudflare")) {
+@@ -629,7 +703,7 @@ ${hasReplicas ? `    const primary = drizzle({ connection: { uri }, ${schemaOpti
+       return drizzle({ connection: { uri: replicaUrl }, ${schemaOption}${modeOption}${casingOption}${relationsOption} })
+     })
+     _db = withReplicas(primary, replicaConnections)` : `    _db = drizzle({ connection: { uri }, ${schemaOption}${modeOption}${casingOption}${relationsOption} })`}`,
+-      { moduleScope: relationsOperations, schemaExport }
++      { relationExport }
+     );
+   }
+   if (driver === "libsql" && !connection.url) {
+@@ -639,36 +713,32 @@ ${hasReplicas ? `    const primary = drizzle({ connection: { uri }, ${schemaOpti
+     const authToken = process.env.TURSO_AUTH_TOKEN || process.env.LIBSQL_AUTH_TOKEN
+     if (!url) throw new Error('Database URL not found. Set TURSO_DATABASE_URL, LIBSQL_URL, or DATABASE_URL')
+     _db = drizzle({ connection: { url, authToken }, ${schemaOption}${casingOption}${relationsOption} })`,
+-      { moduleScope: relationsOperations, schemaExport }
++      { relationExport }
+     );
+   }
+   const physicalDbDir = join(nuxt.options.rootDir, "node_modules", "@nuxthub", "db");
+   await mkdir(physicalDbDir, { recursive: true });
+   await writeFile(
+     join(physicalDbDir, "db.mjs"),
+-    drizzleOrmContent.replace(/from '\.\/db\/schema\.mjs'/g, "from './schema.mjs'")
++    drizzleOrmContent.replace(/from '\.\/db\/schema\.mjs'/g, "from './schema.mjs'").replace(/from '\.\/db\/relations\.mjs'/g, "from './relations.mjs'")
+   );
+-  const relationsTypesImports = !useRelationsV2 ? "" : ", ExtractTablesFromSchema, ExtractTablesWithRelationsParts, IncludeEveryTable";
+-  const relationsTypes = !useRelationsV2 ? "" : `
+-type Tables = ExtractTablesFromSchema<typeof schema>
+-type SchemaRelations = Omit<typeof schema, keyof Tables>
+-type RelationsKeys = keyof SchemaRelations extends infer T ? T extends keyof SchemaRelations ? keyof SchemaRelations[T] : never : never
+-type FlatRelations = { [Key in RelationsKeys]: keyof SchemaRelations extends infer T ? T extends keyof SchemaRelations ? Key extends keyof SchemaRelations[T] ? SchemaRelations[T][Key] : never : never : never }
+-type Relations = ExtractTablesWithRelationsParts<IncludeEveryTable<Tables>, Tables> & FlatRelations
+-`;
+-  const physicalDbTypes = `import type { DrizzleConfig${relationsTypesImports} } from 'drizzle-orm'
++  const relationsTypesImports = !useRelationsV2 ? "" : `import { relations } from './relations.mjs'`;
++  const isPgDriver = ["neon-http", "postgres-js", "pglite"].includes(driver);
++  const drizzleCoreType = !useRelationsV2 ? "typeof schema" : isPgDriver ? "typeof relations" : "typeof schema, typeof relations";
++  const physicalDbTypes = `import type { DrizzleConfig } from 'drizzle-orm'
+ import { drizzle as drizzleCore } from 'drizzle-orm/${driverForTypes}'
+ import * as schema from './schema.mjs'
+-${relationsTypes}
++${relationsTypesImports}
++
+ /**
+  * The database schema object
+  * Defined in server/db/schema.ts and server/db/schema/*.ts
+  */
+-export { schema }
++export { schema${relationExport} }
+ /**
+  * The ${driver} database client.
+  */
+-export const db: ReturnType<typeof drizzleCore<${useRelationsV2 ? "Tables, Relations" : "typeof schema"}>>
++export const db: ReturnType<typeof drizzleCore<${drizzleCoreType}>>
+ `;
+   await writeFile(
+     join(physicalDbDir, "db.d.ts"),
+@@ -680,7 +750,8 @@ export const db: ReturnType<typeof drizzleCore<${useRelationsV2 ? "Tables, Relat
+     type: "module",
+     exports: {
+       ".": { types: "./db.d.ts", default: "./db.mjs" },
+-      "./schema": { types: "./schema.d.mts", default: "./schema.mjs" }
++      "./schema": { types: "./schema.d.mts", default: "./schema.mjs" },
++      "./relations": { types: "./relations.d.mts", default: "./relations.mjs" }
+     }
+   };
+   try {

@@ -1,29 +1,36 @@
-// defineServerAuth is auto-imported by Nitro — do NOT import from '#auth/server' (circular)
+import { defineServerAuth } from '@nuxtjs/better-auth/config'
 
-export default defineServerAuth(({ runtimeConfig, db }: { runtimeConfig: any, db: any }) => ({
-  database: db,
-  emailAndPassword: {
-    enabled: true,
-  },
-  socialProviders: {
-    github: {
-      clientId: runtimeConfig.github.clientId as string,
-      clientSecret: runtimeConfig.github.clientSecret as string,
+export default defineServerAuth(({ runtimeConfig }) => {
+  const github = runtimeConfig.github as {
+    clientId?: string
+    clientSecret?: string
+  }
+
+  return {
+    emailAndPassword: {
+      enabled: true,
     },
-  },
-  user: {
-    additionalFields: {
-      role: {
-        type: 'string' as const,
-        defaultValue: 'student',
+    socialProviders: {
+      github: {
+        clientId: github.clientId || '',
+        clientSecret: github.clientSecret || '',
       },
     },
-  },
-  session: {
-    expiresIn: 30 * 24 * 60 * 60, // 30 days
-    cookieCache: {
-      enabled: true,
-      maxAge: 60 * 5, // 5 minutes
+    user: {
+      additionalFields: {
+        role: {
+          type: 'string',
+          defaultValue: 'student',
+          input: false,
+        },
+      },
     },
-  },
-})) as any
+    session: {
+      expiresIn: 30 * 24 * 60 * 60,
+      cookieCache: {
+        enabled: true,
+        maxAge: 60 * 5,
+      },
+    },
+  }
+})
