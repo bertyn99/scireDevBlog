@@ -117,27 +117,15 @@ importers:
       '@vueuse/nuxt':
         specifier: ^12.0.0
         version: 12.8.2(magicast@0.3.5)(nuxt@4.5.2(c986c046ece1c834af071d18298ff852))(typescript@5.9.3)
-      debug:
-        specifier: ^4.4.3
-        version: 4.4.3(supports-color@10.2.2)
       drizzle-kit:
         specifier: 'catalog:'
         version: 1.0.0-rc.4
-      extend:
-        specifier: ^3.0.2
-        version: 3.0.2
       nuxt:
         specifier: 'catalog:'
         version: 4.5.2(c986c046ece1c834af071d18298ff852)
       nuxt-studio:
         specifier: ^1.7.0
         version: 1.7.0(db0@0.4.1)(ioredis@5.11.1(supports-color@10.2.2))(magic-string@1.4.1)(magicast@0.3.5)(oxc-parser@0.149.0)(rolldown@1.2.8)(srvx@1.0.5)(supports-color@10.2.2)(unplugin@3.3.0(esbuild@0.28.2)(rolldown@1.2.8)(rollup@4.63.3)(vite@8.3.0(@types/node@26.5.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(vue@3.5.42(typescript@5.9.3))
-      parse5:
-        specifier: ^8.0.1
-        version: 8.0.1
-      rehype-raw:
-        specifier: ^7.0.0
-        version: 7.0.0
       remark-emoji:
         specifier: ^5.0.2
         version: 5.0.2
@@ -153,12 +141,6 @@ importers:
       tailwindcss:
         specifier: ^4.3.2
         version: 4.3.3
-      unified:
-        specifier: ^11.0.5
-        version: 11.0.5
-      unist-util-visit:
-        specifier: ^5.1.0
-        version: 5.1.0
 
   packages/exercise-engine:
     dependencies:

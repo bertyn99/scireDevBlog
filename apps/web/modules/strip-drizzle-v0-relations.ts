@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises'
+import { readdir, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { defineNuxtModule } from '@nuxt/kit'
 
@@ -62,18 +62,44 @@ async function stripDrizzleV0RelationsFile(filePath: string): Promise<void> {
   }
 }
 
+async function collectSchemaFiles(nuxt: { options: { buildDir: string, rootDir: string } }): Promise<string[]> {
+  const files = [
+    join(nuxt.options.buildDir, 'hub/db/schema.mjs'),
+    join(nuxt.options.buildDir, 'hub/db/schema.d.mts'),
+    join(nuxt.options.rootDir, 'node_modules/@nuxthub/db/schema.mjs'),
+    join(nuxt.options.rootDir, 'node_modules/@nuxthub/db/schema.d.mts'),
+  ]
+
+  for (const dir of [
+    join(nuxt.options.buildDir, 'better-auth'),
+    join(nuxt.options.rootDir, '.nuxt/better-auth'),
+  ]) {
+    try {
+      const names = await readdir(dir)
+      for (const name of names) {
+        if (name.startsWith('schema')) {
+          files.push(join(dir, name))
+        }
+      }
+    }
+    catch {
+      // Directory may not exist yet during early module setup.
+    }
+  }
+
+  return [...new Set(files)]
+}
+
 export default defineNuxtModule({
   meta: {
     name: 'strip-drizzle-v0-relations',
   },
   setup(_options, nuxt) {
-    const schemaFiles = () => [
-      join(nuxt.options.buildDir, 'better-auth/schema.sqlite.ts'),
-      join(nuxt.options.buildDir, 'hub/db/schema.mjs'),
-      join(nuxt.options.buildDir, 'hub/db/schema.d.mts'),
-      join(nuxt.options.rootDir, 'node_modules/@nuxthub/db/schema.mjs'),
-      join(nuxt.options.rootDir, 'node_modules/@nuxthub/db/schema.d.mts'),
-    ]
+    const stripAll = async () => {
+      for (const schemaPath of await collectSchemaFiles(nuxt)) {
+        await stripDrizzleV0RelationsFile(schemaPath)
+      }
+    }
 
     nuxt.hook('hub:db:schema:extend', async ({ paths }) => {
       for (const schemaPath of paths) {
@@ -81,10 +107,11 @@ export default defineNuxtModule({
       }
     })
 
-    nuxt.hook('app:templatesGenerated', async () => {
-      for (const schemaPath of schemaFiles()) {
-        await stripDrizzleV0RelationsFile(schemaPath)
-      }
-    })
+    // better-auth writes schema.ts + schema.mjs during module setup, then
+    // addTemplate() rewrites them. Strip after templates land and once more
+    // before the server starts so #auth/schema can load on drizzle-orm v1.
+    nuxt.hook('app:templatesGenerated', stripAll)
+    nuxt.hook('nitro:init', stripAll)
+    nuxt.hook('ready', stripAll)
   },
 })
