@@ -40,6 +40,14 @@
     button { cursor: pointer; }
     textarea { tab-size: 2; }
     iframe { border: 0; }
+    #shell header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: color-mix(in srgb, var(--paper) 92%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+    }
   </style>
 </head>
 <body class="min-h-dvh bg-[var(--paper)] text-[var(--ink)] antialiased">
@@ -212,7 +220,7 @@ el.addEventListener('click', () => {
     }
 
     function header() {
-      return `<header class="sticky top-0 z-40 border-b border-[var(--ink)]/8 bg-[var(--paper)]/90 backdrop-blur-sm">
+      return `<header>
         <div class="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">
           <button type="button" data-go="landing" class="flex items-center gap-2.5">
             ${markSvg(state.mark, 28, false)}
@@ -228,7 +236,7 @@ el.addEventListener('click', () => {
     }
 
     function landing() {
-      return `<section class="relative mx-auto flex min-h-[calc(100dvh-4rem)] max-w-5xl flex-col justify-center px-5 pb-24 pt-10">
+      return `<section class="relative mx-auto max-w-5xl px-5 pb-10 pt-16">
         <p class="text-[13px] text-[var(--slate)]">Developer courses</p>
         <h1 class="font-serif mt-4 max-w-xl text-[44px] leading-[1.12] tracking-tight text-[var(--ink)] sm:text-[56px]">
           Know the path. Then grow it.
@@ -240,7 +248,7 @@ el.addEventListener('click', () => {
           Browse courses
         </button>
       </section>
-      <section class="mx-auto max-w-5xl space-y-3 px-5 pb-32">
+      <section class="mx-auto max-w-5xl space-y-3 px-5 pb-40">
         ${COURSES.slice(0, 3).map((c) => courseSlab(c, false)).join('')}
       </section>`
     }
@@ -267,7 +275,7 @@ el.addEventListener('click', () => {
         return `<button type="button" data-filter="${f}" class="rounded-[8px] px-3 py-1.5 text-[13px] ${cls}">${f}</button>`
       }).join('')
       const list = shownCourses().map((c) => courseSlab(c, true)).join('')
-      return `<main class="mx-auto max-w-5xl px-5 pb-32 pt-10">
+      return `<main class="mx-auto max-w-5xl px-5 pb-40 pt-10">
         <p class="text-[13px] text-[var(--slate)]">scireDev courses</p>
         <h1 class="mt-2 text-[36px] font-semibold tracking-tight">Courses</h1>
         <div class="mt-6 flex flex-wrap gap-2">${chips}</div>
@@ -298,7 +306,7 @@ el.addEventListener('click', () => {
           </div>
         </li>`
       }).join('')
-      return `<main class="mx-auto max-w-3xl px-5 pb-32 pt-10">
+      return `<main class="mx-auto max-w-3xl px-5 pb-40 pt-10">
         <p class="text-[13px] text-[var(--slate)]">Learning path</p>
         <h1 class="mt-2 text-[36px] font-semibold tracking-tight">Frontend Engineer</h1>
         <p class="mt-3 max-w-[48ch] text-[15px] leading-relaxed text-[var(--slate)]">
@@ -318,7 +326,7 @@ el.addEventListener('click', () => {
           </button>
         </li>`
       ).join('')
-      return `<main class="mx-auto max-w-3xl px-5 pb-32 pt-10">
+      return `<main class="mx-auto max-w-3xl px-5 pb-40 pt-10">
         <button type="button" data-go="catalog" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Courses</button>
         <div class="mt-6 flex items-start gap-4">
           ${markSvg(state.mark, 40, false)}
@@ -337,7 +345,7 @@ el.addEventListener('click', () => {
         const cls = l.current ? 'bg-[var(--surface)] text-[var(--ink)]' : 'text-[var(--slate)]'
         return `<li><span class="block rounded-[8px] px-2 py-1.5 text-[13px] ${cls}">${l.n}. ${l.title}</span></li>`
       }).join('')
-      return `<div class="mx-auto grid max-w-5xl gap-10 px-5 pb-32 pt-8 lg:grid-cols-[200px_1fr]">
+      return `<div class="mx-auto grid max-w-5xl gap-10 px-5 pb-40 pt-8 lg:grid-cols-[200px_1fr]">
         <aside class="hidden lg:block">
           <p class="text-[12px] text-[var(--ash)]">Vue Fundamentals</p>
           <ol class="mt-4 space-y-1">${toc}</ol>
@@ -384,7 +392,7 @@ count.value += 1</code></pre>
           : 'Not that one. ref() boxes the value. The box is the reactive reference.'}</p>`
         : ''
       const disabled = state.pick === null ? 'opacity-40 pointer-events-none' : ''
-      return `<main class="mx-auto max-w-xl px-5 pb-32 pt-10">
+      return `<main class="mx-auto max-w-xl px-5 pb-40 pt-10">
         <button type="button" data-go="chapter" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Chapter</button>
         <h1 class="mt-6 text-[28px] font-semibold tracking-tight">What does ref() return?</h1>
         <span class="mt-3 block h-[2px] w-8 bg-[var(--minium)]"></span>
