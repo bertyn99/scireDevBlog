@@ -69,7 +69,7 @@ useSchemaOrg([
 
   <main id="main" class="p-4 max-w-5xl mx-auto mt-10">
     <header v-if="data.article.title" class="p-4 pb-12">
-      <div class="h-[34vh] sm:h-[46vh] md:h-[58vh] w-full rounded-2xl overflow-hidden">
+      <div class="h-[34vh] sm:h-[46vh] md:h-[58vh] w-full rounded-[var(--radius-card)] overflow-hidden">
         <nuxt-img :src="`/${data.article.image}`" :alt="data.article.title" sizes="sm:100vw md:70vw lg:800px"
           format="webp" class="w-full h-full object-cover md:object-fill aspect-video" />
       </div>

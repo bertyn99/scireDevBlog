@@ -10,7 +10,7 @@ useSeoMeta(
   useLoadMeta({
     title: "Home",
     description: "your website to learn the web and mobile development",
-    image: `${site.url}/img/scire_logo_primary.png`,
+    image: `${site.url}/img/brand/mark.svg`,
     url: site.url,
   })
 );

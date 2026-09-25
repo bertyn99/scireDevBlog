@@ -4,10 +4,10 @@
       <div class="grid grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:grid-cols-2 lg:items-start">
         <div class="px-6 md:px-0 lg:pr-4 lg:pt-4">
           <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
-            <h2 class="text-base font-semibold leading-7 text-orange-600">
+            <h2 class="text-[13px] font-semibold uppercase tracking-[0.18em] text-ember">
               Learn faster
             </h2>
-            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-200 sm:text-4xl">
+            <p class="mt-2 text-3xl font-medium tracking-tight text-ink dark:text-gray-200 sm:text-4xl">
               A better learning workflow
             </p>
             <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
@@ -21,7 +21,7 @@
                 <dt class="inline font-semibold text-gray-900">
                   <UIcon
                     :name="feature.icon"
-                    class="absolute left-1 top-1 h-5 w-5 text-orange-600"
+                    class="absolute left-1 top-1 h-5 w-5 text-ember"
                     aria-hidden="true"
                   />
                   {{ feature.name }}
@@ -34,12 +34,12 @@
         </div>
         <div class="sm:px-6 lg:px-0">
           <div
-            class="relative isolate overflow-hidden bg-orange-500 px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:rounded-3xl sm:pl-16 sm:pr-0 sm:pt-16 lg:mx-0 lg:max-w-none">
+            class="relative isolate overflow-hidden bg-ember px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:rounded-[var(--radius-card)] sm:pl-16 sm:pr-0 sm:pt-16 lg:mx-0 lg:max-w-none">
             <div
-              class="absolute -inset-y-px -left-3 -z-10 w-full origin-bottom-left skew-x-[-30deg] bg-orange-100 opacity-20 ring-1 ring-inset ring-white"
+              class="absolute -inset-y-px -left-3 -z-10 w-full origin-bottom-left skew-x-[-30deg] bg-ember-core opacity-20 ring-1 ring-inset ring-white"
               aria-hidden="true" />
             <div class="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
-              <div class="w-screen overflow-hidden rounded-tl-xl bg-gray-900 ring-1 ring-white/10">
+              <div class="w-screen overflow-hidden rounded-tl-[var(--radius-card)] bg-ink ring-1 ring-white/10">
                 <div class="flex bg-gray-800/40 ring-1 ring-white/5">
                   <div class="-mb-px flex text-sm font-medium leading-6 text-gray-400">
                     <div class="border-b border-r border-b-white/20 border-r-white/10 bg-white/5 px-4 py-2 text-white">
@@ -53,7 +53,7 @@
                 <slot></slot>
               </div>
             </div>
-            <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 sm:rounded-3xl"
+            <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/10 sm:rounded-[var(--radius-card)]"
               aria-hidden="true" />
           </div>
         </div>

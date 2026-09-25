@@ -66,7 +66,7 @@ useSeoMeta({
   ogTitle: `${site.name} - articles of the category ${capitalize(category)}`,
   description: `Scire Dev - article of the category ${capitalize(category)}`,
   ogDescription: `All articles of the category ${capitalize(category)}`,
-  ogImage: `${site.url}/img/scire_logo_primary.png`,
+  ogImage: `${site.url}/img/brand/mark.svg`,
   ogUrl: `${site.url}/${slug}`,
   twitterCard: "summary_large_image",
   robots: "follow, max-image-preview:large",

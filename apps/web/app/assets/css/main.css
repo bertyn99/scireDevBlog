@@ -1,13 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap");
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-
 @theme {
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+
   --color-primary-default: #d9d9d9;
   --color-primary-darken: #a6a6a6;
   --color-secondary: #262626;
   --color-tertiary-default: #f23005;
   --color-tertiary-darken: #d93d1a;
+
+  --color-ink: #262626;
+  --color-canvas: #fbfbfb;
+  --color-ember: #f23005;
+  --color-ember-hot: #ffb020;
+  --color-ember-core: #fff4a3;
+
+  /* Tight card radius — keep this small. Actions can still be pills. */
+  --radius-card: 0.375rem;
 
   --breakpoint-xs: 450px;
 }
@@ -19,7 +31,8 @@
   }
 
   body {
-    @apply bg-gray-200/25 m-0 p-0 h-full;
+    @apply bg-canvas m-0 p-0 h-full text-ink antialiased;
+    font-family: var(--font-sans);
   }
 
   #app {

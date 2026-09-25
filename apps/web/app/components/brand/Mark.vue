@@ -1,0 +1,60 @@
+<script setup lang="ts">
+withDefaults(defineProps<{
+  size?: number | string
+  title?: string
+}>(), {
+  size: 32,
+  title: 'ScireDev',
+})
+</script>
+
+<template>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    :width="size"
+    :height="size"
+    viewBox="0 0 64 64"
+    fill="none"
+    role="img"
+    :aria-label="title"
+  >
+    <title>{{ title }}</title>
+    <!--
+      Ember tree of knowledge.
+      Nodes = sparks of scire (to know).
+      Branching = a developer's knowledge tree.
+      Base = the tight-radius lesson card the tree grows from.
+    -->
+    <g
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M32 22 L18 34" stroke-width="2" />
+      <path d="M32 22 L46 34" stroke-width="2" />
+      <path d="M18 34 L10 46" stroke-width="1.8" />
+      <path d="M18 34 L24 47" stroke-width="1.8" />
+      <path d="M46 34 L40 47" stroke-width="1.8" />
+      <path d="M46 34 L54 46" stroke-width="1.8" />
+      <path d="M32 22 L32 52" stroke-width="2.4" />
+    </g>
+
+    <rect
+      x="24"
+      y="51.5"
+      width="16"
+      height="8"
+      rx="1.6"
+      fill="currentColor"
+    />
+
+    <circle cx="32" cy="18" r="6.2" fill="#FFF4A3" />
+    <circle cx="32" cy="18" r="2.6" fill="#FFFFFF" fill-opacity="0.72" />
+    <circle cx="18" cy="34" r="4.6" fill="#FFB020" />
+    <circle cx="46" cy="34" r="4.6" fill="#FF8A3D" />
+    <circle cx="10" cy="46" r="3.3" fill="#F23005" />
+    <circle cx="24" cy="47" r="3.3" fill="#E85D04" />
+    <circle cx="40" cy="47" r="3.3" fill="#F23005" />
+    <circle cx="54" cy="46" r="3.3" fill="#D93D1A" />
+  </svg>
+</template>

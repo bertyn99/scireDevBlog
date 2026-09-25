@@ -71,7 +71,7 @@ const nextLesson = computed(() =>
         v-for="(l, i) in lessons"
         :key="l._path"
         :to="`/courses/${courseSlug}/${l._path.replace(`/courses/${courseSlug}/`, '').replace('/index', '')}`"
-        class="block p-4 border rounded-lg hover:border-primary transition-colors"
+        class="block p-4 border rounded-[var(--radius-card)] hover:border-ember transition-colors"
       >
         <div class="flex items-center gap-3">
           <span class="text-sm font-mono text-gray-400">{{ i + 1 }}</span>

@@ -14,7 +14,7 @@ useSeoMeta(
   useLoadMeta({
     title: `Articles with ${slug}`,
     description: "Here's a list of all my great articles",
-    image: `${site.url}/img/scire_logo_primary.png`,
+    image: `${site.url}/img/brand/mark.svg`,
     url: `${site.url}/blog/tags/${slug}`,
   })
 );

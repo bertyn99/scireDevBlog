@@ -15,7 +15,7 @@ const metaTitle = page.value.seo?.title ?? title
 const description = page.value.seo?.description ?? page.value.description
 const image = page.value.image
   ? `${site.url}${page.value.image.startsWith('/') ? page.value.image : `/${page.value.image}`}`
-  : `${site.url}/img/scire_logo_primary.png`
+  : `${site.url}/img/brand/mark.svg`
 
 useSeoMeta({
   ...useLoadMeta({

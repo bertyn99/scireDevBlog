@@ -54,12 +54,20 @@ export default defineNuxtConfig({
     defaultLocale: 'en-US',
   },
 
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      ],
+    },
+  },
+
   schemaOrg: {
     identity: {
       type: 'Organization',
       name: 'ScireDev',
       url: 'https://www.sciredev.com',
-      logo: 'https://www.sciredev.com/img/scire_logo_primary.png',
+      logo: 'https://www.sciredev.com/img/brand/mark.svg',
     },
   },
 

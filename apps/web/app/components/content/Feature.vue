@@ -1,37 +1,43 @@
 <template>
-  <div class="py-24 sm:py-32">
+  <section class="bg-canvas py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:mx-0">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-          Empowering Young Developers
+        <p class="text-[13px] font-semibold uppercase tracking-[0.18em] text-ember">
+          Grow from the roots
+        </p>
+        <h2 class="mt-3 text-3xl font-medium tracking-tight text-ink sm:text-4xl">
+          Knowledge of the developer
         </h2>
-        <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-          Our online course platform is designed to equip young developers with the skills they need to succeed in the
-          tech industry. With a range of interactive courses, personalized mentorship, and community support, you can
-          accelerate your learning and build a strong foundation for your career.
+        <p class="mt-6 text-lg leading-8 text-ink/70">
+          ScireDev takes its name from Latin <span class="font-serif italic">scīre</span> — to know —
+          and <span class="font-semibold text-ember">Dev</span>. A platform for the knowledge of the
+          developer: interactive courses, adaptive exercises, and a community that keeps the spark lit.
         </p>
       </div>
-      <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-        <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-          <div v-for="feature in features" :key="feature.name" class="flex flex-col">
-            <dt class="text-base font-semibold leading-7 text-orange-600">
-              <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500">
-                <UIcon :name="feature.icon" class="h-6 w-6 text-white" aria-hidden="true" />
-              </div>
-              {{ feature.name }}
-            </dt>
-            <dd class="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600 dark:text-gray-300">
-              <p class="flex-auto">{{ feature.description }}</p>
-              <p class="mt-6">
-                <a :href="feature.href" class="text-sm font-semibold leading-6 text-orange-600">Learn more <span
-                    aria-hidden="true">→</span></a>
-              </p>
-            </dd>
+      <div class="mx-auto mt-14 grid max-w-2xl grid-cols-1 gap-3 sm:mt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <article
+          v-for="feature in features"
+          :key="feature.name"
+          class="flex flex-col rounded-[var(--radius-card)] border border-black/10 bg-white p-6"
+        >
+          <div class="mb-5 flex h-9 w-9 items-center justify-center rounded-[var(--radius-card)] bg-ember">
+            <UIcon :name="feature.icon" class="h-5 w-5 text-white" aria-hidden="true" />
           </div>
-        </dl>
+          <h3 class="text-base font-semibold text-ink">
+            {{ feature.name }}
+          </h3>
+          <p class="mt-2 flex-auto text-sm leading-6 text-ink/70">
+            {{ feature.description }}
+          </p>
+          <p class="mt-6">
+            <NuxtLink :to="feature.href" class="text-sm font-semibold text-ember hover:text-tertiary-darken">
+              Learn more <span aria-hidden="true">→</span>
+            </NuxtLink>
+          </p>
+        </article>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
@@ -57,5 +63,5 @@ const features = [
     href: "/blog",
     icon: "i-heroicons:user-group",
   },
-];
+]
 </script>

@@ -33,7 +33,7 @@ const { data: featured } = await useAsyncData("featured", async () => {
   <div v-if="featured?.length" class="relative isolate">
     <div class="mx-auto max-w-7xl px-6 py-6 sm:py-10 lg:px-8 lg:py-14">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[500px]">
-        <div class="lg:col-span-2 bg-pink-400 overflow-hidden rounded-md relative cursor-pointer">
+        <div class="lg:col-span-2 bg-pink-400 overflow-hidden rounded-[var(--radius-card)] relative cursor-pointer">
           <nuxt-link :to="featured[0].path" class="block absolute inset-0">
             <nuxt-img :src="featured[0].image" class="w-full h-full object-cover" alt="" />
           </nuxt-link>
@@ -43,7 +43,7 @@ const { data: featured } = await useAsyncData("featured", async () => {
           <div
             v-for="(article, index) in featured.slice(1, 3)"
             :key="index"
-            class="overflow-hidden rounded-md relative cursor-pointer"
+            class="overflow-hidden rounded-[var(--radius-card)] relative cursor-pointer"
           >
             <nuxt-link :to="article.path" class="block absolute inset-0">
               <nuxt-img :src="article.image" class="w-full h-full object-cover" alt="" />

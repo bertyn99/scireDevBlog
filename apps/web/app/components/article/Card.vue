@@ -5,9 +5,9 @@ defineProps(["article"]);
 
 <template>
   <NuxtLink :to="article.path ?? article._path" aria-label="Read full article about {{ article?.title }}"
-    class="group block w-full p-4 max-w-md hover:bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out">
+    class="group block w-full rounded-[var(--radius-card)] border border-transparent p-4 max-w-md hover:border-black/10 hover:bg-white hover:shadow-sm transition-all duration-300 ease-in-out">
     <article class="w-full">
-      <div class="relative h-[230px] rounded-lg overflow-hidden">
+      <div class="relative h-[230px] rounded-[var(--radius-card)] overflow-hidden">
         <nuxt-img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
           format="webp" sizes="sm:70vw md:30vw lg:330px" :src="article?.image" loading="lazy"
           alt="Image for {{ article?.title }}" />

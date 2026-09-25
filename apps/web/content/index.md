@@ -1,7 +1,7 @@
 ---
 title: Learn Web Development with Interactive Courses
 description: Master frontend and full-stack development with ScireDev. Hands-on projects, adaptive exercises, and build-along courses help you learn to code at your own pace.
-image: /img/scire_logo_primary.png
+image: /img/brand/mark.svg
 head:
   meta:
     - name: keywords
@@ -11,7 +11,7 @@ seo:
   description: Master frontend and full-stack development with ScireDev. Hands-on projects, adaptive exercises, and build-along courses.
 ---
 
-:hero-landing{cta="Get started" description="Our platform stands out from the rest, offering a comprehensive learning experience that covers the key aspects required to become a proficient web developer." title="We're changing the way you learn to code."}
+:hero-landing{cta="Start learning" description="From Latin scīre — to know — and Dev. ScireDev is the platform for the knowledge of the developer: interactive courses, adaptive exercises, and the spark to keep growing." title="Knowledge of the developer."}
 
 :feature
 

@@ -32,7 +32,7 @@ const footerNavigation = {
     <h2 id="footer-heading" class="sr-only">Footer</h2>
     <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-        <img class="h-20" src="/img/scire_logo_secondary.png" alt="Company name" />
+        <BrandLockup :mark-size="36" on-dark />
         <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
@@ -92,7 +92,7 @@ const footerNavigation = {
             placeholder="Enter your email" />
           <div class="mt-4 sm:ml-4 sm:mt-0 sm:flex-shrink-0">
             <button type="submit"
-              class="flex w-full items-center justify-center rounded-md bg-orange-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+              class="flex w-full items-center justify-center rounded-full bg-ember px-3 py-2 text-sm font-semibold text-white shadow-none hover:bg-tertiary-darken">
               Subscribe
             </button>
           </div>
@@ -107,7 +107,7 @@ const footerNavigation = {
           </NuxtLink>
         </div>
         <p class="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
-          &copy; 2020 sciredev, Inc. All rights reserved.
+          &copy; {{ new Date().getFullYear() }} ScireDev. Knowledge of the developer.
         </p>
       </div>
     </div>
