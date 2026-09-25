@@ -39,7 +39,7 @@
     button { cursor: pointer; }
     textarea { tab-size: 2; }
     iframe { border: 0; }
-    #shell header {
+    #app > header {
       position: sticky;
       top: 0;
       z-index: 40;
@@ -703,7 +703,7 @@ count.value += 1</code></pre>
     function render() {
       applyPalette()
       const app = document.getElementById('app')
-      app.innerHTML = `<div id="shell">${header()}</div><div id="view">${screenHtml()}</div><div id="dock">${dock()}</div>`
+      app.innerHTML = `${header()}<div id="view">${screenHtml()}</div><div id="dock">${dock()}</div>`
       lastScreen = state.screen
       if (state.screen === 'studio') {
         bindStudio()
