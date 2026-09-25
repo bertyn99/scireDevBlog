@@ -1,0 +1,10 @@
+{
+  "name": "ScireDev Blog",
+  "install": "pnpm install",
+  "terminals": [
+    {
+      "name": "web",
+      "command": "pnpm dev"
+    }
+  ]
+}
