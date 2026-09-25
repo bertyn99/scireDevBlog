@@ -25,6 +25,19 @@ pnpm db:studio        # drizzle-kit studio
 
 No test runner is configured.
 
+## Linear (issue tracking)
+
+Use the [schpet linear CLI](https://github.com/schpet/linear-cli) for all Linear work (issues, projects, epics/initiatives, comments) — **do not use the Linear MCP**. It's installed as a dev dependency; run it via pnpm:
+
+```bash
+pnpm exec linear --help              # all commands
+pnpm exec linear issue create -t "…" -d "…"   # create an issue
+pnpm exec linear project create --name "…" --team ENG
+pnpm exec linear team list --json
+```
+
+Auth is via the `LINEAR_API_KEY` environment variable (a personal API key from linear.app/settings/account/security), provided as a Cloud Agent secret. Prefer `--json` for scripted/agent use.
+
 ## Architecture
 
 ```

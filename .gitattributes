@@ -1,0 +1,3 @@
+# Collapse drizzle-kit's regenerated migration snapshots in code review.
+# These are machine-generated full-schema dumps; reviewers read the .sql, not the snapshot.
+apps/web/server/db/migrations/**/snapshot.json linguist-generated=true

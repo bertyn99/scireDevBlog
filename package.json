@@ -12,6 +12,7 @@
     "test": "echo 'Error: no test runner configured' && exit 1"
   },
   "devDependencies": {
+    "@schpet/linear-cli": "^2.6.0",
     "nuxt": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:"
