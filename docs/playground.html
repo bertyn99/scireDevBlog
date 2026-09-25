@@ -6,20 +6,20 @@
   <title>scireDev playground</title>
   <meta name="robots" content="noindex, nofollow" />
   <!--
-    Throwaway brand + product UX playground.
-    Question: does leaf / circle / grove + palette D feel calm enough
-    across landing, catalog, path, course, chapter, exercise, studio?
+    Reading this as: educational product playground for developers,
+    calm professional language, locked palette D, mark as colophon.
+    Dashboard hub follows the Vue widgets: continue, courses, streak,
+    mastery, review queue, activity.
+    Dials: variance 5, motion 3, density 3 landing / 4 hub.
     Open this file, or: python3 -m http.server 4174 --directory docs
-    Switch via the dock, or ?screen=&mark=&palette=
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style type="text/tailwindcss">
     @theme {
       --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
-      --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
       --font-mono: "IBM Plex Mono", ui-monospace, monospace;
     }
   </style>
@@ -35,7 +35,6 @@
     }
     html, body { background: var(--paper); color: var(--ink); }
     body { font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif; }
-    .font-serif { font-family: "Instrument Serif", Georgia, serif; }
     .font-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
     button { cursor: pointer; }
     textarea { tab-size: 2; }
@@ -48,6 +47,23 @@
       backdrop-filter: blur(10px);
       border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
     }
+    .bar {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: color-mix(in srgb, var(--ink) 10%, transparent);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .bar > span {
+      display: block;
+      height: 2px;
+      background: var(--minium);
+    }
+    .panel {
+      background: var(--surface);
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body class="min-h-dvh bg-[var(--paper)] text-[var(--ink)] antialiased">
@@ -56,6 +72,7 @@
   <script>
     const SCREENS = [
       { id: 'landing', label: 'Landing' },
+      { id: 'dashboard', label: 'Hub' },
       { id: 'catalog', label: 'Catalog' },
       { id: 'path', label: 'Path' },
       { id: 'course', label: 'Course' },
@@ -77,10 +94,10 @@
     }
 
     const COURSES = [
-      { slug: 'javascript-foundations', title: 'JavaScript Foundations', track: 'JavaScript', level: 'Beginner', hours: 12, lessons: 28 },
-      { slug: 'vue-fundamentals', title: 'Vue Fundamentals', track: 'Vue', level: 'Beginner', hours: 10, lessons: 24 },
-      { slug: 'nuxt-in-practice', title: 'Nuxt in Practice', track: 'Nuxt', level: 'Intermediate', hours: 18, lessons: 32 },
-      { slug: 'async-javascript', title: 'Async JavaScript', track: 'JavaScript', level: 'Intermediate', hours: 8, lessons: 16 },
+      { slug: 'javascript-foundations', title: 'JavaScript Foundations', track: 'JavaScript', level: 'Beginner', hours: 12, lessons: 28, done: 28 },
+      { slug: 'vue-fundamentals', title: 'Vue Fundamentals', track: 'Vue', level: 'Beginner', hours: 10, lessons: 24, done: 2 },
+      { slug: 'nuxt-in-practice', title: 'Nuxt in Practice', track: 'Nuxt', level: 'Intermediate', hours: 18, lessons: 32, done: 0 },
+      { slug: 'async-javascript', title: 'Async JavaScript', track: 'JavaScript', level: 'Intermediate', hours: 8, lessons: 16, done: 16 },
     ]
 
     const FILTERS = ['All', 'JavaScript', 'Vue', 'Nuxt', 'Beginner', 'Intermediate']
@@ -95,9 +112,27 @@
     ]
 
     const PATH_STAGES = [
-      { name: 'JavaScript', hours: 35, courses: ['JavaScript Foundations', 'Async JavaScript'] },
-      { name: 'The platform', hours: 20, courses: ['HTML semantics', 'DOM manipulation'] },
-      { name: 'Vue', hours: 30, courses: ['Vue Fundamentals', 'Vue components'] },
+      { name: 'JavaScript', hours: 35, status: 'done', courses: ['JavaScript Foundations', 'Async JavaScript'] },
+      { name: 'The platform', hours: 20, status: 'done', courses: ['HTML semantics', 'DOM manipulation'] },
+      { name: 'Vue', hours: 30, status: 'now', courses: ['Vue Fundamentals', 'Vue components'] },
+    ]
+
+    const SKILLS = [
+      { name: 'computed', pct: 18 },
+      { name: 'watch', pct: 22 },
+      { name: 'ref', pct: 72 },
+      { name: 'templates', pct: 8 },
+    ]
+
+    const REVIEWS = [
+      { name: 'computed', due: 'Overdue' },
+      { name: 'watch', due: 'Due' },
+    ]
+
+    const ACTIVITY = [
+      { ok: true, text: 'Passed What does ref() return?', when: '2 hours ago' },
+      { ok: true, text: 'Completed What Vue is for', when: 'yesterday' },
+      { ok: false, text: 'Missed Computed and watch checkpoint', when: '3 days ago' },
     ]
 
     const QCM_OPTIONS = [
@@ -138,6 +173,15 @@ el.addEventListener('click', () => {
     }
 
     let svgN = 0
+
+    function pct(c) {
+      if (!c.lessons) return 0
+      return Math.round((c.done / c.lessons) * 100)
+    }
+
+    function bar(value) {
+      return `<span class="bar" role="progressbar" aria-valuenow="${value}" aria-valuemin="0" aria-valuemax="100"><span style="width:${value}%"></span></span>`
+    }
 
     function markSvg(name, size, whisper) {
       const id = 'm' + (++svgN)
@@ -219,51 +263,179 @@ el.addEventListener('click', () => {
       return `<!doctype html><html><head><style>${state.css}</style></head><body>${state.html}<` + `script>${state.js}<` + `/script></body></html>`
     }
 
+    function navClass(ids) {
+      return ids.includes(state.screen) ? 'text-[var(--ink)]' : 'text-[var(--slate)] hover:text-[var(--ink)]'
+    }
+
     function header() {
       return `<header>
         <div class="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">
-          <button type="button" data-go="landing" class="flex items-center gap-2.5">
-            ${markSvg(state.mark, 28, false)}
-            <span class="text-[17px] font-semibold tracking-tight">${wordmark()}</span>
+          <div class="flex items-center gap-8">
+            <button type="button" data-go="landing" class="flex items-center gap-2.5">
+              ${markSvg(state.mark, 28, false)}
+              <span class="text-[17px] font-semibold tracking-tight">${wordmark()}</span>
+            </button>
+            <nav class="hidden items-center gap-6 text-[13px] sm:flex">
+              <button type="button" data-go="dashboard" class="${navClass(['dashboard'])}">Dashboard</button>
+              <button type="button" data-go="catalog" class="${navClass(['catalog', 'course', 'chapter', 'exercise'])}">Courses</button>
+              <button type="button" data-go="path" class="${navClass(['path'])}">Paths</button>
+            </nav>
+          </div>
+          <button type="button" data-go="dashboard" class="flex items-center gap-2 text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">
+            <span class="grid size-7 place-items-center rounded-[8px] bg-[var(--surface)] text-[12px] font-medium text-[var(--ink)]">A</span>
+            <span class="hidden sm:inline">Alex</span>
           </button>
-          <nav class="hidden items-center gap-7 text-[13px] text-[var(--slate)] sm:flex">
-            <button type="button" data-go="catalog" class="hover:text-[var(--ink)]">Courses</button>
-            <button type="button" data-go="path" class="hover:text-[var(--ink)]">Paths</button>
-            <button type="button" data-go="studio" class="hover:text-[var(--ink)]">Studio</button>
-          </nav>
         </div>
       </header>`
     }
 
     function landing() {
-      return `<section class="relative mx-auto max-w-5xl px-5 pb-10 pt-16">
-        <p class="text-[13px] text-[var(--slate)]">Developer courses</p>
-        <h1 class="font-serif mt-4 max-w-xl text-[44px] leading-[1.12] tracking-tight text-[var(--ink)] sm:text-[56px]">
-          Know the path. Then grow it.
-        </h1>
-        <p class="mt-5 max-w-[38ch] text-[17px] leading-relaxed text-[var(--slate)]">
-          Courses that teach the craft before the framework.
-        </p>
-        <button type="button" data-go="catalog" class="mt-8 w-fit rounded-[8px] bg-[var(--minium)] px-4 py-2.5 text-[14px] font-medium text-white active:scale-[0.98]">
-          Browse courses
-        </button>
+      const pathBits = PATH_STAGES.map((s) => {
+        const note = s.status === 'now'
+          ? '<span class="text-[var(--minium)]">here</span>'
+          : s.status === 'done'
+            ? '<span class="text-[var(--ash)]">done</span>'
+            : ''
+        return `<li class="flex items-baseline justify-between gap-6 py-2">
+          <button type="button" data-go="path" class="text-[15px] ${s.status === 'now' ? 'text-[var(--ink)]' : 'text-[var(--slate)]'}">${s.name}</button>
+            <span class="flex items-baseline gap-3 text-[12px] tabular-nums text-[var(--ash)]">${s.hours}h${note ? ' ' + note : ''}</span>
+        </li>`
+      }).join('')
+      return `<section class="mx-auto grid max-w-5xl gap-12 px-5 pb-12 pt-14 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+        <div>
+          <h1 class="max-w-[14ch] text-[40px] font-semibold leading-[1.12] tracking-tight sm:text-[48px]">
+            Know the path. Then grow it.
+          </h1>
+          <p class="mt-5 max-w-[36ch] text-[17px] leading-relaxed text-[var(--slate)]">
+            Courses that teach the craft before the framework.
+          </p>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <button type="button" data-go="catalog" class="rounded-[8px] bg-[var(--minium)] px-4 py-2.5 text-[14px] font-medium text-white active:scale-[0.98]">Browse courses</button>
+            <button type="button" data-go="chapter" class="rounded-[8px] px-4 py-2.5 text-[14px] text-[var(--ink)] hover:bg-[var(--surface)]">Continue</button>
+          </div>
+        </div>
+        <ol class="divide-y divide-[var(--ink)]/8">${pathBits}</ol>
       </section>
       <section class="mx-auto max-w-5xl space-y-3 px-5 pb-40">
-        ${COURSES.slice(0, 3).map((c) => courseSlab(c, false)).join('')}
+        ${COURSES.filter((c) => c.slug !== 'async-javascript').map((c) => courseSlab(c, true)).join('')}
       </section>`
     }
 
+    function courseMeta(c) {
+      if (c.done >= c.lessons) return 'Done'
+      if (c.done > 0) return `${c.done} of ${c.lessons} lessons`
+      return `${c.level}, ${c.hours} hours, ${c.lessons} lessons`
+    }
+
     function courseSlab(c, clickable) {
-      const inner = `<div>
+      const progress = c.done > 0 && c.done < c.lessons
+        ? `<div class="mt-3 max-w-[12rem]">${bar(pct(c))}</div>`
+        : ''
+      const inner = `<div class="min-w-0">
           <h2 class="text-[18px] font-semibold text-[var(--ink)]">${c.title}</h2>
           <span class="mt-2 block h-[2px] w-8 bg-[var(--minium)]"></span>
-          <p class="mt-2 text-[13px] text-[var(--slate)]">${c.level} · ${c.hours} hours · ${c.lessons} lessons</p>
+          <p class="mt-2 text-[13px] text-[var(--slate)]">${courseMeta(c)}</p>
+          ${progress}
         </div>
         ${markSvg(state.mark, 48, true)}`
       if (clickable) {
-        return `<button type="button" data-go="course" class="flex w-full items-center justify-between rounded-[8px] bg-[var(--surface)] px-6 py-5 text-left active:scale-[0.995]">${inner}</button>`
+        return `<button type="button" data-go="course" class="panel flex w-full items-center justify-between px-6 py-5 text-left active:scale-[0.995]">${inner}</button>`
       }
-      return `<article class="flex items-center justify-between rounded-[8px] bg-[var(--surface)] px-6 py-5">${inner}</article>`
+      return `<article class="panel flex items-center justify-between px-6 py-5">${inner}</article>`
+    }
+
+    function dashboard() {
+      const vue = COURSES.find((c) => c.slug === 'vue-fundamentals')
+      const enrolled = COURSES.filter((c) => c.done > 0 || c.slug === 'nuxt-in-practice')
+      const courseCards = enrolled.map((c) => {
+        const label = c.done >= c.lessons ? 'Done' : c.done > 0 ? 'Continue' : 'Start'
+        const go = c.slug === 'vue-fundamentals' ? 'course' : 'catalog'
+        return `<button type="button" data-go="${go}" class="rounded-[8px] border border-[var(--ink)]/8 p-4 text-left hover:border-[var(--ink)]/20">
+          <div class="flex items-start justify-between gap-3">
+            <h3 class="text-[15px] font-semibold">${c.title}</h3>
+            <span class="text-[12px] tabular-nums text-[var(--ash)]">${c.done}/${c.lessons}</span>
+          </div>
+          <div class="mt-3">${bar(pct(c))}</div>
+          <p class="mt-2 text-[12px] text-[var(--slate)]">${label}</p>
+        </button>`
+      }).join('')
+      const skills = SKILLS.map((s) => {
+        const band = s.pct < 40 ? 'Weak' : s.pct < 70 ? 'Developing' : 'Strong'
+        return `<li class="space-y-1">
+          <div class="flex items-baseline justify-between gap-3 text-[13px]">
+            <span class="font-mono text-[12px]">${s.name}</span>
+            <span class="tabular-nums text-[var(--ash)]">${s.pct}%</span>
+          </div>
+          ${bar(s.pct)}
+          <p class="text-[12px] text-[var(--ash)]">${band}</p>
+        </li>`
+      }).join('')
+      const reviews = REVIEWS.map((r) => {
+        const tone = r.due === 'Overdue' ? 'text-[var(--minium)]' : 'text-[var(--slate)]'
+        return `<li class="flex items-center justify-between gap-3 py-1.5">
+          <span class="font-mono text-[13px]">${r.name}</span>
+          <span class="text-[12px] ${tone}">${r.due}</span>
+        </li>`
+      }).join('')
+      const activity = ACTIVITY.map((a) =>
+        `<li class="flex items-start justify-between gap-4 py-2">
+          <p class="text-[13px] ${a.ok ? 'text-[var(--ink)]' : 'text-[var(--slate)]'}">${a.text}</p>
+          <span class="shrink-0 text-[12px] text-[var(--ash)]">${a.when}</span>
+        </li>`
+      ).join('')
+      return `<main class="mx-auto max-w-5xl space-y-6 px-5 pb-40 pt-10">
+        <div>
+          <h1 class="text-[28px] font-semibold tracking-tight">Welcome back, Alex</h1>
+          <p class="mt-1 text-[14px] text-[var(--slate)]">Resume the lesson, then keep the streak.</p>
+        </div>
+
+        <button type="button" data-go="chapter" class="panel flex w-full flex-col gap-5 px-6 py-6 text-left sm:flex-row sm:items-center sm:justify-between">
+          <div class="min-w-0">
+            <p class="text-[12px] text-[var(--slate)]">Continue learning</p>
+            <h2 class="mt-2 text-[22px] font-semibold tracking-tight">Reactivity with ref</h2>
+            <p class="mt-1 text-[13px] text-[var(--slate)]">Vue Fundamentals, lesson 2 of ${vue.lessons}</p>
+            <div class="mt-4 max-w-xs">${bar(pct(vue))}</div>
+          </div>
+          <span class="rounded-[8px] bg-[var(--minium)] px-4 py-2.5 text-[14px] font-medium text-white">Resume</span>
+        </button>
+
+        <div class="grid gap-3 lg:grid-cols-[1.7fr_0.8fr]">
+          <section class="panel p-5">
+            <div class="mb-4 flex items-baseline justify-between">
+              <h2 class="text-[15px] font-semibold">Your courses</h2>
+              <button type="button" data-go="catalog" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Browse all</button>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-2">${courseCards}</div>
+          </section>
+          <section class="panel flex flex-col justify-center p-5">
+            <p class="text-[12px] text-[var(--slate)]">In a row</p>
+            <p class="mt-1 flex items-baseline gap-2">
+              <span class="text-[40px] font-semibold tabular-nums tracking-tight">4</span>
+              <span class="text-[14px] text-[var(--ash)]">days</span>
+            </p>
+            <p class="mt-2 text-[13px] text-[var(--slate)]">Practice today to keep it.</p>
+          </section>
+        </div>
+
+        <div class="grid gap-3 lg:grid-cols-3">
+          <section class="panel p-5">
+            <h2 class="text-[15px] font-semibold">Skill mastery</h2>
+            <ul class="mt-4 space-y-3">${skills}</ul>
+          </section>
+          <section class="panel p-5">
+            <div class="flex items-baseline justify-between">
+              <h2 class="text-[15px] font-semibold">Review queue</h2>
+              <span class="text-[12px] text-[var(--ash)]">2 due</span>
+            </div>
+            <ul class="mt-4">${reviews}</ul>
+            <button type="button" data-go="exercise" class="mt-4 w-full rounded-[8px] border border-[var(--ink)]/12 px-3 py-2 text-[13px] hover:border-[var(--ink)]/30">Practice weak spots</button>
+          </section>
+          <section class="panel p-5">
+            <h2 class="text-[15px] font-semibold">Recent activity</h2>
+            <ol class="mt-3 divide-y divide-[var(--ink)]/8">${activity}</ol>
+          </section>
+        </div>
+      </main>`
     }
 
     function catalog() {
@@ -274,12 +446,10 @@ el.addEventListener('click', () => {
           : 'border border-[var(--ink)]/15 bg-[var(--surface)] text-[var(--ink)] hover:border-[var(--ink)]/40'
         return `<button type="button" data-filter="${f}" class="rounded-[8px] px-3 py-1.5 text-[13px] ${cls}">${f}</button>`
       }).join('')
-      const list = shownCourses().map((c) => courseSlab(c, true)).join('')
       return `<main class="mx-auto max-w-5xl px-5 pb-40 pt-10">
-        <p class="text-[13px] text-[var(--slate)]">scireDev courses</p>
-        <h1 class="mt-2 text-[36px] font-semibold tracking-tight">Courses</h1>
+        <h1 class="text-[32px] font-semibold tracking-tight">Courses</h1>
         <div class="mt-6 flex flex-wrap gap-2">${chips}</div>
-        <div class="mt-6 space-y-3">${list}</div>
+        <div class="mt-6 space-y-3">${shownCourses().map((c) => courseSlab(c, true)).join('')}</div>
       </main>`
     }
 
@@ -288,18 +458,24 @@ el.addEventListener('click', () => {
         const line = i < PATH_STAGES.length - 1
           ? '<span class="mt-2 w-px flex-1 bg-[var(--ink)]/12"></span>'
           : ''
+        const box = stage.status === 'now'
+          ? 'bg-[var(--minium)] text-white'
+          : stage.status === 'done'
+            ? 'bg-[var(--ink)] text-[var(--paper)]'
+            : 'bg-[var(--surface)] text-[var(--ink)]'
         const courses = stage.courses.map((c) =>
           `<li><button type="button" data-go="course" class="text-[14px] text-[var(--slate)] hover:text-[var(--ink)]">${c}</button></li>`
         ).join('')
+        const note = stage.status === 'now' ? 'here' : stage.status === 'done' ? 'done' : ''
         return `<li class="relative grid grid-cols-[48px_1fr] gap-4 pb-10 last:pb-0">
           <div class="relative flex flex-col items-center self-stretch">
-            <span class="grid size-8 shrink-0 place-items-center rounded-[8px] bg-[var(--ink)] text-[12px] font-medium text-[var(--paper)]">${i + 1}</span>
+            <span class="grid size-8 shrink-0 place-items-center rounded-[8px] text-[12px] font-medium ${box}">${i + 1}</span>
             ${line}
           </div>
           <div>
             <div class="flex items-baseline justify-between gap-4">
               <h2 class="text-[18px] font-semibold">${stage.name}</h2>
-              <span class="text-[12px] text-[var(--ash)]">${stage.hours}h</span>
+              <span class="text-[12px] text-[var(--ash)]">${stage.hours}h ${note}</span>
             </div>
             <span class="mt-2 block h-[2px] w-8 bg-[var(--minium)]"></span>
             <ul class="mt-4 space-y-2">${courses}</ul>
@@ -307,8 +483,7 @@ el.addEventListener('click', () => {
         </li>`
       }).join('')
       return `<main class="mx-auto max-w-3xl px-5 pb-40 pt-10">
-        <p class="text-[13px] text-[var(--slate)]">Learning path</p>
-        <h1 class="mt-2 text-[36px] font-semibold tracking-tight">Frontend Engineer</h1>
+        <h1 class="text-[32px] font-semibold tracking-tight">Frontend Engineer</h1>
         <p class="mt-3 max-w-[48ch] text-[15px] leading-relaxed text-[var(--slate)]">
           JavaScript first. Then the platform. Then Vue. One path, 85 hours.
         </p>
@@ -317,41 +492,60 @@ el.addEventListener('click', () => {
     }
 
     function course() {
-      const rows = VUE_LESSONS.map((l) =>
-        `<li>
-          <button type="button" data-go="chapter" class="flex w-full items-center gap-4 px-5 py-4 text-left hover:bg-[var(--paper)]">
+      const vue = COURSES.find((c) => c.slug === 'vue-fundamentals')
+      const rows = VUE_LESSONS.map((l) => {
+        const mark = l.current
+          ? '<span class="h-1.5 w-1.5 rounded-[2px] bg-[var(--minium)]"></span>'
+          : l.done
+            ? '<span class="h-1.5 w-1.5 rounded-[2px] bg-[var(--ink)]"></span>'
+            : '<span class="h-1.5 w-1.5 rounded-[2px] bg-[var(--ink)]/15"></span>'
+        const weight = l.current ? 'font-medium' : ''
+        return `<li>
+          <button type="button" data-go="${l.current || l.n === 2 ? 'chapter' : 'chapter'}" class="flex w-full items-center gap-4 px-5 py-4 text-left hover:bg-[var(--paper)]">
+            ${mark}
             <span class="w-6 text-[12px] tabular-nums text-[var(--ash)]">${l.n}</span>
-            <span class="flex-1 text-[15px]">${l.title}</span>
+            <span class="flex-1 text-[15px] ${weight}">${l.title}</span>
             <span class="text-[12px] text-[var(--ash)]">${l.minutes} min</span>
           </button>
         </li>`
-      ).join('')
+      }).join('')
       return `<main class="mx-auto max-w-3xl px-5 pb-40 pt-10">
         <button type="button" data-go="catalog" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Courses</button>
-        <div class="mt-6 flex items-start gap-4">
-          ${markSvg(state.mark, 40, false)}
+        <div class="mt-6 flex items-start justify-between gap-6">
           <div>
             <h1 class="text-[32px] font-semibold tracking-tight">Vue Fundamentals</h1>
             <span class="mt-2 block h-[2px] w-8 bg-[var(--minium)]"></span>
-            <p class="mt-2 text-[13px] text-[var(--slate)]">Beginner · 10 hours · 24 lessons</p>
+            <p class="mt-2 text-[13px] text-[var(--slate)]">Beginner, 10 hours, ${vue.lessons} lessons</p>
+            <div class="mt-4 max-w-xs">${bar(pct(vue))}</div>
           </div>
+          ${markSvg(state.mark, 40, false)}
         </div>
-        <ol class="mt-10 divide-y divide-[var(--ink)]/8 rounded-[8px] bg-[var(--surface)]">${rows}</ol>
+        <div class="mt-8 flex items-center justify-between">
+          <p class="text-[13px] text-[var(--slate)]">${vue.done} of ${vue.lessons} complete</p>
+          <button type="button" data-go="chapter" class="rounded-[8px] bg-[var(--minium)] px-4 py-2 text-[13px] font-medium text-white">Resume</button>
+        </div>
+        <ol class="mt-4 divide-y divide-[var(--ink)]/8 rounded-[8px] bg-[var(--surface)]">${rows}</ol>
       </main>`
     }
 
     function chapter() {
       const toc = VUE_LESSONS.map((l) => {
-        const cls = l.current ? 'bg-[var(--surface)] text-[var(--ink)]' : 'text-[var(--slate)]'
-        return `<li><span class="block rounded-[8px] px-2 py-1.5 text-[13px] ${cls}">${l.n}. ${l.title}</span></li>`
+        const cls = l.current
+          ? 'bg-[var(--surface)] text-[var(--ink)] font-medium'
+          : l.done
+            ? 'text-[var(--ink)]'
+            : 'text-[var(--slate)]'
+        return `<li>
+          <button type="button" data-go="chapter" class="block w-full rounded-[8px] px-2 py-1.5 text-left text-[13px] ${cls}">${l.n}. ${l.title}</button>
+        </li>`
       }).join('')
       return `<div class="mx-auto grid max-w-5xl gap-10 px-5 pb-40 pt-8 lg:grid-cols-[200px_1fr]">
         <aside class="hidden lg:block">
-          <p class="text-[12px] text-[var(--ash)]">Vue Fundamentals</p>
+          <button type="button" data-go="course" class="text-[12px] text-[var(--ash)] hover:text-[var(--ink)]">Vue Fundamentals</button>
           <ol class="mt-4 space-y-1">${toc}</ol>
         </aside>
         <article class="max-w-[62ch]">
-          <p class="text-[13px] text-[var(--slate)]">Chapter 2</p>
+          <p class="text-[13px] text-[var(--slate)]">Lesson 2 of 24</p>
           <h1 class="mt-2 text-[32px] font-semibold tracking-tight">Reactivity with ref</h1>
           <span class="mt-3 block h-[2px] w-8 bg-[var(--minium)]"></span>
           <div class="mt-8 space-y-4 text-[16px] leading-7 text-[var(--slate)]">
@@ -363,9 +557,10 @@ el.addEventListener('click', () => {
 
 const count = ref(0)
 count.value += 1</code></pre>
-          <button type="button" data-go="exercise" class="mt-8 rounded-[8px] bg-[var(--minium)] px-4 py-2.5 text-[14px] font-medium text-white">
-            Open exercise
-          </button>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <button type="button" data-go="exercise" class="rounded-[8px] bg-[var(--minium)] px-4 py-2.5 text-[14px] font-medium text-white">Open exercise</button>
+            <button type="button" data-go="course" class="text-[14px] text-[var(--slate)] hover:text-[var(--ink)]">Back to course</button>
+          </div>
         </article>
       </div>`
     }
@@ -393,7 +588,7 @@ count.value += 1</code></pre>
         : ''
       const disabled = state.pick === null ? 'opacity-40 pointer-events-none' : ''
       return `<main class="mx-auto max-w-xl px-5 pb-40 pt-10">
-        <button type="button" data-go="chapter" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Chapter</button>
+        <button type="button" data-go="chapter" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Reactivity with ref</button>
         <h1 class="mt-6 text-[28px] font-semibold tracking-tight">What does ref() return?</h1>
         <span class="mt-3 block h-[2px] w-8 bg-[var(--minium)]"></span>
         <div class="mt-8 space-y-2">${options}</div>
@@ -408,7 +603,7 @@ count.value += 1</code></pre>
     function studio() {
       const files = ['html', 'css', 'js'].map((t) => {
         const label = t === 'html' ? 'index.html' : t === 'css' ? 'styles.css' : 'main.js'
-        const on = state.tab === t ? 'bg-[var(--surface)]' : ''
+        const on = state.tab === t ? 'bg-[var(--surface)]' : 'text-[var(--slate)]'
         return `<li><button type="button" data-tab="${t}" class="w-full rounded-[8px] px-2 py-1.5 text-left ${on}">${label}</button></li>`
       }).join('')
       const tabs = ['html', 'css', 'js'].map((t) => {
@@ -419,7 +614,7 @@ count.value += 1</code></pre>
       return `<div class="flex min-h-[calc(100dvh-4rem)] flex-col pb-28">
         <div class="flex items-center justify-between border-b border-[var(--ink)]/8 px-5 py-3">
           <div>
-            <p class="text-[12px] text-[var(--ash)]">Custom exercise</p>
+            <p class="text-[12px] text-[var(--ash)]">Vue Fundamentals, lesson 2</p>
             <h1 class="text-[16px] font-semibold">Make the button count</h1>
           </div>
           <button type="button" data-go="exercise" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Back to exercise</button>
@@ -465,8 +660,8 @@ count.value += 1</code></pre>
       }).join('')
       const chevronL = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 4 6 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
       const chevronR = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-      return `<div class="fixed bottom-4 left-1/2 z-[80] w-[min(960px,calc(100%-1.5rem))] -translate-x-1/2 rounded-[8px] bg-[var(--ink)] px-3 py-2 text-[var(--paper)] shadow-[0_12px_40px_rgb(38_38_38/0.28)]" role="navigation" aria-label="Playground switcher">
-        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+      return `<div class="fixed bottom-4 left-1/2 z-[80] w-[min(1080px,calc(100%-1.5rem))] -translate-x-1/2 rounded-[8px] bg-[var(--ink)] px-3 py-2 text-[var(--paper)] shadow-[0_12px_40px_rgb(38_38_38/0.28)]" role="navigation" aria-label="Playground switcher">
+        <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
           <div class="flex flex-wrap items-center gap-1">
             <button type="button" data-cycle="-1" class="grid size-8 place-items-center rounded-[8px] hover:bg-white/10" aria-label="Previous screen">${chevronL}</button>
             ${screens}
@@ -477,7 +672,7 @@ count.value += 1</code></pre>
             <div class="flex items-center gap-1"><span class="text-white/40">Palette</span>${palettes}</div>
           </div>
         </div>
-        <p class="mt-1 text-[10px] text-white/35">${state.mark} · palette ${state.palette} · ${state.screen} · throwaway playground</p>
+        <p class="mt-1 text-[10px] text-white/35">${state.mark}, palette ${state.palette}, ${state.screen}, throwaway playground</p>
       </div>`
     }
 
@@ -491,31 +686,23 @@ count.value += 1</code></pre>
     function screenHtml() {
       switch (state.screen) {
         case 'landing': return landing()
+        case 'dashboard': return dashboard()
         case 'catalog': return catalog()
         case 'path': return path()
         case 'course': return course()
         case 'chapter': return chapter()
         case 'exercise': return exercise()
         case 'studio': return studio()
-        default: return landing()
+        default:
+          return landing()
       }
     }
 
     let lastScreen = null
 
-    function render(opts) {
-      const keepStudio = opts && opts.keepStudio && lastScreen === 'studio' && state.screen === 'studio'
+    function render() {
       applyPalette()
       const app = document.getElementById('app')
-      if (keepStudio) {
-        const dockEl = document.getElementById('dock')
-        const headEl = document.getElementById('shell')
-        if (dockEl) dockEl.outerHTML = `<div id="dock">${dock()}</div>`
-        if (headEl) headEl.outerHTML = `<div id="shell">${header()}</div>`
-        updatePreview()
-        lastScreen = state.screen
-        return
-      }
       app.innerHTML = `<div id="shell">${header()}</div><div id="view">${screenHtml()}</div><div id="dock">${dock()}</div>`
       lastScreen = state.screen
       if (state.screen === 'studio') {

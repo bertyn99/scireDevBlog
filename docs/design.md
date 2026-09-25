@@ -46,6 +46,8 @@ Then `http://localhost:4174/playground.html?screen=landing&mark=leaf&palette=d`
 
 Dock switches screens, marks (leaf / circle / grove), and palettes (D / warm / cool). Arrow keys cycle screens. Throwaway. Not a Nuxt route.
 
-Screens: landing, catalog, path, course, chapter, exercise, studio.
+Screens: landing, dashboard (hub), catalog, path, course, chapter, exercise, studio.
+
+Dashboard follows the Vue hub widgets: continue learning, course progress, streak, skill mastery, review queue, activity. Same tokens as the rest of the playground.
 
 Deepen later: typeface lock, favicon, production fold-in.
