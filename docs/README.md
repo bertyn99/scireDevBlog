@@ -8,7 +8,7 @@ Living design documents for transforming scireDev from a Nuxt 3 blog into a self
 
 | # | Document | Answers |
 |---|----------|---------|
-| 0 | [design.md](./design.md) | Brand vote: four learning-platform directions (logo, palette, hero, catalog, exercise) |
+| 0 | [design.md](./design.md) | Brand lock batch 2: D palette + D catalog, circuit-rune-tree mark |
 | 1 | [architecture.md](./architecture.md) | What stack? Why? What are the core decisions? |
 | 2 | [content-model.md](./content-model.md) | How are courses, lessons, exercises modeled in MD files? |
 | 3 | [exercise-engine/architecture.md](./exercise-engine/architecture.md) | How does the mini dev environment work? |
