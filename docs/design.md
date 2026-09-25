@@ -4,7 +4,7 @@
 **Last updated**: 2026-09-25
 **Audience**: humans deciding the brand, and agents generating comps or later implementing UI.
 
-This is the brand document. Stack, curriculum, and product architecture live in the sibling files listed in [README.md](./README.md).
+This is the brand document. Stack, curriculum, and product architecture live in the sibling files listed in [README.md](./README.md). Sourced Dribbble / Behance / etymology notes: [brand/research.md](./brand/research.md).
 
 ---
 
@@ -45,9 +45,11 @@ What those comps missed:
 | *scīre* | Present infinitive of *sciō*: **to know, understand, perceive, be skilled in** | A noun for "knowledge" (*scientia*), a course catalog, a science lab |
 | *Dev* | The person who practices | A product suffix like `-ly` / `-ify` |
 
-Lewis & Short gloss *sciō, scīre* as "to know, in the widest signif. of the word; to understand; perceive; to have knowledge of or skill in any thing." They also record the older sense of the root: Greek κείω / κεάζω, **to split, divide**; Latin *scīre* is "prop. **to distinguish, discern**."
+Lewis & Short gloss *sciō, scīre* as "to know, in the widest signif. of the word; to understand; perceive; to have knowledge of or skill in any thing." They also record the older sense of the root: Greek κείω / κεάζω, **to split, divide**; Latin *scīre* is "prop. **to distinguish, discern**." Etymonline takes the same cut: PIE *skei-* "to cut, split," kin to *scindere*, *schism*, and *conscience* (*con-* + *scire*, knowing-with). Cicero, quoted in the same entry: *ars earum rerum est, quae sciuntur* — art is of those things which are known. Knowing is a craft of distinctions, not a vibe.
 
-That split is the brand.
+A rival paper (Weiss, *Glotta* 88, 2012) doubts the cut and derives *scīre* from seeing / perceiving. Both live etymologies are visually rich, and **neither is "tree + fire."** The split gives the fork. The seeing-etymology gives the coal as a lamp, not as a blaze.
+
+That split is the brand. The Ember Tree is a later poetic fusion that has to serve those two meanings.
 
 Related verbs, keep distinct:
 
@@ -77,7 +79,9 @@ Visual consequence:
 - No flames, no sparks, no neon halo, no "ignite your career."
 - Heat is **local**. The rest of the system stays paper, ink, zinc.
 
-Craft analogue (steal the *idea*, not the category): KILN's Behance identity is built on "Formed by Fire" as **transformation in a chamber**, ember orange + burnt brown + soft neutrals, not a flame icon. Ember & Tide (Charlotte Chapman Studio) treats ember as **material provenance**, with a quiet mark hiding in an ampersand, not a pictogram of fire.
+Promethean fire is small and carried (hidden in a fennel stalk so humans gain *technē*). Lucretius's lamp is passed hand to hand (*vitai lampada tradunt*). Plato's cave fire is the **wrong** light: orange bloom on a dark hero is cave-fire aesthetics, the glow that keeps you looking at shadows. The school tends a coal; it does not decorate the cave.
+
+Craft analogue (steal the *idea*, not the category): KILN's Behance identity is built on "Formed by Fire" as **transformation in a chamber**, ember orange + burnt brown + soft neutrals, not a flame icon. Ember & Tide (Charlotte Chapman Studio) treats ember as **material provenance**, with a quiet mark hiding in an ampersand, not a pictogram of fire. Studio Dumbar's Dutch police flame is a **beacon you tend for others** — civic orange, no glow — then leave the crest behind.
 
 ### Tree is not nature
 
@@ -104,6 +108,8 @@ Ember Tree
 ```
 
 If a mark cannot survive that sentence, it is the wrong mark.
+
+Shorter still: **a banked coal that learned to fork.** If a comp can be described as "dark SaaS, orange accent, tree logo," it is already dead.
 
 **Rejected silhouettes**
 
@@ -183,6 +189,13 @@ Dribbble search pages are gated; shots below are taken from indexed shot pages a
 | Source | URL | What it actually does | Steal | Do not copy |
 |---|---|---|---|---|
 | Jason Long, *Git Logo Concept* | [dribbble.com/shots/433719](https://dribbble.com/shots/433719-Git-Logo-Concept) | Branching reduced from a 5×5 coin grid to three nodes | Grid-first fork geometry; developer-native tree | Git diamond, orange-on-orange, three empty circles |
+| Graphéine, Paris 1 Panthéon-Sorbonne | [grapheine.com](https://grapheine.com/en/portfolio/universite-paris-1-pantheon-sorbonne-visual-identity/) | Heritage redrawn letter-by-letter; emblem as a window | Scholarly without Trajan cosplay; custom drawing of letters; severe core | University gold/blue, chapel silhouette, seal or motto ribbon |
+| Graphéine, Bibliothèque Cujas | [grapheine.com](https://grapheine.com/portfolio/bibliotheque-cujas-identite-visuelle/) | "Temple of knowledge" as vault + books; layout = stacked volumes | Metaphor *is* the system; bibliographic image treatment | Law-library iconography, literal temple architecture |
+| Graphéine, France Universités | [grapheine.com](https://grapheine.com/portfolio/france-universites-naming-et-identite-visuelle/) | F as territory + amphitheatre; civic red with panache | One glyph holds a cultural scene; vermillion as civic heat | Tricolor politics, campus federation mark |
+| L'Arbre Corail | [behance.net/gallery/202948255](https://www.behance.net/gallery/202948255/RSE-Larbre-Corail-Identity-Edition) | Tree that is also coral / cell / brain / network | Uncanny fusion, not an oak | Reef ecology, CSR positioning |
+| Studio Pop, Deconstruction | [behance.net/gallery/167191985](https://www.behance.net/gallery/167191985/Studio-Pop-Deconstruction) | Arts school that keeps orange as inherited coal; generative bars | Tend the existing orange; learning as making | Playground construction-ball, "school of creativity" cuteness |
+| ULAR, Katya Neray | [dribbble.com/shots/27309816](https://dribbble.com/shots/27309816-ULAR-Brand-Identity) | One metaphor ("Dirt as Origin") drives mark, texture, B/W photo | One-sentence discipline; black + one hot accent | Moto-grunge, wrecked abrasion (an ember is tended, not wrecked) |
+| Linear brand guidelines | [linear.app/brand](https://linear.app/brand) | Named neutrals, rare accent, air around the mark | Material-named greys; space around the lockup | Linear-but-orange. That still has no soul |
 | Phenomenon Studio, *Insightful* | [dribbble.com/shots/24378925](https://dribbble.com/shots/24378925-Insightful-Branding-for-Online-Courses-Platform) | Branding for creative + IT courses, full asset system | Treat education as identity, not as an LMS skin | "Lifelong learners" cheer, generic course-card chrome |
 | KILN, ceramic studio | [behance.net/gallery/244309985](https://www.behance.net/gallery/244309985/KILN-Contemporary-Ceramic-Studio-Branding) | "Formed by Fire": ember orange, burnt brown, clay neutrals | Ember as **chamber / transformation**, material palette | Pottery, craft-studio photography, earth-tone wash over UI |
 | Ember & Tide, Charlotte Chapman | [charlottechapman.uk/work/ember-tide](https://charlottechapman.uk/work/ember-tide) | Ember hidden in an ampersand; 19th-c. trade ephemera | Quiet mark; historical print as texture; ember as provenance | Hospitality, fish, slab-serif restaurant wordmark |
@@ -191,7 +204,6 @@ Dribbble search pages are gated; shots below are taken from indexed shot pages a
 | FirstMotion, Brandforma | [brandforma.com/work/firstmotion](https://brandforma.com/work/firstmotion) | Charcoal ground, two oranges, editorial serif + grotesk, construction grid | Construction-grid panel; orange rationed on dark | Consultancy positioning, neon-line mark |
 | Helbers stationery (Visie) | [visie.io/media/helbers-...](https://visie.io/media/helbers-brand-identity-minimalist-paper-stationery-638690) | Stack of paper, charcoal sheet, **one thin orange edge line** | Orange as a **rubric edge**, paper as hero material | Leather lifestyle photography |
 | Substack Orange (dark editorial) | [designbycurio.com](https://designbycurio.com/learn/substack-orange-newsletter) | Charcoal room, white reading card, orange as signal fire for the author | Paper card on charcoal = "lit page in a dim room" | Newsletter product UI, orange on author names as the whole system |
-| ScienceMines | [behance.net/gallery/251017659](https://www.behance.net/gallery/251017659/ScienceMines-Visual-Identity-Branding) | Ed-tech, orange + black, dynamic mark | Proof that orange/black can carry education | Gaming stickers, playful-mascot energy |
 | DARES EdTech | [behance.net/gallery/241137957](https://www.behance.net/gallery/241137957/DARES-EdTech-Brand-Identity-System) | Calligraphic D, orange accents, language-learning | Mark from **writing culture** | Arabic-calligraphy-specific form, LMS mockup clutter |
 
 ### Useful negative examples (EdTech slop)
@@ -201,6 +213,7 @@ These are popular and empty. Do not aim at them.
 - Dark LMS dashboards with progress rings and course carousels ([Coursilia / Clyro](https://dribbble.com/shots/23353235-Dashboard-UI-UX-Design-for-Edtech), [Heyo dark learning](https://dribbble.com/shots/17631662-Online-Learning-Platform-Dark-Mode)).
 - Gradient-hero coaching landings with floating student photos and "24k+ students" badges ([IELTS coaching shot](https://dribbble.com/shots/27147920-IELTS-Coaching-Landing-Page)).
 - Ready-made "geometric tree" logos sold as nature/tech hybrids. They are the exact generic the last comps fell into.
+- Orange + black edtech with stickers and a "dynamic logomark" ([ScienceMines](https://www.behance.net/gallery/251017659/ScienceMines-Visual-Identity-Branding)). Energy without culture. The default scireDev must not join.
 
 ---
 
@@ -213,6 +226,8 @@ Use these as **image direction and type atmosphere**, not as costume drama.
 3. **Rubrication.** Medieval scribes used minium (red lead, orange-red) for initials, paragraph marks, headings. The Latin verb is *miniare*. That is what `#F23005` is doing when it underlines `Blog.` today. Pliny called related reds *flammeus* (flame-colored) — ember without drawing fire.
 4. **Laid paper + iron-gall ink.** Off-white, slight warm tooth, charcoal brown-black — not cool OLED black.
 5. **Hands, tools, coal, forks in code.** No Unsplash coworking. No "diverse team pointing at a laptop."
+6. **Lamp passed, not bush ignited.** Lucretius / library iconography as *behavior* (cohort, path end), never as a torch-in-hand cliché.
+7. **Porphyrian split.** Each lesson is a dichotomy: a trunk of decisions. The modern complement is the net (skill graph, git). Do not draw a medieval bracket-tree as the app icon.
 
 ---
 
@@ -411,13 +426,22 @@ Etymology and history
 - Lewis & Short, *scīo*: [Perseus](https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.04.0059%3Aentry%3Dscio), [Scaife ATLAS](https://atlas.perseus.tufts.edu/dictionaries/entry/urn:cite2:scaife-viewer:dictionary-entries.atlas_v1:lat.ls.perseus-eng2-n42976/) (root *sci-*; Greek "to split, divide"; "prop. to distinguish, discern")
 - Perseus morphology: *scire* = present infinitive active of *sciō*, "to know, understand, perceive, have knowledge of, be skilled in"
 - Lewis & Short, *scientia*: [Perseus](https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.04.0059%3Aentry%3Dscientia) (knowledge, skill, expertness)
+- Etymonline, *science* / PIE *skei-*: [etymonline.com/word/science](https://www.etymonline.com/word/science), [etymonline.com/word/*skei-](https://www.etymonline.com/word/*skei-)
+- Rival seeing-etymology: Weiss, *Glotta* 88 (2012), [doi:10.13109/glot.2012.88.1-4.253](https://www.vr-elibrary.de/doi/10.13109/glot.2012.88.1-4.253)
 - Ramon Llull, *Arbor scientiae*: [Wikipedia summary](https://en.wikipedia.org/wiki/Tree_of_Science_(Ramon_Llull)); Lyon 1515 woodcuts via [Getty / HathiTrust](http://hdl.handle.net/2027/gri.ark:/13960/t56f0dm7x) and [Internet Archive](https://archive.org/details/gri_33125008480259)
+- Lucretius, *vitai lampada tradunt*: [Perseus, DRN 2.62](https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.02.0131%3Abook%3D2%3Acard%3D62)
+- Plato, cave fire as the wrong light: [Perseus, Republic 7](http://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0168%3Abook%3D7)
+- Prometheus, fire as *technē*: [Aeschylus, Johnston trans.](https://web.viu.ca/johnstoi/aeschylus/prometheusbound.htm)
 - Minium / rubrication: [Minium (pigment)](https://en.wikipedia.org/wiki/Minium_(pigment)), [Rubrication](https://en.wikipedia.org/wiki/Rubrication), Fitzwilliam [ILLUMINATED: Minium](https://qi.fitzmuseum.cam.ac.uk/illuminated/lab/overview-of-artists-materials/minium-and-red-lead/type/material)
 
 Craft and identity references
 
 - [Cloudflare marketing](https://www.cloudflare.com/)
+- Cloudflare first-party craft notes: [2016 rebrand](https://blog.cloudflare.com/time-for-an-update/), [color](https://blog.cloudflare.com/thinking-about-color), [dark mode](https://blog.cloudflare.com/dark-mode/)
 - Cloudflare marketing tokens / Kumo notes: [webdesignhot DESIGN.md](https://www.webdesignhot.com/design.md/cloudflare/)
+- Graphéine: [Paris 1](https://grapheine.com/en/portfolio/universite-paris-1-pantheon-sorbonne-visual-identity/), [Cujas](https://grapheine.com/portfolio/bibliotheque-cujas-identite-visuelle/), [France Universités](https://grapheine.com/portfolio/france-universites-naming-et-identite-visuelle/)
+- [L'Arbre Corail](https://www.behance.net/gallery/202948255/RSE-Larbre-Corail-Identity-Edition), [Studio Pop](https://www.behance.net/gallery/167191985/Studio-Pop-Deconstruction), [ULAR](https://dribbble.com/shots/27309816-ULAR-Brand-Identity), [Linear brand](https://linear.app/brand)
+- Full sourced board: [brand/research.md](./brand/research.md)
 - Git mark origin: [Jason Long on Dribbble](https://dribbble.com/shots/433719-Git-Logo-Concept)
 - [KILN on Behance](https://www.behance.net/gallery/244309985/KILN-Contemporary-Ceramic-Studio-Branding)
 - [Ember & Tide, Charlotte Chapman Studio](https://charlottechapman.uk/work/ember-tide)
