@@ -136,7 +136,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.sciredev.com',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.sciredev.app',
     },
     github: {
       clientId: '',
@@ -171,5 +171,5 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2025-06-01',
+  compatibilityDate: '2026-06-09',
 })
