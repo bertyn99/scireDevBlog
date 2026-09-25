@@ -1,0 +1,41 @@
+Task 6: Build Graphical exercise component
+============================================
+Date: 2026-06-25
+Status: COMPLETE
+
+Acceptance Criteria Verification:
+- [x] packages/exercise-engine/app/components/checkpoint/GraphicalExercise.vue exists (281 lines)
+- [x] Component renders image + question + options
+- [x] Image displayed above question with aspect-video + object-contain
+- [x] Image loaded from public/ path (props.image, e.g. /img/exercises/flexbox-layout.png)
+- [x] Options rendered as clickable cards (same as QCM)
+- [x] Selecting an option highlights it (border-primary + bg-primary/5)
+- [x] Clicking submit shows correct/incorrect feedback (green/red borders + icons)
+- [x] Explanation panel appears after submit (only when submitted && explanation)
+- [x] Emits @completed with { exerciseId, passed, selectedAnswer, conceptTags }
+- [x] Component auto-imported as CheckpointGraphicalExercise
+- [x] nuxt prepare passes (types generated)
+
+Implementation Details:
+- Props: exerciseId, image, question, options, correct, explanation?, conceptTags?
+- Emits: completed: [{ exerciseId, passed, selectedAnswer, conceptTags }]
+- State: selectedAnswer (ref<number|null>), submitted (ref<boolean>), imageError (ref<boolean>)
+- Image: <img> with object-contain, aspect-video, @error handler → fallback placeholder
+- Image alt: computed from question for accessibility
+- Fallback: placeholder with photo icon + "Image unavailable" text on load error
+- Feedback: green border/bg for correct option, red for incorrect selection
+- Explanation: appears in gray panel with concept tags as UBadge
+- Actions: Submit (disabled until selection), Try Again (resets state)
+- Uses useCheckpoint composable for solved state sync
+- Matches QcmExercise.vue pattern exactly (optionClasses, indicatorClasses, labelClasses, letterBadgeColor)
+
+Auto-Import Verification (from .nuxt/types/components.d.ts):
+  CheckpointGraphicalExercise: typeof import("../../../../packages/exercise-engine/app/components/checkpoint/GraphicalExercise.vue")['default']
+  LazyCheckpointGraphicalExercise: ...
+
+nuxt prepare output:
+  [nuxt] ℹ Running with compatibility version 5
+  Types generated in .nuxt.
+
+No new dependencies added.
+No existing files modified.

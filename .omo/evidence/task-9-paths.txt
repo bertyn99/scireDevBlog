@@ -1,0 +1,43 @@
+# Task 9: Public Learning Paths Pages (/paths)
+
+## Files Created
+
+### `apps/web/content/paths/frontend-foundations.md`
+Sample learning path content with:
+- title, description, difficulty (beginner), estimatedHours (12), published: true
+- 3 stages: Getting Started with Web Basics, Responsive Layouts, Modern CSS Techniques
+- References existing course: `css-fundamentals`
+
+### `apps/web/app/pages/paths/index.vue`
+Paths overview page (listing):
+- Queries `queryCollection('paths')` with `.where('published', '=', true)` sorted by estimatedHours
+- Responsive grid: `grid grid-cols-1 md:grid-cols-2 gap-6`
+- Each card shows: title, description, difficulty (UBadge), estimated hours (UIcon clock), stages with course counts
+- Empty state when no paths available
+- SEO via `useSeoMeta`, canonical URL, schema.org WebPage
+- Uses Nuxt UI v4: UCard, UBadge, UIcon
+
+### `apps/web/app/pages/paths/[slug].vue`
+Path detail page:
+- Queries single path via `.where('_path', '=', '/paths/${slug}')`
+- 404 handling with `createError`
+- Breadcrumb schema: Home → Paths → {path title}
+- Vertical timeline with stages: numbered dots on left, vertical line connector
+- Each stage shows: name, description, course links to `/courses/{course}`
+- Content body rendered via `ContentRenderer`
+- SEO via `useSeoMeta`, canonical URL, breadcrumb + WebPage schema
+
+## Verification
+
+- `npx nuxi prepare` — types generated successfully, no errors
+- LSP diagnostics on index.vue — 0 errors
+- LSP diagnostics on [slug].vue — 0 errors
+
+## Design Decisions
+
+- **Timeline**: Visual vertical timeline with numbered dots and connecting line, matching learning journey metaphor
+- **Course links**: Link to `/courses/{slug}` pages (existing routes from courses collection)
+- **Difficulty colors**: beginner=success (green), intermediate=warning (amber), advanced=error (red) — Nuxt UI v4 semantic colors
+- **Responsive**: Desktop/mobile via standard Tailwind breakpoints
+- **Empty state**: Shows friendly message with academic-cap icon when no paths published
+- **Sample data**: Single sample path referencing the one existing course (css-fundamentals) to demonstrate the pattern without requiring all courses to exist

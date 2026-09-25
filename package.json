@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --filter ./apps/web dev",
-
     "build": "pnpm --filter ./apps/web build",
     "lint": "oxlint .",
     "lint:fix": "oxlint . --fix",
@@ -13,7 +12,8 @@
     "test": "echo 'Error: no test runner configured' && exit 1"
   },
   "devDependencies": {
-    "oxlint": "^1.70.0",
-    "oxfmt": "^0.55.0"
+    "nuxt": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:"
   }
 }

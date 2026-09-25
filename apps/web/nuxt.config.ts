@@ -15,6 +15,8 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxthub/core',
+    '@nuxtjs/better-auth',
+
     '@nuxt/content',
     'nuxt-studio',
     '@nuxt/ui',
@@ -30,10 +32,24 @@ export default defineNuxtConfig({
 
   // NuxtHub — Cloudflare bindings (D1, R2, KV, Cache)
   hub: {
-    database: true,
+    db: 'sqlite',
     blob: true,
     kv: true,
     cache: true,
+  },
+
+  // Authentication (@nuxtjs/better-auth)
+  auth: {
+    redirects: {
+      login: '/auth/login',
+      guest: '/',
+      authenticated: '/dashboard',
+      logout: '/',
+    },
+    schema: {
+      usePlural: true,
+      casing: 'snake_case',
+    },
   },
 
   // Nuxt Studio — visual CMS with R2 external media
@@ -101,8 +117,10 @@ export default defineNuxtConfig({
     '/courses': { isr: 300, swr: true },
     '/courses/**': { isr: 60, swr: true },
     '/api/**': { cache: false },
-    '/admin/**': { ssr: false },
-    '/auth/**': { ssr: false },
+    '/dashboard': { auth: { only: 'user' } },
+    '/admin/**': { ssr: false, auth: { user: { role: 'admin' } } },
+    '/auth/register': { redirect: '/auth/signup' },
+    '/auth/**': { ssr: false, auth: 'guest' },
   },
 
   nitro: {
@@ -120,9 +138,10 @@ export default defineNuxtConfig({
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.sciredev.com',
     },
-    sessionPassword: '',
-    githubClientId: '',
-    githubClientSecret: '',
+    github: {
+      clientId: '',
+      clientSecret: '',
+    },
     betterAuthSecret: '',
     seoProKey: '',
   },
@@ -137,6 +156,20 @@ export default defineNuxtConfig({
   },
 
   devtools: { enabled: true },
+
+  // @nuxtjs/mdc (via @nuxt/content) prebundles these as `@nuxtjs/mdc > pkg`.
+  // Listing the bare names first makes MDC skip the nested includes that pnpm cannot resolve (NUXT_B7002).
+  vite: {
+    optimizeDeps: {
+      include: [
+        'remark-gfm',
+        'remark-emoji',
+        'remark-mdc',
+        'remark-rehype',
+        'rehype-raw',
+      ],
+    },
+  },
 
   compatibilityDate: '2025-06-01',
 })

@@ -1,5 +1,4 @@
 import { sqliteTable, text, integer, real } from 'drizzle-orm/sqlite-core'
-import { users } from './users'
 
 // Concept taxonomy
 export const concepts = sqliteTable('concepts', {
@@ -17,7 +16,8 @@ export const concepts = sqliteTable('concepts', {
 // Per-user mastery per concept
 export const userMastery = sqliteTable('user_mastery', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  userId: text('user_id').references(() => users.id).notNull(),
+  // Better Auth user id from `#auth/schema` (`users.id`)
+  userId: text('user_id').notNull(),
   conceptTag: text('concept_tag').notNull(),
   attempts: integer('attempts').default(0),
   correct: integer('correct').default(0),

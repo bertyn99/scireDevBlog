@@ -14,6 +14,9 @@ Living design documents for transforming scireDev from a Nuxt 3 blog into a self
 | 4 | [user-system/database.md](./user-system/database.md) | Auth, D1 schemas, progress tracking, subscriptions |
 | 5 | [deployment/cloudflare.md](./deployment/cloudflare.md) | Cloudflare deployment: NuxtHub, D1, R2, Stream |
 | 6 | [observability.md](./observability.md) | Structured logging with evlog, what to log by domain |
+| 7 | [student-dashboard.md](./student-dashboard.md) | Student learning hub: progress, mastery, review queue, activity |
+| 8 | [admin-dashboard.md](./admin-dashboard.md) | Admin analytics: user management, exercise performance |
+| 9 | [curriculum.md](./curriculum.md) | Learning paths, course catalog, capstone projects |
 ## Key Design Principles
 
 1. **Content is MD files (Git). State is D1 (Cloudflare).** — Course materials live in the repo as Markdown. User progress, sessions, and subscriptions live in a database. This hybrid pattern is validated by production platforms (Trivium, AI Educademy, Nuxt's own learn platform).
