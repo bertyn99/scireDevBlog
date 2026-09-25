@@ -121,6 +121,7 @@ export default defineNuxtConfig({
     '/admin/**': { ssr: false, auth: { user: { role: 'admin' } } },
     '/auth/register': { redirect: '/auth/signup' },
     '/auth/**': { ssr: false, auth: 'guest' },
+    '/prototype/**': { ssr: false, robots: false },
   },
 
   nitro: {
