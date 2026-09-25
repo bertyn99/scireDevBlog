@@ -9,6 +9,7 @@
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
     "dev:playground": "pnpm --filter ./packages/exercise-engine dev:playground",
+    "brand:playground": "python3 -m http.server 4174 --directory docs",
     "test": "echo 'Error: no test runner configured' && exit 1"
   },
   "devDependencies": {

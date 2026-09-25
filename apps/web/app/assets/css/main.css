@@ -26,3 +26,7 @@
     @apply h-screen min-h-full flex flex-col;
   }
 }
+
+.pg-body {
+  background: var(--pg-paper, #f4f4f5) !important;
+}
