@@ -1,6 +1,6 @@
 # Brand — scireDev
 
-**Status**: 🟡 Playground. HTML + Tailwind on `/prototype`. No production UI swap yet.
+**Status**: 🟡 Playground. One HTML file: `docs/playground.html`. No production UI swap yet.
 **Product**: developer learning platform. Professional, calm, not in your face.
 
 ---
@@ -36,7 +36,15 @@ Arch / rainbow (batch 3). Oval Y-tree (batch 3 last). Batch 4 B Canopy, C Leaf, 
 
 ## Playground
 
-`/prototype?screen=landing&mark=leaf&palette=d`
+Open `docs/playground.html` in a browser, or:
+
+```bash
+python3 -m http.server 4174 --directory docs
+```
+
+Then `http://localhost:4174/playground.html?screen=landing&mark=leaf&palette=d`
+
+Dock switches screens, marks (leaf / circle / grove), and palettes (D / warm / cool). Arrow keys cycle screens. Throwaway. Not a Nuxt route.
 
 Screens: landing, catalog, path, course, chapter, exercise, studio.
 

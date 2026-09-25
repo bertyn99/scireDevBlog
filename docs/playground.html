@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>scireDev playground</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <!--
+    Throwaway brand + product UX playground.
+    Question: does leaf / circle / grove + palette D feel calm enough
+    across landing, catalog, path, course, chapter, exercise, studio?
+    Open this file, or: python3 -m http.server 4174 --directory docs
+    Switch via the dock, or ?screen=&mark=&palette=
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+      --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    }
+  </style>
+  <style>
+    :root {
+      --paper: #F4F4F5;
+      --ink: #262626;
+      --minium: #F23005;
+      --slate: #3F4A52;
+      --ash: #A6A6A6;
+      --surface: #FFFFFF;
+      --radius: 8px;
+    }
+    html, body { background: var(--paper); color: var(--ink); }
+    body { font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif; }
+    .font-serif { font-family: "Instrument Serif", Georgia, serif; }
+    .font-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    button { cursor: pointer; }
+    textarea { tab-size: 2; }
+    iframe { border: 0; }
+  </style>
+</head>
+<body class="min-h-dvh bg-[var(--paper)] text-[var(--ink)] antialiased">
+  <div id="app" class="min-h-dvh"></div>
+
+  <script>
+    const SCREENS = [
+      { id: 'landing', label: 'Landing' },
+      { id: 'catalog', label: 'Catalog' },
+      { id: 'path', label: 'Path' },
+      { id: 'course', label: 'Course' },
+      { id: 'chapter', label: 'Chapter' },
+      { id: 'exercise', label: 'Exercise' },
+      { id: 'studio', label: 'Studio' },
+    ]
+
+    const MARKS = [
+      { id: 'leaf', label: 'Leaf' },
+      { id: 'circle', label: 'Circle' },
+      { id: 'grove', label: 'Grove' },
+    ]
+
+    const PALETTES = {
+      d: { label: 'D', paper: '#F4F4F5', ink: '#262626', minium: '#F23005', slate: '#3F4A52', ash: '#A6A6A6', surface: '#FFFFFF' },
+      warm: { label: 'Warm', paper: '#F5F3F0', ink: '#262626', minium: '#F23005', slate: '#4A4540', ash: '#A39E98', surface: '#FFFCF8' },
+      cool: { label: 'Cool', paper: '#F2F4F6', ink: '#24282C', minium: '#F23005', slate: '#3A4650', ash: '#9AA3AA', surface: '#FFFFFF' },
+    }
+
+    const COURSES = [
+      { slug: 'javascript-foundations', title: 'JavaScript Foundations', track: 'JavaScript', level: 'Beginner', hours: 12, lessons: 28 },
+      { slug: 'vue-fundamentals', title: 'Vue Fundamentals', track: 'Vue', level: 'Beginner', hours: 10, lessons: 24 },
+      { slug: 'nuxt-in-practice', title: 'Nuxt in Practice', track: 'Nuxt', level: 'Intermediate', hours: 18, lessons: 32 },
+      { slug: 'async-javascript', title: 'Async JavaScript', track: 'JavaScript', level: 'Intermediate', hours: 8, lessons: 16 },
+    ]
+
+    const FILTERS = ['All', 'JavaScript', 'Vue', 'Nuxt', 'Beginner', 'Intermediate']
+
+    const VUE_LESSONS = [
+      { n: 1, title: 'What Vue is for', minutes: 18, done: true },
+      { n: 2, title: 'Reactivity with ref', minutes: 24, done: true, current: true },
+      { n: 3, title: 'Computed and watch', minutes: 22, done: false },
+      { n: 4, title: 'Templates and directives', minutes: 20, done: false },
+      { n: 5, title: 'Components and props', minutes: 28, done: false },
+      { n: 6, title: 'Emits and v-model', minutes: 26, done: false },
+    ]
+
+    const PATH_STAGES = [
+      { name: 'JavaScript', hours: 35, courses: ['JavaScript Foundations', 'Async JavaScript'] },
+      { name: 'The platform', hours: 20, courses: ['HTML semantics', 'DOM manipulation'] },
+      { name: 'Vue', hours: 30, courses: ['Vue Fundamentals', 'Vue components'] },
+    ]
+
+    const QCM_OPTIONS = [
+      'A reactive reference object',
+      'The initial value',
+      'A Vue component',
+      'A plain JavaScript variable',
+    ]
+
+    const STUDIO_DEFAULTS = {
+      html: '<button id="count">0</button>',
+      css: `button {
+  font: 16px/1.4 ui-sans-serif, system-ui;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #262626;
+  background: #fff;
+}`,
+      js: `const el = document.getElementById('count')
+let n = 0
+el.addEventListener('click', () => {
+  n += 1
+  el.textContent = n
+})`,
+    }
+
+    const state = {
+      screen: 'landing',
+      mark: 'leaf',
+      palette: 'd',
+      filter: 'All',
+      pick: null,
+      submitted: false,
+      tab: 'js',
+      html: STUDIO_DEFAULTS.html,
+      css: STUDIO_DEFAULTS.css,
+      js: STUDIO_DEFAULTS.js,
+    }
+
+    let svgN = 0
+
+    function markSvg(name, size, whisper) {
+      const id = 'm' + (++svgN)
+      const cls = whisper ? 'opacity-[0.18]' : ''
+      const color = whisper ? 'var(--ash)' : 'var(--ink)'
+      const ember = whisper
+        ? ''
+        : `<path fill="var(--minium)" d="M20 10c6-2 12 0 14 6-8 1-14 6-16 12-4-4-4-12 2-18Z"/>`
+
+      if (name === 'circle') {
+        return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" class="${cls}" style="color:${color}" aria-hidden="true">
+          <mask id="${id}"><circle cx="32" cy="34" r="26" fill="white"/>
+            <g fill="none" stroke="black" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 22 32 14 42 22"/><path d="M18 32 32 22 46 32"/>
+              <path d="M18 42 32 32 46 42"/><path d="M20 52 32 42 44 52"/>
+            </g>
+          </mask>
+          <rect width="64" height="80" fill="currentColor" mask="url(#${id})"/>
+          <rect x="30" y="58" width="4" height="16" rx="2" fill="currentColor"/>
+        </svg>`
+      }
+
+      if (name === 'grove') {
+        return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" class="${cls}" style="color:${color}" aria-hidden="true">
+          <rect x="12" y="6" width="40" height="60" rx="20" stroke="currentColor" stroke-width="2.4" fill="none"/>
+          <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 64c0-8-6-14-10-22 0-8 4-16 8-22"/>
+            <path d="M32 64c0-8 6-14 10-22 0-8-4-16-8-22"/>
+            <path d="M22 34c-4-2-8 2-10 8"/><path d="M42 34c4-2 8 2 10 8"/>
+            <path d="M24 22c-3-6 2-10 6-8"/><path d="M40 22c3-6-2-10-6-8"/>
+          </g>
+          <ellipse cx="18" cy="24" rx="2.2" ry="3.2" fill="currentColor"/>
+          <ellipse cx="46" cy="24" rx="2.2" ry="3.2" fill="currentColor"/>
+          <ellipse cx="16" cy="40" rx="2.2" ry="3.2" fill="currentColor"/>
+          <ellipse cx="48" cy="40" rx="2.2" ry="3.2" fill="currentColor"/>
+          <ellipse cx="28" cy="16" rx="2.2" ry="3.2" fill="currentColor"/>
+          <ellipse cx="36" cy="16" rx="2.2" ry="3.2" fill="currentColor"/>
+          ${ember}
+        </svg>`
+      }
+
+      return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" class="${cls}" style="color:${color}" aria-hidden="true">
+        <mask id="${id}">
+          <path fill="white" d="M32 4c14 12 22 28 22 44 0 14-8 24-22 28C18 72 10 62 10 48 10 32 18 16 32 4Z"/>
+          <g fill="none" stroke="black" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 18 32 12 40 18"/><path d="M20 28 32 20 44 28"/>
+            <path d="M18 38 32 28 46 38"/><path d="M18 48 32 38 46 48"/>
+            <path d="M20 58 32 48 44 58"/><path d="M24 66 32 58 40 66"/>
+          </g>
+        </mask>
+        <rect width="64" height="80" fill="currentColor" mask="url(#${id})"/>
+        <rect x="30" y="70" width="4" height="10" rx="2" fill="currentColor"/>
+      </svg>`
+    }
+
+    function wordmark() {
+      return `scire<span class="text-[var(--minium)]">Dev</span>`
+    }
+
+    function applyPalette() {
+      const p = PALETTES[state.palette]
+      const root = document.documentElement
+      root.style.setProperty('--paper', p.paper)
+      root.style.setProperty('--ink', p.ink)
+      root.style.setProperty('--minium', p.minium)
+      root.style.setProperty('--slate', p.slate)
+      root.style.setProperty('--ash', p.ash)
+      root.style.setProperty('--surface', p.surface)
+      document.body.style.background = p.paper
+      document.body.style.color = p.ink
+    }
+
+    function shownCourses() {
+      if (state.filter === 'All') return COURSES
+      return COURSES.filter((c) => c.track === state.filter || c.level === state.filter)
+    }
+
+    function srcdoc() {
+      return `<!doctype html><html><head><style>${state.css}</style></head><body>${state.html}<` + `script>${state.js}<` + `/script></body></html>`
+    }
+
+    function header() {
+      return `<header class="sticky top-0 z-40 border-b border-[var(--ink)]/8 bg-[var(--paper)]/90 backdrop-blur-sm">
+        <div class="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">
+          <button type="button" data-go="landing" class="flex items-center gap-2.5">
+            ${markSvg(state.mark, 28, false)}
+            <span class="text-[17px] font-semibold tracking-tight">${wordmark()}</span>
+          </button>
+          <nav class="hidden items-center gap-7 text-[13px] text-[var(--slate)] sm:flex">
+            <button type="button" data-go="catalog" class="hover:text-[var(--ink)]">Courses</button>
+            <button type="button" data-go="path" class="hover:text-[var(--ink)]">Paths</button>
+            <button type="button" data-go="studio" class="hover:text-[var(--ink)]">Studio</button>
+          </nav>
+        </div>
+      </header>`
+    }
+
+    function landing() {
+      return `<section class="relative mx-auto flex min-h-[calc(100dvh-4rem)] max-w-5xl flex-col justify-center px-5 pb-24 pt-10">
+        <p class="text-[13px] text-[var(--slate)]">Developer courses</p>
+        <h1 class="font-serif mt-4 max-w-xl text-[44px] leading-[1.12] tracking-tight text-[var(--ink)] sm:text-[56px]">
+          Know the path. Then grow it.
+        </h1>
+        <p class="mt-5 max-w-[38ch] text-[17px] leading-relaxed text-[var(--slate)]">
+          Courses that teach the craft before the framework.
+        </p>
+        <button type="button" data-go="catalog" class="mt-8 w-fit rounded-[8px] bg-[var(--minium)] px-4 py-2.5 text-[14px] font-medium text-white active:scale-[0.98]">
+          Browse courses
+        </button>
+      </section>
+      <section class="mx-auto max-w-5xl space-y-3 px-5 pb-32">
+        ${COURSES.slice(0, 3).map((c) => courseSlab(c, false)).join('')}
+      </section>`
+    }
+
+    function courseSlab(c, clickable) {
+      const inner = `<div>
+          <h2 class="text-[18px] font-semibold text-[var(--ink)]">${c.title}</h2>
+          <span class="mt-2 block h-[2px] w-8 bg-[var(--minium)]"></span>
+          <p class="mt-2 text-[13px] text-[var(--slate)]">${c.level} · ${c.hours} hours · ${c.lessons} lessons</p>
+        </div>
+        ${markSvg(state.mark, 48, true)}`
+      if (clickable) {
+        return `<button type="button" data-go="course" class="flex w-full items-center justify-between rounded-[8px] bg-[var(--surface)] px-6 py-5 text-left active:scale-[0.995]">${inner}</button>`
+      }
+      return `<article class="flex items-center justify-between rounded-[8px] bg-[var(--surface)] px-6 py-5">${inner}</article>`
+    }
+
+    function catalog() {
+      const chips = FILTERS.map((f) => {
+        const on = state.filter === f
+        const cls = on
+          ? 'bg-[var(--ink)] text-[var(--paper)]'
+          : 'border border-[var(--ink)]/15 bg-[var(--surface)] text-[var(--ink)] hover:border-[var(--ink)]/40'
+        return `<button type="button" data-filter="${f}" class="rounded-[8px] px-3 py-1.5 text-[13px] ${cls}">${f}</button>`
+      }).join('')
+      const list = shownCourses().map((c) => courseSlab(c, true)).join('')
+      return `<main class="mx-auto max-w-5xl px-5 pb-32 pt-10">
+        <p class="text-[13px] text-[var(--slate)]">scireDev courses</p>
+        <h1 class="mt-2 text-[36px] font-semibold tracking-tight">Courses</h1>
+        <div class="mt-6 flex flex-wrap gap-2">${chips}</div>
+        <div class="mt-6 space-y-3">${list}</div>
+      </main>`
+    }
+
+    function path() {
+      const stages = PATH_STAGES.map((stage, i) => {
+        const line = i < PATH_STAGES.length - 1
+          ? '<span class="mt-2 w-px flex-1 bg-[var(--ink)]/12"></span>'
+          : ''
+        const courses = stage.courses.map((c) =>
+          `<li><button type="button" data-go="course" class="text-[14px] text-[var(--slate)] hover:text-[var(--ink)]">${c}</button></li>`
+        ).join('')
+        return `<li class="relative grid grid-cols-[48px_1fr] gap-4 pb-10 last:pb-0">
+          <div class="relative flex flex-col items-center self-stretch">
+            <span class="grid size-8 shrink-0 place-items-center rounded-[8px] bg-[var(--ink)] text-[12px] font-medium text-[var(--paper)]">${i + 1}</span>
+            ${line}
+          </div>
+          <div>
+            <div class="flex items-baseline justify-between gap-4">
+              <h2 class="text-[18px] font-semibold">${stage.name}</h2>
+              <span class="text-[12px] text-[var(--ash)]">${stage.hours}h</span>
+            </div>
+            <span class="mt-2 block h-[2px] w-8 bg-[var(--minium)]"></span>
+            <ul class="mt-4 space-y-2">${courses}</ul>
+          </div>
+        </li>`
+      }).join('')
+      return `<main class="mx-auto max-w-3xl px-5 pb-32 pt-10">
+        <p class="text-[13px] text-[var(--slate)]">Learning path</p>
+        <h1 class="mt-2 text-[36px] font-semibold tracking-tight">Frontend Engineer</h1>
+        <p class="mt-3 max-w-[48ch] text-[15px] leading-relaxed text-[var(--slate)]">
+          JavaScript first. Then the platform. Then Vue. One path, 85 hours.
+        </p>
+        <ol class="mt-10">${stages}</ol>
+      </main>`
+    }
+
+    function course() {
+      const rows = VUE_LESSONS.map((l) =>
+        `<li>
+          <button type="button" data-go="chapter" class="flex w-full items-center gap-4 px-5 py-4 text-left hover:bg-[var(--paper)]">
+            <span class="w-6 text-[12px] tabular-nums text-[var(--ash)]">${l.n}</span>
+            <span class="flex-1 text-[15px]">${l.title}</span>
+            <span class="text-[12px] text-[var(--ash)]">${l.minutes} min</span>
+          </button>
+        </li>`
+      ).join('')
+      return `<main class="mx-auto max-w-3xl px-5 pb-32 pt-10">
+        <button type="button" data-go="catalog" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Courses</button>
+        <div class="mt-6 flex items-start gap-4">
+          ${markSvg(state.mark, 40, false)}
+          <div>
+            <h1 class="text-[32px] font-semibold tracking-tight">Vue Fundamentals</h1>
+            <span class="mt-2 block h-[2px] w-8 bg-[var(--minium)]"></span>
+            <p class="mt-2 text-[13px] text-[var(--slate)]">Beginner · 10 hours · 24 lessons</p>
+          </div>
+        </div>
+        <ol class="mt-10 divide-y divide-[var(--ink)]/8 rounded-[8px] bg-[var(--surface)]">${rows}</ol>
+      </main>`
+    }
+
+    function chapter() {
+      const toc = VUE_LESSONS.map((l) => {
+        const cls = l.current ? 'bg-[var(--surface)] text-[var(--ink)]' : 'text-[var(--slate)]'
+        return `<li><span class="block rounded-[8px] px-2 py-1.5 text-[13px] ${cls}">${l.n}. ${l.title}</span></li>`
+      }).join('')
+      return `<div class="mx-auto grid max-w-5xl gap-10 px-5 pb-32 pt-8 lg:grid-cols-[200px_1fr]">
+        <aside class="hidden lg:block">
+          <p class="text-[12px] text-[var(--ash)]">Vue Fundamentals</p>
+          <ol class="mt-4 space-y-1">${toc}</ol>
+        </aside>
+        <article class="max-w-[62ch]">
+          <p class="text-[13px] text-[var(--slate)]">Chapter 2</p>
+          <h1 class="mt-2 text-[32px] font-semibold tracking-tight">Reactivity with ref</h1>
+          <span class="mt-3 block h-[2px] w-8 bg-[var(--minium)]"></span>
+          <div class="mt-8 space-y-4 text-[16px] leading-7 text-[var(--slate)]">
+            <p>Vue tracks a value when you wrap it in <code class="rounded-[4px] bg-[var(--surface)] px-1 font-mono text-[14px] text-[var(--ink)]">ref()</code>.
+            Read it with <code class="rounded-[4px] bg-[var(--surface)] px-1 font-mono text-[14px] text-[var(--ink)]">.value</code> in script. In the template, Vue unwraps it.</p>
+            <p>This is the same idea as a getter you already know: a box around the data, not magic. Learn the box before the shortcuts.</p>
+          </div>
+          <pre class="mt-8 overflow-x-auto rounded-[8px] bg-[var(--ink)] p-5 font-mono text-[13px] leading-6 text-[var(--paper)]"><code>import { ref } from 'vue'
+
+const count = ref(0)
+count.value += 1</code></pre>
+          <button type="button" data-go="exercise" class="mt-8 rounded-[8px] bg-[var(--minium)] px-4 py-2.5 text-[14px] font-medium text-white">
+            Open exercise
+          </button>
+        </article>
+      </div>`
+    }
+
+    function exercise() {
+      const correct = 0
+      const options = QCM_OPTIONS.map((opt, i) => {
+        let border = 'border-[var(--ink)]/12 bg-[var(--surface)] hover:border-[var(--ink)]/30'
+        if (!state.submitted && state.pick === i) border = 'border-[var(--minium)] bg-[var(--surface)]'
+        if (state.submitted && i === correct) border = 'border-[var(--ink)] bg-[var(--surface)]'
+        if (state.submitted && i === state.pick && i !== correct) border = 'border-[var(--minium)]/40 text-[var(--slate)]'
+        if (state.submitted && i !== correct && i !== state.pick) border = 'border-[var(--ink)]/8 text-[var(--ash)]'
+        const letter = state.pick === i
+          ? 'border-[var(--minium)] text-[var(--minium)]'
+          : 'border-[var(--ink)]/20 text-[var(--ash)]'
+        return `<button type="button" data-pick="${i}" class="flex w-full items-center gap-3 rounded-[8px] border px-4 py-3 text-left text-[14px] ${border}">
+          <span class="grid size-6 place-items-center rounded-[6px] border text-[11px] ${letter}">${String.fromCharCode(65 + i)}</span>
+          ${opt}
+        </button>`
+      }).join('')
+      const feedback = state.submitted
+        ? `<p class="mt-5 text-[14px] text-[var(--slate)]">${state.pick === correct
+          ? 'Yes. ref() returns a reactive object. You read and write .value in script.'
+          : 'Not that one. ref() boxes the value. The box is the reactive reference.'}</p>`
+        : ''
+      const disabled = state.pick === null ? 'opacity-40 pointer-events-none' : ''
+      return `<main class="mx-auto max-w-xl px-5 pb-32 pt-10">
+        <button type="button" data-go="chapter" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Chapter</button>
+        <h1 class="mt-6 text-[28px] font-semibold tracking-tight">What does ref() return?</h1>
+        <span class="mt-3 block h-[2px] w-8 bg-[var(--minium)]"></span>
+        <div class="mt-8 space-y-2">${options}</div>
+        <div class="mt-6 flex items-center gap-3">
+          <button type="button" data-check class="rounded-[8px] bg-[var(--minium)] px-4 py-2.5 text-[14px] font-medium text-white ${disabled}">Check</button>
+          <button type="button" data-go="studio" class="rounded-[8px] border border-[var(--ink)]/15 px-4 py-2.5 text-[14px]">Open in studio</button>
+        </div>
+        ${feedback}
+      </main>`
+    }
+
+    function studio() {
+      const files = ['html', 'css', 'js'].map((t) => {
+        const label = t === 'html' ? 'index.html' : t === 'css' ? 'styles.css' : 'main.js'
+        const on = state.tab === t ? 'bg-[var(--surface)]' : ''
+        return `<li><button type="button" data-tab="${t}" class="w-full rounded-[8px] px-2 py-1.5 text-left ${on}">${label}</button></li>`
+      }).join('')
+      const tabs = ['html', 'css', 'js'].map((t) => {
+        const on = state.tab === t ? 'bg-[var(--surface)]' : 'text-[var(--slate)]'
+        return `<button type="button" data-tab="${t}" class="rounded-[8px] px-2 py-1 text-[12px] ${on}">${t}</button>`
+      }).join('')
+      const code = state[state.tab]
+      return `<div class="flex min-h-[calc(100dvh-4rem)] flex-col pb-28">
+        <div class="flex items-center justify-between border-b border-[var(--ink)]/8 px-5 py-3">
+          <div>
+            <p class="text-[12px] text-[var(--ash)]">Custom exercise</p>
+            <h1 class="text-[16px] font-semibold">Make the button count</h1>
+          </div>
+          <button type="button" data-go="exercise" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Back to exercise</button>
+        </div>
+        <div class="grid flex-1 lg:grid-cols-[220px_1fr_1fr]">
+          <aside class="hidden border-r border-[var(--ink)]/8 p-4 lg:block">
+            <p class="text-[12px] text-[var(--ash)]">Files</p>
+            <ul class="mt-3 space-y-1 text-[13px]">${files}</ul>
+            <p class="mt-8 text-[13px] leading-6 text-[var(--slate)]">
+              Click increments a number. Keep the markup simple. The preview runs on the right.
+            </p>
+          </aside>
+          <section class="flex min-h-[320px] flex-col border-r border-[var(--ink)]/8">
+            <div class="flex gap-1 border-b border-[var(--ink)]/8 px-3 py-2 lg:hidden">${tabs}</div>
+            <textarea id="studio-code" spellcheck="false" class="h-full min-h-[280px] flex-1 resize-none bg-[var(--ink)] p-4 font-mono text-[12px] leading-6 text-[var(--paper)] outline-none">${escapeHtml(code)}</textarea>
+          </section>
+          <section class="flex min-h-[240px] flex-col bg-[var(--surface)]">
+            <p class="border-b border-[var(--ink)]/8 px-4 py-2 text-[12px] text-[var(--ash)]">Preview</p>
+            <iframe id="studio-preview" title="Exercise preview" class="min-h-[240px] flex-1 bg-white"></iframe>
+          </section>
+        </div>
+      </div>`
+    }
+
+    function dock() {
+      const screens = SCREENS.map((s) => {
+        const on = state.screen === s.id
+          ? 'bg-[var(--paper)] text-[var(--ink)]'
+          : 'text-white/70 hover:text-white'
+        return `<button type="button" data-go="${s.id}" class="rounded-[8px] px-2 py-1 text-[11px] font-medium tracking-wide ${on}">${s.label}</button>`
+      }).join('')
+      const marks = MARKS.map((m) => {
+        const on = state.mark === m.id
+          ? 'bg-[var(--paper)] text-[var(--ink)]'
+          : 'text-white/70 hover:text-white'
+        return `<button type="button" data-mark="${m.id}" class="rounded-[8px] px-2 py-1 ${on}">${m.label}</button>`
+      }).join('')
+      const palettes = Object.keys(PALETTES).map((id) => {
+        const on = state.palette === id
+          ? 'bg-[var(--paper)] text-[var(--ink)]'
+          : 'text-white/70 hover:text-white'
+        return `<button type="button" data-palette="${id}" class="rounded-[8px] px-2 py-1 ${on}">${PALETTES[id].label}</button>`
+      }).join('')
+      const chevronL = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 4 6 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+      const chevronR = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+      return `<div class="fixed bottom-4 left-1/2 z-[80] w-[min(960px,calc(100%-1.5rem))] -translate-x-1/2 rounded-[8px] bg-[var(--ink)] px-3 py-2 text-[var(--paper)] shadow-[0_12px_40px_rgb(38_38_38/0.28)]" role="navigation" aria-label="Playground switcher">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex flex-wrap items-center gap-1">
+            <button type="button" data-cycle="-1" class="grid size-8 place-items-center rounded-[8px] hover:bg-white/10" aria-label="Previous screen">${chevronL}</button>
+            ${screens}
+            <button type="button" data-cycle="1" class="grid size-8 place-items-center rounded-[8px] hover:bg-white/10" aria-label="Next screen">${chevronR}</button>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 text-[11px]">
+            <div class="flex items-center gap-1"><span class="text-white/40">Mark</span>${marks}</div>
+            <div class="flex items-center gap-1"><span class="text-white/40">Palette</span>${palettes}</div>
+          </div>
+        </div>
+        <p class="mt-1 text-[10px] text-white/35">${state.mark} · palette ${state.palette} · ${state.screen} · throwaway playground</p>
+      </div>`
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+    }
+
+    function screenHtml() {
+      switch (state.screen) {
+        case 'landing': return landing()
+        case 'catalog': return catalog()
+        case 'path': return path()
+        case 'course': return course()
+        case 'chapter': return chapter()
+        case 'exercise': return exercise()
+        case 'studio': return studio()
+        default: return landing()
+      }
+    }
+
+    let lastScreen = null
+
+    function render(opts) {
+      const keepStudio = opts && opts.keepStudio && lastScreen === 'studio' && state.screen === 'studio'
+      applyPalette()
+      const app = document.getElementById('app')
+      if (keepStudio) {
+        const dockEl = document.getElementById('dock')
+        const headEl = document.getElementById('shell')
+        if (dockEl) dockEl.outerHTML = `<div id="dock">${dock()}</div>`
+        if (headEl) headEl.outerHTML = `<div id="shell">${header()}</div>`
+        updatePreview()
+        lastScreen = state.screen
+        return
+      }
+      app.innerHTML = `<div id="shell">${header()}</div><div id="view">${screenHtml()}</div><div id="dock">${dock()}</div>`
+      lastScreen = state.screen
+      if (state.screen === 'studio') {
+        bindStudio()
+        updatePreview()
+      }
+    }
+
+    function bindStudio() {
+      const ta = document.getElementById('studio-code')
+      if (!ta) return
+      ta.addEventListener('input', () => {
+        state[state.tab] = ta.value
+        updatePreview()
+      })
+    }
+
+    function updatePreview() {
+      const frame = document.getElementById('studio-preview')
+      if (frame) frame.srcdoc = srcdoc()
+    }
+
+    function writeUrl() {
+      const url = new URL(location.href)
+      url.searchParams.set('screen', state.screen)
+      url.searchParams.set('mark', state.mark)
+      url.searchParams.set('palette', state.palette)
+      history.replaceState(null, '', url)
+    }
+
+    function readUrl() {
+      const q = new URLSearchParams(location.search)
+      const screen = q.get('screen')
+      const mark = q.get('mark')
+      const palette = q.get('palette')
+      if (SCREENS.some((s) => s.id === screen)) state.screen = screen
+      if (MARKS.some((m) => m.id === mark)) state.mark = mark
+      if (PALETTES[palette]) state.palette = palette
+    }
+
+    function go(screen) {
+      state.screen = screen
+      writeUrl()
+      render()
+    }
+
+    function cycle(dir) {
+      const i = SCREENS.findIndex((s) => s.id === state.screen)
+      const next = SCREENS[(i + dir + SCREENS.length) % SCREENS.length]
+      go(next.id)
+    }
+
+    document.getElementById('app').addEventListener('click', (e) => {
+      const t = e.target.closest('[data-go],[data-mark],[data-palette],[data-filter],[data-pick],[data-check],[data-tab],[data-cycle]')
+      if (!t) return
+      if (t.dataset.go) go(t.dataset.go)
+      if (t.dataset.mark) {
+        state.mark = t.dataset.mark
+        writeUrl()
+        render()
+      }
+      if (t.dataset.palette) {
+        state.palette = t.dataset.palette
+        writeUrl()
+        render()
+      }
+      if (t.dataset.filter) {
+        state.filter = t.dataset.filter
+        render()
+      }
+      if (t.dataset.pick && !state.submitted) {
+        state.pick = Number(t.dataset.pick)
+        render()
+      }
+      if (t.hasAttribute('data-check') && state.pick !== null) {
+        state.submitted = true
+        render()
+      }
+      if (t.dataset.tab) {
+        const ta = document.getElementById('studio-code')
+        if (ta) state[state.tab] = ta.value
+        state.tab = t.dataset.tab
+        render()
+      }
+      if (t.dataset.cycle) cycle(Number(t.dataset.cycle))
+    })
+
+    window.addEventListener('keydown', (e) => {
+      const el = e.target
+      if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)) return
+      if (e.key === 'ArrowLeft') cycle(-1)
+      if (e.key === 'ArrowRight') cycle(1)
+    })
+
+    readUrl()
+    writeUrl()
+    render()
+  </script>
+</body>
+</html>
