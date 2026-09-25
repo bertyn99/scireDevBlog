@@ -316,7 +316,7 @@ el.addEventListener('click', () => {
         </div>
         <ol class="divide-y divide-[var(--ink)]/8">${pathBits}</ol>
       </section>
-      <section class="mx-auto max-w-5xl space-y-3 px-5 pb-40">
+      <section class="mx-auto max-w-5xl space-y-3 px-5 pb-48">
         ${COURSES.filter((c) => c.slug !== 'async-javascript').map((c) => courseSlab(c, true)).join('')}
       </section>`
     }
@@ -383,7 +383,7 @@ el.addEventListener('click', () => {
           <span class="shrink-0 text-[12px] text-[var(--ash)]">${a.when}</span>
         </li>`
       ).join('')
-      return `<main class="mx-auto max-w-5xl space-y-6 px-5 pb-40 pt-10">
+      return `<main class="mx-auto max-w-5xl space-y-6 px-5 pb-52 pt-10">
         <div>
           <h1 class="text-[28px] font-semibold tracking-tight">Welcome back, Alex</h1>
           <p class="mt-1 text-[14px] text-[var(--slate)]">Resume the lesson, then keep the streak.</p>
@@ -394,7 +394,7 @@ el.addEventListener('click', () => {
             <p class="text-[12px] text-[var(--slate)]">Continue learning</p>
             <h2 class="mt-2 text-[22px] font-semibold tracking-tight">Reactivity with ref</h2>
             <p class="mt-1 text-[13px] text-[var(--slate)]">Vue Fundamentals, lesson 2 of ${vue.lessons}</p>
-            <div class="mt-4 max-w-xs">${bar(pct(vue))}</div>
+            <div class="mt-4">${bar(pct(vue))}</div>
           </div>
           <span class="rounded-[8px] bg-[var(--minium)] px-4 py-2.5 text-[14px] font-medium text-white">Resume</span>
         </button>
@@ -446,7 +446,7 @@ el.addEventListener('click', () => {
           : 'border border-[var(--ink)]/15 bg-[var(--surface)] text-[var(--ink)] hover:border-[var(--ink)]/40'
         return `<button type="button" data-filter="${f}" class="rounded-[8px] px-3 py-1.5 text-[13px] ${cls}">${f}</button>`
       }).join('')
-      return `<main class="mx-auto max-w-5xl px-5 pb-40 pt-10">
+      return `<main class="mx-auto max-w-5xl px-5 pb-48 pt-10">
         <h1 class="text-[32px] font-semibold tracking-tight">Courses</h1>
         <div class="mt-6 flex flex-wrap gap-2">${chips}</div>
         <div class="mt-6 space-y-3">${shownCourses().map((c) => courseSlab(c, true)).join('')}</div>
@@ -482,7 +482,7 @@ el.addEventListener('click', () => {
           </div>
         </li>`
       }).join('')
-      return `<main class="mx-auto max-w-3xl px-5 pb-40 pt-10">
+      return `<main class="mx-auto max-w-3xl px-5 pb-48 pt-10">
         <h1 class="text-[32px] font-semibold tracking-tight">Frontend Engineer</h1>
         <p class="mt-3 max-w-[48ch] text-[15px] leading-relaxed text-[var(--slate)]">
           JavaScript first. Then the platform. Then Vue. One path, 85 hours.
@@ -509,14 +509,14 @@ el.addEventListener('click', () => {
           </button>
         </li>`
       }).join('')
-      return `<main class="mx-auto max-w-3xl px-5 pb-40 pt-10">
+      return `<main class="mx-auto max-w-3xl px-5 pb-48 pt-10">
         <button type="button" data-go="catalog" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Courses</button>
         <div class="mt-6 flex items-start justify-between gap-6">
           <div>
             <h1 class="text-[32px] font-semibold tracking-tight">Vue Fundamentals</h1>
             <span class="mt-2 block h-[2px] w-8 bg-[var(--minium)]"></span>
             <p class="mt-2 text-[13px] text-[var(--slate)]">Beginner, 10 hours, ${vue.lessons} lessons</p>
-            <div class="mt-4 max-w-xs">${bar(pct(vue))}</div>
+            <div class="mt-4">${bar(pct(vue))}</div>
           </div>
           ${markSvg(state.mark, 40, false)}
         </div>
@@ -539,7 +539,7 @@ el.addEventListener('click', () => {
           <button type="button" data-go="chapter" class="block w-full rounded-[8px] px-2 py-1.5 text-left text-[13px] ${cls}">${l.n}. ${l.title}</button>
         </li>`
       }).join('')
-      return `<div class="mx-auto grid max-w-5xl gap-10 px-5 pb-40 pt-8 lg:grid-cols-[200px_1fr]">
+      return `<div class="mx-auto grid max-w-5xl gap-10 px-5 pb-48 pt-8 lg:grid-cols-[200px_1fr]">
         <aside class="hidden lg:block">
           <button type="button" data-go="course" class="text-[12px] text-[var(--ash)] hover:text-[var(--ink)]">Vue Fundamentals</button>
           <ol class="mt-4 space-y-1">${toc}</ol>
@@ -587,7 +587,7 @@ count.value += 1</code></pre>
           : 'Not that one. ref() boxes the value. The box is the reactive reference.'}</p>`
         : ''
       const disabled = state.pick === null ? 'opacity-40 pointer-events-none' : ''
-      return `<main class="mx-auto max-w-xl px-5 pb-40 pt-10">
+      return `<main class="mx-auto max-w-xl px-5 pb-48 pt-10">
         <button type="button" data-go="chapter" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Reactivity with ref</button>
         <h1 class="mt-6 text-[28px] font-semibold tracking-tight">What does ref() return?</h1>
         <span class="mt-3 block h-[2px] w-8 bg-[var(--minium)]"></span>
