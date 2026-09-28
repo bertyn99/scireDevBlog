@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>scireDev playground</title>
+  <link rel="icon" href="data:," />
+  <meta name="robots" content="noindex, nofollow" />
+  <!--
+    Compass (tailwindui.com/compass) as layout base.
+    Our theme on top: palette D, 8px radius, leaf/circle/grove colophon.
+    Not a copy of the photo hero or pink accent.
+    Open: python3 -m http.server 4174 --directory docs
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+    }
+  </style>
+  <style>
+    :root {
+      --paper: #F4F4F5;
+      --ink: #262626;
+      --minium: #F23005;
+      --slate: #3F4A52;
+      --ash: #A6A6A6;
+      --surface: #FFFFFF;
+      --radius: 8px;
+    }
+    html, body { background: var(--surface); color: var(--ink); }
+    body { font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif; }
+    .font-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+    button { cursor: pointer; }
+    textarea { tab-size: 2; }
+    iframe { border: 0; }
+    .bar {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: color-mix(in srgb, var(--ink) 10%, transparent);
+      overflow: hidden;
+    }
+    .bar > span { display: block; height: 2px; background: var(--minium); }
+  </style>
+</head>
+<body class="min-h-dvh bg-[var(--surface)] text-[var(--ink)] antialiased">
+  <div id="app" class="min-h-dvh"></div>
+
+  <script>
+    const SCREENS = [
+      { id: 'landing', label: 'Landing' },
+      { id: 'dashboard', label: 'Hub' },
+      { id: 'catalog', label: 'Catalog' },
+      { id: 'path', label: 'Path' },
+      { id: 'course', label: 'Course' },
+      { id: 'chapter', label: 'Chapter' },
+      { id: 'exercise', label: 'Exercise' },
+      { id: 'studio', label: 'Studio' },
+    ]
+
+    const MARKS = [
+      { id: 'leaf', label: 'Leaf' },
+      { id: 'circle', label: 'Circle' },
+      { id: 'grove', label: 'Grove' },
+    ]
+
+    const PALETTES = {
+      d: { label: 'D', paper: '#F4F4F5', ink: '#262626', minium: '#F23005', slate: '#3F4A52', ash: '#A6A6A6', surface: '#FFFFFF' },
+      warm: { label: 'Warm', paper: '#F5F3F0', ink: '#262626', minium: '#F23005', slate: '#4A4540', ash: '#A39E98', surface: '#FFFCF8' },
+      cool: { label: 'Cool', paper: '#F2F4F6', ink: '#24282C', minium: '#F23005', slate: '#3A4650', ash: '#9AA3AA', surface: '#FFFFFF' },
+    }
+
+    const COURSES = [
+      { slug: 'javascript-foundations', title: 'JavaScript Foundations', track: 'JavaScript', level: 'Beginner', hours: 12, lessons: 28, done: 28 },
+      { slug: 'vue-fundamentals', title: 'Vue Fundamentals', track: 'Vue', level: 'Beginner', hours: 10, lessons: 24, done: 2 },
+      { slug: 'nuxt-in-practice', title: 'Nuxt in Practice', track: 'Nuxt', level: 'Intermediate', hours: 18, lessons: 32, done: 0 },
+      { slug: 'async-javascript', title: 'Async JavaScript', track: 'JavaScript', level: 'Intermediate', hours: 8, lessons: 16, done: 16 },
+    ]
+
+    const FILTERS = ['All', 'JavaScript', 'Vue', 'Nuxt', 'Beginner', 'Intermediate']
+
+    const VUE_LESSONS = [
+      { n: 1, title: 'What Vue is for', minutes: 18, done: true, blurb: 'Vue is a library for building UIs. Start with the problem it solves.' },
+      { n: 2, title: 'Reactivity with ref', minutes: 24, done: true, current: true, blurb: 'Wrap a value. Read .value in script. The template unwraps it.' },
+      { n: 3, title: 'Computed and watch', minutes: 22, done: false, blurb: 'Derived state and side effects, without the magic story.' },
+      { n: 4, title: 'Templates and directives', minutes: 20, done: false, blurb: 'What the template can do, and what it should not.' },
+      { n: 5, title: 'Components and props', minutes: 28, done: false, blurb: 'Split the UI. Pass data down. Keep the contract small.' },
+      { n: 6, title: 'Emits and v-model', minutes: 26, done: false, blurb: 'Data going up. One pattern, used on purpose.' },
+    ]
+
+    const VUE_MODULES = [
+      { part: 'Part 1', name: 'Getting started', lede: 'What Vue is for, before the API.', lessons: [1] },
+      { part: 'Part 2', name: 'Reactivity', lede: 'Track a value. Learn the box before the shortcuts.', lessons: [2, 3] },
+      { part: 'Part 3', name: 'Templates', lede: 'The page is a function of state.', lessons: [4] },
+      { part: 'Part 4', name: 'Components', lede: 'Split the UI without losing the plot.', lessons: [5, 6] },
+    ]
+
+    const PATH_STAGES = [
+      { name: 'JavaScript', hours: 35, status: 'done', lede: 'The language first. Then the platform.', courses: ['JavaScript Foundations', 'Async JavaScript'] },
+      { name: 'The platform', hours: 20, status: 'done', lede: 'HTML and the DOM, without a framework in the way.', courses: ['HTML semantics', 'DOM manipulation'] },
+      { name: 'Vue', hours: 30, status: 'now', lede: 'The library, after the craft.', courses: ['Vue Fundamentals', 'Vue components'] },
+    ]
+
+    const SKILLS = [
+      { name: 'computed', pct: 18 },
+      { name: 'watch', pct: 22 },
+      { name: 'ref', pct: 72 },
+      { name: 'templates', pct: 8 },
+    ]
+
+    const REVIEWS = [
+      { name: 'computed', due: 'Overdue' },
+      { name: 'watch', due: 'Due' },
+    ]
+
+    const ACTIVITY = [
+      { ok: true, text: 'Passed What does ref() return?', when: '2 hours ago' },
+      { ok: true, text: 'Completed What Vue is for', when: 'yesterday' },
+      { ok: false, text: 'Missed Computed and watch checkpoint', when: '3 days ago' },
+    ]
+
+    const QCM_OPTIONS = [
+      'A reactive reference object',
+      'The initial value',
+      'A Vue component',
+      'A plain JavaScript variable',
+    ]
+
+    const STUDIO_DEFAULTS = {
+      html: '<button id="count">0</button>',
+      css: `button {
+  font: 16px/1.4 ui-sans-serif, system-ui;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #262626;
+  background: #fff;
+}`,
+      js: `const el = document.getElementById('count')
+let n = 0
+el.addEventListener('click', () => {
+  n += 1
+  el.textContent = n
+})`,
+    }
+
+    const state = {
+      screen: 'landing',
+      mark: 'leaf',
+      palette: 'd',
+      filter: 'All',
+      pick: null,
+      submitted: false,
+      tab: 'js',
+      html: STUDIO_DEFAULTS.html,
+      css: STUDIO_DEFAULTS.css,
+      js: STUDIO_DEFAULTS.js,
+    }
+
+    let svgN = 0
+
+    function lessonByN(n) {
+      return VUE_LESSONS.find((l) => l.n === n)
+    }
+
+    function pct(c) {
+      if (!c.lessons) return 0
+      return Math.round((c.done / c.lessons) * 100)
+    }
+
+    function bar(value) {
+      return `<span class="bar" role="progressbar" aria-valuenow="${value}" aria-valuemin="0" aria-valuemax="100"><span style="width:${value}%"></span></span>`
+    }
+
+    function playDot(lesson) {
+      if (lesson.current) {
+        return `<span class="mt-1 grid size-4 shrink-0 place-items-center rounded-[4px] border border-[var(--minium)] text-[var(--minium)]">${playMini()}</span>`
+      }
+      if (lesson.done) {
+        return `<span class="mt-1 grid size-4 shrink-0 place-items-center rounded-[4px] bg-[var(--ink)] text-[var(--surface)]">${playMini()}</span>`
+      }
+      return `<span class="mt-1 grid size-4 shrink-0 place-items-center rounded-[4px] border border-[var(--ink)]/25 text-[var(--ash)]">${playMini()}</span>`
+    }
+
+    function playMini() {
+      return `<svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor" aria-hidden="true"><path d="M2 1.2v5.6L7 4z"/></svg>`
+    }
+
+    function playLarge() {
+      return `<svg width="28" height="28" viewBox="0 0 28 28" fill="currentColor" aria-hidden="true"><path d="M10 7v14l12-7z"/></svg>`
+    }
+
+    function markSvg(name, size, whisper) {
+      const id = 'm' + (++svgN)
+      const cls = whisper ? 'opacity-[0.18]' : ''
+      const color = whisper ? 'var(--ash)' : 'var(--ink)'
+      const ember = whisper
+        ? ''
+        : `<path fill="var(--minium)" d="M20 10c6-2 12 0 14 6-8 1-14 6-16 12-4-4-4-12 2-18Z"/>`
+
+      if (name === 'circle') {
+        return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" class="${cls}" style="color:${color}" aria-hidden="true">
+          <mask id="${id}"><circle cx="32" cy="34" r="26" fill="white"/>
+            <g fill="none" stroke="black" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 22 32 14 42 22"/><path d="M18 32 32 22 46 32"/>
+              <path d="M18 42 32 32 46 42"/><path d="M20 52 32 42 44 52"/>
+            </g>
+          </mask>
+          <rect width="64" height="80" fill="currentColor" mask="url(#${id})"/>
+          <rect x="30" y="58" width="4" height="16" rx="2" fill="currentColor"/>
+        </svg>`
+      }
+
+      if (name === 'grove') {
+        return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" class="${cls}" style="color:${color}" aria-hidden="true">
+          <rect x="12" y="6" width="40" height="60" rx="20" stroke="currentColor" stroke-width="2.4" fill="none"/>
+          <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 64c0-8-6-14-10-22 0-8 4-16 8-22"/>
+            <path d="M32 64c0-8 6-14 10-22 0-8-4-16-8-22"/>
+            <path d="M22 34c-4-2-8 2-10 8"/><path d="M42 34c4-2 8 2 10 8"/>
+            <path d="M24 22c-3-6 2-10 6-8"/><path d="M40 22c3-6-2-10-6-8"/>
+          </g>
+          <ellipse cx="18" cy="24" rx="2.2" ry="3.2" fill="currentColor"/>
+          <ellipse cx="46" cy="24" rx="2.2" ry="3.2" fill="currentColor"/>
+          <ellipse cx="16" cy="40" rx="2.2" ry="3.2" fill="currentColor"/>
+          <ellipse cx="48" cy="40" rx="2.2" ry="3.2" fill="currentColor"/>
+          <ellipse cx="28" cy="16" rx="2.2" ry="3.2" fill="currentColor"/>
+          <ellipse cx="36" cy="16" rx="2.2" ry="3.2" fill="currentColor"/>
+          ${ember}
+        </svg>`
+      }
+
+      return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" class="${cls}" style="color:${color}" aria-hidden="true">
+        <mask id="${id}">
+          <path fill="white" d="M32 4c14 12 22 28 22 44 0 14-8 24-22 28C18 72 10 62 10 48 10 32 18 16 32 4Z"/>
+          <g fill="none" stroke="black" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 18 32 12 40 18"/><path d="M20 28 32 20 44 28"/>
+            <path d="M18 38 32 28 46 38"/><path d="M18 48 32 38 46 48"/>
+            <path d="M20 58 32 48 44 58"/><path d="M24 66 32 58 40 66"/>
+          </g>
+        </mask>
+        <rect width="64" height="80" fill="currentColor" mask="url(#${id})"/>
+        <rect x="30" y="70" width="4" height="10" rx="2" fill="currentColor"/>
+      </svg>`
+    }
+
+    function wordmark() {
+      return `scire<span class="text-[var(--minium)]">Dev</span>`
+    }
+
+    function applyPalette() {
+      const p = PALETTES[state.palette]
+      const root = document.documentElement
+      root.style.setProperty('--paper', p.paper)
+      root.style.setProperty('--ink', p.ink)
+      root.style.setProperty('--minium', p.minium)
+      root.style.setProperty('--slate', p.slate)
+      root.style.setProperty('--ash', p.ash)
+      root.style.setProperty('--surface', p.surface)
+      document.body.style.background = p.surface
+      document.body.style.color = p.ink
+    }
+
+    function shownCourses() {
+      if (state.filter === 'All') return COURSES
+      return COURSES.filter((c) => c.track === state.filter || c.level === state.filter)
+    }
+
+    function srcdoc() {
+      return `<!doctype html><html><head><style>${state.css}</style></head><body>${state.html}<` + `script>${state.js}<` + `/script></body></html>`
+    }
+
+    function navClass(ids) {
+      return ids.includes(state.screen) ? 'text-[var(--ink)]' : 'text-[var(--slate)] hover:text-[var(--ink)]'
+    }
+
+    function crumbSep() {
+      return `<span class="text-[var(--ash)]">/</span>`
+    }
+
+    function topbar(crumbs) {
+      return `<div class="sticky top-0 z-20 flex h-14 items-center justify-between gap-4 border-b border-[var(--ink)]/8 bg-[var(--surface)] px-5">
+        <div class="flex min-w-0 items-center gap-2 text-[13px] text-[var(--slate)]">
+          <button type="button" data-go="landing" class="flex shrink-0 items-center gap-2 font-semibold text-[var(--ink)]">
+            ${markSvg(state.mark, 20, false)}
+            <span class="hidden sm:inline">${wordmark()}</span>
+          </button>
+          ${crumbs}
+        </div>
+        <nav class="hidden items-center gap-5 text-[13px] md:flex">
+          <button type="button" data-go="dashboard" class="${navClass(['dashboard'])}">Dashboard</button>
+          <button type="button" data-go="catalog" class="${navClass(['catalog', 'course', 'chapter', 'exercise'])}">Courses</button>
+          <button type="button" data-go="path" class="${navClass(['path'])}">Paths</button>
+          <button type="button" data-go="dashboard" class="text-[var(--ink)]">Alex</button>
+        </nav>
+      </div>`
+    }
+
+    function courseSidebar() {
+      const modules = VUE_MODULES.map((mod) => {
+        const items = mod.lessons.map((n) => {
+          const l = lessonByN(n)
+          const on = (state.screen === 'chapter' || state.screen === 'exercise') && l.current
+          const cls = on
+            ? 'border-l-2 border-[var(--minium)] pl-3 font-medium text-[var(--ink)]'
+            : 'border-l-2 border-transparent pl-3 text-[var(--slate)] hover:text-[var(--ink)]'
+          return `<li>
+            <button type="button" data-go="chapter" class="block w-full py-1.5 text-left text-[13px] leading-snug ${cls}">${l.title}</button>
+          </li>`
+        }).join('')
+        return `<div class="mt-5">
+          <p class="px-3 text-[13px] font-semibold leading-snug">${mod.name}</p>
+          <ul class="mt-1">${items}</ul>
+        </div>`
+      }).join('')
+      return `<div class="px-3">
+        <button type="button" data-go="course" class="flex items-center gap-2 px-3 text-[13px] font-semibold">${markSvg(state.mark, 18, false)} Vue Fundamentals</button>
+        ${modules}
+      </div>`
+    }
+
+    function pathSidebar() {
+      const items = PATH_STAGES.map((s) => {
+        const on = s.status === 'now'
+        const cls = on
+          ? 'border-l-2 border-[var(--minium)] pl-3 font-medium text-[var(--ink)]'
+          : 'border-l-2 border-transparent pl-3 text-[var(--slate)]'
+        return `<li>
+          <button type="button" data-go="path" class="block w-full py-1.5 text-left text-[13px] ${cls}">${s.name}</button>
+        </li>`
+      }).join('')
+      return `<div class="px-3">
+        <button type="button" data-go="path" class="flex items-center gap-2 px-3 text-[13px] font-semibold">${markSvg(state.mark, 18, false)} Frontend Engineer</button>
+        <ul class="mt-4">${items}</ul>
+      </div>`
+    }
+
+    function layout({ crumbs, sidebar, content }) {
+      const side = sidebar
+        ? `<aside class="sticky top-0 hidden h-dvh overflow-y-auto border-r border-[var(--ink)]/8 py-6 lg:block">${sidebar}</aside>`
+        : ''
+      const grid = sidebar ? 'lg:grid lg:grid-cols-[220px_minmax(0,1fr)]' : ''
+      return `<div class="${grid} min-h-dvh">
+        ${side}
+        <div class="min-w-0">
+          ${topbar(crumbs)}
+          ${content}
+        </div>
+      </div>`
+    }
+
+    function landing() {
+      const crumbs = `${crumbSep()}<span>Overview</span>`
+      const hero = `<section class="rounded-[8px] bg-[var(--paper)] px-8 py-10 sm:px-10">
+        <div class="flex items-center gap-2.5">
+          ${markSvg(state.mark, 32, false)}
+          <span class="text-[18px] font-semibold tracking-tight">${wordmark()}</span>
+        </div>
+        <h1 class="mt-6 max-w-[16ch] text-[36px] font-semibold leading-[1.12] tracking-tight sm:text-[42px]">Know the path. Then grow it.</h1>
+        <p class="mt-4 max-w-[42ch] text-[16px] leading-7 text-[var(--slate)]">Courses that teach the craft before the framework.</p>
+        <p class="mt-5 text-[13px] text-[var(--slate)]">3 stages · 4 courses · 85 hours</p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <button type="button" data-go="course" class="rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)] active:scale-[0.98]">Start the course</button>
+          <button type="button" data-go="chapter" class="rounded-[8px] px-4 py-2.5 text-[14px] text-[var(--ink)]">Continue</button>
+        </div>
+      </section>`
+      const slabs = COURSES.filter((c) => c.slug !== 'async-javascript').map((c) => courseSlab(c, true)).join('')
+      const content = `<div class="mx-auto max-w-4xl px-5 pb-48 pt-8">
+        ${hero}
+        <div class="mt-8 space-y-3">${slabs}</div>
+      </div>`
+      return layout({ crumbs, sidebar: pathSidebar(), content })
+    }
+
+    function courseMeta(c) {
+      if (c.done >= c.lessons) return 'Done'
+      if (c.done > 0) return `${c.done} of ${c.lessons} lessons`
+      return `${c.level}, ${c.hours} hours, ${c.lessons} lessons`
+    }
+
+    function courseSlab(c, clickable) {
+      const progress = c.done > 0 && c.done < c.lessons
+        ? `<div class="mt-3 max-w-[12rem]">${bar(pct(c))}</div>`
+        : ''
+      const inner = `<div class="min-w-0">
+          <h2 class="text-[17px] font-semibold">${c.title}</h2>
+          <span class="mt-2 block h-[2px] w-8 bg-[var(--minium)]"></span>
+          <p class="mt-2 text-[13px] text-[var(--slate)]">${courseMeta(c)}</p>
+          ${progress}
+        </div>
+        ${markSvg(state.mark, 40, true)}`
+      const cls = 'flex w-full items-center justify-between rounded-[8px] bg-[var(--paper)] px-6 py-5 text-left'
+      if (clickable) return `<button type="button" data-go="course" class="${cls} active:scale-[0.995]">${inner}</button>`
+      return `<article class="${cls}">${inner}</article>`
+    }
+
+    function dashboard() {
+      const vue = COURSES.find((c) => c.slug === 'vue-fundamentals')
+      const crumbs = `${crumbSep()}<span>Dashboard</span>`
+      const enrolled = COURSES.map((c) => {
+        const label = c.done >= c.lessons ? 'Done' : c.done > 0 ? 'Continue' : 'Start'
+        const go = c.slug === 'vue-fundamentals' ? 'course' : 'catalog'
+        return `<button type="button" data-go="${go}" class="flex w-full items-center justify-between gap-4 border-b border-[var(--ink)]/8 py-2.5 text-left last:border-0">
+          <span>
+            <span class="block text-[15px] font-medium">${c.title}</span>
+            <span class="mt-1 block text-[12px] text-[var(--slate)]">${label}</span>
+          </span>
+          <span class="w-24">${bar(pct(c))}</span>
+        </button>`
+      }).join('')
+      const skills = SKILLS.map((s) =>
+        `<li class="flex items-baseline justify-between gap-3 py-2">
+          <span class="font-mono text-[12px]">${s.name}</span>
+          <span class="flex w-32 items-center gap-2"><span class="flex-1">${bar(s.pct)}</span><span class="w-8 text-right text-[12px] tabular-nums text-[var(--ash)]">${s.pct}%</span></span>
+        </li>`
+      ).join('')
+      const reviews = REVIEWS.map((r) =>
+        `<li class="flex items-center justify-between py-2 text-[13px]">
+          <span class="font-mono">${r.name}</span>
+          <span class="${r.due === 'Overdue' ? 'text-[var(--minium)]' : 'text-[var(--slate)]'}">${r.due}</span>
+        </li>`
+      ).join('')
+      const activity = ACTIVITY.map((a) =>
+        `<li class="flex justify-between gap-4 py-2 text-[13px]">
+          <span class="${a.ok ? '' : 'text-[var(--slate)]'}">${a.text}</span>
+          <span class="shrink-0 text-[var(--ash)]">${a.when}</span>
+        </li>`
+      ).join('')
+      const content = `<div class="mx-auto max-w-4xl px-5 pb-48 pt-10">
+        <h1 class="text-[28px] font-semibold tracking-tight">Welcome back, Alex</h1>
+        <p class="mt-1 text-[15px] text-[var(--slate)]">Resume the lesson, then keep the streak.</p>
+
+        <button type="button" data-go="chapter" class="mt-6 flex w-full items-center justify-between gap-6 rounded-[8px] bg-[var(--paper)] px-6 py-4 text-left">
+          <span>
+            <span class="text-[12px] text-[var(--slate)]">Continue learning</span>
+            <span class="mt-1 block text-[20px] font-semibold tracking-tight">Reactivity with ref</span>
+            <span class="mt-1 block text-[13px] text-[var(--slate)]">Vue Fundamentals, lesson 2 of ${vue.lessons}</span>
+          </span>
+          <span class="rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)]">Resume</span>
+        </button>
+
+        <section class="mt-8">
+          <div class="mb-2 flex items-baseline justify-between">
+            <h2 class="text-[15px] font-semibold">Your courses</h2>
+            <button type="button" data-go="catalog" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Browse all</button>
+          </div>
+          ${enrolled}
+        </section>
+
+        <div class="mt-8 grid gap-8 border-t border-[var(--ink)]/8 pt-8 sm:grid-cols-2 lg:grid-cols-4">
+          <section>
+            <p class="text-[12px] text-[var(--slate)]">In a row</p>
+            <p class="mt-1 flex items-baseline gap-2">
+              <span class="text-[40px] font-semibold tabular-nums tracking-tight">4</span>
+              <span class="text-[14px] text-[var(--ash)]">days</span>
+            </p>
+          </section>
+          <section>
+            <h2 class="text-[15px] font-semibold">Skill mastery</h2>
+            <ul class="mt-3">${skills}</ul>
+          </section>
+          <section>
+            <div class="flex items-baseline justify-between">
+              <h2 class="text-[15px] font-semibold">Review queue</h2>
+              <span class="text-[12px] text-[var(--ash)]">2 due</span>
+            </div>
+            <ul class="mt-3">${reviews}</ul>
+            <button type="button" data-go="exercise" class="mt-4 text-[13px] text-[var(--ink)] underline-offset-2 hover:underline">Practice weak spots</button>
+          </section>
+          <section>
+            <h2 class="text-[15px] font-semibold">Recent activity</h2>
+            <ol class="mt-3">${activity}</ol>
+          </section>
+        </div>
+      </div>`
+      return layout({ crumbs, content })
+    }
+
+    function catalog() {
+      const crumbs = `${crumbSep()}<span>Courses</span>`
+      const chips = FILTERS.map((f) => {
+        const on = state.filter === f
+        const cls = on
+          ? 'bg-[var(--ink)] text-[var(--surface)]'
+          : 'border border-[var(--ink)]/15 text-[var(--ink)] hover:border-[var(--ink)]/40'
+        return `<button type="button" data-filter="${f}" class="rounded-[8px] px-3 py-1.5 text-[13px] ${cls}">${f}</button>`
+      }).join('')
+      const content = `<div class="mx-auto max-w-4xl px-5 pb-48 pt-10">
+        <h1 class="text-[32px] font-semibold tracking-tight">Courses</h1>
+        <div class="mt-6 flex flex-wrap gap-2">${chips}</div>
+        <div class="mt-6 space-y-3">${shownCourses().map((c) => courseSlab(c, true)).join('')}</div>
+      </div>`
+      return layout({ crumbs, content })
+    }
+
+    function path() {
+      const crumbs = `${crumbSep()}<span>Frontend Engineer</span>`
+      const parts = PATH_STAGES.map((stage, i) => {
+        const courses = stage.courses.map((c) =>
+          `<li>
+            <button type="button" data-go="course" class="flex w-full items-start gap-3 py-4 text-left">
+              ${playDot({ done: stage.status === 'done', current: stage.status === 'now' })}
+              <span>
+                <span class="text-[15px] font-medium">${c}</span>
+              </span>
+            </button>
+          </li>`
+        ).join('')
+        return `<section class="grid gap-6 border-t border-[var(--ink)]/8 py-12 lg:grid-cols-[88px_1fr]">
+          <p class="text-[13px] text-[var(--slate)]">Part ${i + 1}</p>
+          <div>
+            <h2 class="text-[22px] font-semibold tracking-tight">${stage.name}</h2>
+            <p class="mt-2 max-w-[52ch] text-[15px] leading-7 text-[var(--slate)]">${stage.lede}</p>
+            <ul class="mt-4">${courses}</ul>
+          </div>
+        </section>`
+      }).join('')
+      const content = `<div class="mx-auto max-w-4xl px-5 pb-48 pt-8">
+        <section class="rounded-[8px] bg-[var(--paper)] px-8 py-10">
+          <h1 class="text-[32px] font-semibold tracking-tight">Frontend Engineer</h1>
+          <p class="mt-3 max-w-[46ch] text-[16px] leading-7 text-[var(--slate)]">JavaScript first. Then the platform. Then Vue.</p>
+          <p class="mt-4 text-[13px] text-[var(--slate)]">3 stages · 85 hours</p>
+          <button type="button" data-go="course" class="mt-7 rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)]">Start the course</button>
+        </section>
+        ${parts}
+      </div>`
+      return layout({ crumbs, sidebar: pathSidebar(), content })
+    }
+
+    function course() {
+      const vue = COURSES.find((c) => c.slug === 'vue-fundamentals')
+      const crumbs = `${crumbSep()}<button type="button" data-go="catalog">Courses</button>${crumbSep()}<span>Overview</span>`
+      const parts = VUE_MODULES.map((mod) => {
+        const rows = mod.lessons.map((n) => {
+          const l = lessonByN(n)
+          return `<li>
+            <button type="button" data-go="chapter" class="flex w-full items-start gap-3 py-4 text-left">
+              ${playDot(l)}
+              <span>
+                <span class="text-[15px] font-medium">${l.title}</span>
+                <span class="ml-2 text-[13px] tabular-nums text-[var(--ash)]">${l.minutes} min</span>
+                <span class="mt-1 block text-[14px] leading-6 text-[var(--slate)]">${l.blurb}</span>
+              </span>
+            </button>
+          </li>`
+        }).join('')
+        return `<section class="grid gap-6 border-t border-[var(--ink)]/8 py-12 lg:grid-cols-[88px_1fr]">
+          <p class="text-[13px] text-[var(--slate)]">${mod.part}</p>
+          <div>
+            <h2 class="text-[22px] font-semibold tracking-tight">${mod.name}</h2>
+            <p class="mt-2 max-w-[52ch] text-[15px] leading-7 text-[var(--slate)]">${mod.lede}</p>
+            <ul class="mt-2">${rows}</ul>
+          </div>
+        </section>`
+      }).join('')
+      const content = `<div class="mx-auto max-w-4xl px-5 pb-48 pt-8">
+        <section class="rounded-[8px] bg-[var(--paper)] px-8 py-10">
+          <div class="flex items-center gap-2.5">
+            ${markSvg(state.mark, 28, false)}
+            <span class="text-[16px] font-semibold">Vue Fundamentals</span>
+          </div>
+          <p class="mt-4 max-w-[46ch] text-[16px] leading-7 text-[var(--slate)]">The library, after the craft. Ref first. Components later.</p>
+          <p class="mt-4 text-[13px] text-[var(--slate)]">4 modules · ${vue.lessons} lessons · ${vue.hours} hours</p>
+          <button type="button" data-go="chapter" class="mt-7 rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)]">Resume the course</button>
+        </section>
+        ${parts}
+      </div>`
+      return layout({ crumbs, sidebar: courseSidebar(), content })
+    }
+
+    function chapter() {
+      const lesson = VUE_LESSONS.find((l) => l.current)
+      const crumbs = `${crumbSep()}<button type="button" data-go="course">Vue Fundamentals</button>${crumbSep()}<span>${lesson.title}</span>`
+      const onPage = [
+        'The box',
+        '.value in script',
+        'Templates unwrap',
+      ].map((h, i) =>
+        `<li class="${i === 0 ? 'border-l-2 border-[var(--ink)] pl-3 text-[var(--ink)]' : 'border-l-2 border-transparent pl-3 text-[var(--slate)]'} py-1">${h}</li>`
+      ).join('')
+      const content = `<div class="px-5 pb-48 pt-6">
+        <div class="mx-auto max-w-5xl">
+          <div class="grid aspect-video place-items-center rounded-[8px] bg-[var(--ink)] text-[var(--surface)]">
+            <div class="text-center">
+              <span class="mx-auto grid size-12 place-items-center rounded-[8px] bg-white/10">${playLarge()}</span>
+              <p class="mt-3 text-[13px] text-white/70">${lesson.minutes} min</p>
+            </div>
+          </div>
+          <div class="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_180px]">
+            <article class="max-w-[62ch]">
+              <h1 class="text-[32px] font-semibold tracking-tight">${lesson.title}</h1>
+              <p class="mt-3 text-[16px] leading-7 text-[var(--slate)]">${lesson.blurb}</p>
+              <div class="mt-8 space-y-4 text-[16px] leading-7 text-[var(--slate)]">
+                <p>Vue tracks a value when you wrap it in <code class="rounded-[4px] bg-[var(--paper)] px-1 font-mono text-[14px] text-[var(--ink)]">ref()</code>.
+                Read it with <code class="rounded-[4px] bg-[var(--paper)] px-1 font-mono text-[14px] text-[var(--ink)]">.value</code> in script. In the template, Vue unwraps it.</p>
+                <p>This is the same idea as a getter you already know: a box around the data, not magic. Learn the box before the shortcuts.</p>
+              </div>
+              <pre class="mt-8 overflow-x-auto rounded-[8px] bg-[var(--ink)] p-5 font-mono text-[13px] leading-6 text-[var(--paper)]"><code>import { ref } from 'vue'
+
+const count = ref(0)
+count.value += 1</code></pre>
+              <div class="mt-8 flex flex-wrap items-center gap-3">
+                <button type="button" data-go="exercise" class="rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)]">Open exercise</button>
+                <button type="button" data-go="course" class="text-[14px] text-[var(--slate)] hover:text-[var(--ink)]">Back to overview</button>
+              </div>
+            </article>
+            <aside class="hidden lg:block">
+              <p class="text-[12px] text-[var(--ash)]">On this page</p>
+              <ul class="mt-3 text-[13px]">${onPage}</ul>
+            </aside>
+          </div>
+        </div>
+      </div>`
+      return layout({ crumbs, sidebar: courseSidebar(), content })
+    }
+
+    function exercise() {
+      const crumbs = `${crumbSep()}<button type="button" data-go="chapter">Reactivity with ref</button>${crumbSep()}<span>Exercise</span>`
+      const correct = 0
+      const options = QCM_OPTIONS.map((opt, i) => {
+        let border = 'border-[var(--ink)]/12 hover:border-[var(--ink)]/30'
+        if (!state.submitted && state.pick === i) border = 'border-[var(--minium)]'
+        if (state.submitted && i === correct) border = 'border-[var(--ink)]'
+        if (state.submitted && i === state.pick && i !== correct) border = 'border-[var(--minium)]/40 text-[var(--slate)]'
+        if (state.submitted && i !== correct && i !== state.pick) border = 'border-[var(--ink)]/8 text-[var(--ash)]'
+        const letter = state.pick === i ? 'border-[var(--minium)] text-[var(--minium)]' : 'border-[var(--ink)]/20 text-[var(--ash)]'
+        return `<button type="button" data-pick="${i}" class="flex w-full items-center gap-3 rounded-[8px] border px-4 py-3 text-left text-[14px] ${border}">
+          <span class="grid size-6 place-items-center rounded-[6px] border text-[11px] ${letter}">${String.fromCharCode(65 + i)}</span>
+          ${opt}
+        </button>`
+      }).join('')
+      const feedback = state.submitted
+        ? `<p class="mt-5 text-[14px] text-[var(--slate)]">${state.pick === correct
+          ? 'Yes. ref() returns a reactive object. You read and write .value in script.'
+          : 'Not that one. ref() boxes the value. The box is the reactive reference.'}</p>`
+        : ''
+      const disabled = state.pick === null ? 'opacity-40 pointer-events-none' : ''
+      const content = `<div class="mx-auto max-w-xl px-5 pb-48 pt-10">
+        <h1 class="text-[28px] font-semibold tracking-tight">What does ref() return?</h1>
+        <div class="mt-8 space-y-2">${options}</div>
+        <div class="mt-6 flex items-center gap-3">
+          <button type="button" data-check class="rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)] ${disabled}">Check</button>
+          <button type="button" data-go="studio" class="rounded-[8px] border border-[var(--ink)]/15 px-4 py-2.5 text-[14px]">Open in studio</button>
+        </div>
+        ${feedback}
+      </div>`
+      return layout({ crumbs, sidebar: courseSidebar(), content })
+    }
+
+    function studio() {
+      const crumbs = `${crumbSep()}<button type="button" data-go="exercise">Exercise</button>${crumbSep()}<span>Studio</span>`
+      const files = ['html', 'css', 'js'].map((t) => {
+        const label = t === 'html' ? 'index.html' : t === 'css' ? 'styles.css' : 'main.js'
+        const on = state.tab === t ? 'bg-[var(--paper)]' : 'text-[var(--slate)]'
+        return `<li><button type="button" data-tab="${t}" class="w-full rounded-[8px] px-2 py-1.5 text-left ${on}">${label}</button></li>`
+      }).join('')
+      const tabs = ['html', 'css', 'js'].map((t) => {
+        const on = state.tab === t ? 'bg-[var(--paper)]' : 'text-[var(--slate)]'
+        return `<button type="button" data-tab="${t}" class="rounded-[8px] px-2 py-1 text-[12px] ${on}">${t}</button>`
+      }).join('')
+      const code = state[state.tab]
+      const content = `<div class="flex min-h-[calc(100dvh-3.5rem)] flex-col pb-28">
+        <div class="flex items-center justify-between border-b border-[var(--ink)]/8 px-5 py-3">
+          <div>
+            <p class="text-[12px] text-[var(--ash)]">Vue Fundamentals, lesson 2</p>
+            <h1 class="text-[16px] font-semibold">Make the button count</h1>
+          </div>
+          <button type="button" data-go="exercise" class="text-[13px] text-[var(--slate)] hover:text-[var(--ink)]">Back to exercise</button>
+        </div>
+        <div class="grid flex-1 lg:grid-cols-[220px_1fr_1fr]">
+          <aside class="hidden border-r border-[var(--ink)]/8 p-4 lg:block">
+            <p class="text-[12px] text-[var(--ash)]">Files</p>
+            <ul class="mt-3 space-y-1 text-[13px]">${files}</ul>
+            <p class="mt-8 text-[13px] leading-6 text-[var(--slate)]">Click increments a number. Keep the markup simple. The preview runs on the right.</p>
+          </aside>
+          <section class="flex min-h-[320px] flex-col border-r border-[var(--ink)]/8">
+            <div class="flex gap-1 border-b border-[var(--ink)]/8 px-3 py-2 lg:hidden">${tabs}</div>
+            <textarea id="studio-code" spellcheck="false" class="h-full min-h-[280px] flex-1 resize-none bg-[var(--ink)] p-4 font-mono text-[12px] leading-6 text-[var(--paper)] outline-none">${escapeHtml(code)}</textarea>
+          </section>
+          <section class="flex min-h-[240px] flex-col">
+            <p class="border-b border-[var(--ink)]/8 px-4 py-2 text-[12px] text-[var(--ash)]">Preview</p>
+            <iframe id="studio-preview" title="Exercise preview" class="min-h-[240px] flex-1 bg-white"></iframe>
+          </section>
+        </div>
+      </div>`
+      return layout({ crumbs, content })
+    }
+
+    function dock() {
+      const screens = SCREENS.map((s) => {
+        const on = state.screen === s.id
+          ? 'bg-[var(--paper)] text-[var(--ink)]'
+          : 'text-white/70 hover:text-white'
+        return `<button type="button" data-go="${s.id}" class="rounded-[8px] px-2 py-1 text-[11px] font-medium tracking-wide ${on}">${s.label}</button>`
+      }).join('')
+      const marks = MARKS.map((m) => {
+        const on = state.mark === m.id
+          ? 'bg-[var(--paper)] text-[var(--ink)]'
+          : 'text-white/70 hover:text-white'
+        return `<button type="button" data-mark="${m.id}" class="rounded-[8px] px-2 py-1 ${on}">${m.label}</button>`
+      }).join('')
+      const palettes = Object.keys(PALETTES).map((id) => {
+        const on = state.palette === id
+          ? 'bg-[var(--paper)] text-[var(--ink)]'
+          : 'text-white/70 hover:text-white'
+        return `<button type="button" data-palette="${id}" class="rounded-[8px] px-2 py-1 ${on}">${PALETTES[id].label}</button>`
+      }).join('')
+      const chevronL = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 4 6 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+      const chevronR = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+      return `<div class="fixed bottom-4 left-1/2 z-[80] w-[min(1080px,calc(100%-1.5rem))] -translate-x-1/2 rounded-[8px] bg-[var(--ink)] px-3 py-2 text-[var(--paper)] shadow-[0_12px_40px_rgb(38_38_38/0.28)]" role="navigation" aria-label="Playground switcher">
+        <div class="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+          <div class="flex flex-wrap items-center gap-1">
+            <button type="button" data-cycle="-1" class="grid size-8 place-items-center rounded-[8px] hover:bg-white/10" aria-label="Previous screen">${chevronL}</button>
+            ${screens}
+            <button type="button" data-cycle="1" class="grid size-8 place-items-center rounded-[8px] hover:bg-white/10" aria-label="Next screen">${chevronR}</button>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 text-[11px]">
+            <div class="flex items-center gap-1"><span class="text-white/40">Mark</span>${marks}</div>
+            <div class="flex items-center gap-1"><span class="text-white/40">Palette</span>${palettes}</div>
+          </div>
+        </div>
+        <p class="mt-1 text-[10px] text-white/35">${state.mark}, palette ${state.palette}, ${state.screen}, Compass layout, D theme</p>
+      </div>`
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+    }
+
+    function screenHtml() {
+      switch (state.screen) {
+        case 'landing': return landing()
+        case 'dashboard': return dashboard()
+        case 'catalog': return catalog()
+        case 'path': return path()
+        case 'course': return course()
+        case 'chapter': return chapter()
+        case 'exercise': return exercise()
+        case 'studio': return studio()
+        default:
+          return landing()
+      }
+    }
+
+    function render() {
+      applyPalette()
+      document.getElementById('app').innerHTML = `${screenHtml()}<div id="dock">${dock()}</div>`
+      if (state.screen === 'studio') {
+        bindStudio()
+        updatePreview()
+      }
+    }
+
+    function bindStudio() {
+      const ta = document.getElementById('studio-code')
+      if (!ta) return
+      ta.addEventListener('input', () => {
+        state[state.tab] = ta.value
+        updatePreview()
+      })
+    }
+
+    function updatePreview() {
+      const frame = document.getElementById('studio-preview')
+      if (frame) frame.srcdoc = srcdoc()
+    }
+
+    function writeUrl() {
+      const url = new URL(location.href)
+      url.searchParams.set('screen', state.screen)
+      url.searchParams.set('mark', state.mark)
+      url.searchParams.set('palette', state.palette)
+      history.replaceState(null, '', url)
+    }
+
+    function readUrl() {
+      const q = new URLSearchParams(location.search)
+      const screen = q.get('screen')
+      const mark = q.get('mark')
+      const palette = q.get('palette')
+      if (SCREENS.some((s) => s.id === screen)) state.screen = screen
+      if (MARKS.some((m) => m.id === mark)) state.mark = mark
+      if (PALETTES[palette]) state.palette = palette
+    }
+
+    function go(screen) {
+      state.screen = screen
+      writeUrl()
+      render()
+    }
+
+    function cycle(dir) {
+      const i = SCREENS.findIndex((s) => s.id === state.screen)
+      const next = SCREENS[(i + dir + SCREENS.length) % SCREENS.length]
+      go(next.id)
+    }
+
+    document.getElementById('app').addEventListener('click', (e) => {
+      const t = e.target.closest('[data-go],[data-mark],[data-palette],[data-filter],[data-pick],[data-check],[data-tab],[data-cycle]')
+      if (!t) return
+      if (t.dataset.go) go(t.dataset.go)
+      if (t.dataset.mark) {
+        state.mark = t.dataset.mark
+        writeUrl()
+        render()
+      }
+      if (t.dataset.palette) {
+        state.palette = t.dataset.palette
+        writeUrl()
+        render()
+      }
+      if (t.dataset.filter) {
+        state.filter = t.dataset.filter
+        render()
+      }
+      if (t.dataset.pick && !state.submitted) {
+        state.pick = Number(t.dataset.pick)
+        render()
+      }
+      if (t.hasAttribute('data-check') && state.pick !== null) {
+        state.submitted = true
+        render()
+      }
+      if (t.dataset.tab) {
+        const ta = document.getElementById('studio-code')
+        if (ta) state[state.tab] = ta.value
+        state.tab = t.dataset.tab
+        render()
+      }
+      if (t.dataset.cycle) cycle(Number(t.dataset.cycle))
+    })
+
+    window.addEventListener('keydown', (e) => {
+      const el = e.target
+      if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)) return
+      if (e.key === 'ArrowLeft') cycle(-1)
+      if (e.key === 'ArrowRight') cycle(1)
+    })
+
+    readUrl()
+    writeUrl()
+    render()
+  </script>
+</body>
+</html>
