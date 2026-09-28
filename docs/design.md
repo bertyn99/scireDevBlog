@@ -36,6 +36,8 @@ Arch / rainbow (batch 3). Oval Y-tree (batch 3 last). Batch 4 B Canopy, C Leaf, 
 
 ## Playground
 
+Layout base: [Tailwind UI Compass](https://compass.tailwindui.com/). Steal the shell (220px module sidebar, breadcrumb topbar, Part N + lesson rows, 16:9 video, On this page). Keep our tokens: palette D, 8px radius, leaf colophon, catalog D slabs. No photo hero. No pink. Minium only for current-state.
+
 Open `docs/playground.html` in a browser, or:
 
 ```bash
@@ -48,6 +50,6 @@ Dock switches screens, marks (leaf / circle / grove), and palettes (D / warm / c
 
 Screens: landing, dashboard (hub), catalog, path, course, chapter, exercise, studio.
 
-Dashboard follows the Vue hub widgets: continue learning, course progress, streak, skill mastery, review queue, activity. Same tokens as the rest of the playground.
+Dashboard follows the Vue hub widgets: continue learning, course progress, streak, skill mastery, review queue, activity. Flattened to Compass lists. Same tokens as the rest of the playground.
 
 Deepen later: typeface lock, favicon, production fold-in.
