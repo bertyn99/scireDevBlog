@@ -8,17 +8,19 @@
   <meta name="robots" content="noindex, nofollow" />
   <!--
     Compass (tailwindui.com/compass) as layout base.
-    Our theme on top: palette D, 8px radius, leaf/circle/grove colophon.
-    Not a copy of the photo hero or pink accent.
+    Identity from the name: scire, to know. The mark is the tittle of the i,
+    in chrome only. Not a second hero logo. Not a card watermark.
+    Minium is rubric (teacher's red): current line, catalog underline, folio
+    margin, Dev. Paper field, white lesson sheet. Palette D, 8px, catalog D.
     Open: python3 -m http.server 4174 --directory docs
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style type="text/tailwindcss">
     @theme {
-      --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+      --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
       --font-mono: "IBM Plex Mono", ui-monospace, monospace;
     }
   </style>
@@ -32,12 +34,33 @@
       --surface: #FFFFFF;
       --radius: 8px;
     }
-    html, body { background: var(--surface); color: var(--ink); }
-    body { font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif; }
+    html, body { background: var(--paper); color: var(--ink); }
+    body {
+      font-family: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+      font-optical-sizing: auto;
+      font-variation-settings: "opsz" 16, "wght" 400;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      pointer-events: none;
+      opacity: 0.035;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      body::before { display: none; }
+    }
     .font-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
     button { cursor: pointer; }
     textarea { tab-size: 2; }
     iframe { border: 0; }
+    .display {
+      font-variation-settings: "opsz" 48, "wght" 600;
+      letter-spacing: -0.035em;
+    }
     .bar {
       display: block;
       height: 2px;
@@ -46,9 +69,60 @@
       overflow: hidden;
     }
     .bar > span { display: block; height: 2px; background: var(--minium); }
+    .page-sheet { background: var(--surface); min-height: 100dvh; }
+    .folio {
+      border-left: 2px solid var(--minium);
+      padding: 0.2rem 0 0.4rem 1.35rem;
+    }
+    .folio-sheet {
+      background: var(--surface);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.35rem 1.5rem 1.35rem 1.6rem;
+    }
+    .folio-tight { padding: 1.15rem 1.5rem 1.15rem 1.6rem; }
+    .slab {
+      background: var(--surface);
+      border-radius: var(--radius);
+    }
+    .page-sheet .slab { background: var(--paper); }
+    .wm {
+      display: inline-flex;
+      align-items: baseline;
+      font-size: 1.125rem;
+      font-weight: 650;
+      letter-spacing: -0.045em;
+      line-height: 1;
+      font-variation-settings: "opsz" 18, "wght" 650;
+      padding-top: 0.28em;
+    }
+    .wm-i {
+      position: relative;
+      display: inline-block;
+    }
+    .wm-stem {
+      display: inline-block;
+      overflow: hidden;
+      height: 0.72em;
+      line-height: 1em;
+      vertical-align: bottom;
+    }
+    .wm-tittle {
+      position: absolute;
+      left: 50%;
+      bottom: 0.72em;
+      transform: translateX(-50%);
+      line-height: 0;
+      pointer-events: none;
+    }
+    .wm-tittle svg {
+      display: block;
+      width: auto;
+      height: 0.36em;
+    }
+    .wm-dev { color: var(--minium); font-weight: 700; }
   </style>
 </head>
-<body class="min-h-dvh bg-[var(--surface)] text-[var(--ink)] antialiased">
+<body class="min-h-dvh bg-[var(--paper)] text-[var(--ink)] antialiased">
   <div id="app" class="min-h-dvh"></div>
 
   <script>
@@ -194,16 +268,12 @@ el.addEventListener('click', () => {
       return `<svg width="28" height="28" viewBox="0 0 28 28" fill="currentColor" aria-hidden="true"><path d="M10 7v14l12-7z"/></svg>`
     }
 
-    function markSvg(name, size, whisper) {
+    function markSvg(name, size) {
       const id = 'm' + (++svgN)
-      const cls = whisper ? 'opacity-[0.18]' : ''
-      const color = whisper ? 'var(--ash)' : 'var(--ink)'
-      const ember = whisper
-        ? ''
-        : `<path fill="var(--minium)" d="M20 10c6-2 12 0 14 6-8 1-14 6-16 12-4-4-4-12 2-18Z"/>`
+      const ember = `<path fill="var(--minium)" d="M20 10c6-2 12 0 14 6-8 1-14 6-16 12-4-4-4-12 2-18Z"/>`
 
       if (name === 'circle') {
-        return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" class="${cls}" style="color:${color}" aria-hidden="true">
+        return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" style="color:var(--ink)" aria-hidden="true">
           <mask id="${id}"><circle cx="32" cy="34" r="26" fill="white"/>
             <g fill="none" stroke="black" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 22 32 14 42 22"/><path d="M18 32 32 22 46 32"/>
@@ -216,7 +286,7 @@ el.addEventListener('click', () => {
       }
 
       if (name === 'grove') {
-        return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" class="${cls}" style="color:${color}" aria-hidden="true">
+        return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" style="color:var(--ink)" aria-hidden="true">
           <rect x="12" y="6" width="40" height="60" rx="20" stroke="currentColor" stroke-width="2.4" fill="none"/>
           <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M32 64c0-8-6-14-10-22 0-8 4-16 8-22"/>
@@ -234,7 +304,7 @@ el.addEventListener('click', () => {
         </svg>`
       }
 
-      return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" class="${cls}" style="color:${color}" aria-hidden="true">
+      return `<svg width="${size}" height="${size}" viewBox="0 0 64 80" fill="none" style="color:var(--ink)" aria-hidden="true">
         <mask id="${id}">
           <path fill="white" d="M32 4c14 12 22 28 22 44 0 14-8 24-22 28C18 72 10 62 10 48 10 32 18 16 32 4Z"/>
           <g fill="none" stroke="black" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
@@ -249,7 +319,11 @@ el.addEventListener('click', () => {
     }
 
     function wordmark() {
-      return `scire<span class="text-[var(--minium)]">Dev</span>`
+      return `<span class="wm" aria-label="scireDev"><span>scr</span><span class="wm-i"><span class="wm-stem">i</span><span class="wm-tittle" aria-hidden="true">${markSvg(state.mark, 48)}</span></span><span>e</span><span class="wm-dev">Dev</span></span>`
+    }
+
+    function metaLine(parts) {
+      return parts.map((p) => `<span>${p}</span>`).join('<span class="px-2 text-[var(--ash)]">/</span>')
     }
 
     function applyPalette() {
@@ -261,7 +335,7 @@ el.addEventListener('click', () => {
       root.style.setProperty('--slate', p.slate)
       root.style.setProperty('--ash', p.ash)
       root.style.setProperty('--surface', p.surface)
-      document.body.style.background = p.surface
+      document.body.style.background = p.paper
       document.body.style.color = p.ink
     }
 
@@ -283,11 +357,10 @@ el.addEventListener('click', () => {
     }
 
     function topbar(crumbs) {
-      return `<div class="sticky top-0 z-20 flex h-14 items-center justify-between gap-4 border-b border-[var(--ink)]/8 bg-[var(--surface)] px-5">
+      return `<div class="topbar sticky top-0 z-20 flex h-14 items-center justify-between gap-4 border-b border-[var(--ink)]/8 bg-inherit px-5">
         <div class="flex min-w-0 items-center gap-2 text-[13px] text-[var(--slate)]">
-          <button type="button" data-go="landing" class="flex shrink-0 items-center gap-2 font-semibold text-[var(--ink)]">
-            ${markSvg(state.mark, 20, false)}
-            <span class="hidden sm:inline">${wordmark()}</span>
+          <button type="button" data-go="landing" class="shrink-0 text-[var(--ink)]">
+            ${wordmark()}
           </button>
           ${crumbs}
         </div>
@@ -318,7 +391,7 @@ el.addEventListener('click', () => {
         </div>`
       }).join('')
       return `<div class="px-3">
-        <button type="button" data-go="course" class="flex items-center gap-2 px-3 text-[13px] font-semibold">${markSvg(state.mark, 18, false)} Vue Fundamentals</button>
+        <button type="button" data-go="course" class="block w-full px-3 text-left text-[13px] font-semibold">Vue Fundamentals</button>
         ${modules}
       </div>`
     }
@@ -334,19 +407,20 @@ el.addEventListener('click', () => {
         </li>`
       }).join('')
       return `<div class="px-3">
-        <button type="button" data-go="path" class="flex items-center gap-2 px-3 text-[13px] font-semibold">${markSvg(state.mark, 18, false)} Frontend Engineer</button>
+        <button type="button" data-go="path" class="block w-full px-3 text-left text-[13px] font-semibold">Frontend Engineer</button>
         <ul class="mt-4">${items}</ul>
       </div>`
     }
 
     function layout({ crumbs, sidebar, content }) {
       const side = sidebar
-        ? `<aside class="sticky top-0 hidden h-dvh overflow-y-auto border-r border-[var(--ink)]/8 py-6 lg:block">${sidebar}</aside>`
+        ? `<aside class="sticky top-0 hidden h-dvh overflow-y-auto border-r border-[var(--ink)]/10 bg-[var(--paper)] py-6 lg:block">${sidebar}</aside>`
         : ''
-      const grid = sidebar ? 'lg:grid lg:grid-cols-[220px_minmax(0,1fr)]' : ''
+      const grid = sidebar ? 'lg:grid lg:grid-cols-[232px_minmax(0,1fr)]' : ''
+      const page = sidebar ? 'page-sheet' : ''
       return `<div class="${grid} min-h-dvh">
         ${side}
-        <div class="min-w-0">
+        <div class="min-w-0 ${page}">
           ${topbar(crumbs)}
           ${content}
         </div>
@@ -355,15 +429,10 @@ el.addEventListener('click', () => {
 
     function landing() {
       const crumbs = `${crumbSep()}<span>Overview</span>`
-      const hero = `<section class="rounded-[8px] bg-[var(--paper)] px-8 py-10 sm:px-10">
-        <div class="flex items-center gap-2.5">
-          ${markSvg(state.mark, 32, false)}
-          <span class="text-[18px] font-semibold tracking-tight">${wordmark()}</span>
-        </div>
-        <h1 class="mt-6 max-w-[16ch] text-[36px] font-semibold leading-[1.12] tracking-tight sm:text-[42px]">Know the path. Then grow it.</h1>
-        <p class="mt-4 max-w-[42ch] text-[16px] leading-7 text-[var(--slate)]">Courses that teach the craft before the framework.</p>
-        <p class="mt-5 text-[13px] text-[var(--slate)]">3 stages · 4 courses · 85 hours</p>
-        <div class="mt-7 flex flex-wrap gap-3">
+      const hero = `<section class="folio">
+        <h1 class="display max-w-[14ch] text-[36px] font-semibold leading-[1.1] sm:text-[44px]">Know the path. Then grow it.</h1>
+        <p class="mt-3 max-w-[42ch] text-[16px] leading-7 text-[var(--slate)]">Courses that teach the craft before the framework.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
           <button type="button" data-go="course" class="rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)] active:scale-[0.98]">Start the course</button>
           <button type="button" data-go="chapter" class="rounded-[8px] px-4 py-2.5 text-[14px] text-[var(--ink)]">Continue</button>
         </div>
@@ -391,9 +460,8 @@ el.addEventListener('click', () => {
           <span class="mt-2 block h-[2px] w-8 bg-[var(--minium)]"></span>
           <p class="mt-2 text-[13px] text-[var(--slate)]">${courseMeta(c)}</p>
           ${progress}
-        </div>
-        ${markSvg(state.mark, 40, true)}`
-      const cls = 'flex w-full items-center justify-between rounded-[8px] bg-[var(--paper)] px-6 py-5 text-left'
+        </div>`
+      const cls = 'slab flex w-full items-center justify-between px-6 py-5 text-left'
       if (clickable) return `<button type="button" data-go="course" class="${cls} active:scale-[0.995]">${inner}</button>`
       return `<article class="${cls}">${inner}</article>`
     }
@@ -431,10 +499,10 @@ el.addEventListener('click', () => {
         </li>`
       ).join('')
       const content = `<div class="mx-auto max-w-4xl px-5 pb-48 pt-10">
-        <h1 class="text-[28px] font-semibold tracking-tight">Welcome back, Alex</h1>
+        <h1 class="display text-[32px] font-semibold">Welcome back, Alex</h1>
         <p class="mt-1 text-[15px] text-[var(--slate)]">Resume the lesson, then keep the streak.</p>
 
-        <button type="button" data-go="chapter" class="mt-6 flex w-full items-center justify-between gap-6 rounded-[8px] bg-[var(--paper)] px-6 py-4 text-left">
+        <button type="button" data-go="chapter" class="folio folio-sheet folio-tight mt-6 flex w-full items-center justify-between gap-6 text-left">
           <span>
             <span class="text-[12px] text-[var(--slate)]">Continue learning</span>
             <span class="mt-1 block text-[20px] font-semibold tracking-tight">Reactivity with ref</span>
@@ -490,7 +558,7 @@ el.addEventListener('click', () => {
         return `<button type="button" data-filter="${f}" class="rounded-[8px] px-3 py-1.5 text-[13px] ${cls}">${f}</button>`
       }).join('')
       const content = `<div class="mx-auto max-w-4xl px-5 pb-48 pt-10">
-        <h1 class="text-[32px] font-semibold tracking-tight">Courses</h1>
+        <h1 class="display text-[32px] font-semibold">Courses</h1>
         <div class="mt-6 flex flex-wrap gap-2">${chips}</div>
         <div class="mt-6 space-y-3">${shownCourses().map((c) => courseSlab(c, true)).join('')}</div>
       </div>`
@@ -520,10 +588,10 @@ el.addEventListener('click', () => {
         </section>`
       }).join('')
       const content = `<div class="mx-auto max-w-4xl px-5 pb-48 pt-8">
-        <section class="rounded-[8px] bg-[var(--paper)] px-8 py-10">
-          <h1 class="text-[32px] font-semibold tracking-tight">Frontend Engineer</h1>
+        <section class="folio">
+          <h1 class="display text-[32px] font-semibold">Frontend Engineer</h1>
           <p class="mt-3 max-w-[46ch] text-[16px] leading-7 text-[var(--slate)]">JavaScript first. Then the platform. Then Vue.</p>
-          <p class="mt-4 text-[13px] text-[var(--slate)]">3 stages · 85 hours</p>
+          <p class="mt-4 text-[13px] text-[var(--slate)]">${metaLine(['3 stages', '85 hours'])}</p>
           <button type="button" data-go="course" class="mt-7 rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)]">Start the course</button>
         </section>
         ${parts}
@@ -558,13 +626,10 @@ el.addEventListener('click', () => {
         </section>`
       }).join('')
       const content = `<div class="mx-auto max-w-4xl px-5 pb-48 pt-8">
-        <section class="rounded-[8px] bg-[var(--paper)] px-8 py-10">
-          <div class="flex items-center gap-2.5">
-            ${markSvg(state.mark, 28, false)}
-            <span class="text-[16px] font-semibold">Vue Fundamentals</span>
-          </div>
-          <p class="mt-4 max-w-[46ch] text-[16px] leading-7 text-[var(--slate)]">The library, after the craft. Ref first. Components later.</p>
-          <p class="mt-4 text-[13px] text-[var(--slate)]">4 modules · ${vue.lessons} lessons · ${vue.hours} hours</p>
+        <section class="folio">
+          <h1 class="display text-[32px] font-semibold">Vue Fundamentals</h1>
+          <p class="mt-3 max-w-[46ch] text-[16px] leading-7 text-[var(--slate)]">The library, after the craft. Ref first. Components later.</p>
+          <p class="mt-4 text-[13px] text-[var(--slate)]">${metaLine(['4 modules', vue.lessons + ' lessons', vue.hours + ' hours'])}</p>
           <button type="button" data-go="chapter" class="mt-7 rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)]">Resume the course</button>
         </section>
         ${parts}
@@ -592,7 +657,7 @@ el.addEventListener('click', () => {
           </div>
           <div class="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_180px]">
             <article class="max-w-[62ch]">
-              <h1 class="text-[32px] font-semibold tracking-tight">${lesson.title}</h1>
+              <h1 class="display text-[32px] font-semibold">${lesson.title}</h1>
               <p class="mt-3 text-[16px] leading-7 text-[var(--slate)]">${lesson.blurb}</p>
               <div class="mt-8 space-y-4 text-[16px] leading-7 text-[var(--slate)]">
                 <p>Vue tracks a value when you wrap it in <code class="rounded-[4px] bg-[var(--paper)] px-1 font-mono text-[14px] text-[var(--ink)]">ref()</code>.
@@ -640,7 +705,7 @@ count.value += 1</code></pre>
         : ''
       const disabled = state.pick === null ? 'opacity-40 pointer-events-none' : ''
       const content = `<div class="mx-auto max-w-xl px-5 pb-48 pt-10">
-        <h1 class="text-[28px] font-semibold tracking-tight">What does ref() return?</h1>
+        <h1 class="display text-[28px] font-semibold">What does ref() return?</h1>
         <div class="mt-8 space-y-2">${options}</div>
         <div class="mt-6 flex items-center gap-3">
           <button type="button" data-check class="rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)] ${disabled}">Check</button>
@@ -723,7 +788,7 @@ count.value += 1</code></pre>
             <div class="flex items-center gap-1"><span class="text-white/40">Palette</span>${palettes}</div>
           </div>
         </div>
-        <p class="mt-1 text-[10px] text-white/35">${state.mark}, palette ${state.palette}, ${state.screen}, Compass layout, D theme</p>
+        <p class="mt-1 text-[10px] text-white/35">scire, to know / ${state.mark} / palette ${state.palette}</p>
       </div>`
     }
 
