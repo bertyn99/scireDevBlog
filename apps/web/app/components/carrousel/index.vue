@@ -1,19 +1,21 @@
 <template>
-  <div class="relative flex min-h-[28rem] flex-col sm:min-h-[34rem]">
-    <div class="relative min-h-[28rem] flex-1 sm:min-h-[32rem]">
-      <slot :currentSlide="currentSlide" />
+  <div v-if="variant === 'mobile'" class="flex items-center justify-between bg-secondary px-4 py-3">
+    <div class="flex items-center gap-1.5" role="tablist" aria-label="Featured articles">
+      <button
+        v-for="index in slideCount"
+        :key="index"
+        type="button"
+        class="size-2"
+        :class="index === currentSlide ? 'bg-white' : 'bg-white/30'"
+        :aria-label="`Go to article ${index}`"
+        :aria-current="index === currentSlide ? 'true' : undefined"
+        @click="goTo(index)"
+      />
     </div>
-
-    <div class="mt-3 flex items-center gap-2">
-      <p
-        class="grid size-12 shrink-0 place-items-center bg-tertiary-default text-[15px] font-semibold tabular-nums text-white"
-        aria-live="polite"
-      >
-        {{ currentSlide }}/{{ slideCount }}
-      </p>
+    <div class="flex">
       <button
         type="button"
-        class="grid size-12 place-items-center bg-white text-secondary shadow-[0_0_0_1px_rgba(38,38,38,0.12)] hover:bg-primary-default/40"
+        class="grid size-11 place-items-center bg-white text-secondary hover:bg-primary-default"
         aria-label="Previous article"
         @click="goPrev"
       >
@@ -23,7 +25,7 @@
       </button>
       <button
         type="button"
-        class="grid size-12 place-items-center bg-white text-secondary shadow-[0_0_0_1px_rgba(38,38,38,0.12)] hover:bg-primary-default/40"
+        class="grid size-11 place-items-center bg-white text-secondary hover:bg-primary-default"
         aria-label="Next article"
         @click="goNext"
       >
@@ -41,16 +43,33 @@ const props = defineProps({
     type: Number,
     default: 1,
   },
+  modelValue: {
+    type: Number,
+    default: 1,
+  },
+  variant: {
+    type: String,
+    default: "mobile",
+  },
 });
 
-const currentSlide = ref(1);
+const emit = defineEmits(["update:modelValue"]);
+
 const slideCount = computed(() => Math.max(1, props.count || 1));
+const currentSlide = computed(() => {
+  const value = props.modelValue || 1;
+  return Math.min(slideCount.value, Math.max(1, value));
+});
+
+function goTo(index) {
+  emit("update:modelValue", index);
+}
 
 function goNext() {
-  currentSlide.value = currentSlide.value === slideCount.value ? 1 : currentSlide.value + 1;
+  emit("update:modelValue", currentSlide.value === slideCount.value ? 1 : currentSlide.value + 1);
 }
 
 function goPrev() {
-  currentSlide.value = currentSlide.value === 1 ? slideCount.value : currentSlide.value - 1;
+  emit("update:modelValue", currentSlide.value === 1 ? slideCount.value : currentSlide.value - 1);
 }
 </script>

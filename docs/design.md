@@ -7,7 +7,7 @@
 
 ## Design read
 
-Magazine blog for people learning the craft, with a high-contrast editorial language, leaning toward the existing `Hero` + `ArticleCard` + filter row. Visual target: the split featured story, `Blog.` masthead, dark popular rail, and 3-column latest grid.
+Magazine blog for people learning the craft, with a high-contrast editorial language, leaning toward the existing `Hero` + `ArticleCard` + filter row. Visual target: the overlapping featured crop, `Blog.` masthead, dark popular rail, and 3-column latest grid.
 
 The Compass playground, leaf-as-tittle wordmark, and LMS shells are parked. They are not the brand lock.
 
@@ -35,12 +35,14 @@ Tokens already in `apps/web/app/assets/css/main.css`:
 This is the page. Do not replace it with a Compass course shell.
 
 1. **Nav**: logo left. Home, Blog. Single row. Height under 80px.
-2. **Featured**: split story. Text (New Articles, author, title, category, lede, Read more) beside a grayscale cover. Counter `n / total` in a minium disc, prev/next beside it.
-3. **Masthead**: `Blog.` with a minium smear behind the word. Not a second logo.
-4. **Popular**: ink rail. Two stories. Thumb, title, minutes. Minium arrow on hover.
-5. **Latest**: heading, category row (All + real categories from content), search. Then a 3-column card grid.
-6. **Card**: cover, author, title, category rule, lede, minutes + date. Corner arrow: ink at rest, minium on hover.
-7. **Pagination**: ink chevrons, minium current page.
+2. **Featured (desktop)**: overlapping magazine crop, not a flat 2-column card. White copy (author, title, category rule, lede, minutes + date) sits on the left and overlaps the grayscale cover. `New Articles` is a white chip on the photo, not in the copy column. Square minium `Read More` with a south-east arrow hangs off the photo. Counter is large type (`2` `/5`), not a minium disc. Prev/next are white squares on the ink strip under the photo.
+3. **Featured (mobile)**: `Blog.` first. Full-bleed grayscale cover with a dark gradient. Copy overlays the photo in mist. White `New Articles` chip at the top. Dark control bar under the photo: square pagination ticks on the left, white prev/next on the right. The whole story is the link — no Read More button.
+4. **Masthead**: `Blog.` with a minium smear behind the word and a single minium stroke. Not a second logo.
+5. **Popular (desktop)**: ink rail, three stories. Thumb, title, minutes. Outlined arrow at rest, minium fill on hover. The rail sits under `Blog.` and the photo overlaps its left edge.
+6. **Popular (mobile)**: same ink block, horizontal cards (thumb + minium arrow overlay, title, minutes).
+7. **Latest**: heading, category row (All + real categories from content), search. Then a 3-column card grid.
+8. **Card**: cover, author, title, category rule, lede, minutes + date. Corner arrow: ink at rest, minium on hover.
+9. **Pagination**: ink chevrons, minium current page.
 
 Components: `Hero.vue`, `article/SlideData.vue`, `carrousel/`, `article/Card.vue`, `article/Pagination.vue`, `pages/blog/index.vue`.
 
