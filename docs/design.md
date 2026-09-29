@@ -1,4 +1,4 @@
-# Brand — scireDev
+# Brand - scireDev
 
 **Status**: 🟡 Playground. One HTML file: `docs/playground.html`. No production UI swap yet.
 **Product**: developer learning platform. Professional, calm, not in your face.
@@ -18,17 +18,20 @@
 | Slate | `#3F4A52` |
 | Ash | `#A6A6A6` |
 
-- **Name**: scireDev.
+- **Name**: scireDev. Latin *scire*, to know. The name is the mark: the tittle of the *i* is the leaf (or circle, or grove). `Dev` is minium.
+- **Type**: Bricolage Grotesque (optical size) + IBM Plex Mono. Not Source Sans. Not Inter.
+- **Rubric**: minium is the teacher's red. Current sidebar item, catalog underline, folio left edge, `Dev`.
+- **Page**: paper field. Lesson chrome (sidebar + content) is a white sheet on that field.
 - **Radius**: 8px on cards and chips. Not pills. Not 90° circuit corners.
-- **Feel**: batch 3. Quiet. Professional. The mark is a colophon, not a second headline.
+- **Feel**: batch 3. Quiet. The mark lives in the name, not as a second headline.
 
 ## Marks (keep)
 
-Switchable in the playground.
+Switchable in the playground. They sit on the *i*.
 
-- **Leaf** (batch 3) — pointed leaf, chevron fill, rounded joins. Default.
-- **Circle** (batch 3) — circular tree, same chevron construction.
-- **Grove** (batch 4 A) — oval frame, two trunks, oval leaves, ember in the canopy.
+- **Leaf** (batch 3): pointed leaf, chevron fill, rounded joins. Default.
+- **Circle** (batch 3): circular tree, same chevron construction.
+- **Grove** (batch 4 A): oval frame, two trunks, oval leaves, ember in the canopy.
 
 ## Killed
 
@@ -36,7 +39,7 @@ Arch / rainbow (batch 3). Oval Y-tree (batch 3 last). Batch 4 B Canopy, C Leaf, 
 
 ## Playground
 
-Layout base: [Tailwind UI Compass](https://compass.tailwindui.com/). Steal the shell (220px module sidebar, breadcrumb topbar, Part N + lesson rows, 16:9 video, On this page). Keep our tokens: palette D, 8px radius, leaf colophon, catalog D slabs. No photo hero. No pink. Minium only for current-state.
+Layout base: [Tailwind UI Compass](https://compass.tailwindui.com/). Steal the shell (module sidebar, breadcrumb topbar, Part N + lesson rows, 16:9 video, On this page). Identity is ours: scire wordmark, minium rubric, paper field.
 
 Open `docs/playground.html` in a browser, or:
 
@@ -51,5 +54,3 @@ Dock switches screens, marks (leaf / circle / grove), and palettes (D / warm / c
 Screens: landing, dashboard (hub), catalog, path, course, chapter, exercise, studio.
 
 Dashboard follows the Vue hub widgets: continue learning, course progress, streak, skill mastery, review queue, activity. Flattened to Compass lists. Same tokens as the rest of the playground.
-
-Deepen later: typeface lock, favicon, production fold-in.

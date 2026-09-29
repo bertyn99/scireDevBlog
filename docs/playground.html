@@ -8,17 +8,18 @@
   <meta name="robots" content="noindex, nofollow" />
   <!--
     Compass (tailwindui.com/compass) as layout base.
-    Our theme on top: palette D, 8px radius, leaf/circle/grove colophon.
-    Not a copy of the photo hero or pink accent.
+    Identity: scire (to know). The mark is the tittle of the i.
+    Minium is rubric, the teacher's red. Paper is the page.
+    Palette D, 8px radius, catalog D slabs.
     Open: python3 -m http.server 4174 --directory docs
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style type="text/tailwindcss">
     @theme {
-      --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+      --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
       --font-mono: "IBM Plex Mono", ui-monospace, monospace;
     }
   </style>
@@ -32,8 +33,11 @@
       --surface: #FFFFFF;
       --radius: 8px;
     }
-    html, body { background: var(--surface); color: var(--ink); }
-    body { font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif; }
+    html, body { background: var(--paper); color: var(--ink); }
+    body {
+      font-family: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+      font-optical-sizing: auto;
+    }
     .font-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
     button { cursor: pointer; }
     textarea { tab-size: 2; }
@@ -46,9 +50,68 @@
       overflow: hidden;
     }
     .bar > span { display: block; height: 2px; background: var(--minium); }
+    .page-sheet { background: var(--surface); min-height: 100dvh; }
+    .folio {
+      background: var(--surface);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      border-left: 2px solid var(--minium);
+      padding: 2.5rem 2.25rem 2.25rem 2.5rem;
+    }
+    .folio-tight { padding: 1.15rem 1.5rem 1.15rem 1.6rem; }
+    .page-sheet .folio { background: var(--paper); }
+    .slab {
+      background: var(--surface);
+      border-radius: var(--radius);
+    }
+    .page-sheet .slab { background: var(--paper); }
+    .wm {
+      display: inline-flex;
+      align-items: baseline;
+      font-weight: 650;
+      letter-spacing: -0.045em;
+      line-height: 1.1;
+      font-variation-settings: "opsz" 22, "wght" 650;
+    }
+    .wm-hero {
+      font-size: clamp(2.4rem, 5.6vw, 3.9rem);
+      font-variation-settings: "opsz" 72, "wght" 650;
+      letter-spacing: -0.05em;
+      padding-top: 0.42em;
+    }
+    .wm-nav {
+      font-size: 1.05rem;
+      font-variation-settings: "opsz" 18, "wght" 650;
+      padding-top: 0.32em;
+    }
+    .wm-i {
+      position: relative;
+      display: inline-block;
+    }
+    .wm-stem {
+      display: inline-block;
+      overflow: hidden;
+      height: 0.7em;
+      line-height: 1em;
+      vertical-align: bottom;
+    }
+    .wm-tittle {
+      position: absolute;
+      left: 50%;
+      bottom: 0.66em;
+      transform: translateX(-50%);
+      line-height: 0;
+      pointer-events: none;
+    }
+    .wm-tittle svg {
+      display: block;
+      width: auto;
+      height: 0.5em;
+    }
+    .wm-nav .wm-tittle svg { height: 0.44em; }
+    .wm-dev { color: var(--minium); font-weight: 700; }
   </style>
 </head>
-<body class="min-h-dvh bg-[var(--surface)] text-[var(--ink)] antialiased">
+<body class="min-h-dvh bg-[var(--paper)] text-[var(--ink)] antialiased">
   <div id="app" class="min-h-dvh"></div>
 
   <script>
@@ -248,8 +311,13 @@ el.addEventListener('click', () => {
       </svg>`
     }
 
-    function wordmark() {
-      return `scire<span class="text-[var(--minium)]">Dev</span>`
+    function wordmark(kind) {
+      const cls = kind === 'hero' ? 'wm wm-hero' : 'wm wm-nav'
+      return `<span class="${cls}" aria-label="scireDev"><span>scr</span><span class="wm-i"><span class="wm-stem">i</span><span class="wm-tittle" aria-hidden="true">${markSvg(state.mark, 48, false)}</span></span><span>e</span><span class="wm-dev">Dev</span></span>`
+    }
+
+    function metaLine(parts) {
+      return parts.map((p) => `<span>${p}</span>`).join('<span class="px-2 text-[var(--ash)]">/</span>')
     }
 
     function applyPalette() {
@@ -261,7 +329,7 @@ el.addEventListener('click', () => {
       root.style.setProperty('--slate', p.slate)
       root.style.setProperty('--ash', p.ash)
       root.style.setProperty('--surface', p.surface)
-      document.body.style.background = p.surface
+      document.body.style.background = p.paper
       document.body.style.color = p.ink
     }
 
@@ -283,11 +351,10 @@ el.addEventListener('click', () => {
     }
 
     function topbar(crumbs) {
-      return `<div class="sticky top-0 z-20 flex h-14 items-center justify-between gap-4 border-b border-[var(--ink)]/8 bg-[var(--surface)] px-5">
+      return `<div class="topbar sticky top-0 z-20 flex h-14 items-center justify-between gap-4 border-b border-[var(--ink)]/8 bg-inherit px-5">
         <div class="flex min-w-0 items-center gap-2 text-[13px] text-[var(--slate)]">
-          <button type="button" data-go="landing" class="flex shrink-0 items-center gap-2 font-semibold text-[var(--ink)]">
-            ${markSvg(state.mark, 20, false)}
-            <span class="hidden sm:inline">${wordmark()}</span>
+          <button type="button" data-go="landing" class="shrink-0 text-[var(--ink)]">
+            ${wordmark('nav')}
           </button>
           ${crumbs}
         </div>
@@ -318,7 +385,7 @@ el.addEventListener('click', () => {
         </div>`
       }).join('')
       return `<div class="px-3">
-        <button type="button" data-go="course" class="flex items-center gap-2 px-3 text-[13px] font-semibold">${markSvg(state.mark, 18, false)} Vue Fundamentals</button>
+        <button type="button" data-go="course" class="block w-full px-3 text-left text-[13px] font-semibold">Vue Fundamentals</button>
         ${modules}
       </div>`
     }
@@ -334,19 +401,20 @@ el.addEventListener('click', () => {
         </li>`
       }).join('')
       return `<div class="px-3">
-        <button type="button" data-go="path" class="flex items-center gap-2 px-3 text-[13px] font-semibold">${markSvg(state.mark, 18, false)} Frontend Engineer</button>
+        <button type="button" data-go="path" class="block w-full px-3 text-left text-[13px] font-semibold">Frontend Engineer</button>
         <ul class="mt-4">${items}</ul>
       </div>`
     }
 
     function layout({ crumbs, sidebar, content }) {
       const side = sidebar
-        ? `<aside class="sticky top-0 hidden h-dvh overflow-y-auto border-r border-[var(--ink)]/8 py-6 lg:block">${sidebar}</aside>`
+        ? `<aside class="sticky top-0 hidden h-dvh overflow-y-auto border-r border-[var(--ink)]/10 py-6 lg:block">${sidebar}</aside>`
         : ''
-      const grid = sidebar ? 'lg:grid lg:grid-cols-[220px_minmax(0,1fr)]' : ''
+      const grid = sidebar ? 'lg:grid lg:grid-cols-[232px_minmax(0,1fr)]' : ''
+      const page = sidebar ? 'page-sheet' : ''
       return `<div class="${grid} min-h-dvh">
         ${side}
-        <div class="min-w-0">
+        <div class="min-w-0 ${page}">
           ${topbar(crumbs)}
           ${content}
         </div>
@@ -355,15 +423,11 @@ el.addEventListener('click', () => {
 
     function landing() {
       const crumbs = `${crumbSep()}<span>Overview</span>`
-      const hero = `<section class="rounded-[8px] bg-[var(--paper)] px-8 py-10 sm:px-10">
-        <div class="flex items-center gap-2.5">
-          ${markSvg(state.mark, 32, false)}
-          <span class="text-[18px] font-semibold tracking-tight">${wordmark()}</span>
-        </div>
-        <h1 class="mt-6 max-w-[16ch] text-[36px] font-semibold leading-[1.12] tracking-tight sm:text-[42px]">Know the path. Then grow it.</h1>
-        <p class="mt-4 max-w-[42ch] text-[16px] leading-7 text-[var(--slate)]">Courses that teach the craft before the framework.</p>
-        <p class="mt-5 text-[13px] text-[var(--slate)]">3 stages · 4 courses · 85 hours</p>
-        <div class="mt-7 flex flex-wrap gap-3">
+      const hero = `<section class="folio">
+        ${wordmark('hero')}
+        <h1 class="mt-8 max-w-[16ch] text-[28px] font-semibold leading-[1.12] tracking-tight sm:text-[32px]">Know the path. Then grow it.</h1>
+        <p class="mt-3 max-w-[42ch] text-[16px] leading-7 text-[var(--slate)]">Courses that teach the craft before the framework.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
           <button type="button" data-go="course" class="rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)] active:scale-[0.98]">Start the course</button>
           <button type="button" data-go="chapter" class="rounded-[8px] px-4 py-2.5 text-[14px] text-[var(--ink)]">Continue</button>
         </div>
@@ -393,7 +457,7 @@ el.addEventListener('click', () => {
           ${progress}
         </div>
         ${markSvg(state.mark, 40, true)}`
-      const cls = 'flex w-full items-center justify-between rounded-[8px] bg-[var(--paper)] px-6 py-5 text-left'
+      const cls = 'slab flex w-full items-center justify-between px-6 py-5 text-left'
       if (clickable) return `<button type="button" data-go="course" class="${cls} active:scale-[0.995]">${inner}</button>`
       return `<article class="${cls}">${inner}</article>`
     }
@@ -434,7 +498,7 @@ el.addEventListener('click', () => {
         <h1 class="text-[28px] font-semibold tracking-tight">Welcome back, Alex</h1>
         <p class="mt-1 text-[15px] text-[var(--slate)]">Resume the lesson, then keep the streak.</p>
 
-        <button type="button" data-go="chapter" class="mt-6 flex w-full items-center justify-between gap-6 rounded-[8px] bg-[var(--paper)] px-6 py-4 text-left">
+        <button type="button" data-go="chapter" class="folio folio-tight mt-6 flex w-full items-center justify-between gap-6 text-left">
           <span>
             <span class="text-[12px] text-[var(--slate)]">Continue learning</span>
             <span class="mt-1 block text-[20px] font-semibold tracking-tight">Reactivity with ref</span>
@@ -520,10 +584,10 @@ el.addEventListener('click', () => {
         </section>`
       }).join('')
       const content = `<div class="mx-auto max-w-4xl px-5 pb-48 pt-8">
-        <section class="rounded-[8px] bg-[var(--paper)] px-8 py-10">
+        <section class="folio">
           <h1 class="text-[32px] font-semibold tracking-tight">Frontend Engineer</h1>
           <p class="mt-3 max-w-[46ch] text-[16px] leading-7 text-[var(--slate)]">JavaScript first. Then the platform. Then Vue.</p>
-          <p class="mt-4 text-[13px] text-[var(--slate)]">3 stages · 85 hours</p>
+          <p class="mt-4 text-[13px] text-[var(--slate)]">${metaLine(['3 stages', '85 hours'])}</p>
           <button type="button" data-go="course" class="mt-7 rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)]">Start the course</button>
         </section>
         ${parts}
@@ -558,13 +622,10 @@ el.addEventListener('click', () => {
         </section>`
       }).join('')
       const content = `<div class="mx-auto max-w-4xl px-5 pb-48 pt-8">
-        <section class="rounded-[8px] bg-[var(--paper)] px-8 py-10">
-          <div class="flex items-center gap-2.5">
-            ${markSvg(state.mark, 28, false)}
-            <span class="text-[16px] font-semibold">Vue Fundamentals</span>
-          </div>
-          <p class="mt-4 max-w-[46ch] text-[16px] leading-7 text-[var(--slate)]">The library, after the craft. Ref first. Components later.</p>
-          <p class="mt-4 text-[13px] text-[var(--slate)]">4 modules · ${vue.lessons} lessons · ${vue.hours} hours</p>
+        <section class="folio">
+          <h1 class="text-[32px] font-semibold tracking-tight">Vue Fundamentals</h1>
+          <p class="mt-3 max-w-[46ch] text-[16px] leading-7 text-[var(--slate)]">The library, after the craft. Ref first. Components later.</p>
+          <p class="mt-4 text-[13px] text-[var(--slate)]">${metaLine(['4 modules', vue.lessons + ' lessons', vue.hours + ' hours'])}</p>
           <button type="button" data-go="chapter" class="mt-7 rounded-[8px] bg-[var(--ink)] px-4 py-2.5 text-[14px] font-medium text-[var(--surface)]">Resume the course</button>
         </section>
         ${parts}
@@ -723,7 +784,7 @@ count.value += 1</code></pre>
             <div class="flex items-center gap-1"><span class="text-white/40">Palette</span>${palettes}</div>
           </div>
         </div>
-        <p class="mt-1 text-[10px] text-white/35">${state.mark}, palette ${state.palette}, ${state.screen}, Compass layout, D theme</p>
+        <p class="mt-1 text-[10px] text-white/35">scire, to know / ${state.mark} / palette ${state.palette}</p>
       </div>`
     }
 
