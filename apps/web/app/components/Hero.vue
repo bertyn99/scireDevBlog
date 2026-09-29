@@ -4,9 +4,14 @@
       <BlogMasthead align="center" class="mb-6" />
 
       <article v-if="current" class="relative">
-        <span class="absolute -top-3 left-5 z-20 bg-white px-3 py-1.5 text-[11px] font-medium text-secondary shadow-sm">
-          New Articles
-        </span>
+        <UBadge
+          color="neutral"
+          variant="soft"
+          size="sm"
+          label="New Articles"
+          :ui="{ base: 'rounded-none bg-white text-highlighted' }"
+          class="absolute -top-3 left-5 z-20 shadow-sm"
+        />
         <span class="absolute top-0 right-0 z-20 h-1 w-11 bg-tertiary-default" aria-hidden="true" />
 
         <NuxtLink :to="articlePath(current)" class="relative block min-h-[28rem] overflow-hidden">
@@ -41,10 +46,8 @@
                   sizes="200px"
                   class="absolute inset-0 h-full w-full object-cover grayscale transition duration-300 group-hover:grayscale-0"
                 />
-                <span class="absolute right-2 bottom-2 grid size-8 place-items-center bg-tertiary-default text-white">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-4">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                  </svg>
+                <span class="absolute right-2 bottom-2 grid size-8 place-items-center bg-primary text-white">
+                  <UIcon name="i-heroicons-arrow-up-right-20-solid" class="size-4" />
                 </span>
               </div>
               <span class="mt-2 block text-[13px] leading-snug text-primary-default">
@@ -92,19 +95,17 @@
                 </span>
               </div>
               <span
-                class="grid size-8 shrink-0 place-items-center self-center border border-white/25 text-white group-hover:border-tertiary-default group-hover:bg-tertiary-default"
+                class="grid size-8 shrink-0 place-items-center self-center ring ring-inset ring-white/25 text-white group-hover:bg-primary group-hover:ring-primary"
                 aria-hidden="true"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-4">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                </svg>
+                <UIcon name="i-heroicons-arrow-up-right-20-solid" class="size-4" />
               </span>
             </NuxtLink>
           </li>
         </ul>
       </div>
 
-      <div class="absolute top-8 bottom-14 left-[34%] z-10 w-[37%]">
+      <div class="absolute top-8 bottom-14 left-[40%] z-10 w-[31%]">
         <div class="absolute inset-0 overflow-hidden">
           <nuxt-img
             :key="articlePath(current)"
@@ -115,22 +116,28 @@
             class="absolute inset-0 h-full w-full object-cover grayscale"
           />
         </div>
-        <span class="absolute top-5 left-[22%] z-20 bg-white px-3 py-1.5 text-[12px] font-medium text-secondary shadow-sm">
-          New Articles
-        </span>
+        <UBadge
+          color="neutral"
+          variant="soft"
+          size="sm"
+          label="New Articles"
+          :ui="{ base: 'rounded-none bg-white text-highlighted' }"
+          class="absolute top-5 left-[22%] z-20 shadow-sm"
+        />
       </div>
 
-      <NuxtLink
+      <UButton
         :to="articlePath(current)"
-        class="absolute bottom-20 left-[39%] z-40 inline-flex items-center gap-2 bg-tertiary-default px-3.5 py-2.5 text-[13px] font-medium text-white hover:bg-tertiary-darken"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-4">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25" />
-        </svg>
-        Read More
-      </NuxtLink>
+        color="primary"
+        variant="solid"
+        size="md"
+        icon="i-heroicons-arrow-down-right-20-solid"
+        label="Read More"
+        :ui="{ base: 'rounded-none' }"
+        class="absolute bottom-20 left-[32%] z-40"
+      />
 
-      <div class="relative z-20 flex min-h-[32rem] w-[40%] flex-col bg-white pt-10 pr-6 pb-20">
+      <div class="relative z-20 flex min-h-[32rem] w-[40%] flex-col pt-10 pr-6 pb-20">
         <ArticleSlideData :key="articlePath(current)" :data="current" surface="paper" />
       </div>
 
@@ -139,29 +146,29 @@
         <span class="text-[15px] text-primary-darken">/{{ news.length || 1 }}</span>
       </p>
 
-      <div class="absolute bottom-0 left-[34%] z-30 flex h-14 w-[37%] items-center justify-end bg-secondary">
-        <button
-          type="button"
+      <div class="absolute bottom-0 left-[40%] z-30 flex h-14 w-[31%] items-center justify-end bg-secondary">
+        <UButton
+          square
+          color="neutral"
+          variant="solid"
+          size="lg"
+          icon="i-heroicons-chevron-left-20-solid"
           data-hero="prev"
-          class="grid size-12 place-items-center bg-white text-secondary hover:bg-primary-default"
           aria-label="Previous article"
+          :ui="{ base: 'rounded-none bg-white text-highlighted hover:bg-elevated' }"
           @click="goPrev"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pointer-events-none size-5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-          </svg>
-        </button>
-        <button
-          type="button"
+        />
+        <UButton
+          square
+          color="neutral"
+          variant="solid"
+          size="lg"
+          icon="i-heroicons-chevron-right-20-solid"
           data-hero="next"
-          class="grid size-12 place-items-center bg-white text-secondary hover:bg-primary-default"
           aria-label="Next article"
+          :ui="{ base: 'rounded-none bg-white text-highlighted hover:bg-elevated' }"
           @click="goNext"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pointer-events-none size-5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </button>
+        />
         <div class="flex items-center gap-1.5 px-4">
           <button
             v-for="index in news.length"
