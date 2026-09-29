@@ -1,7 +1,7 @@
 <template>
-  <article class="absolute inset-0 flex h-full w-full bg-white">
-    <div class="grid h-full w-full md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-      <div class="relative z-10 flex flex-col justify-center bg-white px-5 py-6 sm:px-7 md:py-8">
+  <article class="flex h-full min-h-[28rem] w-full bg-white md:min-h-[32rem]">
+    <div class="grid h-full w-full grid-rows-[12.5rem_minmax(0,1fr)] md:grid-rows-none md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+      <div class="relative z-10 order-2 flex flex-col justify-center bg-white px-5 py-5 sm:px-7 md:order-1 md:py-8">
         <p class="mb-4 inline-flex w-fit bg-white px-0 text-[12px] font-medium text-secondary">
           New Articles
         </p>
@@ -18,7 +18,7 @@
             <span class="text-[11px] text-primary-darken">Author</span>
           </div>
         </div>
-        <h2 class="mt-4 max-w-[18ch] text-[26px] font-bold leading-[1.15] tracking-tight sm:text-[30px]">
+        <h2 class="mt-4 text-[24px] font-bold leading-[1.15] tracking-tight sm:text-[28px]">
           {{ capitalize(data.title) }}
         </h2>
         <p class="mt-3 inline-flex items-center gap-2 text-[12px] text-primary-darken">
@@ -26,7 +26,7 @@
           {{ data.category }}
         </p>
         <p class="mt-3 max-w-[42ch] text-[14px] leading-6 text-secondary/80">
-          {{ truncate(data.description, 140) }}
+          {{ truncate(data.description, 96) }}
         </p>
         <p class="mt-4 flex flex-wrap gap-4 text-[12px] text-primary-darken">
           <span v-if="minutes(data)">{{ minutes(data) }} min</span>
@@ -40,7 +40,7 @@
         </NuxtLink>
       </div>
 
-      <div class="relative min-h-[220px] overflow-hidden bg-secondary">
+      <div class="relative order-1 min-h-[12.5rem] overflow-hidden bg-secondary md:order-2 md:min-h-0">
         <nuxt-img
           :src="data.image"
           format="webp"

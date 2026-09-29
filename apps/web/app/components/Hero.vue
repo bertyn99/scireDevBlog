@@ -12,7 +12,7 @@
 
       <div class="flex min-h-0 flex-col">
         <div class="mb-4 flex items-end lg:mb-5">
-          <h1 class="relative text-[42px] font-bold leading-none tracking-tight sm:text-5xl">
+          <h1 class="relative text-[42px] font-bold leading-none tracking-tight text-secondary sm:text-5xl">
             <span
               class="pointer-events-none absolute -left-1 bottom-1 h-3 w-[4.6rem] bg-tertiary-default/35"
               aria-hidden="true"

@@ -1,6 +1,6 @@
 <template>
-  <div class="relative flex min-h-[420px] flex-col sm:min-h-[520px]">
-    <div class="relative min-h-[360px] flex-1 overflow-hidden sm:min-h-[460px]">
+  <div class="relative flex min-h-[28rem] flex-col sm:min-h-[34rem]">
+    <div class="relative min-h-[28rem] flex-1 sm:min-h-[32rem]">
       <slot :currentSlide="currentSlide" />
     </div>
 
