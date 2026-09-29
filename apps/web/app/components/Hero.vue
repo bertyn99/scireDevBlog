@@ -62,35 +62,35 @@
       </div>
     </div>
 
-    <div v-if="current" class="relative hidden min-h-[38rem] lg:block">
-      <div class="absolute top-0 right-0 z-30 w-[29%]">
-        <BlogMasthead class="mb-4" />
+    <div v-if="current" class="relative hidden min-h-[42rem] lg:block">
+      <div class="absolute top-0 right-0 z-30 w-[28%]">
+        <BlogMasthead class="mb-3" />
       </div>
 
-      <div class="absolute top-[4.75rem] right-0 bottom-0 left-[71%] z-0 bg-secondary text-primary-default">
-        <p class="border-l-4 border-tertiary-default py-3 pl-5 text-[15px] font-semibold">
+      <div class="absolute top-[4.5rem] right-0 bottom-0 left-[70%] z-0 bg-secondary text-primary-default">
+        <p class="border-l-4 border-tertiary-default py-3 pl-4 text-[15px] font-semibold">
           Popular Articles
         </p>
         <ul class="flex flex-col">
           <li v-for="article in popular" :key="articlePath(article)">
             <NuxtLink
               :to="articlePath(article)"
-              class="group flex items-stretch gap-3 px-4 py-3.5 hover:bg-white/5"
+              class="group flex items-stretch gap-2.5 py-3.5 pr-3 pl-3 hover:bg-white/5"
             >
-              <div class="relative h-[4.75rem] w-[6.75rem] shrink-0 overflow-hidden bg-black">
+              <div class="relative h-20 w-[5.5rem] shrink-0 overflow-hidden bg-black">
                 <nuxt-img
                   :src="article.image"
                   :alt="article.title"
                   format="webp"
-                  sizes="md:160px lg:200px"
+                  sizes="md:140px lg:180px"
                   class="absolute inset-0 h-full w-full object-cover grayscale transition duration-300 group-hover:grayscale-0"
                 />
               </div>
-              <div class="flex min-w-0 flex-1 flex-col justify-center gap-2 py-0.5">
-                <span class="text-[13px] leading-snug text-primary-default">
-                  {{ truncate(article.description || article.title, 72) }}
+              <div class="flex min-w-0 flex-1 flex-col justify-center gap-1.5 py-0.5">
+                <span class="text-[12px] leading-snug text-primary-default">
+                  {{ truncate(article.description || article.title, 58) }}
                 </span>
-                <span v-if="minutes(article)" class="text-[12px] text-primary-darken">
+                <span v-if="minutes(article)" class="text-[11px] text-primary-darken">
                   {{ minutes(article) }} min
                 </span>
               </div>
@@ -105,14 +105,14 @@
         </ul>
       </div>
 
-      <div class="absolute top-8 bottom-14 left-[40%] z-10 w-[31%]">
+      <div class="absolute top-5 bottom-14 left-[27%] z-10 w-[50%]">
         <div class="absolute inset-0 overflow-hidden">
           <nuxt-img
             :key="articlePath(current)"
             :src="current.image"
             :alt="current.title"
             format="webp"
-            sizes="lg:560px xl:720px"
+            sizes="lg:720px xl:960px"
             class="absolute inset-0 h-full w-full object-cover grayscale"
           />
         </div>
@@ -122,30 +122,31 @@
           size="sm"
           label="New Articles"
           :ui="paperBadgeUi"
-          class="absolute top-5 left-[22%] z-20"
+          class="absolute top-5 left-[18%] z-20"
         />
       </div>
 
-      <div class="relative z-20 flex min-h-[38rem] w-[40%] flex-col justify-between pt-10 pr-10 pb-20">
+      <div class="relative z-20 flex min-h-[36rem] w-[36%] flex-col bg-white pt-10 pr-6 pb-24">
         <ArticleSlideData :key="articlePath(current)" :data="current" surface="paper" />
-        <UButton
-          :to="articlePath(current)"
-          color="primary"
-          variant="solid"
-          size="md"
-          icon="i-heroicons-arrow-down-right-20-solid"
-          label="Read More"
-          :ui="squareUi"
-          class="relative z-40 self-start"
-        />
       </div>
+
+      <UButton
+        :to="articlePath(current)"
+        color="primary"
+        variant="solid"
+        size="md"
+        icon="i-heroicons-arrow-down-right-20-solid"
+        label="Read More"
+        :ui="squareUi"
+        class="absolute bottom-[4.75rem] left-[35%] z-40"
+      />
 
       <p class="absolute bottom-3 left-0 z-30 flex items-baseline leading-none text-secondary" aria-live="polite">
         <span class="text-[44px] font-semibold tabular-nums">{{ slide }}</span>
         <span class="text-[15px] text-primary-darken">/{{ news.length || 1 }}</span>
       </p>
 
-      <div class="absolute bottom-0 left-[40%] z-30 flex h-14 w-[31%] items-center justify-end bg-secondary">
+      <div class="absolute bottom-0 left-[27%] z-30 flex h-14 w-[50%] items-center justify-end bg-secondary">
         <UButton
           square
           color="neutral"
@@ -154,7 +155,7 @@
           icon="i-heroicons-chevron-left-20-solid"
           data-hero="prev"
           aria-label="Previous article"
-          :ui="paperSquareUi"
+          :ui="barSquareUi"
           @click="goPrev"
         />
         <UButton
@@ -165,10 +166,10 @@
           icon="i-heroicons-chevron-right-20-solid"
           data-hero="next"
           aria-label="Next article"
-          :ui="paperSquareUi"
+          :ui="barSquareUi"
           @click="goNext"
         />
-        <div class="flex items-center gap-1.5 px-4">
+        <div class="flex flex-1 items-center gap-1.5 px-5">
           <button
             v-for="index in news.length"
             :key="index"
@@ -189,6 +190,7 @@ import { truncate } from "#shared/utils/format";
 
 const squareUi = { base: "rounded-none" };
 const paperSquareUi = { base: "rounded-none ring-0" };
+const barSquareUi = { base: "rounded-none ring-0 size-14" };
 const paperBadgeUi = { base: "rounded-none bg-default text-highlighted shadow-sm" };
 
 const { data } = await useAsyncData("blog-hero", async () => {
