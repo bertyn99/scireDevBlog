@@ -1,6 +1,6 @@
 <template>
-  <SectionHeader> <Hero></Hero></SectionHeader>
-
+  <SectionHeader />
+  <Hero />
   <slot />
   <SectionFooter />
 </template>

@@ -1,113 +1,91 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-5 md:grid-flow-row w-full max-w-7xl mt-20 sm:my-32 sm:mb-8 lg:px-4 mx-auto">
-    <Carrousel v-slot="{ currentSlide }">
-      <CarrouselSlide v-for="(slide, index) in news" :key="index">
-        <ArticleSlideData v-show="currentSlide === index + 1" :data="slide" :data-slide="index" />
-      </CarrouselSlide>
-    </Carrousel>
+  <section class="mx-auto w-full max-w-7xl px-4 pt-6 pb-2 sm:px-6 lg:px-8">
+    <div class="grid gap-5 lg:grid-cols-[minmax(0,1.45fr)_minmax(18rem,0.85fr)] lg:items-stretch">
+      <Carrousel v-if="news.length" v-slot="{ currentSlide }" :count="news.length">
+        <CarrouselSlide v-for="(slide, index) in news" :key="articlePath(slide)">
+          <ArticleSlideData
+            v-show="currentSlide === index + 1"
+            :data="slide"
+          />
+        </CarrouselSlide>
+      </Carrousel>
 
-    <div class="p-8 mb:pt-8 order-first md:order-none md:col-span-2 md:row-span-1 max-h-[150px] flex justify-center">
-      <span
-        class="relative before:block before:absolute before:right-0 before:w-9 before:h-8 before:mt-5 before:bg-tertiary-default/20 before:-z-50">
-        <span class="font-bold text-4xl z-20">Blog.</span>
-      </span>
-    </div>
-    <div class="md:col-span-2 md:row-span-3">
-      <div class="bg-secondary h-full pb-14 pt-8">
-        <div class="w-full border-l-4 border-tertiary-default py-2">
-          <span class="pl-6 font-semibold text-primary-default">Popular Articles</span>
+      <div class="flex min-h-0 flex-col">
+        <div class="mb-4 flex items-end lg:mb-5">
+          <h1 class="relative text-[42px] font-bold leading-none tracking-tight sm:text-5xl">
+            <span
+              class="pointer-events-none absolute -left-1 bottom-1 h-3 w-[4.6rem] bg-tertiary-default/35"
+              aria-hidden="true"
+            />
+            <span class="relative">Blog.</span>
+          </h1>
         </div>
-        <div class="block">
-          <NuxtLink v-for="article in popular" class="flex flex-row items-center p-3 h-1/3 hover:bg-primary-default/25"
-            :to="article._path">
-            <div class="relative w-1/2 md:w-2/5 h-full min-h-[100px] min-w-[100px]  ">
-              <nuxt-img :src="article.image" alt="" loading="lazy" format="webp" sizes="md:180px lg:200px"
-                class="absolute sm:top-2 h-full sm:h-4/5 w-full z-20 object-fill" />
-            </div>
-            <div
-              class="w-1/2 md:w-3/5 h-full flex flex-col p-2 items-center gap-2 sm:gap-4 z-0 -translate-x-1 lg:-translate-x-2">
-              <div class="w-full text-center leading-4">
-                <span class="text-primary-default font-medium">{{ truncate(article.title, 58) }}</span>
-              </div>
-              <div class="flex pb-1 gap-4">
-                <div class="flex text-primary-darken items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-4 h-4">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
 
-                  <span class="text-sm">
-                    {{ Math.ceil(article.readingTime?.minutes) }} min
+        <div class="flex min-h-0 flex-1 flex-col bg-secondary text-primary-default">
+          <p class="border-l-4 border-tertiary-default py-3 pl-5 text-[15px] font-semibold">
+            Popular Articles
+          </p>
+          <ul class="flex flex-1 flex-col">
+            <li v-for="article in popular" :key="articlePath(article)" class="flex-1">
+              <NuxtLink
+                :to="articlePath(article)"
+                class="group flex h-full items-stretch gap-3 px-4 py-3 hover:bg-white/5"
+              >
+                <div class="relative w-[42%] min-w-[7.5rem] overflow-hidden">
+                  <nuxt-img
+                    :src="article.image"
+                    :alt="article.title"
+                    format="webp"
+                    sizes="md:180px lg:220px"
+                    class="absolute inset-0 h-full w-full object-cover grayscale"
+                  />
+                </div>
+                <div class="flex min-w-0 flex-1 flex-col justify-center gap-2 py-1">
+                  <span class="text-[14px] font-medium leading-snug text-primary-default">
+                    {{ truncate(article.title, 72) }}
+                  </span>
+                  <span v-if="minutes(article)" class="text-[12px] text-primary-darken">
+                    {{ minutes(article) }} min
                   </span>
                 </div>
-                <div class="flex text-primary-darken items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-4 h-4">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <span
+                  class="mt-1 grid size-8 shrink-0 place-items-center self-center bg-black text-white group-hover:bg-tertiary-default"
+                  aria-hidden="true"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25" />
                   </svg>
-
-                  <span class="text-primary-darken text-sm"> 200 </span>
-                </div>
-              </div>
-            </div>
-          </NuxtLink>
+                </span>
+              </NuxtLink>
+            </li>
+          </ul>
         </div>
-        <!--   <div class="overflow-x">
-          <NuxtLink v-for="article in popular" class="flex flex-row items-center p-3 h-1/3 hover:bg-primary-default/25"
-            :to="article._path">
-            <div class="relative w-1/2 md:w-1/3 h-full min-h-[90px] min-w-[90px]  ">
-              <img :src="article.image" alt="" width="
-          380" height="200" class="absolute sm:top-2 h-full sm:h-4/5 w-full z-20" />
-            </div>
-            <div
-              class="w-1/2 md:w-2/3 h-full flex flex-col p-2 items-center gap-2 sm:gap-4 z-0 -translate-x-2 lg:-translate-x-6">
-              <div class="w-full text-center leading-4">
-                <span class="text-primary-default">{{ article.title }}</span>
-              </div>
-              <div class="flex pb-1 gap-4">
-                <div class="flex text-primary-darken items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-4 h-4">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-
-                  <span class="text-sm">
-                    {{ Math.ceil(article.readingTime?.minutes) }} min
-                  </span>
-                </div>
-                <div class="flex text-primary-darken items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-4 h-4">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-
-                  <span class="text-primary-darken text-sm"> 200 </span>
-                </div>
-              </div>
-            </div>
-          </NuxtLink>
-        </div> -->
       </div>
     </div>
-  </div>
+  </section>
 </template>
-<script setup>
-const { data } = await useAsyncData("home", async () => {
-  const popularArticles = queryCollection('blog').order("createdAt", "ASC").limit(3).skip(3).all();
-  const newArticles = queryCollection('blog').order("createdAt", "DESC").limit(3).all()
-  return {
-    popularArticles: await popularArticles,
-    newArticles: await newArticles
-  }
-}
-);
 
-const popular = computed(() => data.value.popularArticles);
-const news = computed(() => data.value.newArticles);
+<script setup>
+import { truncate } from "#shared/utils/format";
+
+const { data } = await useAsyncData("blog-hero", async () => {
+  const [popularArticles, newArticles] = await Promise.all([
+    queryCollection("blog").order("createdAt", "ASC").limit(2).skip(3).all(),
+    queryCollection("blog").order("createdAt", "DESC").limit(5).all(),
+  ]);
+  return { popularArticles, newArticles };
+});
+
+const popular = computed(() => data.value?.popularArticles ?? []);
+const news = computed(() => data.value?.newArticles ?? []);
+
+function articlePath(article) {
+  return article.path || article._path;
+}
+
+function minutes(article) {
+  const value = article.readingTime?.minutes;
+  if (!value) return null;
+  return Math.max(1, Math.ceil(value));
+}
 </script>

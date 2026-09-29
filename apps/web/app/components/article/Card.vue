@@ -4,15 +4,18 @@ defineProps(["article"]);
 </script>
 
 <template>
-  <NuxtLink :to="article.path ?? article._path" aria-label="Read full article about {{ article?.title }}"
-    class="group block w-full p-4 max-w-md hover:bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out">
+  <NuxtLink
+    :to="article.path ?? article._path"
+    :aria-label="`Read ${article?.title}`"
+    class="group block w-full max-w-md p-4 hover:bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out"
+  >
     <article class="w-full">
       <div class="relative h-[230px] rounded-lg overflow-hidden">
         <nuxt-img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
           format="webp" sizes="sm:70vw md:30vw lg:330px" :src="article?.image" loading="lazy"
-          alt="Image for {{ article?.title }}" />
+          :alt="article?.title" />
         <div
-          class="absolute right-4 bottom-4 p-2 inline-flex bg-black text-white group-hover:bg-tertiary-default rounded-full transition-colors duration-300"
+          class="absolute right-4 bottom-4 p-2 inline-flex bg-black text-white group-hover:bg-tertiary-default rounded-md transition-colors duration-300"
           aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="w-5 h-5">
@@ -41,7 +44,7 @@ defineProps(["article"]);
             stroke="currentColor" class="w-4 h-4 text-secondary">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          {{ article.readingTime ? Math.ceil(article.readingTime.minutes) : '—' }}
+          {{ article.readingTime ? Math.ceil(article.readingTime.minutes) : 0 }}
           <span class="text-xs">Min</span>
         </span>
         <span class="inline-flex items-center gap-1">
