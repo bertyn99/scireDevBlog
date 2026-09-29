@@ -126,7 +126,7 @@
         />
       </div>
 
-      <div class="relative z-20 flex min-h-[32rem] w-[40%] flex-col pt-10 pr-10 pb-20">
+      <div class="relative z-20 flex min-h-[38rem] w-[40%] flex-col justify-between pt-10 pr-10 pb-20">
         <ArticleSlideData :key="articlePath(current)" :data="current" surface="paper" />
         <UButton
           :to="articlePath(current)"
@@ -136,7 +136,7 @@
           icon="i-heroicons-arrow-down-right-20-solid"
           label="Read More"
           :ui="squareUi"
-          class="relative z-40 mt-6 self-start"
+          class="relative z-40 self-start"
         />
       </div>
 
