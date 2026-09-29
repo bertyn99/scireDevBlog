@@ -1,78 +1,77 @@
 <template>
-  <div class="flex flex-col md:col-span-3 row-span-4 flex-wrap relative">
-    <div class="sm:h-[90%] h-[475px] relative">
-      <slot :currentSlide="currentSlide" />
+  <div v-if="variant === 'mobile'" class="flex items-center justify-between bg-secondary px-4 py-2.5">
+    <div class="flex items-center gap-1.5" role="tablist" aria-label="Featured articles">
+      <button
+        v-for="index in slideCount"
+        :key="index"
+        type="button"
+        class="size-1.5"
+        :class="index === currentSlide ? 'bg-white' : 'bg-white/35'"
+        :aria-label="`Go to article ${index}`"
+        :aria-current="index === currentSlide ? 'true' : undefined"
+        @click="goTo(index)"
+      />
     </div>
-
-    <div class="h-14 sm:h-[10%] inline-flex flex-row-reverse sm:flex-row bg-secondary sm:bg-transparent">
-
-      <div class="bg-secondary w-full flex sm:gap-1  w-1/4 sm:w-full">
-
-        <div class="flex  grow-[1] sm:grow-[0]">
-          <button
-            class="bg-white w-full md:w-24  h-full inline-flex justify-center items-center hover:bg-primary-default/75"
-            @click="goPrev">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-          </button>
-          <button
-            class="bg-white w-full md:w-24 h-full inline-flex justify-center items-center hover:bg-primary-default/75"
-            @click="goNext">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </button>
-        </div>
-        <div class="hidden grow-[3] sm:flex justify-center items-center  px-2 gap-1">
-          <span class="text-2xl text-bold text-primary-darken">01 </span>
-          <div class="w-full bg-white rounded-full overflow-hidden h-1 px-0 ">
-            <div class=" bg-tertiary-default h-full transition-all duration-700 "
-              :style="{ width: (currentSlide * 100) / getSlideCount + '%' }"></div>
-          </div>
-          <span class="text-xl text-bold text-primary-darken">0{{ getSlideCount }}</span>
-        </div>
-
-      </div>
-
-
-      <!-- pagination mobile -->
-      <ul class="w-full md:hidden flex justify-around items-center grow">
-        <li v-for="(slide, index) in getSlideCount" :key="index" class="w-2 h-2 cursor-pointer" @click="goTo(index + 1)"
-          :class="[
-            currentSlide === index + 1 ? 'bg-white' : 'bg-primary-darken',
-          ]"></li>
-      </ul>
+    <div class="flex">
+      <UButton
+        square
+        size="lg"
+        color="neutral"
+        variant="outline"
+        icon="i-heroicons-chevron-left-20-solid"
+        aria-label="Previous article"
+        :ui="paperSquareUi"
+        @click="goPrev"
+      />
+      <UButton
+        square
+        size="lg"
+        color="neutral"
+        variant="outline"
+        icon="i-heroicons-chevron-right-20-solid"
+        aria-label="Next article"
+        :ui="paperSquareUi"
+        @click="goNext"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-const currentSlide = ref(1);
-const getSlideCount = ref(null);
+const paperSquareUi = { base: "rounded-none ring-0" };
+
+const props = defineProps({
+  count: {
+    type: Number,
+    default: 1,
+  },
+  modelValue: {
+    type: Number,
+    default: 1,
+  },
+  variant: {
+    type: String,
+    default: "mobile",
+  },
+});
+
+const emit = defineEmits(["update:modelValue"]);
+
+const slideCount = computed(() => Math.max(1, props.count || 1));
+const currentSlide = computed(() => {
+  const value = props.modelValue || 1;
+  return Math.min(slideCount.value, Math.max(1, value));
+});
+
+function goTo(index) {
+  emit("update:modelValue", index);
+}
 
 function goNext() {
-  if (currentSlide.value === getSlideCount.value) {
-    currentSlide.value = 1;
-    return;
-  }
-
-  currentSlide.value++;
+  emit("update:modelValue", currentSlide.value === slideCount.value ? 1 : currentSlide.value + 1);
 }
+
 function goPrev() {
-  if (currentSlide.value === 1) {
-    currentSlide.value = getSlideCount.value;
-    return;
-  }
-  currentSlide.value--;
+  emit("update:modelValue", currentSlide.value === 1 ? slideCount.value : currentSlide.value - 1);
 }
-function goTo(i) {
-  currentSlide.value = i;
-}
-
-onMounted(() => {
-  getSlideCount.value = document.querySelectorAll("[data-slide]").length;
-});
 </script>
