@@ -1,12 +1,12 @@
 <template>
-  <div v-if="variant === 'mobile'" class="flex items-center justify-between bg-secondary px-4 py-3">
+  <div v-if="variant === 'mobile'" class="flex items-center justify-between bg-secondary px-4 py-2.5">
     <div class="flex items-center gap-1.5" role="tablist" aria-label="Featured articles">
       <button
         v-for="index in slideCount"
         :key="index"
         type="button"
-        class="size-2"
-        :class="index === currentSlide ? 'bg-white' : 'bg-white/30'"
+        class="size-1.5"
+        :class="index === currentSlide ? 'bg-white' : 'bg-white/35'"
         :aria-label="`Go to article ${index}`"
         :aria-current="index === currentSlide ? 'true' : undefined"
         @click="goTo(index)"
@@ -19,7 +19,7 @@
         aria-label="Previous article"
         @click="goPrev"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pointer-events-none size-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
         </svg>
       </button>
@@ -29,36 +29,50 @@
         aria-label="Next article"
         @click="goNext"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pointer-events-none size-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
         </svg>
       </button>
     </div>
   </div>
 
-  <div v-else class="flex">
-    <button
-      type="button"
-      data-hero="prev"
-      class="grid size-12 place-items-center bg-white text-secondary hover:bg-primary-default"
-      aria-label="Previous article"
-      @click="goPrev"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-      </svg>
-    </button>
-    <button
-      type="button"
-      data-hero="next"
-      class="grid size-12 place-items-center bg-white text-secondary hover:bg-primary-default"
-      aria-label="Next article"
-      @click="goNext"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-      </svg>
-    </button>
+  <div v-else class="flex h-14 w-full items-center justify-end bg-secondary">
+    <div class="flex">
+      <button
+        type="button"
+        data-hero="prev"
+        class="grid size-12 place-items-center bg-white text-secondary hover:bg-primary-default"
+        aria-label="Previous article"
+        @click="goPrev"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pointer-events-none size-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        data-hero="next"
+        class="grid size-12 place-items-center bg-white text-secondary hover:bg-primary-default"
+        aria-label="Next article"
+        @click="goNext"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pointer-events-none size-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="flex items-center gap-1.5 px-4" role="tablist" aria-label="Featured articles">
+      <button
+        v-for="index in slideCount"
+        :key="index"
+        type="button"
+        class="size-1.5"
+        :class="index === currentSlide ? 'bg-white' : 'bg-white/35'"
+        :aria-label="`Go to article ${index}`"
+        :aria-current="index === currentSlide ? 'true' : undefined"
+        @click="goTo(index)"
+      />
+    </div>
   </div>
 </template>
 

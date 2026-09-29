@@ -36,7 +36,7 @@ This is the page. Do not replace it with a Compass course shell.
 
 1. **Nav**: logo left. Home, Blog. Single row. Height under 80px.
 2. **Featured (desktop)**: overlapping magazine crop, not a flat 2-column card. White copy (author, title, category rule, lede, minutes + date) sits on the left and overlaps the grayscale cover. `New Articles` is a white chip on the photo, not in the copy column. Square minium `Read More` with a south-east arrow hangs off the photo. Counter is large type (`2` `/5`), not a minium disc. Prev/next are white squares on the ink strip under the photo.
-3. **Featured (mobile)**: `Blog.` first. Full-bleed grayscale cover with a dark gradient. Copy overlays the photo in mist. White `New Articles` chip at the top. Dark control bar under the photo: square pagination ticks on the left, white prev/next on the right. The whole story is the link — no Read More button.
+3. **Featured (mobile)**: `Blog.` centered first. Full-bleed grayscale cover with a light white wash — ink type on the photo, not white on black. White `New Articles` tab hanging off the top. Minium bar on the top-right edge. Dark control bar under the photo: square ticks on the left, white prev/next on the right. The whole story is the link — no Read More button.
 4. **Masthead**: `Blog.` with a minium smear behind the word and a single minium stroke. Not a second logo.
 5. **Popular (desktop)**: ink rail, three stories. Thumb, title, minutes. Outlined arrow at rest, minium fill on hover. The rail sits under `Blog.` and the photo overlaps its left edge.
 6. **Popular (mobile)**: same ink block, horizontal cards (thumb + minium arrow overlay, title, minutes).

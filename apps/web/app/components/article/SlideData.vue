@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col" :class="tone === 'mist' ? 'text-white' : 'text-secondary'">
+  <div class="flex min-h-0 flex-1 flex-col text-secondary">
     <div class="flex items-center gap-2.5">
       <nuxt-img
         :src="getAuthorImg(data.author)"
@@ -10,44 +10,29 @@
       />
       <div class="flex flex-col leading-tight">
         <span class="text-[13px] font-semibold">{{ data.author }}</span>
-        <span class="text-[11px]" :class="tone === 'mist' ? 'text-white/70' : 'text-primary-darken'">
-          Author
-        </span>
+        <span class="text-[11px] text-secondary/55">Author</span>
       </div>
     </div>
 
     <h2
       class="mt-4 font-bold tracking-tight"
-      :class="tone === 'mist'
+      :class="surface === 'photo'
         ? 'text-[26px] leading-[1.15]'
-        : 'text-[26px] leading-[1.12] sm:text-[30px] lg:text-[32px]'"
+        : 'text-[28px] leading-[1.12] sm:text-[32px] lg:text-[34px]'"
     >
       {{ capitalize(data.title) }}
     </h2>
 
-    <p
-      class="mt-3 inline-flex items-center gap-2 text-[12px]"
-      :class="tone === 'mist' ? 'text-white/75' : 'text-primary-darken'"
-    >
-      <span
-        class="h-px w-8"
-        :class="tone === 'mist' ? 'bg-white/70' : 'bg-primary-darken'"
-        aria-hidden="true"
-      />
+    <p class="mt-3 inline-flex items-center gap-2 text-[12px] text-secondary/55">
+      <span class="h-px w-8 bg-secondary/40" aria-hidden="true" />
       {{ data.category }}
     </p>
 
-    <p
-      class="mt-3 max-w-[42ch] text-[14px] leading-6"
-      :class="tone === 'mist' ? 'text-white/80' : 'text-secondary/75'"
-    >
-      {{ truncate(data.description, tone === 'mist' ? 110 : 140) }}
+    <p class="mt-3 max-w-[42ch] text-[14px] leading-6 text-secondary/80">
+      {{ truncate(data.description, 160) }}
     </p>
 
-    <p
-      class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px]"
-      :class="tone === 'mist' ? 'text-white/75' : 'text-primary-darken'"
-    >
+    <p class="mt-auto flex flex-wrap items-center gap-x-4 gap-y-1 pt-5 text-[12px] text-secondary/60">
       <span v-if="minutes(data)" class="inline-flex items-center gap-1.5">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="size-3.5" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -72,9 +57,9 @@ defineProps({
     type: Object,
     required: true,
   },
-  tone: {
+  surface: {
     type: String,
-    default: "ink",
+    default: "paper",
   },
 });
 
