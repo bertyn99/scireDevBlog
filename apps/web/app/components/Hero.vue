@@ -9,8 +9,8 @@
           variant="soft"
           size="sm"
           label="New Articles"
-          :ui="{ base: 'rounded-none bg-white text-highlighted' }"
-          class="absolute -top-3 left-5 z-20 shadow-sm"
+          :ui="paperBadgeUi"
+          class="absolute -top-3 left-5 z-20"
         />
         <span class="absolute top-0 right-0 z-20 h-1 w-11 bg-tertiary-default" aria-hidden="true" />
 
@@ -121,24 +121,23 @@
           variant="soft"
           size="sm"
           label="New Articles"
-          :ui="{ base: 'rounded-none bg-white text-highlighted' }"
-          class="absolute top-5 left-[22%] z-20 shadow-sm"
+          :ui="paperBadgeUi"
+          class="absolute top-5 left-[22%] z-20"
         />
       </div>
 
-      <UButton
-        :to="articlePath(current)"
-        color="primary"
-        variant="solid"
-        size="md"
-        icon="i-heroicons-arrow-down-right-20-solid"
-        label="Read More"
-        :ui="{ base: 'rounded-none' }"
-        class="absolute bottom-20 left-[32%] z-40"
-      />
-
-      <div class="relative z-20 flex min-h-[32rem] w-[40%] flex-col pt-10 pr-6 pb-20">
+      <div class="relative z-20 flex min-h-[32rem] w-[40%] flex-col pt-10 pr-10 pb-20">
         <ArticleSlideData :key="articlePath(current)" :data="current" surface="paper" />
+        <UButton
+          :to="articlePath(current)"
+          color="primary"
+          variant="solid"
+          size="md"
+          icon="i-heroicons-arrow-down-right-20-solid"
+          label="Read More"
+          :ui="squareUi"
+          class="relative z-40 mt-6 self-start"
+        />
       </div>
 
       <p class="absolute bottom-3 left-0 z-30 flex items-baseline leading-none text-secondary" aria-live="polite">
@@ -150,23 +149,23 @@
         <UButton
           square
           color="neutral"
-          variant="solid"
+          variant="outline"
           size="lg"
           icon="i-heroicons-chevron-left-20-solid"
           data-hero="prev"
           aria-label="Previous article"
-          :ui="{ base: 'rounded-none bg-white text-highlighted hover:bg-elevated' }"
+          :ui="paperSquareUi"
           @click="goPrev"
         />
         <UButton
           square
           color="neutral"
-          variant="solid"
+          variant="outline"
           size="lg"
           icon="i-heroicons-chevron-right-20-solid"
           data-hero="next"
           aria-label="Next article"
-          :ui="{ base: 'rounded-none bg-white text-highlighted hover:bg-elevated' }"
+          :ui="paperSquareUi"
           @click="goNext"
         />
         <div class="flex items-center gap-1.5 px-4">
@@ -187,6 +186,10 @@
 
 <script setup>
 import { truncate } from "#shared/utils/format";
+
+const squareUi = { base: "rounded-none" };
+const paperSquareUi = { base: "rounded-none ring-0" };
+const paperBadgeUi = { base: "rounded-none bg-default text-highlighted shadow-sm" };
 
 const { data } = await useAsyncData("blog-hero", async () => {
   const [popularArticles, newArticles] = await Promise.all([

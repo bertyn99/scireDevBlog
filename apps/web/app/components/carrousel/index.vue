@@ -17,20 +17,20 @@
         square
         size="lg"
         color="neutral"
-        variant="solid"
+        variant="outline"
         icon="i-heroicons-chevron-left-20-solid"
         aria-label="Previous article"
-        :ui="{ base: 'rounded-none bg-white text-highlighted hover:bg-elevated' }"
+        :ui="paperSquareUi"
         @click="goPrev"
       />
       <UButton
         square
         size="lg"
         color="neutral"
-        variant="solid"
+        variant="outline"
         icon="i-heroicons-chevron-right-20-solid"
         aria-label="Next article"
-        :ui="{ base: 'rounded-none bg-white text-highlighted hover:bg-elevated' }"
+        :ui="paperSquareUi"
         @click="goNext"
       />
     </div>
@@ -38,6 +38,8 @@
 </template>
 
 <script setup>
+const paperSquareUi = { base: "rounded-none ring-0" };
+
 const props = defineProps({
   count: {
     type: Number,
