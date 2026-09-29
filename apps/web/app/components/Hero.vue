@@ -105,7 +105,7 @@
         </ul>
       </div>
 
-      <div class="absolute top-8 bottom-14 left-[28%] z-10 w-[46%]">
+      <div class="absolute top-8 bottom-14 left-[36%] z-10 w-[38%]">
         <div class="absolute inset-0 overflow-hidden">
           <nuxt-img
             :key="articlePath(current)"
@@ -126,7 +126,7 @@
         />
       </div>
 
-      <div class="relative z-20 flex min-h-[42rem] w-[37%] flex-col bg-white pt-10 pr-5 pb-20">
+      <div class="relative z-20 flex min-h-[42rem] w-[37%] flex-col pt-10 pr-5 pb-20">
         <ArticleSlideData :key="articlePath(current)" class="min-h-0 flex-1" :data="current" surface="paper" />
       </div>
 
@@ -146,7 +146,7 @@
         <span class="text-[15px] text-primary-darken">/{{ news.length || 1 }}</span>
       </p>
 
-      <div class="absolute bottom-0 left-[37%] z-30 flex h-14 w-[37%] items-center bg-secondary">
+      <div class="absolute bottom-0 left-[36%] z-30 flex h-14 w-[38%] items-center bg-secondary">
         <UButton
           square
           color="neutral"
