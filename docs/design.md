@@ -19,15 +19,17 @@
 | Ash | `#A6A6A6` |
 
 - **Name**: scireDev. Latin *scire*, to know. The name is the mark: the tittle of the *i* is the leaf (or circle, or grove). `Dev` is minium.
-- **Type**: Bricolage Grotesque (optical size) + IBM Plex Mono. Not Source Sans. Not Inter.
-- **Rubric**: minium is the teacher's red. Current sidebar item, catalog underline, folio left edge, `Dev`.
+- **Wordmark**: chrome only (topbar). The tittle is a tittle, not a logo glued onto the letter. Never a second hero logo. Never a card watermark.
+- **Type**: Bricolage Grotesque (optical size) + IBM Plex Mono. Not Source Sans. Not Inter. Display opsz on headlines, 14-18 on UI.
+- **Rubric**: minium is the teacher's red. Current sidebar item, catalog underline, folio left edge, progress fill, `Dev`. Not a fill for primary buttons (those stay ink).
+- **Folio**: 2px minium in the left margin of the page. On the white lesson sheet, rubric + type, no gray card. A filled white sheet only when the folio sits on the paper field (hub continue).
 - **Page**: paper field. Lesson chrome (sidebar + content) is a white sheet on that field.
 - **Radius**: 8px on cards and chips. Not pills. Not 90° circuit corners.
 - **Feel**: batch 3. Quiet. The mark lives in the name, not as a second headline.
 
 ## Marks (keep)
 
-Switchable in the playground. They sit on the *i*.
+Switchable in the playground. They sit on the *i*. Nowhere else.
 
 - **Leaf** (batch 3): pointed leaf, chevron fill, rounded joins. Default.
 - **Circle** (batch 3): circular tree, same chevron construction.
@@ -35,11 +37,11 @@ Switchable in the playground. They sit on the *i*.
 
 ## Killed
 
-Arch / rainbow (batch 3). Oval Y-tree (batch 3 last). Batch 4 B Canopy, C Leaf, D Open. PCB language. Giant watermarks.
+Arch / rainbow (batch 3). Oval Y-tree (batch 3 last). Batch 4 B Canopy, C Leaf, D Open. PCB language. Giant watermarks. Hero wordmark as a second headline. Batch 4 comps with a separate mark beside the name.
 
 ## Playground
 
-Layout base: [Tailwind UI Compass](https://compass.tailwindui.com/). Steal the shell (module sidebar, breadcrumb topbar, Part N + lesson rows, 16:9 video, On this page). Identity is ours: scire wordmark, minium rubric, paper field.
+Layout base: [Tailwind UI Compass](https://compass.tailwindui.com/). Steal the shell (module sidebar, breadcrumb topbar, Part N + lesson rows, 16:9 video, On this page). Identity is ours: scire wordmark in chrome, minium rubric, paper field.
 
 Open `docs/playground.html` in a browser, or:
 
