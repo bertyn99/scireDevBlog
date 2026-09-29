@@ -13,7 +13,7 @@
             sizes="100vw"
             class="absolute inset-0 h-full w-full object-cover grayscale"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/15" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
           <span class="absolute top-0 left-4 z-10 bg-white px-3 py-1.5 text-[11px] font-medium text-secondary shadow-sm">
             New Articles
           </span>
@@ -62,10 +62,13 @@
     </div>
 
     <!-- Desktop: overlapping text / photo / popular rail -->
-    <div v-if="current" class="relative hidden lg:grid lg:grid-cols-12 lg:grid-rows-[minmax(30rem,1fr)_auto]">
-      <div class="relative z-0 col-span-4 col-start-9 row-span-2 row-start-1 ml-[-2.75rem] flex flex-col">
-        <BlogMasthead class="relative z-20 mb-4 pl-[2.75rem]" />
-        <div class="flex min-h-0 flex-1 flex-col bg-secondary pl-[2.75rem] text-primary-default">
+    <div
+      v-if="current"
+      class="relative hidden lg:grid lg:grid-cols-12 lg:grid-rows-[auto_minmax(28rem,1fr)_auto]"
+    >
+      <div class="relative z-0 col-span-4 col-start-9 row-span-3 row-start-1 flex flex-col">
+        <BlogMasthead class="mb-3 pl-5" />
+        <div class="flex min-h-0 flex-1 flex-col bg-secondary text-primary-default">
           <p class="border-l-4 border-tertiary-default py-3 pl-5 text-[15px] font-semibold">
             Popular Articles
           </p>
@@ -75,7 +78,7 @@
                 :to="articlePath(article)"
                 class="group flex h-full items-stretch gap-3 px-4 py-3 hover:bg-white/5"
               >
-                <div class="relative w-[42%] min-w-[6.5rem] overflow-hidden bg-black">
+                <div class="relative h-20 w-[7.25rem] shrink-0 self-center overflow-hidden bg-black">
                   <nuxt-img
                     :src="article.image"
                     :alt="article.title"
@@ -93,7 +96,7 @@
                   </span>
                 </div>
                 <span
-                  class="mt-1 grid size-8 shrink-0 place-items-center self-center border border-white/25 text-white group-hover:border-tertiary-default group-hover:bg-tertiary-default"
+                  class="grid size-8 shrink-0 place-items-center self-center border border-white/25 text-white group-hover:border-tertiary-default group-hover:bg-tertiary-default"
                   aria-hidden="true"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-4">
@@ -106,60 +109,42 @@
         </div>
       </div>
 
-      <div class="relative z-10 col-span-5 col-start-5 row-start-1 min-h-[30rem]">
-        <nuxt-img
-          :key="articlePath(current)"
-          :src="current.image"
-          :alt="current.title"
-          format="webp"
-          sizes="lg:520px xl:640px"
-          class="absolute inset-0 h-full w-full object-cover grayscale"
-        />
-        <span class="absolute top-7 left-10 z-20 bg-white px-3 py-1.5 text-[12px] font-medium text-secondary shadow-sm">
+      <div class="relative z-10 col-span-4 col-start-5 row-span-3 row-start-1 min-h-[32rem] min-w-0">
+        <div class="absolute inset-0 overflow-hidden">
+          <nuxt-img
+            :key="articlePath(current)"
+            :src="current.image"
+            :alt="current.title"
+            format="webp"
+            sizes="lg:520px xl:640px"
+            class="absolute inset-0 h-full w-full object-cover grayscale"
+          />
+        </div>
+        <span class="absolute top-6 left-8 z-20 bg-white px-3 py-1.5 text-[12px] font-medium text-secondary shadow-sm">
           New Articles
         </span>
         <NuxtLink
           :to="articlePath(current)"
-          class="absolute bottom-6 -left-3 z-30 inline-flex items-center gap-2 bg-tertiary-default px-3.5 py-2.5 text-[13px] font-medium text-white hover:bg-tertiary-darken"
+          class="absolute bottom-16 left-10 z-30 inline-flex items-center gap-2 bg-tertiary-default px-3.5 py-2.5 text-[13px] font-medium text-white hover:bg-tertiary-darken"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-4">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25" />
           </svg>
           Read More
         </NuxtLink>
+        <div class="absolute right-0 bottom-0 z-30">
+          <Carrousel v-model="slide" :count="news.length" variant="desktop" />
+        </div>
       </div>
 
-      <div class="relative z-20 col-span-5 col-start-1 row-start-1 mr-[-4.75rem] mt-12 mb-6 flex items-center bg-white px-8 py-8 xl:px-10">
+      <div class="relative z-20 col-span-5 col-start-1 row-start-2 mr-[-2.75rem] mb-20 self-center bg-white px-8 py-8 xl:px-10">
         <ArticleSlideData :key="articlePath(current)" :data="current" tone="ink" />
       </div>
 
-      <p class="relative z-20 col-span-4 col-start-1 row-start-2 flex items-end leading-none text-secondary" aria-live="polite">
+      <p class="relative z-20 col-span-4 col-start-1 row-start-3 flex items-end pt-3 leading-none text-secondary" aria-live="polite">
         <span class="text-[44px] font-semibold tabular-nums">{{ slide }}</span>
         <span class="text-[15px] text-primary-darken">/{{ news.length || 1 }}</span>
       </p>
-
-      <div class="relative z-10 col-span-5 col-start-5 row-start-2 flex items-stretch justify-end bg-secondary">
-        <button
-          type="button"
-          class="grid size-12 place-items-center bg-white text-secondary hover:bg-primary-default"
-          aria-label="Previous article"
-          @click="goPrev"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          class="grid size-12 place-items-center bg-white text-secondary hover:bg-primary-default"
-          aria-label="Next article"
-          @click="goNext"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </button>
-      </div>
     </div>
   </section>
 </template>
@@ -188,15 +173,5 @@ function minutes(article) {
   const value = article.readingTime?.minutes;
   if (!value) return null;
   return Math.max(1, Math.ceil(value));
-}
-
-function goNext() {
-  if (!news.value.length) return;
-  slide.value = slide.value >= news.value.length ? 1 : slide.value + 1;
-}
-
-function goPrev() {
-  if (!news.value.length) return;
-  slide.value = slide.value <= 1 ? news.value.length : slide.value - 1;
 }
 </script>
