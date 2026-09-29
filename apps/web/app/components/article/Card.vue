@@ -39,12 +39,12 @@ defineProps(["article"]);
         {{ truncate(article?.description, 122) }}
       </p>
       <div class="flex gap-4 text-sm text-primary-darken">
-        <span class="inline-flex items-center gap-1">
+        <span v-if="article.readingTime" class="inline-flex items-center gap-1">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="w-4 h-4 text-secondary">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          {{ article.readingTime ? Math.ceil(article.readingTime.minutes) : 0 }}
+          {{ Math.ceil(article.readingTime.minutes) }}
           <span class="text-xs">Min</span>
         </span>
         <span class="inline-flex items-center gap-1">
