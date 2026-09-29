@@ -63,21 +63,21 @@
     </div>
 
     <div v-if="current" class="relative hidden min-h-[42rem] lg:block">
-      <div class="absolute top-0 right-0 z-30 w-[28%]">
+      <div class="absolute top-0 right-0 z-30 w-[26%]">
         <BlogMasthead class="mb-3" />
       </div>
 
-      <div class="absolute top-[4.5rem] right-0 bottom-0 left-[70%] z-0 bg-secondary text-primary-default">
-        <p class="border-l-4 border-tertiary-default py-3 pl-4 text-[15px] font-semibold">
+      <div class="absolute top-[4.5rem] right-0 bottom-0 left-[72%] z-0 bg-secondary text-primary-default">
+        <p class="border-l-4 border-tertiary-default py-3 pl-5 text-[15px] font-semibold">
           Popular Articles
         </p>
         <ul class="flex flex-col">
           <li v-for="article in popular" :key="articlePath(article)">
             <NuxtLink
               :to="articlePath(article)"
-              class="group flex items-stretch gap-2.5 py-3.5 pr-3 pl-3 hover:bg-white/5"
+              class="group flex items-stretch gap-2.5 py-3.5 pr-4 pl-4 hover:bg-white/5"
             >
-              <div class="relative h-20 w-[5.5rem] shrink-0 overflow-hidden bg-black">
+              <div class="relative h-[4.75rem] w-[6.25rem] shrink-0 overflow-hidden bg-black">
                 <nuxt-img
                   :src="article.image"
                   :alt="article.title"
@@ -88,7 +88,7 @@
               </div>
               <div class="flex min-w-0 flex-1 flex-col justify-center gap-1.5 py-0.5">
                 <span class="text-[12px] leading-snug text-primary-default">
-                  {{ truncate(article.description || article.title, 58) }}
+                  {{ truncate(article.description || article.title, 64) }}
                 </span>
                 <span v-if="minutes(article)" class="text-[11px] text-primary-darken">
                   {{ minutes(article) }} min
@@ -105,7 +105,7 @@
         </ul>
       </div>
 
-      <div class="absolute top-5 bottom-14 left-[27%] z-10 w-[50%]">
+      <div class="absolute top-8 bottom-14 left-[28%] z-10 w-[46%]">
         <div class="absolute inset-0 overflow-hidden">
           <nuxt-img
             :key="articlePath(current)"
@@ -122,12 +122,12 @@
           size="sm"
           label="New Articles"
           :ui="paperBadgeUi"
-          class="absolute top-5 left-[18%] z-20"
+          class="absolute top-5 left-[20%] z-20"
         />
       </div>
 
-      <div class="relative z-20 flex min-h-[36rem] w-[36%] flex-col bg-white pt-10 pr-6 pb-24">
-        <ArticleSlideData :key="articlePath(current)" :data="current" surface="paper" />
+      <div class="relative z-20 flex min-h-[42rem] w-[37%] flex-col bg-white pt-10 pr-5 pb-20">
+        <ArticleSlideData :key="articlePath(current)" class="min-h-0 flex-1" :data="current" surface="paper" />
       </div>
 
       <UButton
@@ -138,7 +138,7 @@
         icon="i-heroicons-arrow-down-right-20-solid"
         label="Read More"
         :ui="squareUi"
-        class="absolute bottom-[4.75rem] left-[35%] z-40"
+        class="absolute bottom-24 left-[36%] z-40"
       />
 
       <p class="absolute bottom-3 left-0 z-30 flex items-baseline leading-none text-secondary" aria-live="polite">
@@ -146,7 +146,7 @@
         <span class="text-[15px] text-primary-darken">/{{ news.length || 1 }}</span>
       </p>
 
-      <div class="absolute bottom-0 left-[27%] z-30 flex h-14 w-[50%] items-center justify-end bg-secondary">
+      <div class="absolute bottom-0 left-[37%] z-30 flex h-14 w-[37%] items-center bg-secondary">
         <UButton
           square
           color="neutral"
